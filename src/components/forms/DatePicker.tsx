@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import get from 'lodash.get';
-import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker';
+import ReactDatePicker, {
+  ReactDatePickerCustomHeaderProps,
+} from 'react-datepicker';
 import { Controller, RegisterOptions, useFormContext } from 'react-hook-form';
 import { HiOutlineCalendar } from 'react-icons/hi';
 
@@ -16,7 +18,7 @@ type DatePickerProps = {
   defaultValue?: string;
   helperText?: string;
   readOnly?: boolean;
-} & Omit<ReactDatePickerProps, 'onChange'>;
+} & Omit<ReactDatePickerCustomHeaderProps, 'onChange'>;
 
 export default function DatePicker({
   validation,

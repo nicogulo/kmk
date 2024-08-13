@@ -6,7 +6,7 @@ import logger from '@/lib/logger';
 import Button from '@/components/buttons/Button';
 import DatePicker from '@/components/forms/DatePicker';
 import DropzoneInput from '@/components/forms/DropzoneInput';
-import Input from '@/components/forms/Input';
+
 import SelectInput from '@/components/forms/SelectInput';
 import TextArea from '@/components/forms/TextArea';
 import Layout from '@/components/layout/Layout';
@@ -47,7 +47,6 @@ export default function FormSandbox() {
                 <div className='layout min-h-screen py-20'>
                     <FormProvider {...methods}>
                         <form onSubmit={handleSubmit(onSubmit)} className='max-w-sm space-y-3'>
-                            <Input id='name' label='Name' validation={{ required: 'Name must be filled' }} />
                             <SelectInput
                                 id='gender'
                                 label='Gender'

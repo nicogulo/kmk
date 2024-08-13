@@ -275,7 +275,7 @@ const Input: React.FC<InputProps> = ({
         className
     );
     const inputClasses = clsx(
-        'text-sm text-[#121416] font-bold placeholder:text-[#07142280] placeholder:font-normal bg-white !outline-none w-full border-none flex-1',
+        'text-sm text-[#121416] font-bold placeholder:text-[#07142280] placeholder:font-normal placeholder:text-sm bg-white !outline-none w-full border-none flex-1 !p-0',
         disabled && 'cursor-not-allowed',
         'hover:border-[#08AA54]',
         focus && 'focus:!caret-[#08AA54] focus:ring-0',

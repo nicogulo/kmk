@@ -13,10 +13,10 @@ Router.events.on('routeChangeError', nProgress.done);
 Router.events.on('routeChangeComplete', nProgress.done);
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
-  <Layout>
-    <DismissableToast />
-    <Component {...pageProps} />
-  </Layout>
+    <Layout>
+        <DismissableToast />
+        <Component {...pageProps} />
+    </Layout>
 );
 
 export default appWithTranslation(MyApp);

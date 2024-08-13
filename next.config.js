@@ -4,39 +4,39 @@
 const { i18n } = require('./next-i18next.config');
 
 const nextConfig = {
-  eslint: {
-    dirs: ['src'],
-  },
-  i18n,
+    eslint: {
+        dirs: ['src']
+    },
+    i18n,
 
-  reactStrictMode: true,
-  swcMinify: true,
+    reactStrictMode: true,
+    swcMinify: true,
 
-  // Uncomment to add domain whitelist
-  // images: {
-  //   domains: [
-  //     'res.cloudinary.com',
-  //   ],
-  // },
+    // Uncomment to add domain whitelist
+    // images: {
+    //   domains: [
+    //     'res.cloudinary.com',
+    //   ],
+    // },
 
-  // SVGR
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: {
-            typescript: true,
-            icon: true,
-          },
-        },
-      ],
-    });
+    // SVGR
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/i,
+            issuer: /\.[jt]sx?$/,
+            use: [
+                {
+                    loader: '@svgr/webpack',
+                    options: {
+                        typescript: true,
+                        icon: true
+                    }
+                }
+            ]
+        });
 
-    return config;
-  },
+        return config;
+    }
 };
 
 module.exports = nextConfig;

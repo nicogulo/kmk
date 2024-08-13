@@ -6,9 +6,7 @@ import { useToasterStore } from 'react-hot-toast';
  * @example const isLoading = useLoadingToast();
  */
 export default function useLoadingToast(): boolean {
-  const { toasts } = useToasterStore();
-  const isLoading = toasts.some(
-    (toast) => toast.type === 'loading' && toast.visible
-  );
-  return isLoading;
+    const { toasts } = useToasterStore();
+    const isLoading = toasts.some((toast) => toast.type === 'loading' && toast.visible);
+    return isLoading;
 }

@@ -8,16 +8,16 @@ import { getCookie, removeCookie, setCookie } from './cookies';
 
 const isDevelopment = APP_ENV?.toLocaleLowerCase() === 'development';
 const hashKey = isDevelopment ? 'devuhash' : 'uhash';
-const tokenKey = isDevelopment ? 'devtxbhash' : 'xtbhash';
+const tokenKey = isDevelopment ? 'devbinalokahash' : 'binalokahash';
 
 export const getAuth = (options?: OptionsType) => {
     const uhash = getCookie(hashKey, options) ?? undefined;
-    const xtbhash = getCookie(tokenKey, options) ?? undefined;
+    const binalokahash = getCookie(tokenKey, options) ?? undefined;
 
-    const checkAuth = Boolean((uhash && xtbhash) || xtbhash);
+    const checkAuth = Boolean((uhash && binalokahash) || binalokahash);
 
     return {
-        token: checkAuth ? xtbhash : undefined,
+        token: checkAuth ? binalokahash : undefined,
         hash: uhash || undefined,
         isLoggedIn: checkAuth || false
     };

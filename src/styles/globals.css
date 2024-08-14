@@ -2,19 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
 :root {
     /* #region  /**=========== Primary Color =========== */
     /* !STARTERCONF Customize these variable, copy and paste from /styles/colors.css for list of colors */
-    --tw-color-primary-50: 240 249 255;
-    --tw-color-primary-100: 224 242 254;
-    --tw-color-primary-200: 186 230 253;
-    --tw-color-primary-300: 125 211 252;
-    --tw-color-primary-400: 56 189 248;
-    --tw-color-primary-500: 14 165 233;
-    --tw-color-primary-600: 2 132 199;
-    --tw-color-primary-700: 3 105 161;
-    --tw-color-primary-800: 7 89 133;
-    --tw-color-primary-900: 12 74 110;
+    --tw-color-primary-50: 208 240 250;
+    --tw-color-primary-100: 137 216 242;
+    --tw-color-primary-200: 20 178 230;
+    --tw-color-primary-300: 12 119 153;
+    --tw-color-primary-400: 8 66 85;
+    --tw-color-primary-500: 5 45 56;
+    --tw-color-primary-600: 4 36 44;
+    --tw-color-primary-700: 3 27 32;
+    --tw-color-primary-800: 2 18 22;
+    --tw-color-primary-900: 1 10 12;
+
     --color-primary-50: rgb(var(--tw-color-primary-50)); /* #f0f9ff */
     --color-primary-100: rgb(var(--tw-color-primary-100)); /* #e0f2fe */
     --color-primary-200: rgb(var(--tw-color-primary-200)); /* #bae6fd */
@@ -26,6 +33,30 @@
     --color-primary-800: rgb(var(--tw-color-primary-800)); /* #075985 */
     --color-primary-900: rgb(var(--tw-color-primary-900)); /* #0c4a6e */
     /* #endregion  /**======== Primary Color =========== */
+
+    /* #region  /**=========== Grey Color =========== */
+    --tw-color-grey-50: 249 250 251 1;
+    --tw-color-grey-100: 243 244 246;
+    --tw-color-grey-200: 229 231 235;
+    --tw-color-grey-300: 209 213 219;
+    --tw-color-grey-400: 156 163 175;
+    --tw-color-grey-500: 107 114 128;
+    --tw-color-grey-600: 75 85 99;
+    --tw-color-grey-700: 55 65 81;
+    --tw-color-grey-800: 31 41 55;
+    --tw-color-grey-900: 17 24 39;
+    --tw-color-grey-950: 3 7 18;
+    --color-grey-50: rgb(var(--tw-color-grey-50)); /* #f9fafb */
+    --color-grey-100: rgb(var(--tw-color-grey-100)); /* #f3f4f6 */
+    --color-grey-200: rgb(var(--tw-color-grey-200)); /* #e5e7eb */
+    --color-grey-300: rgb(var(--tw-color-grey-300)); /* #d1d5db */
+    --color-grey-400: rgb(var(--tw-color-grey-400)); /* #9ca3af */
+    --color-grey-500: rgb(var(--tw-color-grey-500)); /* #6b7280 */
+    --color-grey-600: rgb(var(--tw-color-grey-600)); /* #4b5563 */
+    --color-grey-700: rgb(var(--tw-color-grey-700)); /* #374151 */
+    --color-grey-800: rgb(var(--tw-color-grey-800)); /* #1f2937 */
+    --color-grey-900: rgb(var(--tw-color-grey-900)); /* #111827 */
+    --color-grey-950: rgb(var(--tw-color-grey-950)); /* #030712 */
 }
 
 @layer base {
@@ -112,7 +143,7 @@
 }
 
 /* #region  /**=========== Datepicker =========== */
-.react-datepicker-wrapper {
+/* .react-datepicker-wrapper {
     display: block;
     width: 100%;
 }
@@ -136,10 +167,10 @@
     padding-bottom: 0.2rem;
     padding-left: 0.7rem;
     border-radius: 0.25rem;
-}
+} */
 
 /* Selected date color */
-.react-datepicker__day--selected,
+/* .react-datepicker__day--selected,
 .react-datepicker__day--in-selecting-range,
 .react-datepicker__day--in-range,
 .react-datepicker__month-text--selected,
@@ -156,7 +187,7 @@
 .react-datepicker__quarter-text--keyboard-selected,
 .react-datepicker__year-text--keyboard-selected {
     @apply !bg-primary-500;
-}
+} */
 /* #endregion  /**======== Datepicker =========== */
 
 input[type='password'] {

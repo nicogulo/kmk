@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { ClipboardEventHandler, InputHTMLAttributes, MutableRefObject, useState } from 'react';
 import clsx from 'clsx';
+import React, { ClipboardEventHandler, InputHTMLAttributes, MutableRefObject, useState } from 'react';
 import { IMaskMixin } from 'react-imask';
 import { ReactElement } from 'react-imask/dist/mixin';
 
@@ -13,7 +13,7 @@ interface MaskedPattern {
     /**
      * The input masking
      */
-    mask?: StringConstructor | NumberConstructor | String | RegExp;
+    mask?: StringConstructor | NumberConstructor | string | RegExp;
     /**
      * The thousands separator
      */
@@ -268,20 +268,20 @@ const Input: React.FC<InputProps> = ({
         'flex items-center w-full border rounded overflow-hidden',
         'bg-white',
         size === 'sm' ? 'h-[40px] p-3 text-xs' : 'h-[48px] py-3.5 px-4 text-sm',
-        focus ? '!border-[#08AA54]' : 'border-[#08192B4D]',
-        disabled ? 'bg-[#F4F6F8] !border-[#08192B4D] ' : 'xl:hover:border-[#08AA54] ',
+        focus ? '!border-primary-200' : 'border-[#08192B4D]',
+        disabled ? 'bg-[#F4F6F8] !border-[#08192B4D] ' : 'xl:hover:border-primary-200 ',
         error ? '!border-[#C9353F]' : '',
-        success ? '!border-[#08AA54]' : '',
+        success ? '!border-primary-200' : '',
         className
     );
     const inputClasses = clsx(
         'text-sm text-[#121416] font-bold placeholder:text-[#07142280] placeholder:font-normal placeholder:text-sm bg-white !outline-none w-full border-none flex-1 !p-0',
         disabled && 'cursor-not-allowed',
-        'hover:border-[#08AA54]',
-        focus && 'focus:!caret-[#08AA54] focus:ring-0',
+        'hover:border-primary-200',
+        focus && 'focus:!caret-primary-200 focus:ring-0',
         size === 'sm' && 'text-[10px]',
         error && 'border-[#C9353F] ',
-        success && 'border-[#08AA54] hover:border-[#08AA54]',
+        success && 'border-primary-200 hover:border-primary-200',
         inputClassName
     );
 
@@ -342,7 +342,7 @@ const Input: React.FC<InputProps> = ({
                     <Icons icon='Interuption' /> {error}
                 </span>
             )}
-            {success && <span className={clsx(successClassName, 'mr-[10px] text-xs text-[#08AA54]')}>{success}</span>}
+            {success && <span className={clsx(successClassName, 'text-primary-200 mr-[10px] text-xs')}>{success}</span>}
         </div>
     );
 };

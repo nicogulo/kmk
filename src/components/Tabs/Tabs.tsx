@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import classNames from '@/lib/classnames';
 import React, { ReactNode } from 'react';
+
+import classNames from '@/lib/classnames';
 
 interface TabsProps {
     className?: string;
@@ -28,19 +30,19 @@ interface TabProps {
     children: ReactNode;
 }
 
-const activeTabCss = 'border-b-2 border-[#08AA54]';
-const activeTabCssVertical = 'border-l-2 border-[#08AA54]';
+const activeTabCss = 'border-b-2 border-primary-200';
+const activeTabCssVertical = 'border-l-2 border-primary-200';
 
 interface TextProps extends React.PropsWithChildren<{}> {
     className?: string;
 }
 
 const Text: React.FC<TextProps> = ({ children, className }) => (
-    <span className={classNames('text-sm font-normal text-[#525D66]', className)}>{children}</span>
+    <span className={classNames('p', className)}>{children}</span>
 );
 
 const ActiveText: React.FC<TextProps> = ({ children, className }) => (
-    <span className={classNames('text-sm font-bold text-[#18181E]', className)}>{children}</span>
+    <span className={classNames('p font-bold text-[#18181E]', className)}>{children}</span>
 );
 
 const StyledTab: React.FC<StyledTabProps> = ({ active, onClick, children, isMobile, className, vertical }) => (
@@ -95,8 +97,8 @@ const Tabs: React.FC<TabsProps> = ({ children, className, vertical }) => (
             'relative flex w-auto',
             {
                 'flex-col': vertical,
-                'border-l-2 border-l-[#D9E0E4]': vertical,
-                'gap-6 border-b border-b-[#D9E0E4]': !vertical
+                'border-l-2 border-l-[#1E1E1E1A]': vertical,
+                'gap-6 border-b border-b-[#1E1E1E1A]': !vertical
             },
             className
         )}

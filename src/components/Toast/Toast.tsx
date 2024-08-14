@@ -1,16 +1,16 @@
-import React from "react"
-import { toast as toasts, Toaster, ToastOptions } from "react-hot-toast"
+import React from 'react';
+import { toast as toasts, Toaster, ToastOptions } from 'react-hot-toast';
 
-const successClassName = "!bg-[#08AA54] xl:text-[16xp]"
+const successClassName = '!bg-[#08AA54] xl:text-[16xp]';
 
-const errorClassName = "!bg-[#C9353F] xl:text-[16xp]"
+const errorClassName = '!bg-[#C9353F] xl:text-[16xp]';
 
-const infoClassName = "!bg-[#3B82F6] xl:text-[16xp]"
+const infoClassName = '!bg-primary-200 xl:text-[16xp]';
 
 const defaultOptions: ToastOptions = {
     duration: 3000,
     className: `${successClassName} xl:leading-6 text-sm !text-white !rounded-2xl`
-}
+};
 
 const toast = {
     success: (message: string, options?: ToastOptions) =>
@@ -57,11 +57,11 @@ const toast = {
                     className: `${successClassName} ${defaultOptions.className}`
                 }
             }
-        )
+        );
     }
-}
+};
 
-const Toast = () => <Toaster />
+const Toast = () => <Toaster />;
 
-export { toast }
-export default Toast
+export { toast };
+export default Toast;

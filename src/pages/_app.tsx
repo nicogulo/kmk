@@ -6,6 +6,7 @@ import nProgress from 'nprogress';
 import '@/styles/globals.css';
 
 import DismissableToast from '@/components/DismissableToast';
+import Header from '@/components/layout/Header';
 import Layout from '@/components/layout/Layout';
 
 Router.events.on('routeChangeStart', nProgress.start);
@@ -14,8 +15,11 @@ Router.events.on('routeChangeComplete', nProgress.done);
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
     <Layout>
+        <Header />
         <DismissableToast />
-        <Component {...pageProps} />
+        <div className='min-h-main bg-gray-50'>
+            <Component {...pageProps} />
+        </div>
     </Layout>
 );
 

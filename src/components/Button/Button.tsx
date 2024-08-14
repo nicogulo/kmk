@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/button-has-type */
+import { type VariantProps, cva } from 'class-variance-authority';
 import React from 'react';
 
-import { cva, type VariantProps } from 'class-variance-authority';
-import Loader from '@/components/Loader';
 import classNames from '@/lib/classnames';
+
+import Loader from '@/components/Loader';
 
 const disabledOutline: string[] = ['disabled:bg-[#F4F6F8]', 'disabled:border-none', 'disabled:text-[#BBC2C8]'];
 
@@ -24,7 +25,7 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 primary: [
-                    'bg-[#08AA54]',
+                    'bg-primary-200',
                     'hover:bg-opacity-80',
                     'disabled:bg-[#F4F6F8]',
                     'text-white',
@@ -33,7 +34,7 @@ const buttonVariants = cva(
                 ],
 
                 grayOutline: ['bg-transparent', ...disabledOutline],
-                primaryOutline: ['bg-transparent', 'border-[#08AA54]', 'text-[#08AA54]', ...disabledOutline]
+                primaryOutline: ['bg-transparent', 'border-primary-500', 'text-primary-500', ...disabledOutline]
             },
             size: {
                 sm: ['py-2', 'px-3.5', 'text-xs', 'font-bold', 'rounded-[4px]'],

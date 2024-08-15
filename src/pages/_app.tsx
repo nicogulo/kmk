@@ -34,7 +34,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </When>
 
             <DismissableToast />
-            <div className='min-h-main bg-gray-50'>
+            <div className='min-h-main'>
                 <Component {...pageProps} />
             </div>
         </Layout>

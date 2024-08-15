@@ -125,6 +125,7 @@ const Login: React.FC = () => {
                                                 <Input
                                                     type='checkbox'
                                                     className='!accent-primary-200 !h-4 !w-4 !p-0'
+                                                    inputClassName='!text-primary-200'
                                                     required
                                                 />
                                                 <span className='text-xs font-normal text-[#18181E]'>Remember me</span>

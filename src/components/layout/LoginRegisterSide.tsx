@@ -21,7 +21,7 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
     return (
         <div className='flex flex-col justify-center xl:flex-row'>
             <div className='flex justify-center py-4 xl:hidden'>
-                <Icons icon='Logo' width={78} height={28} />
+                <Icons icon='Logo' width={105} height={28} />
             </div>
 
             <div
@@ -36,7 +36,7 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
                             <Button
                                 onClick={() => router.push('/')}
                                 variant='grayOutline'
-                                className='text-primary-200 !gap-1 !border-0 px-0'
+                                className='!gap-1 !border-0 px-0 text-gray-700'
                             >
                                 <Icons icon='ArrowLeft' width={16} height={16} />
                                 Back

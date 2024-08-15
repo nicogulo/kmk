@@ -7,10 +7,9 @@ import React, { useState } from 'react';
 import { useLogin } from '@/hooks/useAuth';
 
 import Button from '@/components/Button';
-import Icons from '@/components/Icon';
-// import LoginRegisterSide from "@layouts/LoginRegisterSide"
 import Input from '@/components/Input';
 import InputPassword from '@/components/InputPassword';
+import LoginRegisterSide from '@/components/layout/LoginRegisterSide';
 import { toast } from '@/components/Toast';
 
 import { EMAIL_LOGIN_REGEX } from '@/constant/regex';
@@ -50,17 +49,14 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className='min-h-main flex items-center justify-center'>
+        <>
             <Head>
                 <title>Login | Binaloka</title>
                 <meta name='description' content='Login' />
                 <link rel='icon' href='/logo.ico' />
             </Head>
 
-            <div className='relative flex w-[460px] flex-col gap-4 overflow-hidden rounded-md bg-white px-10 py-8 shadow-[0_0_30px_0_rgba(196,_202,_214,_.29)]'>
-                <div className='flex w-full justify-center'>
-                    <Icons icon='Logo' width={180} height={64} />
-                </div>
+            <LoginRegisterSide title='Ready to trade with Binaloka?' subtitle='Don’t have an account?'>
                 <Form
                     form={form}
                     onFinish={(values) => handleLogin(values)}
@@ -152,8 +148,8 @@ const Login: React.FC = () => {
                         );
                     }}
                 </Form>
-            </div>
-        </div>
+            </LoginRegisterSide>
+        </>
     );
 };
 

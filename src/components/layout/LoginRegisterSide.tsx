@@ -7,7 +7,7 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
 
-import WelcomeScreen from '@/assets/Images/gold.webp';
+import WelcomeScreen from '@/assets/Images/welcome.png';
 
 interface LoginRegisterSideProps {
     children?: React.ReactNode;
@@ -57,7 +57,7 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
                     </div>
                 </Container>
             </div>
-            <div className='hidden max-h-screen basis-1/5 flex-col items-center justify-center bg-[#F4F6F8] px-10 xl:flex'>
+            <div className='bg-primary-50 hidden max-h-screen basis-1/5 flex-col items-center justify-center gap-[72px] px-10 xl:flex'>
                 <Icons icon='Logo' width={120} height={32} />
                 <Image src={WelcomeScreen} alt='Welcome Screen' />
                 <div className='flex flex-col items-center gap-4'>

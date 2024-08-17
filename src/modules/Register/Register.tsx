@@ -281,14 +281,14 @@ const Register: React.FC = () => {
                                                         <div key={label} className='flex flex-row items-center gap-2'>
                                                             <If condition={isError}>
                                                                 <Then>
-                                                                    <Icons icon='XCircle' className='text-[#C9353F]' />
+                                                                    <Icons icon='XCircle' className='text-[#FF4842]' />
                                                                 </Then>
                                                                 <Else>
                                                                     <If condition={isCorrect}>
                                                                         <Then>
                                                                             <Icons
                                                                                 icon='ChecklistCircle'
-                                                                                className='text-primary-200'
+                                                                                className='text-[#54D62C]'
                                                                             />
                                                                         </Then>
                                                                         <Else>
@@ -315,14 +315,14 @@ const Register: React.FC = () => {
                                                     <div key={label} className='flex flex-row items-center gap-2'>
                                                         <If condition={isError}>
                                                             <Then>
-                                                                <Icons icon='XCircle' className='text-[#C9353F]' />
+                                                                <Icons icon='XCircle' className='text-[#FF4842]' />
                                                             </Then>
                                                             <Else>
                                                                 <If condition={isCorrect}>
                                                                     <Then>
                                                                         <Icons
                                                                             icon='ChecklistCircle'
-                                                                            className='text-primary-200'
+                                                                            className='text-[#54D62C]'
                                                                         />
                                                                     </Then>
                                                                     <Else>

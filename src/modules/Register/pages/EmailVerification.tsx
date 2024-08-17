@@ -35,6 +35,7 @@ const EmailVerification = () => {
                 otp: values.otp
             };
             const res = await submitOtp(payload);
+            console.log(res);
             if (res) {
                 router.push('/register/email-success');
             }
@@ -79,7 +80,7 @@ const EmailVerification = () => {
                 <link rel='icon' href='/logo.ico' />
             </Head>
             <div className='flex justify-center py-4 xl:py-10'>
-                <Icons icon='Logo' width={78} height={28} />
+                <Icons icon='Logo' width={120} height={32} />
             </div>
             <Container className='flex h-[calc(100vh-108px)] flex-col items-center justify-center'>
                 <div className='flex h-full flex-col items-center justify-center gap-8 xl:w-[400px]'>
@@ -157,8 +158,8 @@ const EmailVerification = () => {
                                 timer % 60 < 10 ? `0${timer % 60}` : timer % 60
                             } `}</span>
                         ) : (
-                            <span onClick={handleResendClick} className='cursor-pointer font-bold text-[#08AA54]'>
-                                Resend
+                            <span onClick={handleResendClick} className='text-primary-200 cursor-pointer font-bold'>
+                                Click to Resend
                             </span>
                         )}
                     </span>

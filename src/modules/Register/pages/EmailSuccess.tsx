@@ -1,4 +1,3 @@
-import ImageSuccess from '@assets/Images/success.webp';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,6 +7,8 @@ import React, { useEffect } from 'react';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
+
+import ImageSuccess from '@/assets/Images/success.webp';
 
 const EmailSuccess = () => {
     const router = useRouter();

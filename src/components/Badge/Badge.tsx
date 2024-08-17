@@ -8,24 +8,24 @@ import { IconsProps } from '@/components/Icon/Icon';
 
 const variants = {
     gray: {
-        wrapper: 'bg-[#DFE3E8] text-white',
+        wrapper: 'bg-[#DFE3E8] text-[#525D66]',
         iconColor: 'text-[#525D66]'
     },
     red: {
-        wrapper: 'bg-[#FF4842] text-white',
-        iconColor: 'text-[#E53835]'
+        wrapper: 'bg-[#FFE7D9] text-[#B72136]',
+        iconColor: 'text-[#B72136]'
     },
     yellow: {
-        wrapper: 'bg-[#FFFAEB] text-white',
+        wrapper: 'bg-[#FFFAEB] text-[#DC6803]',
         iconColor: 'text-[#DC6803]'
     },
     green: {
-        wrapper: 'bg-[#54D62C] text-white',
-        iconColor: 'text-text-[#08C466]'
+        wrapper: 'bg-[#E9FCD4] text-[#229A16]',
+        iconColor: 'text-[#229A16]'
     },
     blue: {
-        wrapper: 'bg-primary-200 text-white',
-        iconColor: 'text-[#357BE5]'
+        wrapper: 'bg-[#D0F2FF] text-[0C53B7]',
+        iconColor: 'text-[#0C53B7]'
     }
 };
 

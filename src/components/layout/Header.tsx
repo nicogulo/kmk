@@ -1,4 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
 import { When } from 'react-if';
 import { useMediaQuery } from 'react-responsive';
@@ -6,16 +7,22 @@ import { useMediaQuery } from 'react-responsive';
 import classNames from '@/lib/classnames';
 
 import Button from '@/components/Button';
+import Container from '@/components/Container';
 import Icons, { IconsProps } from '@/components/Icon';
 import ButtonLink from '@/components/links/ButtonLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
 
 const Header = () => {
+    const router = useRouter();
     const isMobile = useMediaQuery({ maxWidth: 1279 });
     const isLoggin = true;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const profileMenu = [{ href: '/profile', label: 'Profile', icon: 'User' }];
+    const isProfile = router.pathname === '/profile';
+    const isWallet = router.pathname === '/wallet';
+    const isTrading = router.pathname === '/trading';
+    const isHome = router.pathname === '/';
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -23,7 +30,7 @@ const Header = () => {
 
     return (
         <header className='sticky top-0 z-50 bg-white'>
-            <div className='layout relative flex h-14 items-center justify-between'>
+            <Container className=' relative flex h-14 items-center justify-between'>
                 <UnstyledLink href='/' className='font-bold hover:text-gray-600' onClick={() => setIsMenuOpen(false)}>
                     <Icons icon='Logo' width={120} height={32} />
                 </UnstyledLink>
@@ -39,17 +46,37 @@ const Header = () => {
                                     : 'hidden'
                             } lg:flex`}
                         >
-                            <UnstyledLink href='/' className='flex flex-row items-center gap-1'>
+                            <UnstyledLink
+                                href='/'
+                                className={classNames('flex flex-row items-center gap-1', {
+                                    'text-primary-200': isHome
+                                })}
+                            >
                                 <Icons icon='Home' /> Home
                             </UnstyledLink>
-                            <UnstyledLink href='/wallet' className='flex flex-row items-center gap-1'>
+                            <UnstyledLink
+                                href='/wallet'
+                                className={classNames('flex flex-row items-center gap-1', {
+                                    'text-primary-200': isWallet
+                                })}
+                            >
                                 <Icons icon='Wallet' /> Wallet
                             </UnstyledLink>
-                            <UnstyledLink href='/trading' className='flex flex-row items-center gap-1'>
+                            <UnstyledLink
+                                href='/trading'
+                                className={classNames('flex flex-row items-center gap-1', {
+                                    'text-primary-200': isTrading
+                                })}
+                            >
                                 <Icons icon='ChartGreen' /> Trading
                             </UnstyledLink>
                             <When condition={isMobile}>
-                                <UnstyledLink href='/profile' className='flex flex-row items-center gap-1'>
+                                <UnstyledLink
+                                    href='/profile'
+                                    className={classNames('flex flex-row items-center gap-1', {
+                                        'text-primary-200': isProfile
+                                    })}
+                                >
                                     <Icons icon='User' /> Profile
                                 </UnstyledLink>
                             </When>
@@ -58,7 +85,11 @@ const Header = () => {
                                     <div>
                                         <MenuButton className='flex flex-row items-center'>
                                             {({ active }) => (
-                                                <button className={classNames(active && 'text-primary-200')}>
+                                                <button
+                                                    className={classNames({
+                                                        'text-primary-200': active || isProfile
+                                                    })}
+                                                >
                                                     <Icons icon='User' /> Profile
                                                 </button>
                                             )}
@@ -125,7 +156,7 @@ const Header = () => {
                         </ul>
                     </div>
                 </nav>
-            </div>
+            </Container>
         </header>
     );
 };

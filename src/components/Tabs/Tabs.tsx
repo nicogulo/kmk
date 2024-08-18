@@ -38,11 +38,11 @@ interface TextProps extends React.PropsWithChildren<{}> {
 }
 
 const Text: React.FC<TextProps> = ({ children, className }) => (
-    <span className={classNames('p', className)}>{children}</span>
+    <span className={classNames('xs', className)}>{children}</span>
 );
 
 const ActiveText: React.FC<TextProps> = ({ children, className }) => (
-    <span className={classNames('p font-bold text-[#18181E]', className)}>{children}</span>
+    <span className={classNames('xs font-bold text-[#18181E]', className)}>{children}</span>
 );
 
 const StyledTab: React.FC<StyledTabProps> = ({ active, onClick, children, isMobile, className, vertical }) => (

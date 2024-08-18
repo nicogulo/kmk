@@ -291,7 +291,7 @@ const Input: React.FC<InputProps> = ({
                 <div>
                     <span className={clsx(labelClassName, size === 'sm' ? 'text-[10px]' : 'text-xs', 'text-[#525D66]')}>
                         {label}
-                        {required && <span className={clsx('hidden text-xs text-[#C9353F]')}>*</span>}
+                        {required && <span className={clsx('text-xs text-[#C9353F]')}>*</span>}
                     </span>
                     {labelSuffix && <div>{labelSuffix}</div>}
                 </div>

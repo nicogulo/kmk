@@ -67,7 +67,7 @@ const Trading = () => {
                     <>
                         <When condition={isUnverifiedBasic}>
                             <div className='flex flex-col gap-3'>
-                                <Button block onClick={() => router.push(`/profile/user/kyc/basic`)}>
+                                <Button block onClick={() => router.push(`/profile/kyc`)}>
                                     Verify Now
                                 </Button>
                             </div>
@@ -77,7 +77,7 @@ const Trading = () => {
                                 <Button block onClick={handleClose} variant='grayOutline'>
                                     Cancel
                                 </Button>
-                                <Button block onClick={() => router.push(`/profile/user/kyc/basic`)}>
+                                <Button block onClick={() => router.push(`/profile/kyc`)}>
                                     Proced
                                 </Button>
                             </div>

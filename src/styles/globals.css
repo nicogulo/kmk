@@ -104,6 +104,11 @@ body {
     .p {
         @apply font-primary text-sm md:text-base;
     }
+
+    body,
+    .xs {
+        @apply font-primary text-xs md:text-sm;
+    }
     /* #endregion  /**======== Typography =========== */
 
     .layout {
@@ -119,6 +124,10 @@ body {
     /* Class to adjust with sticky footer */
     .min-h-main {
         @apply min-h-[calc(100vh-56px)];
+    }
+
+    a {
+        @apply text-primary-200;
     }
 }
 

@@ -85,7 +85,9 @@ const Kyc = () => {
                             </Case>
                             <Case condition={activeTab === 2}>
                                 <FacialRecognition
-                                    onNext={() => {}}
+                                    onNext={() => {
+                                        console.log('Next');
+                                    }}
                                     onBack={() => {
                                         setActiveTab(1);
                                     }}

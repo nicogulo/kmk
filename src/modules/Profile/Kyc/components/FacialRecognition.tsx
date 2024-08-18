@@ -4,7 +4,7 @@ import Modal from '@/components/Modal';
 import useUpload from '@/hooks/useUpload';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { When } from 'react-if';
 import Webcam from 'react-webcam';
 
@@ -26,16 +26,16 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
     }, [webcamRef]);
 
     const { upload, loading } = useUpload();
-    const handleSubmit = () => {};
+    const handleSubmit = () => {
+        console.log('submit');
+        onNext();
+    };
 
     const handleClose = () => {
         setIsOpen(false);
         setImage(null);
     };
 
-    const videoConstraints = {
-        aspectRatio: 0.6666666667
-    };
     return (
         <>
             <div className='flex flex-col items-center gap-6 '>
@@ -69,11 +69,7 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
                         </div>
                     </div>
                     <div className='flex w-full flex-row justify-end gap-4 '>
-                        <Button
-                            className='w-[120px]'
-                            variant='grayOutline'
-                            onClick={() => router.push('/dashboard/profile/user')}
-                        >
+                        <Button className='w-[120px]' variant='grayOutline' onClick={onBack}>
                             Kembali
                         </Button>
                         <Button onClick={() => setIsOpen(true)} disabled={loading} loading={loading}>

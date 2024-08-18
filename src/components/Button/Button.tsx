@@ -32,7 +32,13 @@ const buttonVariants = cva(
                     'disabled:text-[#BBC2C8]',
                     'border-none'
                 ],
-
+                gray: [
+                    'bg-gray-[#F4F6F8]',
+                    'hover:bg-opacity-80',
+                    'disabled:bg-[#F4F6F8]',
+                    'text-gray-500',
+                    ...disabledOutline
+                ],
                 grayOutline: ['bg-transparent', ...disabledOutline],
                 primaryOutline: ['bg-transparent', 'border-primary-500', 'text-primary-500', ...disabledOutline]
             },

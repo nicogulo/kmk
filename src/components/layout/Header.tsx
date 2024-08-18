@@ -19,11 +19,11 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const profileMenu = [{ href: '/profile', label: 'Profile', icon: 'User' }];
-    const isProfile = router.pathname === '/profile';
+    const isProfile = router.pathname.includes('/profile');
     const isWallet = router.pathname === '/wallet';
     const isTrading = router.pathname === '/trading';
     const isHome = router.pathname === '/';
-
+    console.log(router.pathname, isHome);
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -83,16 +83,12 @@ const Header = () => {
                             {isLoggin && !isMobile ? (
                                 <Menu as='div' className='relative inline-block text-left'>
                                     <div>
-                                        <MenuButton className='flex flex-row items-center'>
-                                            {({ active }) => (
-                                                <button
-                                                    className={classNames({
-                                                        'text-primary-200': active || isProfile
-                                                    })}
-                                                >
-                                                    <Icons icon='User' /> Profile
-                                                </button>
-                                            )}
+                                        <MenuButton
+                                            className={classNames('flex flex-row items-center', {
+                                                'text-primary-200': isProfile
+                                            })}
+                                        >
+                                            <Icons icon='User' /> Profile
                                         </MenuButton>
                                     </div>
 

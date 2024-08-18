@@ -17,7 +17,7 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
 
         if (!isNewTab) {
             return (
-                <Link href={href} ref={ref} className={className} {...rest} {...nextLinkProps}>
+                <Link href={href} ref={ref} className={cn('text-gray-700', className)} {...rest} {...nextLinkProps}>
                     {children}
                 </Link>
             );
@@ -30,7 +30,7 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
                 rel='noopener noreferrer'
                 href={href}
                 {...rest}
-                className={cn('cursor-newtab', className)}
+                className={cn('cursor-newtab ', className)}
             >
                 {children}
             </a>

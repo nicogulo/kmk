@@ -7,6 +7,7 @@ import OtpInput from 'react-otp-input';
 
 import useVerifyPhoneNumber from '@/hooks/usePhoneNumber';
 
+import Alert from '@/components/Alert';
 import Badge from '@/components/Badge';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
@@ -82,6 +83,38 @@ const Profile = () => {
             <Container className='!pt-10'>
                 <div className='gap flex flex-col gap-10'>
                     <span className='h1'>Profile</span>
+                    {isUnverifiedBasic && (
+                        <Alert
+                            variant='info'
+                            closeable
+                            withChildren
+                            contentCenter={false}
+                            content={
+                                <div className='flex flex-1 flex-row items-center gap-6'>
+                                    <div className='flex flex-1 flex-row items-center gap-6'>
+                                        <div className='h-20 w-20 bg-gray-300' />
+                                        <div className='flex w-auto flex-col gap-2'>
+                                            <p className='text-sm font-bold text-gray-800'>
+                                                Verifikasi akun Anda untuk memulai transaksi di Binaloka
+                                            </p>
+                                            <p className='text-sm font-normal text-gray-800'>
+                                                Lakukan verifikasi akun hanya dalam 5 menit. Lengkapi informasi dengan
+                                                benar dan ikuti petunjuknya dengan seksama.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <Button
+                                        onClick={() => {
+                                            router.push('profile/kyc');
+                                        }}
+                                        className='mr-6 h-fit w-[136px]'
+                                    >
+                                        Verify Now
+                                    </Button>
+                                </div>
+                            }
+                        />
+                    )}
                     <div className='flex flex-col gap-4'>
                         <Tabs>
                             <Tab active={activeTab === 0} onClick={() => setActiveTab(0)}>
@@ -213,19 +246,22 @@ const Profile = () => {
                                                 </div>
                                             </div>
                                             <div className='flex flex-row  gap-10 border-t pt-4'>
-                                                {/* <div className='flex flex-col gap-3 min-w-[200px]'>
-                                                <p className='text-xs text-gray-500 text-normal uppercase'>
-                                                    Requirements
-                                                </p>
-                                                <div className='flex flex-col gap-1 items-start'>
-                                                    <p className='text-sm text-gray-800 font-normal'>
-                                                        Personal Details
+                                                <div className='flex min-w-[200px] flex-col gap-3'>
+                                                    <p className='text-normal text-xs uppercase text-gray-500'>
+                                                        Requirements
                                                     </p>
-                                                    <p className='text-sm text-gray-800 font-normal'>
-                                                        Account Configuration
-                                                    </p>
+                                                    <div className='flex flex-col items-start gap-1'>
+                                                        <p className='text-sm font-normal text-gray-800'>
+                                                            Upload Document
+                                                        </p>
+                                                        <p className='text-sm font-normal text-gray-800'>
+                                                            Personal Data
+                                                        </p>
+                                                        <p className='text-sm font-normal text-gray-800'>
+                                                            Facial Recognition
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div> */}
                                                 <div className='flex min-w-[200px] flex-col gap-3'>
                                                     <p className='text-normal text-xs uppercase text-gray-500'>
                                                         Permissions
@@ -233,21 +269,30 @@ const Profile = () => {
                                                     <div className='flex flex-col items-start gap-1'>
                                                         <p className='flex flex-row items-center gap-1 text-sm font-normal text-gray-800'>
                                                             <Icons
-                                                                icon='Stack'
+                                                                icon='Wallet'
                                                                 width={20}
                                                                 height={20}
-                                                                color='#08AA54'
+                                                                color='#14B2E6'
                                                             />
-                                                            1 Live Trading Account (Max Rp 25mio Equity)
+                                                            Trading
                                                         </p>
                                                         <p className='flex flex-row items-center gap-1 text-sm font-normal text-gray-800'>
                                                             <Icons
                                                                 icon='Wallet'
                                                                 width={20}
                                                                 height={20}
-                                                                color='#08AA54'
+                                                                color='#14B2E6'
                                                             />
-                                                            Max daily deposit Rp10 Mio
+                                                            Deposit
+                                                        </p>
+                                                        <p className='flex flex-row items-center gap-1 text-sm font-normal text-gray-800'>
+                                                            <Icons
+                                                                icon='Stack'
+                                                                width={20}
+                                                                height={20}
+                                                                color='#14B2E6'
+                                                            />
+                                                            Withdraw
                                                         </p>
                                                     </div>
                                                 </div>
@@ -260,7 +305,7 @@ const Profile = () => {
                                                         return;
                                                     }
                                                     if (isUnverifiedBasic) {
-                                                        router.push('/dashboard/profile/user/kyc/basic');
+                                                        router.push('/profile/kyc');
                                                     }
                                                 }}
                                                 disabled={

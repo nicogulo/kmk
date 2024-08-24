@@ -61,7 +61,7 @@ const Kyc = () => {
                                         vertical
                                         key={index}
                                         active={activeTab === index}
-                                        textClassName={(active) => (active ? '!text-primary-200' : '')}
+                                        textClassName={(active) => (active ? '!text-primary-300' : '')}
                                         onClick={() => {
                                             setActiveTab(index);
                                         }}
@@ -161,9 +161,9 @@ const Kyc = () => {
                     >
                         <Input
                             type='checkbox'
-                            className='accent-primary-200 !h-4 !w-4 !p-0'
+                            className='accent-primary-300 !h-4 !w-4 !p-0'
                             required
-                            inputClassName='!text-primary-200'
+                            inputClassName='!text-primary-300'
                         />
                         <span className='xs text-gray-800'>
                             Saya dengan ini menyatakan telah membaca, memahami, dan menyetujui syarat dan ketentuan

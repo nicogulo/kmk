@@ -22,7 +22,7 @@ const TextButton = React.forwardRef<HTMLButtonElement, TextButtonProps>(
                     //#region  //*=========== Variant ===========
                     variant === 'primary' && [
                         'text-primary-500 hover:text-primary-600 active:text-primary-700',
-                        'disabled:text-primary-200'
+                        'disabled:text-primary-300'
                     ],
                     variant === 'basic' && [
                         'text-black hover:text-gray-600 active:text-gray-800',

@@ -450,7 +450,7 @@ const Profile = () => {
                                 }}
                                 inputType='number'
                                 renderSeparator={<span>&nbsp;</span>}
-                                inputStyle='!w-[70px] !h-[64px] xl:text-2xl text-lg text-primary-200 font-bold border-[1px] border-[#E0E0E0] rounded-lg !caret-primary-200 focus:!border-primary-200 focus:!outline-none focus:ring-0'
+                                inputStyle='!w-[70px] !h-[64px] xl:text-2xl text-lg text-primary-300 font-bold border-[1px] border-[#E0E0E0] rounded-lg !caret-primary-300 focus:!border-primary-300 focus:!outline-none focus:ring-0'
                                 containerStyle='justify-between w-full'
                             />
                         </Field>

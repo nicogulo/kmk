@@ -26,10 +26,10 @@ interface RenderUploadDocumentProps {
 }
 const RenderUploadDocumentKtp = ({ handleUpload }: RenderUploadDocumentProps) => (
     <div className='w-full pt-2'>
-        <label className='border-primary-200 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
+        <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
             <div className='text-center'>
                 <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
-                <p className='text-primary-200 text-sm font-bold'>Unggah KTP</p>
+                <p className='text-primary-300 text-sm font-bold'>Unggah KTP</p>
                 <p className='text-xs font-normal text-[#525D66]'>
                     Klik untuk mengunggah atau seret dan lepas <br />
                     PNG, JPG or PDF (max. 5 MB)
@@ -479,10 +479,10 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                         </div>
                                     ) : (
                                         <div className='w-full pt-2'>
-                                            <label className='border-primary-200 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
+                                            <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
                                                 <div className='text-center'>
                                                     <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
-                                                    <p className='text-primary-200 text-sm font-bold'>
+                                                    <p className='text-primary-300 text-sm font-bold'>
                                                         Upload Selfie Holding KTP
                                                     </p>
                                                     <p className='text-xs font-normal text-[#525D66]'>
@@ -537,10 +537,10 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                         </div>
                                     ) : (
                                         <div className='w-full pt-2'>
-                                            <label className='border-primary-200 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
+                                            <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
                                                 <div className='text-center'>
                                                     <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
-                                                    <p className='text-primary-200 text-sm font-bold'>
+                                                    <p className='text-primary-300 text-sm font-bold'>
                                                         Unggah Selfie Memegang KTP
                                                     </p>
                                                     <p className='text-xs font-normal text-[#525D66]'>
@@ -626,10 +626,10 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                     </div>
                                 ) : (
                                     <div className='w-full pt-2'>
-                                        <label className='border-primary-200 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
+                                        <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
                                             <div className='text-center'>
                                                 <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
-                                                <p className='text-primary-200 text-sm font-bold'>Unggah NPWP</p>
+                                                <p className='text-primary-300 text-sm font-bold'>Unggah NPWP</p>
                                                 <p className='text-xs font-normal text-[#525D66]'>
                                                     Klik untuk mengunggah atau seret dan lepas <br />
                                                     PNG, JPG or PDF (max. 5 MB)

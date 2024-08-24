@@ -7,7 +7,12 @@ import classNames from '@/lib/classnames';
 
 import Loader from '@/components/Loader';
 
-const disabledOutline: string[] = ['disabled:bg-[#F4F6F8]', 'disabled:border-none', 'disabled:text-[#BBC2C8]'];
+const disabledOutline: string[] = [
+    'disabled:bg-[#F4F6F8]',
+    'border-text-transparent-10',
+    'disabled:border-none',
+    'disabled:text-[#BBC2C8]'
+];
 
 const buttonVariants = cva(
     [
@@ -25,7 +30,7 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 primary: [
-                    'bg-primary-200',
+                    'bg-primary-300',
                     'hover:bg-opacity-80',
                     'disabled:bg-[#F4F6F8]',
                     'text-white',

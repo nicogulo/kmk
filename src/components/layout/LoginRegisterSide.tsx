@@ -47,7 +47,7 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
                                 <Link
                                     href={isRegister ? '/login' : '/register'}
                                     passHref
-                                    className='text-primary-200 font-bold'
+                                    className='text-primary-300 font-bold'
                                 >
                                     {isRegister ? 'Login' : 'Create account'}
                                 </Link>

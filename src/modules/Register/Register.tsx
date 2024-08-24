@@ -357,15 +357,15 @@ const Register: React.FC = () => {
                                         >
                                             <Input
                                                 type='checkbox'
-                                                className='accent-primary-200 !h-4 !w-4 !p-0'
+                                                className='accent-primary-300 !h-4 !w-4 !p-0'
                                                 required
-                                                inputClassName='!text-primary-200'
+                                                inputClassName='!text-primary-300'
                                                 error={getFieldError('terms')[0]}
                                                 errorClassName='absolute -bottom-1 left-0 !pt-0'
                                             />
                                             <span className='text-xs font-normal text-[#121416]'>
                                                 I have read, understood and agreed to{' '}
-                                                <Link href='/register' className='text-primary-200 underline'>
+                                                <Link href='/register' className='text-primary-300 underline'>
                                                     PT Binaloka Indonesia Terms and Conditions
                                                 </Link>
                                             </span>
@@ -388,8 +388,8 @@ const Register: React.FC = () => {
                                         >
                                             <Input
                                                 type='checkbox'
-                                                className='accent-primary-200 !h-4 !w-4 !p-0'
-                                                inputClassName='!text-primary-200'
+                                                className='accent-primary-300 !h-4 !w-4 !p-0'
+                                                inputClassName='!text-primary-300'
                                                 required
                                                 error={getFieldError('allow')[0]}
                                                 errorClassName='absolute -bottom-1 left-0 !pt-0'

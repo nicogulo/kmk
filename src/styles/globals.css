@@ -205,7 +205,7 @@ body {
     }
 
     a {
-        @apply text-primary-200;
+        @apply text-primary-300;
     }
 }
 

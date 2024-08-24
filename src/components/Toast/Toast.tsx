@@ -5,7 +5,7 @@ const successClassName = '!bg-[#08AA54] xl:text-[16xp]';
 
 const errorClassName = '!bg-[#C9353F] xl:text-[16xp]';
 
-const infoClassName = '!bg-primary-200 xl:text-[16xp]';
+const infoClassName = '!bg-primary-300 xl:text-[16xp]';
 
 const defaultOptions: ToastOptions = {
     duration: 3000,

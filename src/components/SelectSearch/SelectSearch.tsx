@@ -55,7 +55,7 @@ const SelectSearch: React.FC<SelectSearchProps> = ({
                             'relative flex h-12 w-full flex-row items-center rounded border border-[#E8E8E9] bg-white text-left ',
                             className,
                             {
-                                'border-primary-200': open,
+                                'border-primary-300': open,
                                 'cursor-not-allowed': disabled
                             }
                         )}

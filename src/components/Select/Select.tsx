@@ -38,7 +38,7 @@ const Select: React.FC<SelectProps> = ({
                         'relative flex h-12 w-full cursor-pointer flex-row items-center rounded border border-[#E8E8E9] bg-white p-4 text-left ',
                         buttonClassName,
                         {
-                            'border-primary-200': open,
+                            'border-primary-300': open,
                             'cursor-not-allowed': disabled
                         }
                     )}
@@ -86,7 +86,7 @@ const Select: React.FC<SelectProps> = ({
                                     >
                                         <p
                                             className={classNames('block truncate text-sm font-normal text-[#18181E]', {
-                                                '!text-primary-200 !fontybold': selected?.name === item.name
+                                                '!text-primary-300 !fontybold': selected?.name === item.name
                                             })}
                                         >
                                             {item.name}

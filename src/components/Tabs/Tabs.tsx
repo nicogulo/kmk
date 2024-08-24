@@ -30,8 +30,8 @@ interface TabProps {
     children: ReactNode;
 }
 
-const activeTabCss = 'border-b-2 border-primary-200';
-const activeTabCssVertical = 'border-l-2 border-primary-200';
+const activeTabCss = 'border-b-2 border-primary-300';
+const activeTabCssVertical = 'border-l-2 border-primary-300';
 
 interface TextProps extends React.PropsWithChildren<{}> {
     className?: string;

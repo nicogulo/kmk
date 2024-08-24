@@ -124,14 +124,14 @@ const Login: React.FC = () => {
                                             <label className='flex items-start space-x-3'>
                                                 <Input
                                                     type='checkbox'
-                                                    className='!accent-primary-200 !h-4 !w-4 !p-0'
-                                                    inputClassName='!text-primary-200'
+                                                    className='!accent-primary-300 !h-4 !w-4 !p-0'
+                                                    inputClassName='!text-primary-300'
                                                     required
                                                 />
                                                 <span className='text-xs font-normal text-[#18181E]'>Remember me</span>
                                             </label>
                                         </Field>
-                                        <Link href='/forgot-password' className='text-primary-200 text-xs font-bold'>
+                                        <Link href='/forgot-password' className='text-primary-300 text-xs font-bold'>
                                             Forgot Password?
                                         </Link>
                                     </div>

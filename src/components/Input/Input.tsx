@@ -268,20 +268,20 @@ const Input: React.FC<InputProps> = ({
         'flex items-center w-full border rounded overflow-hidden',
         'bg-white',
         size === 'sm' ? 'h-[40px] p-3 text-xs' : 'h-[48px] py-3.5 px-4 text-sm',
-        focus ? '!border-primary-200' : 'border-[#08192B4D]',
-        disabled ? 'bg-[#F4F6F8] !border-[#08192B4D] ' : 'xl:hover:border-primary-200 ',
+        focus ? '!border-primary-300' : 'border-[#08192B4D]',
+        disabled ? 'bg-[#F4F6F8] !border-[#08192B4D] ' : 'xl:hover:border-primary-300 ',
         error ? '!border-[#C9353F]' : '',
-        success ? '!border-primary-200' : '',
+        success ? '!border-primary-300' : '',
         className
     );
     const inputClasses = clsx(
         'text-sm text-[#121416] font-bold placeholder:text-[#07142280] placeholder:font-normal placeholder:text-sm bg-white !outline-none w-full border-none flex-1 !p-0',
         disabled && 'cursor-not-allowed',
-        'hover:border-primary-200',
-        focus && 'focus:!caret-primary-200 focus:ring-0',
+        'hover:border-primary-300',
+        focus && 'focus:!caret-primary-300 focus:ring-0',
         size === 'sm' && 'text-[10px]',
         error && 'border-[#C9353F] ',
-        success && 'border-primary-200 hover:border-primary-200',
+        success && 'border-primary-300 hover:border-primary-300',
         inputClassName
     );
 
@@ -342,7 +342,7 @@ const Input: React.FC<InputProps> = ({
                     <Icons icon='Interuption' /> {error}
                 </span>
             )}
-            {success && <span className={clsx(successClassName, 'text-primary-200 mr-[10px] text-xs')}>{success}</span>}
+            {success && <span className={clsx(successClassName, 'text-primary-300 mr-[10px] text-xs')}>{success}</span>}
         </div>
     );
 };

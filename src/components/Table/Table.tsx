@@ -348,7 +348,7 @@ const Table: React.FC<TableProps> = ({
                         headClassName
                     )}
                     style={{
-                        maxWidth: width,
+                        width: `${width}px`,
                         textAlign: align
                     }}
                 >
@@ -401,11 +401,10 @@ const Table: React.FC<TableProps> = ({
             const renderedDataByColumn = columns.map(({ dataIndex, width, align }) => (
                 <td
                     key={dataIndex}
-                    className={classNames('items-center px-4 py-2.5 first-of-type:pl-0 last-of-type:pr-0', {
-                        width
-                    })}
+                    className='items-center px-4 py-2.5 first-of-type:pl-0 last-of-type:pr-0'
                     style={{
-                        textAlign: align
+                        textAlign: align,
+                        width: `${width}px`
                     }}
                 >
                     {loaderProp?.[dataIndex] ?? <Skeleton />}
@@ -533,13 +532,14 @@ const Table: React.FC<TableProps> = ({
                         className={classNames(
                             'items-center px-4 py-2.5 first-of-type:pl-0 last-of-type:pr-0',
                             className,
-                            width,
+
                             {
                                 expand: isExpanded
                             }
                         )}
                         style={{
-                            textAlign: align
+                            textAlign: align,
+                            width: `${width}px`
                         }}
                     >
                         {render?.(value, item || {}, isExpanded) || value}

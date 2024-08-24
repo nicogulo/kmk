@@ -6,6 +6,7 @@ import ChangePercentageText from '@/components/ChangePercentageText';
 import Container from '@/components/Container';
 import Table, { TableColumn } from '@/components/Table/Table';
 
+import LineChart from '@/modules/Markets/components/LineChart';
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
 
 const Markets = () => {
@@ -102,11 +103,41 @@ const Markets = () => {
         }
     ];
 
+    const generateRandomPrice = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    // Arrow function untuk menghasilkan data chart
+    const generateChartData = (
+        startTimestamp: number,
+        btcPrice: number,
+        dataPoints: number,
+        priceFluctuation: number
+    ): number[][] => {
+        const chartData = [];
+        const interval = 5 * 60; // 5 menit dalam detik
+
+        for (let i = 0; i < dataPoints; i++) {
+            const timestamp = startTimestamp + i * interval;
+            const price = generateRandomPrice(btcPrice - priceFluctuation, btcPrice + priceFluctuation);
+            // Array dengan format [timestamp, 0, price, 0, 0, 0, 0]
+            chartData.push([timestamp, 0, price, 0, 0, 0, 0]);
+        }
+
+        return chartData;
+    };
+
+    // Contoh penggunaan
+    const startTimestamp = 1724429100; // Timestamp awal dari array Anda
+    const btcPrice = 958680000; // Harga BTC awal
+    const dataPoints = 20; // Jumlah data points yang ingin dihasilkan
+    const priceFluctuation = 123312; // Besar fluktuasi harga BTC
+
+    const chartData = generateChartData(startTimestamp, btcPrice, dataPoints, priceFluctuation);
+
     const columns: TableColumn[] = [
         {
             title: 'Name',
             dataIndex: 'name',
-
+            width: 264,
             render: (text, record) => {
                 const code = record.symbol.toLowerCase();
                 return (
@@ -130,6 +161,7 @@ const Markets = () => {
         {
             title: 'Price',
             dataIndex: 'price',
+            width: 160,
             render: (text) => (
                 <span className='text-xs font-semibold !leading-5 text-gray-800'>{formatRupiah(text as number)}</span>
             )
@@ -137,6 +169,7 @@ const Markets = () => {
         {
             title: 'Market Cap',
             dataIndex: 'market_cap',
+            width: 120,
             render: (text) => (
                 <span className='text-xs font-semibold !leading-5 text-gray-800'>
                     Rp{removeTrailingZero(formatAbbreviatedNumber(text as number, { format: '0,0.00a' }))}
@@ -146,6 +179,7 @@ const Markets = () => {
         {
             title: 'Volume 24h',
             dataIndex: 'volume_24h',
+            width: 120,
             render: (text) => (
                 <span className='text-xs font-semibold !leading-5 text-gray-800'>
                     {removeTrailingZero(formatAbbreviatedNumber(text as number, { format: '0.[00]a' }))}
@@ -153,13 +187,19 @@ const Markets = () => {
             )
         },
         {
-            title: 'Change 24h',
+            title: '24h Change',
             dataIndex: 'change_24h',
+            width: 88,
             render: (text) => <ChangePercentageText value={text as number} prefix='icon' />
         },
         {
-            title: 'Chart',
-            dataIndex: 'chart'
+            title: 'Markets',
+            dataIndex: 'chart',
+            width: 120,
+            render: (_, value) => {
+                const colorLine = value.change_24h > 0 ? '#54D62C' : '#FF4842';
+                return <LineChart data={chartData} colorLine={colorLine} />;
+            }
         }
     ];
 

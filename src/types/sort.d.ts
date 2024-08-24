@@ -1,0 +1,1 @@
+type SortType = "asc" | "desc"

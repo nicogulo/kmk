@@ -76,6 +76,12 @@ export default {
                     400: 'rgb(var(--tw-color-info-400) / <alpha-value>)',
                     500: 'rgb(var(--tw-color-info-500) / <alpha-value>)'
                 },
+                'text-transparent': {
+                    5: 'rgba(30, 30, 30, 0.05)',
+                    10: 'rgba(30, 30, 30, 0.1)',
+                    15: 'rgba(30, 30, 30, 0.15)',
+                    20: 'rgba(30, 30, 30, 0.2)'
+                },
                 dark: '#222222'
             },
             keyframes: {

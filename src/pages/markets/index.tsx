@@ -1,4 +1,4 @@
-import { withNonAuthClient } from '@/hoc/withNonAuth';
+import { withAuthClient } from '@/hoc/withAuth';
 import Markets from '@/modules/Markets';
 
-export default withNonAuthClient(Markets);
+export default withAuthClient(Markets);

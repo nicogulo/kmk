@@ -29,7 +29,6 @@ const pageIgnore = [
     '/register/email-success',
     '/login',
     '/forgot-password',
-    '/dashboard',
     '/change-password'
 ];
 

@@ -13,7 +13,7 @@ export const withNonAuthSSR =
         if (auth.isLoggedIn) {
             return {
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/',
                     permanent: false
                 }
             };
@@ -43,7 +43,7 @@ export const withNonAuthClient = (WrappedComponent: React.ComponentType) => () =
                 return;
             }
 
-            router.push(`/dashboard`);
+            router.push(`/`);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -44,7 +44,7 @@ const EmailSuccess = () => {
                     </div>
 
                     <div className='fixed bottom-6 left-0 right-0 w-full px-4 xl:static xl:px-0'>
-                        <Link href='/dashboard'>
+                        <Link href='/'>
                             <Button variant='primary' block type='submit'>
                                 Go to Dashboard
                             </Button>

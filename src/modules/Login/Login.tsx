@@ -40,7 +40,7 @@ const Login: React.FC = () => {
             }
             if (res?.token) {
                 toast.success('Login success');
-                router.push('/dashboard');
+                router.push('/');
             }
         } catch (error) {
             //

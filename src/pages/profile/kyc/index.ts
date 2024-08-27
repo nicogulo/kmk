@@ -1,5 +1,4 @@
-// import { withAuthClient } from '@/hoc/withAuth';
-import { withNonAuthClient } from '@/hoc/withNonAuth';
+import { withAuthClient } from '@/hoc/withAuth';
 import Kyc from '@/modules/Profile/Kyc';
 
-export default withNonAuthClient(Kyc);
+export default withAuthClient(Kyc);

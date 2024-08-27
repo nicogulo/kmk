@@ -16,7 +16,6 @@ interface Profile {
     uid: string;
     email: string;
     full_name: string;
-    advance: number;
     basic: number;
     phone_number: string;
     phone_number_status: number;

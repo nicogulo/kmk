@@ -20,7 +20,6 @@ const Trading = () => {
         phoneNumber: '08123456789',
         dateOfBirth: new Date(),
         basic: 1,
-        advance: 2,
         phoneNumberUid: '123456'
     };
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;

@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Else, If, Then, When } from 'react-if';
+import { Else, If, Then } from 'react-if';
 
-import useProfile, { ProfileStatus } from '@/hooks/useProfile';
+import useProfile from '@/hooks/useProfile';
 import useUpload, { useGetDocuments } from '@/hooks/useUpload';
 
 import Button from '@/components/Button';
@@ -59,8 +59,6 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
     const { upload, loading } = useUpload();
     const { loading: loadingDoc, documents, getDocuments } = useGetDocuments();
     const { profile } = useProfile();
-
-    const isAdvanceKyc = profile?.basic === ProfileStatus.VERIFIED && profile?.advance === ProfileStatus.UNVERIFIED;
 
     const handleUpload = (e: any) => {
         const file = e.target.files[0];
@@ -207,16 +205,13 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
             newUploads.push({ file: selfieFile, type: 'selfie' });
         }
 
-        // Check if isAdvanceKyc is true, then handle npwp upload
-        if (isAdvanceKyc) {
-            // Assuming npwpPreview, npwpPreviewUrl, and npwpFile are defined similarly to ktp and selfie
-            if (!npwpPreviewUrl || npwpPreview !== npwpPreviewUrl) {
-                if (!npwpPreview) {
-                    toast.error('Silahkan unggah NPWP');
-                    return;
-                }
-                newUploads.push({ file: npwpFile, type: 'npwp' });
+        // Assuming npwpPreview, npwpPreviewUrl, and npwpFile are defined similarly to ktp and selfie
+        if (!npwpPreviewUrl || npwpPreview !== npwpPreviewUrl) {
+            if (!npwpPreview) {
+                toast.error('Silahkan unggah NPWP');
+                return;
             }
+            newUploads.push({ file: npwpFile, type: 'npwp' });
         }
 
         if (newUploads.length === 0) {
@@ -248,10 +243,9 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                         setSelfiePreviewUrl(url);
                         break;
                     case 'npwp':
-                        if (isAdvanceKyc) {
-                            toast.success('Unggah NPWP berhasil');
-                            setNpwpPreviewUrl(url);
-                        }
+                        toast.success('Unggah NPWP berhasil');
+                        setNpwpPreviewUrl(url);
+
                         break;
                     default:
                         allUploadsSuccessful = false;
@@ -269,24 +263,20 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
     };
 
     useEffect(() => {
-        if (isAdvanceKyc) {
-            getDocuments('ktp');
-            getDocuments('selfie');
-        }
+        getDocuments('ktp');
+        getDocuments('selfie');
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAdvanceKyc]);
+    }, []);
 
     useEffect(() => {
-        if (isAdvanceKyc) {
-            if (documents?.type === 'ktp') {
-                setKtpPreviewUrl(documents?.url as string);
-                setKtpPreview(documents?.url as string);
-            }
-            if (documents?.type === 'selfie') {
-                setSelfiePreviewUrl(documents?.url as string);
-                setSelfiePreview(documents?.url as string);
-            }
+        if (documents?.type === 'ktp') {
+            setKtpPreviewUrl(documents?.url as string);
+            setKtpPreview(documents?.url as string);
+        }
+        if (documents?.type === 'selfie') {
+            setSelfiePreviewUrl(documents?.url as string);
+            setSelfiePreview(documents?.url as string);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -328,86 +318,43 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                 </div>
                             </Then>
                             <Else>
-                                <If condition={isAdvanceKyc}>
-                                    <Then>
-                                        {ktpPreviewUrl || ktpPreview ? (
-                                            <div className='mt-4 flex flex-row gap-4'>
-                                                <div className='w-full'>
-                                                    <Image
-                                                        src={ktpPreviewUrl || ktpPreview}
-                                                        alt='Preview KTP'
-                                                        width={216}
-                                                        height={164}
-                                                        unoptimized
+                                {ktpPreviewUrl || ktpPreview ? (
+                                    <div className='mt-4 flex flex-row gap-4'>
+                                        <div className='w-full'>
+                                            <Image
+                                                src={ktpPreviewUrl || ktpPreview}
+                                                alt='Preview KTP'
+                                                width={216}
+                                                height={164}
+                                                unoptimized
+                                            />
+                                        </div>
+                                        <div className='flex w-full flex-col items-center gap-2'>
+                                            <label className='w-full cursor-pointer'>
+                                                <div className='text-center'>
+                                                    <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
+                                                        Ubah
+                                                    </div>
+                                                    <input
+                                                        type='file'
+                                                        className='hidden'
+                                                        onChange={(e: any) => handleChangeFileUpload(e)}
                                                     />
                                                 </div>
-                                                <div className='flex w-full flex-col items-center gap-2'>
-                                                    <label className='w-full cursor-pointer'>
-                                                        <div className='text-center'>
-                                                            <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
-                                                                Ubah
-                                                            </div>
-                                                            <input
-                                                                type='file'
-                                                                className='hidden'
-                                                                onChange={(e: any) => handleChangeFileUpload(e)}
-                                                            />
-                                                        </div>
-                                                    </label>
-                                                    <Button
-                                                        variant='grayOutline'
-                                                        block
-                                                        className='!gap-1 !border-none !text-[#DB2430]'
-                                                        onClick={handleRemoveFile}
-                                                    >
-                                                        <Icons icon='Trash' width={16} height={16} /> Hapus
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <RenderUploadDocumentKtp handleUpload={handleUpload} />
-                                        )}
-                                    </Then>
-                                    <Else>
-                                        {ktpPreview ? (
-                                            <div className='mt-4 flex flex-row gap-4'>
-                                                <div className='w-full'>
-                                                    <Image
-                                                        src={ktpPreview}
-                                                        alt='Preview KTP'
-                                                        width={216}
-                                                        height={164}
-                                                        unoptimized
-                                                    />
-                                                </div>
-                                                <div className='flex w-full flex-col items-center gap-2'>
-                                                    <label className='w-full cursor-pointer'>
-                                                        <div className='text-center'>
-                                                            <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
-                                                                Ubah
-                                                            </div>
-                                                            <input
-                                                                type='file'
-                                                                className='hidden'
-                                                                onChange={(e: any) => handleChangeFileUpload(e)}
-                                                            />
-                                                        </div>
-                                                    </label>
-                                                    <Button
-                                                        variant='grayOutline'
-                                                        block
-                                                        className='!gap-1 !border-none !text-[#DB2430]'
-                                                        onClick={handleRemoveFile}
-                                                    >
-                                                        <Icons icon='Trash' width={16} height={16} /> Hapus
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <RenderUploadDocumentKtp handleUpload={handleUpload} />
-                                        )}
-                                    </Else>
-                                </If>
+                                            </label>
+                                            <Button
+                                                variant='grayOutline'
+                                                block
+                                                className='!gap-1 !border-none !text-[#DB2430]'
+                                                onClick={handleRemoveFile}
+                                            >
+                                                <Icons icon='Trash' width={16} height={16} /> Hapus
+                                            </Button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <RenderUploadDocumentKtp handleUpload={handleUpload} />
+                                )}
                             </Else>
                         </If>
                     </div>
@@ -441,213 +388,151 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                             </div>
                         </Then>
                         <Else>
-                            <If condition={isAdvanceKyc}>
-                                <Then>
-                                    {selfiePreviewUrl || selfiePreview ? (
-                                        <div className='mt-4 flex flex-row gap-4'>
-                                            <div className='w-full'>
-                                                <Image
-                                                    src={selfiePreviewUrl || selfiePreview}
-                                                    alt='Selfie Preview'
-                                                    width={216}
-                                                    height={164}
-                                                    unoptimized
+                            {selfiePreviewUrl || selfiePreview ? (
+                                <div className='mt-4 flex flex-row gap-4'>
+                                    <div className='w-full'>
+                                        <Image
+                                            src={selfiePreviewUrl || selfiePreview}
+                                            alt='Selfie Preview'
+                                            width={216}
+                                            height={164}
+                                            unoptimized
+                                        />
+                                    </div>
+                                    <div className='flex w-full flex-col items-center gap-2'>
+                                        <label className='w-full cursor-pointer'>
+                                            <div className='text-center'>
+                                                <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
+                                                    Ubah
+                                                </div>
+                                                <input
+                                                    type='file'
+                                                    className='hidden'
+                                                    onChange={(e: any) => handleChangeSelfieUpload(e)}
                                                 />
                                             </div>
-                                            <div className='flex w-full flex-col items-center gap-2'>
-                                                <label className='w-full cursor-pointer'>
-                                                    <div className='text-center'>
-                                                        <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
-                                                            Ubah
-                                                        </div>
-                                                        <input
-                                                            type='file'
-                                                            className='hidden'
-                                                            onChange={(e: any) => handleChangeSelfieUpload(e)}
-                                                        />
-                                                    </div>
-                                                </label>
-                                                <Button
-                                                    variant='grayOutline'
-                                                    block
-                                                    className='!gap-1 !border-none !text-[#DB2430]'
-                                                    onClick={handleRemoveSelfie}
-                                                >
-                                                    <Icons icon='Trash' width={16} height={16} /> Hapus
-                                                </Button>
-                                            </div>
+                                        </label>
+                                        <Button
+                                            variant='grayOutline'
+                                            block
+                                            className='!gap-1 !border-none !text-[#DB2430]'
+                                            onClick={handleRemoveSelfie}
+                                        >
+                                            <Icons icon='Trash' width={16} height={16} /> Hapus
+                                        </Button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className='w-full pt-2'>
+                                    <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
+                                        <div className='text-center'>
+                                            <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
+                                            <p className='text-primary-300 text-sm font-bold'>
+                                                Upload Selfie Holding KTP
+                                            </p>
+                                            <p className='text-xs font-normal text-[#525D66]'>
+                                                Klik untuk mengunggah atau seret dan lepas <br />
+                                                PNG, JPG or PDF (max. 5 MB)
+                                            </p>
+                                            <input
+                                                key={fileInputKey}
+                                                type='file'
+                                                className='hidden'
+                                                onChange={handleSelfieUpload}
+                                            />
                                         </div>
-                                    ) : (
-                                        <div className='w-full pt-2'>
-                                            <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
-                                                <div className='text-center'>
-                                                    <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
-                                                    <p className='text-primary-300 text-sm font-bold'>
-                                                        Upload Selfie Holding KTP
-                                                    </p>
-                                                    <p className='text-xs font-normal text-[#525D66]'>
-                                                        Klik untuk mengunggah atau seret dan lepas <br />
-                                                        PNG, JPG or PDF (max. 5 MB)
-                                                    </p>
-                                                    <input
-                                                        key={fileInputKey}
-                                                        type='file'
-                                                        className='hidden'
-                                                        onChange={handleSelfieUpload}
-                                                    />
-                                                </div>
-                                            </label>
-                                        </div>
-                                    )}
-                                </Then>
-                                <Else>
-                                    {selfiePreview ? (
-                                        <div className='mt-4 flex flex-row gap-4'>
-                                            <div className='w-full'>
-                                                <Image
-                                                    src={selfiePreview}
-                                                    alt='Selfie Preview'
-                                                    width={216}
-                                                    height={164}
-                                                    unoptimized
-                                                />
-                                            </div>
-                                            <div className='flex w-full flex-col items-center gap-2'>
-                                                <label className='w-full cursor-pointer'>
-                                                    <div className='text-center'>
-                                                        <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
-                                                            Ubah
-                                                        </div>
-                                                        <input
-                                                            type='file'
-                                                            className='hidden'
-                                                            onChange={(e: any) => handleChangeSelfieUpload(e)}
-                                                        />
-                                                    </div>
-                                                </label>
-                                                <Button
-                                                    variant='grayOutline'
-                                                    block
-                                                    className='!gap-1 !border-none !text-[#DB2430]'
-                                                    onClick={handleRemoveSelfie}
-                                                >
-                                                    <Icons icon='Trash' width={16} height={16} /> Hapus
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className='w-full pt-2'>
-                                            <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
-                                                <div className='text-center'>
-                                                    <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
-                                                    <p className='text-primary-300 text-sm font-bold'>
-                                                        Unggah Selfie Memegang KTP
-                                                    </p>
-                                                    <p className='text-xs font-normal text-[#525D66]'>
-                                                        Klik untuk mengunggah atau seret dan lepas <br />
-                                                        PNG, JPG or PDF (max. 5 MB)
-                                                    </p>
-                                                    <input
-                                                        key={fileInputKey}
-                                                        type='file'
-                                                        className='hidden'
-                                                        onChange={handleSelfieUpload}
-                                                    />
-                                                </div>
-                                            </label>
-                                        </div>
-                                    )}
-                                </Else>
-                            </If>
+                                    </label>
+                                </div>
+                            )}
                         </Else>
                     </If>
                 </div>
                 {/* NPWP SECTION */}
-                <When condition={isAdvanceKyc}>
-                    <div className='flex flex-col gap-4'>
-                        <p className='text-sm font-bold text-[#121416]'>Unggah NPWP</p>
-                        <div className='flex flex-col gap-2'>
-                            <div className='flex flex-row justify-center gap-10'>
-                                <Image src={CorrectNpwp} alt='Correct NPWP' width={212} height={132} unoptimized />
 
-                                <Image src={WrongNpwp} alt='Wrong NPWP' width={212} height={132} unoptimized />
-                            </div>
-                            <div className='flex flex-col gap-2 rounded-lg bg-[#F2F6FA] p-4'>
-                                <p className='text-xs font-normal uppercase text-[#758089]'>
-                                    Panduan Foto NPWP (Nomor Pokok Wajib Pajak)
-                                </p>
-                                <ul className='ml-6 list-disc text-sm font-normal text-[#525D66]'>
-                                    <li>Unggah foto NPWP Anda yang masih berlaku.</li>
-                                    <li>Foto NPWP harus jelas, tidak buram, dan tidak memantulkan cahaya.</li>
-                                    <li>Foto NPWP harus berada dalam bingkai yang disediakan.</li>
-                                </ul>
-                            </div>
+                <div className='flex flex-col gap-4'>
+                    <p className='text-sm font-bold text-[#121416]'>Unggah NPWP</p>
+                    <div className='flex flex-col gap-2'>
+                        <div className='flex flex-row justify-center gap-10'>
+                            <Image src={CorrectNpwp} alt='Correct NPWP' width={212} height={132} unoptimized />
+
+                            <Image src={WrongNpwp} alt='Wrong NPWP' width={212} height={132} unoptimized />
                         </div>
-                        <If condition={loadingDoc}>
-                            <Then>
-                                <div className='flex h-40 items-center justify-center'>
-                                    <Loader type='Oval' />
-                                </div>
-                            </Then>
-                            <Else>
-                                {npwpPreview ? (
-                                    <div className='mt-4 flex flex-row gap-4'>
-                                        <div className='w-full'>
-                                            <Image
-                                                src={npwpPreview}
-                                                alt='Selfie Preview'
-                                                width={216}
-                                                height={164}
-                                                unoptimized
-                                            />
-                                        </div>
-                                        <div className='flex w-full flex-col items-center gap-2'>
-                                            <label className='w-full cursor-pointer'>
-                                                <div className='text-center'>
-                                                    <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
-                                                        Ubah
-                                                    </div>
-                                                    <input
-                                                        type='file'
-                                                        className='hidden'
-                                                        onChange={(e: any) => handleChangeNpwpUpload(e)}
-                                                    />
-                                                </div>
-                                            </label>
-                                            <Button
-                                                variant='grayOutline'
-                                                block
-                                                className='!gap-1 !border-none !text-[#DB2430]'
-                                                onClick={handleRemoveNpwp}
-                                            >
-                                                <Icons icon='Trash' width={16} height={16} /> Hapus
-                                            </Button>
-                                        </div>
+                        <div className='flex flex-col gap-2 rounded-lg bg-[#F2F6FA] p-4'>
+                            <p className='text-xs font-normal uppercase text-[#758089]'>
+                                Panduan Foto NPWP (Nomor Pokok Wajib Pajak)
+                            </p>
+                            <ul className='ml-6 list-disc text-sm font-normal text-[#525D66]'>
+                                <li>Unggah foto NPWP Anda yang masih berlaku.</li>
+                                <li>Foto NPWP harus jelas, tidak buram, dan tidak memantulkan cahaya.</li>
+                                <li>Foto NPWP harus berada dalam bingkai yang disediakan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <If condition={loadingDoc}>
+                        <Then>
+                            <div className='flex h-40 items-center justify-center'>
+                                <Loader type='Oval' />
+                            </div>
+                        </Then>
+                        <Else>
+                            {npwpPreview ? (
+                                <div className='mt-4 flex flex-row gap-4'>
+                                    <div className='w-full'>
+                                        <Image
+                                            src={npwpPreview}
+                                            alt='Selfie Preview'
+                                            width={216}
+                                            height={164}
+                                            unoptimized
+                                        />
                                     </div>
-                                ) : (
-                                    <div className='w-full pt-2'>
-                                        <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
+                                    <div className='flex w-full flex-col items-center gap-2'>
+                                        <label className='w-full cursor-pointer'>
                                             <div className='text-center'>
-                                                <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
-                                                <p className='text-primary-300 text-sm font-bold'>Unggah NPWP</p>
-                                                <p className='text-xs font-normal text-[#525D66]'>
-                                                    Klik untuk mengunggah atau seret dan lepas <br />
-                                                    PNG, JPG or PDF (max. 5 MB)
-                                                </p>
+                                                <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
+                                                    Ubah
+                                                </div>
                                                 <input
-                                                    key={fileInputKey}
                                                     type='file'
                                                     className='hidden'
-                                                    onChange={handleUploadNpwp}
+                                                    onChange={(e: any) => handleChangeNpwpUpload(e)}
                                                 />
                                             </div>
                                         </label>
+                                        <Button
+                                            variant='grayOutline'
+                                            block
+                                            className='!gap-1 !border-none !text-[#DB2430]'
+                                            onClick={handleRemoveNpwp}
+                                        >
+                                            <Icons icon='Trash' width={16} height={16} /> Hapus
+                                        </Button>
                                     </div>
-                                )}
-                            </Else>
-                        </If>
-                    </div>
-                </When>
+                                </div>
+                            ) : (
+                                <div className='w-full pt-2'>
+                                    <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
+                                        <div className='text-center'>
+                                            <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
+                                            <p className='text-primary-300 text-sm font-bold'>Unggah NPWP</p>
+                                            <p className='text-xs font-normal text-[#525D66]'>
+                                                Klik untuk mengunggah atau seret dan lepas <br />
+                                                PNG, JPG or PDF (max. 5 MB)
+                                            </p>
+                                            <input
+                                                key={fileInputKey}
+                                                type='file'
+                                                className='hidden'
+                                                onChange={handleUploadNpwp}
+                                            />
+                                        </div>
+                                    </label>
+                                </div>
+                            )}
+                        </Else>
+                    </If>
+                </div>
+
                 <div className='flex w-full flex-row justify-end gap-4 '>
                     <Button
                         className='w-[120px]'

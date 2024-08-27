@@ -105,7 +105,6 @@ const Markets = () => {
 
     const generateRandomPrice = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1)) + min;
 
-    // Arrow function untuk menghasilkan data chart
     const generateChartData = (
         startTimestamp: number,
         btcPrice: number,
@@ -125,7 +124,6 @@ const Markets = () => {
         return chartData;
     };
 
-    // Contoh penggunaan
     const startTimestamp = 1724429100; // Timestamp awal dari array Anda
     const btcPrice = 958680000; // Harga BTC awal
     const dataPoints = 20; // Jumlah data points yang ingin dihasilkan

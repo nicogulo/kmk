@@ -23,7 +23,7 @@ interface Profile {
     phone_number_uid: string;
     live_number: string;
 }
-interface ProfileModel {
+export interface ProfileModel {
     userId: string;
     fullName: string;
     email: string;
@@ -32,8 +32,6 @@ interface ProfileModel {
     phoneStatus: number;
     phoneNumberUid: string;
     dateOfBirth: string;
-    advance: number;
-    liveNumber: string;
     basic: number;
 }
 
@@ -49,11 +47,9 @@ const useProfile = () => {
         country: '',
         phoneNumber: profileData.phone_number,
         dateOfBirth: '',
-        advance: profileData.advance,
         basic: profileData.basic,
         phoneStatus: profileData.phone_number_status,
-        phoneNumberUid: profileData.phone_number_uid,
-        liveNumber: profileData.live_number
+        phoneNumberUid: profileData.phone_number_uid
     });
 
     const fetchProfile = async () => {

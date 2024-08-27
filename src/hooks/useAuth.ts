@@ -11,8 +11,8 @@ const useAuth = () => {
     return {
         auth: {
             isLoggedIn,
-            token: token ?? undefined,
-            hash: hash ?? undefined
+            token: token ?? 'token',
+            hash: hash ?? 'hash'
         }
     };
 };

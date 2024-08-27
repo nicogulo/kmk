@@ -5,20 +5,21 @@ import { When } from 'react-if';
 import { useMediaQuery } from 'react-responsive';
 
 import classNames from '@/lib/classnames';
-import { ProfileStatus } from '@/hooks/useProfile';
+import useAuth from '@/hooks/useAuth';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons, { IconsProps } from '@/components/Icon';
-import Illustration from '@/components/Illustrations';
 import ButtonLink from '@/components/links/ButtonLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
-import Modal from '@/components/Modal';
+import ModalTrade from '@/components/Modal/ModalTrade';
 
 const Header = () => {
     const router = useRouter();
     const isMobile = useMediaQuery({ maxWidth: 1279 });
-    const isLoggin = true;
+    const {
+        auth: { isLoggedIn }
+    } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -27,20 +28,6 @@ const Header = () => {
     const isWallet = router.pathname === '/wallet';
     const isTrading = router.pathname === '/trading';
     const isMarket = router.pathname === '/markets';
-
-    const profile = {
-        userId: '123456',
-        fullName: 'John Doe',
-        email: 'john@gmail.com',
-        country: 'Indonesia',
-        phoneNumber: '08123456789',
-        dateOfBirth: new Date(),
-        basic: 1,
-        advance: 2,
-        phoneNumberUid: '123456'
-    };
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
-    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.basic;
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -73,7 +60,7 @@ const Header = () => {
                                         : 'hidden'
                                 } lg:flex`}
                             >
-                                <When condition={isLoggin}>
+                                <When condition={isLoggedIn}>
                                     <UnstyledLink
                                         href='/markets'
                                         className={classNames('flex flex-row items-center gap-1', {
@@ -112,7 +99,7 @@ const Header = () => {
                                         </UnstyledLink>
                                     </When>
                                 </When>
-                                {isLoggin && !isMobile ? (
+                                {isLoggedIn && !isMobile ? (
                                     <Menu as='div' className='relative inline-block text-left'>
                                         <div>
                                             <MenuButton
@@ -163,7 +150,7 @@ const Header = () => {
                                         </When>
                                     </>
                                 )}
-                                <When condition={isMobile && !isLoggin}>
+                                <When condition={isMobile && !isLoggedIn}>
                                     <div className='absolute bottom-1/2 flex w-[calc(100vw-40px)] flex-col justify-between gap-3'>
                                         <UnstyledLink href='/login' className='w-full'>
                                             <Button variant='primaryOutline' block>
@@ -177,7 +164,7 @@ const Header = () => {
                                         </UnstyledLink>
                                     </div>
                                 </When>
-                                <When condition={isMobile && isLoggin}>
+                                <When condition={isMobile && isLoggedIn}>
                                     <div className='absolute bottom-14 !mr-5 flex w-[calc(100vw-40px)] flex-row justify-between gap-3'>
                                         <Button variant='grayOutline' block>
                                             Logout
@@ -189,58 +176,7 @@ const Header = () => {
                     </nav>
                 </Container>
             </header>
-
-            <Modal
-                title={
-                    <>
-                        <When condition={isUnverifiedBasic}>
-                            <Illustration name='Notfound' />
-                        </When>
-                        <When condition={isVerifiedBasic}>
-                            <Illustration name='Bell' />
-                        </When>
-                    </>
-                }
-                open={isOpen}
-                onClose={handleClose}
-                closePosition='right'
-                headerClassName='!items-start'
-                footer={
-                    <>
-                        <When condition={isUnverifiedBasic}>
-                            <div className='flex flex-col gap-3'>
-                                <Button block onClick={() => router.push(`/profile/kyc`)}>
-                                    Verify Now
-                                </Button>
-                            </div>
-                        </When>
-                        <When condition={isVerifiedBasic}>
-                            <div className='flex flex-row gap-3'>
-                                <Button block onClick={handleClose} variant='grayOutline'>
-                                    Cancel
-                                </Button>
-                                <Button block onClick={() => router.push(`/profile/kyc`)}>
-                                    Proced
-                                </Button>
-                            </div>
-                        </When>
-                    </>
-                }
-            >
-                <div className='flex flex-col gap-2'>
-                    <When condition={isUnverifiedBasic}>
-                        <p className='h4 text-gray-800'>Complete Identity Verification</p>
-                        <p className='xs text-[#637381]'>You must complete identity verification to start trading</p>
-                    </When>
-                    <When condition={isVerifiedBasic}>
-                        <p className='h4 text-gray-800'>Open Trading Page</p>
-                        <p className='xs text-[#637381]'>
-                            You're about to be redirected to the trading page, which will open in a new tab. Do you want
-                            to proceed?
-                        </p>
-                    </When>
-                </div>
-            </Modal>
+            <ModalTrade isOpen={isOpen} handleClose={handleClose} />
         </>
     );
 };

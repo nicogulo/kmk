@@ -6,6 +6,7 @@ import { Case, Default, Switch, When } from 'react-if';
 import OtpInput from 'react-otp-input';
 
 import useVerifyPhoneNumber from '@/hooks/usePhoneNumber';
+import useProfile from '@/hooks/useProfile';
 
 import Alert from '@/components/Alert';
 import Badge from '@/components/Badge';
@@ -35,21 +36,21 @@ const Profile = () => {
     const [loadingSubmitPhone, setLoadingSubmitPhone] = useState<boolean>(false);
     const [form] = useForm();
     const { verifyPhoneNumber } = useVerifyPhoneNumber();
+    const { loading, fetchProfile } = useProfile();
 
-    const loading = false;
     const profile = {
         userId: '123456',
         fullName: 'John Doe',
         email: 'john@gmail.com',
         country: 'Indonesia',
         phoneNumber: '08123456789',
+        phoneStatus: 2,
         dateOfBirth: new Date(),
         basic: 2,
-        advance: 2,
         phoneNumberUid: '123456'
     };
 
-    const isPhoneVerify = true;
+    const isPhoneVerify = profile?.phoneStatus === 1;
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
 
     const verifyPhone = async () => {
@@ -63,7 +64,7 @@ const Profile = () => {
 
             if (res.message === 'success') {
                 toast.success('Phone number verified successfully');
-                // fetchProfile();
+                fetchProfile();
             }
         } catch (error) {
             toast.error('Failed to verify phone number');

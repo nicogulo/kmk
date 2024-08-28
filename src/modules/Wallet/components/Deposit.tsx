@@ -33,7 +33,7 @@ const Deposit = () => {
     const listVirtualAccount = [
         {
             bank: 'Bank Mandiri',
-            accountNumber: '0987654321',
+            accountNumber: '1076679565442',
             accountName: 'Mandiri Virtual Account',
             idBank: 1,
             image: <Mandiri width={34} height={20} />,
@@ -70,7 +70,7 @@ const Deposit = () => {
         },
         {
             bank: 'Bank BRI',
-            accountNumber: '1234567890',
+            accountNumber: '1076679565442',
             accountName: 'Briva BRI',
             idBank: 2,
             image: <Bri width={34} height={20} />,
@@ -115,7 +115,7 @@ const Deposit = () => {
         },
         {
             bank: 'Bank BCA',
-            accountNumber: '0987654321',
+            accountNumber: '1076679565442',
             accountName: 'BCA Virtual Account',
             idBank: 3,
             image: <Bca width={34} height={20} />,
@@ -139,8 +139,8 @@ const Deposit = () => {
                             id: '<p>Click <strong>Bank</strong>,<strong> </strong>choose <strong>Bank Tujuan</strong></p>'
                         },
                         {
-                            en: '<p>Klik <strong>Ke Rekening Tujuan</strong>,<strong> </strong>pilih nomor rekening atas nama <strong>REKU</strong></p>',
-                            id: '<p>Click <strong>Ke Rekening Tujuan</strong>,<strong> </strong>choose the account number on behalf of of <strong>REKU</strong></p>'
+                            en: '<p>Klik <strong>Ke Rekening Tujuan</strong>,<strong> </strong>pilih nomor rekening atas nama <strong>Binaloka</strong></p>',
+                            id: '<p>Click <strong>Ke Rekening Tujuan</strong>,<strong> </strong>choose the account number on behalf of of <strong>Binaloka</strong></p>'
                         },
                         {
                             en: '<p>Pada <strong>Jumlah Uang</strong>, masukkan jumlah transfer</p>',
@@ -156,7 +156,7 @@ const Deposit = () => {
         },
         {
             bank: 'Bank Permata',
-            accountNumber: '1234567890',
+            accountNumber: '1076679565442',
             accountName: 'Permata Virtual Account',
             idBank: 4,
             image: <Permata width={34} height={20} />,
@@ -193,7 +193,7 @@ const Deposit = () => {
         },
         {
             bank: 'Bank Lainnya',
-            accountNumber: '1234567890',
+            accountNumber: '1076679565442',
             accountName: 'Virtual Account',
             idBank: 5,
             image: <OtherBank width={34} height={20} />,

@@ -6,7 +6,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { useMemo } from 'react';
 
 interface Options {
-    data: number[][];
+    data?: number[];
     colorLine?: string;
 }
 const getOptions = (opt: Options): Highcharts.Options => {
@@ -14,7 +14,7 @@ const getOptions = (opt: Options): Highcharts.Options => {
         chart: {
             type: 'line',
             height: 56,
-
+            width: 90,
             marginLeft: 0,
             spacingRight: 0,
             backgroundColor: 'transparent',
@@ -48,7 +48,10 @@ const getOptions = (opt: Options): Highcharts.Options => {
         },
         series: [
             {
-                data: opt?.data?.map((d) => [(d[0] ?? 0) * 1000, d[2]]),
+                // data: opt?.data?.map((d) => [(d[0] ?? 0) * 1000, d[2]]),
+                data: opt?.data?.map((d) => ({
+                    y: d
+                })),
                 type: 'line',
                 label: {
                     enabled: false
@@ -80,14 +83,14 @@ const getOptions = (opt: Options): Highcharts.Options => {
 };
 
 interface Props {
-    data: number[][];
+    data?: number[];
     colorLine?: string;
 }
 
 const LineChart = ({ data, colorLine }: Props) => {
     const id = useMemo(() => Math.random().toString(36).substring(7), []);
 
-    const options = useMemo(() => getOptions({ colorLine, data }), [data, id]);
+    const options = useMemo(() => getOptions({ colorLine, data }), [colorLine, data]);
     return (
         <div className='flex flex-col gap-3' id={`chart-${id}`}>
             <HighchartsReact highcharts={Highcharts} options={options} />

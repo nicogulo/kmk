@@ -385,7 +385,7 @@ const Deposit: React.FC<Props> = ({ profile }: Props) => {
             title: 'REQUEST DATE',
             dataIndex: 'requestDate',
             headClassName: '!xs',
-            render: (data) => <p className='p text-gray-800'>{formatDate(data, 'DD MMM YYYY, HH:mm')}</p>
+            render: (data) => <p className='p text-gray-800'>{formatDate(data, 'DD MMMM YYYY, HH:mm')}</p>
         },
         {
             title: 'AMOUNT',

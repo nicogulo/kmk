@@ -22,7 +22,7 @@ const Markets = () => {
         },
         {
             name: 'Ethereum',
-            symbol: 'USDT',
+            symbol: 'ETH',
             price: 41137868,
             market_cap: 4.9173 * 1e12, // 4.917,3T -> 4.9173 * 1e12
             volume_24h: 1.79 * 1e9, // 1.79B -> 1.79 * 1e9
@@ -129,7 +129,29 @@ const Markets = () => {
     const dataPoints = 20; // Jumlah data points yang ingin dihasilkan
     const priceFluctuation = 123312; // Besar fluktuasi harga BTC
 
-    const chartData = generateChartData(startTimestamp, btcPrice, dataPoints, priceFluctuation);
+    // const chartData = generateChartData(startTimestamp, btcPrice, dataPoints, priceFluctuation);
+    const chartData: number[] = [
+        0, 3, 8, 22, 27, 47, 52, 56, 57, 57, 80, 100, 97, 94, 82, 77, 77, 60, 55, 50, 30, 26, 25, 11
+    ].sort();
+
+    const dummy = {
+        data: [
+            {
+                Symbol: 'BTC-USD',
+                Volume: '2.35700',
+                Open: '49079.301875',
+                Close: '43120.18472',
+                Values: [100, 98, 95, 94, 94, 91, 91, 87, 87, 85, 79, 70, 62, 61, 61, 60, 59, 58, 56, 46, 45, 31, 13, 0]
+            },
+            {
+                Symbol: 'ETH-USD',
+                Volume: '43.12703',
+                Open: '2835.12185',
+                Close: '3074.23527',
+                Values: [0, 3, 8, 22, 27, 47, 52, 56, 57, 57, 80, 100, 97, 94, 82, 77, 77, 60, 55, 50, 30, 26, 25, 11]
+            }
+        ]
+    };
 
     const columns: TableColumn[] = [
         {
@@ -195,8 +217,10 @@ const Markets = () => {
             dataIndex: 'chart',
             width: 120,
             render: (_, value) => {
+                const chart = dummy.data.find((d) => d.Symbol === `${value.symbol}-USD`)?.Values;
+
                 const colorLine = value.change_24h > 0 ? '#54D62C' : '#FF4842';
-                return <LineChart data={chartData} colorLine={colorLine} />;
+                return <LineChart data={chart} colorLine={colorLine} />;
             }
         }
     ];

@@ -7,6 +7,7 @@ import Tabs, { Tab } from '@/components/Tabs';
 
 import BalanceInformation from './components/BalanceInformation';
 import HistoryDeposit from './components/HistoryDeposit';
+import HistoryWithdraw from './components/HistoryWithdraw';
 
 const Wallet = () => {
     const [tab, setTab] = useState('deposit');
@@ -71,8 +72,7 @@ const Wallet = () => {
                                     <HistoryDeposit profile={profile} />
                                 </When>
                                 <When condition={tab === 'withdraw'}>
-                                    {/* <HistoryWithdraw /> */}
-                                    wd
+                                    <HistoryWithdraw profile={profile} />
                                 </When>
                             </div>
                         </div>

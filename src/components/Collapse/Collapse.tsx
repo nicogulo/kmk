@@ -31,10 +31,10 @@ const Collapse = ({ title, defaultExpanded, className, children }: CollapseProps
             >
                 <span className='py-2 text-sm font-bold text-[#18181E] xl:text-[16px] xl:leading-6'>{title}</span>
                 <Icons
-                    icon='ArrowDownFilled'
-                    width={10}
-                    height={7}
-                    className='transform transition-transform duration-300'
+                    icon='ChevronDown'
+                    width={24}
+                    height={24}
+                    className='transform text-gray-500 transition-transform duration-300'
                     style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
                 />
             </div>

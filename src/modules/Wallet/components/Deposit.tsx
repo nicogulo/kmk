@@ -273,8 +273,8 @@ const Deposit = () => {
                                         {listVirtualAccount.find((item) => item.idBank === selectBank)?.image}
                                         <span className='h4 font-semibold text-gray-800'>{accountNumber}</span>
                                     </div>
-                                    <Button size='sm'>
-                                        <Icons onClick={() => copy(accountName || '')} icon='Copy' /> Copy
+                                    <Button size='sm' onClick={() => copy(accountNumber || '')}>
+                                        <Icons icon='Copy' /> Copy
                                     </Button>
                                 </div>
                             </div>

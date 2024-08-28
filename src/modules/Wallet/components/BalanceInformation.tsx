@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
@@ -22,7 +23,7 @@ interface Props {
 
 const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
     const [openModal, setOpenModal] = useState(false);
-
+    const router = useRouter();
     const { total, available, open, pending } = balance;
 
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
@@ -53,6 +54,9 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
                             onClick={() => {
                                 if (isUnverifiedBasic) {
                                     setOpenModal(true);
+                                }
+                                if (isVerifiedBasic) {
+                                    router.push('/wallet/deposit');
                                 }
                             }}
                         >

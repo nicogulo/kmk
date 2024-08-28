@@ -21,7 +21,7 @@ const Wallet = () => {
         phoneStatus: 1,
         phoneNumberUid: '123456',
         dateOfBirth: new Date().toDateString(),
-        basic: 2
+        basic: 1
     };
 
     const balance = {

@@ -3,18 +3,24 @@
 // import dynamic from 'next/dynamic';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 interface Options {
     data?: number[];
     colorLine?: string;
+    width?: number | null;
 }
 const getOptions = (opt: Options): Highcharts.Options => {
+    // const newData = opt.data
+    //     ? opt.data.map((d) => ({
+    //           y: d
+    //       }))
+    //     : Array(24).fill({ y: 0 });
     return {
         chart: {
             type: 'line',
             height: 56,
-            width: 90,
+            width: opt.width,
             marginLeft: 0,
             spacingRight: 0,
             backgroundColor: 'transparent',
@@ -48,7 +54,6 @@ const getOptions = (opt: Options): Highcharts.Options => {
         },
         series: [
             {
-                // data: opt?.data?.map((d) => [(d[0] ?? 0) * 1000, d[2]]),
                 data: opt?.data?.map((d) => ({
                     y: d
                 })),
@@ -88,11 +93,29 @@ interface Props {
 }
 
 const LineChart = ({ data, colorLine }: Props) => {
+    const [width, setWidth] = useState<number | null>();
+    const wrapperRef = useRef() as React.MutableRefObject<HTMLDivElement>;
     const id = useMemo(() => Math.random().toString(36).substring(7), []);
 
-    const options = useMemo(() => getOptions({ colorLine, data }), [colorLine, data]);
+    const options = useMemo(() => getOptions({ colorLine, data, width }), [colorLine, data, width]);
+
+    const handleResize = () => {
+        const newWidth = wrapperRef.current.offsetWidth || 0;
+        setWidth(newWidth);
+    };
+
+    useEffect(() => {
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
-        <div className='flex flex-col gap-3' id={`chart-${id}`}>
+        <div ref={wrapperRef} className='flex flex-col gap-3' id={`chart-${id}`}>
             <HighchartsReact highcharts={Highcharts} options={options} />
         </div>
     );

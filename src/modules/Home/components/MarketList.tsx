@@ -1,27 +1,13 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import React, { useState } from 'react';
-
-import useProfile, { ProfileStatus } from '@/hooks/useProfile';
-
 import ChangePercentageText from '@/components/ChangePercentageText';
 import Container from '@/components/Container';
-import List from '@/components/List';
-import ModalTrade from '@/components/Modal/ModalTrade';
-import ModalUnverified from '@/components/Modal/ModalUnverified';
-import Table, { TableColumn } from '@/components/Table/Table';
-
+import Table from '@/components/Table';
+import { TableColumn } from '@/components/Table/Table';
 import LineChart from '@/modules/Markets/components/LineChart';
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
+import Image from 'next/image';
+import React from 'react';
 
-const Markets = () => {
-    const [openUnverif, setOpenUnverif] = useState(false);
-    const [openTrade, setOpenTrade] = useState(false);
-    const { profile } = useProfile();
-
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
-    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.basic;
-
+const MarketList = () => {
     const data = [
         {
             name: 'Bitcoin',
@@ -138,7 +124,7 @@ const Markets = () => {
         {
             title: 'Name',
             dataIndex: 'name',
-            width: 240,
+            width: 100,
             render: (text, record) => {
                 const code = record.symbol.toLowerCase();
                 return (
@@ -162,7 +148,7 @@ const Markets = () => {
         {
             title: 'Price',
             dataIndex: 'price',
-            width: 160,
+            width: 80,
             align: 'right',
             render: (text) => (
                 <span className='text-xs font-semibold !leading-5 text-gray-800'>{formatRupiah(text as number)}</span>
@@ -171,7 +157,7 @@ const Markets = () => {
         {
             title: 'Market Cap',
             dataIndex: 'market_cap',
-            width: 120,
+            width: 60,
             align: 'right',
             render: (text) => (
                 <span className='text-xs font-semibold !leading-5 text-gray-800'>
@@ -179,99 +165,50 @@ const Markets = () => {
                 </span>
             )
         },
-        {
-            title: 'Volume 24h',
-            dataIndex: 'volume_24h',
-            width: 120,
-            align: 'right',
-            render: (text) => (
-                <span className='text-xs font-semibold !leading-5 text-gray-800'>
-                    {removeTrailingZero(formatAbbreviatedNumber(text as number, { format: '0.[00]a' }))}
-                </span>
-            )
-        },
+
         {
             title: '24h Change',
             dataIndex: 'change_24h',
-            width: 100,
             align: 'right',
+            width: 60,
             render: (text) => <ChangePercentageText value={text as number} prefix='icon' />
         },
         {
             title: 'Markets',
             dataIndex: 'chart',
-            width: 120,
+            width: 60,
             render: (_, value) => {
                 const chart = dummy.data.find((d) => d.Symbol === `${value.symbol}-USD`)?.Values;
 
-                const colorLine = value.change_24h > 0 ? '#54D62C' : value.change_24h < 0 ? '#FF4842' : '#C4CDD5';
+                const colorLine = value.change_24h > 0 ? '#54D62C' : '#FF4842';
                 return <LineChart data={chart} colorLine={colorLine} />;
             }
         }
     ];
 
     return (
-        <>
-            <Container className='flex flex-row gap-6 py-6'>
-                <Head>
-                    <title>Markets | Binaloka</title>
-                    <meta name='description' content='Login' />
-                    <link rel='icon' href='/logo.ico' />
-                </Head>
-                <div className='flex flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
-                    <div className='flex flex-col gap-2'>
-                        <h1 className='font-semibold text-gray-800'>Market Price</h1>
-                        <p className='text-[#637381]'>Trending crypto market price in Rupiah in the last 24 hours</p>
-                    </div>
-                    <div className='  flex items-center justify-center pt-4'>
-                        <Table
-                            data={data}
-                            columns={columns}
-                            onRow={(record) => ({
-                                onClick: () => {
-                                    console.log('====================================');
-                                    console.log('Trade', record.name);
-                                    console.log('====================================');
-                                }
-                            })}
-                        />
-                    </div>
-                </div>
-                <div className='flex h-full flex-col gap-3 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
-                    <span className='h4 font-semibold text-gray-800'>Top Movers</span>
-                    <div className='flex flex-col'>
-                        {data.map((item, index) => {
-                            const { symbol, name, change_24h, price } = item;
-                            const logo = symbol.toLowerCase();
-                            return (
-                                <List.Coin
-                                    key={index}
-                                    coinCode={name}
-                                    symbol={symbol}
-                                    changePercentage={change_24h}
-                                    priceChangeText={formatRupiah(price)}
-                                    onClick={() => {
-                                        if (isUnverifiedBasic) {
-                                            setOpenUnverif(true);
-                                        }
-                                        if (isVerifiedBasic) {
-                                            setOpenTrade(true);
-                                            console.log('====================================');
-                                            console.log('Trade', name);
-                                            console.log('====================================');
-                                        }
-                                    }}
-                                    coinLogo={`https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/${logo}.png`}
-                                />
-                            );
+        <Container className='flex flex-col items-center pb-[80px]'>
+            <div className='flex flex-col gap-3 pb-14 text-center'>
+                <h1 className='font-semibold text-gray-800'>Market Price</h1>
+                <p className='text-[#637381]'>Trending crypto market price in Rupiah in the last 24 hours</p>
+            </div>
+            <div className='flex w-[70%] flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
+                <div className='  flex items-center justify-center pt-4'>
+                    <Table
+                        data={data}
+                        columns={columns}
+                        onRow={(record) => ({
+                            onClick: () => {
+                                console.log('====================================');
+                                console.log('Trade', record.name);
+                                console.log('====================================');
+                            }
                         })}
-                    </div>
+                    />
                 </div>
-            </Container>
-            <ModalUnverified isOpen={openUnverif} handleClose={() => setOpenUnverif(false)} />
-            <ModalTrade isOpen={openTrade} handleClose={() => setOpenTrade(false)} />
-        </>
+            </div>
+        </Container>
     );
 };
 
-export default Markets;
+export default MarketList;

@@ -53,10 +53,8 @@ export default function Seo(props: SeoProps) {
             <meta property='og:description' content={meta.description} />
             <meta property='og:title' content={meta.title} />
             <meta name='image' property='og:image' content={meta.image} />
-            {/* Twitter */}
             <meta name='twitter:card' content='summary_large_image' />
-            {/* // !STARTERCONF Remove or change to your handle */}
-            {/* <meta name='twitter:site' content='@th_clarence' /> */}
+
             <meta name='twitter:title' content={meta.title} />
             <meta name='twitter:description' content={meta.description} />
             <meta name='twitter:image' content={meta.image} />
@@ -64,8 +62,7 @@ export default function Seo(props: SeoProps) {
                 <>
                     <meta property='article:published_time' content={meta.date} />
                     <meta name='publish_date' property='og:publish_date' content={meta.date} />
-                    {/* // !STARTERCONF Remove or change to your name */}
-                    <meta name='author' property='article:author' content='Theodorus Clarence' />
+                    <meta name='author' property='article:author' content='Binaloka Indonesia' />
                 </>
             )}
 

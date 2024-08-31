@@ -10,12 +10,13 @@ import Icons from '@/components/Icon';
 
 interface CollapseProps {
     title: string | React.ReactNode;
+    titleClassName?: string;
     defaultExpanded?: boolean;
     children: React.ReactNode;
     className?: string;
 }
 
-const Collapse = ({ title, defaultExpanded, className, children }: CollapseProps) => {
+const Collapse = ({ title, defaultExpanded, className, titleClassName, children }: CollapseProps) => {
     const [isExpanded, setIsExpanded] = useState(defaultExpanded || false);
     const { getToggleProps, getCollapseProps } = useCollapse({ isExpanded });
 
@@ -29,7 +30,14 @@ const Collapse = ({ title, defaultExpanded, className, children }: CollapseProps
                 className='flex w-full cursor-pointer items-center justify-between '
                 onClick={getToggleProps({ onClick: () => setIsExpanded(!isExpanded) }).onClick}
             >
-                <span className='py-2 text-sm font-bold text-[#18181E] xl:text-[16px] xl:leading-6'>{title}</span>
+                <span
+                    className={classNames(
+                        'py-2 text-sm font-bold text-[#18181E] xl:text-[16px] xl:leading-6',
+                        titleClassName
+                    )}
+                >
+                    {title}
+                </span>
                 <Icons
                     icon='ChevronDown'
                     width={24}

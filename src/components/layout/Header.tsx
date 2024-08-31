@@ -26,7 +26,6 @@ const Header = () => {
     const profileMenu = [{ href: '/profile', label: 'Profile', icon: 'User' }];
     const isProfile = router.pathname.includes('/profile');
     const isWallet = router.pathname.includes('/wallet');
-    const isTrading = router.pathname === '/trading';
     const isMarket = router.pathname === '/markets';
 
     const toggleMenu = () => {
@@ -77,17 +76,7 @@ const Header = () => {
                                     >
                                         <Icons icon='Wallet' /> Wallet
                                     </UnstyledLink>
-                                    <span
-                                        className={classNames(
-                                            'flex cursor-pointer flex-row items-center gap-1 text-gray-700',
-                                            {
-                                                'text-primary-300': isTrading
-                                            }
-                                        )}
-                                        onClick={() => setIsOpen(true)}
-                                    >
-                                        <Icons icon='ChartGreen' /> Trading
-                                    </span>
+
                                     <When condition={isMobile}>
                                         <UnstyledLink
                                             href='/profile'

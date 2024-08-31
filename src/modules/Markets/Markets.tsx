@@ -1,15 +1,27 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+
+import useProfile, { ProfileStatus } from '@/hooks/useProfile';
 
 import ChangePercentageText from '@/components/ChangePercentageText';
 import Container from '@/components/Container';
+import List from '@/components/List';
+import ModalTrade from '@/components/Modal/ModalTrade';
+import ModalUnverified from '@/components/Modal/ModalUnverified';
 import Table, { TableColumn } from '@/components/Table/Table';
 
 import LineChart from '@/modules/Markets/components/LineChart';
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
 
 const Markets = () => {
+    const [openUnverif, setOpenUnverif] = useState(false);
+    const [openTrade, setOpenTrade] = useState(false);
+    const { profile } = useProfile();
+
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
+    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.basic;
+
     const data = [
         {
             name: 'Bitcoin',
@@ -103,37 +115,6 @@ const Markets = () => {
         }
     ];
 
-    const generateRandomPrice = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1)) + min;
-
-    const generateChartData = (
-        startTimestamp: number,
-        btcPrice: number,
-        dataPoints: number,
-        priceFluctuation: number
-    ): number[][] => {
-        const chartData = [];
-        const interval = 5 * 60; // 5 menit dalam detik
-
-        for (let i = 0; i < dataPoints; i++) {
-            const timestamp = startTimestamp + i * interval;
-            const price = generateRandomPrice(btcPrice - priceFluctuation, btcPrice + priceFluctuation);
-            // Array dengan format [timestamp, 0, price, 0, 0, 0, 0]
-            chartData.push([timestamp, 0, price, 0, 0, 0, 0]);
-        }
-
-        return chartData;
-    };
-
-    const startTimestamp = 1724429100; // Timestamp awal dari array Anda
-    const btcPrice = 958680000; // Harga BTC awal
-    const dataPoints = 20; // Jumlah data points yang ingin dihasilkan
-    const priceFluctuation = 123312; // Besar fluktuasi harga BTC
-
-    // const chartData = generateChartData(startTimestamp, btcPrice, dataPoints, priceFluctuation);
-    const chartData: number[] = [
-        0, 3, 8, 22, 27, 47, 52, 56, 57, 57, 80, 100, 97, 94, 82, 77, 77, 60, 55, 50, 30, 26, 25, 11
-    ].sort();
-
     const dummy = {
         data: [
             {
@@ -226,22 +207,66 @@ const Markets = () => {
     ];
 
     return (
-        <Container className='pt-6'>
-            <Head>
-                <title>Markets | Binaloka</title>
-                <meta name='description' content='Login' />
-                <link rel='icon' href='/logo.ico' />
-            </Head>
-            <div className='flex flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
-                <div className='flex flex-col gap-2'>
-                    <h1 className='font-semibold text-[#212B36]'>Market Price</h1>
-                    <p className='text-[#637381]'>Trending crypto market price in Rupiah in the last 24 hours</p>
+        <>
+            <Container className='flex flex-row gap-6 py-6'>
+                <Head>
+                    <title>Markets | Binaloka</title>
+                    <meta name='description' content='Login' />
+                    <link rel='icon' href='/logo.ico' />
+                </Head>
+                <div className='flex flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
+                    <div className='flex flex-col gap-2'>
+                        <h1 className='font-semibold text-gray-800'>Market Price</h1>
+                        <p className='text-[#637381]'>Trending crypto market price in Rupiah in the last 24 hours</p>
+                    </div>
+                    <div className='  flex items-center justify-center pt-4'>
+                        <Table
+                            data={data}
+                            columns={columns}
+                            onRow={(record) => ({
+                                onClick: () => {
+                                    console.log('====================================');
+                                    console.log('Trade', record.name);
+                                    console.log('====================================');
+                                }
+                            })}
+                        />
+                    </div>
                 </div>
-                <div className='  flex items-center justify-center pt-4'>
-                    <Table data={data} columns={columns} noHover />
+                <div className='flex h-full flex-col gap-3 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
+                    <span className='h4 font-semibold text-gray-800'>Top Movers</span>
+                    <div className='flex flex-col'>
+                        {data.map((item, index) => {
+                            const { symbol, name, change_24h, price } = item;
+                            const logo = symbol.toLowerCase();
+                            return (
+                                <List.Coin
+                                    key={index}
+                                    coinCode={name}
+                                    symbol={symbol}
+                                    changePercentage={change_24h}
+                                    priceChangeText={formatRupiah(price)}
+                                    onClick={() => {
+                                        if (isUnverifiedBasic) {
+                                            setOpenUnverif(true);
+                                        }
+                                        if (isVerifiedBasic) {
+                                            setOpenTrade(true);
+                                            console.log('====================================');
+                                            console.log('Trade', name);
+                                            console.log('====================================');
+                                        }
+                                    }}
+                                    coinLogo={`https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/${logo}.png`}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
-            </div>
-        </Container>
+            </Container>
+            <ModalUnverified isOpen={openUnverif} handleClose={() => setOpenUnverif(false)} />
+            <ModalTrade isOpen={openTrade} handleClose={() => setOpenTrade(false)} />
+        </>
     );
 };
 

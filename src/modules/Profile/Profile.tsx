@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Form, { Field, useForm } from 'rc-field-form';
 import React, { useState } from 'react';
@@ -20,6 +21,8 @@ import { toast } from '@/components/Toast';
 import { copy } from '@/utils/clipboard';
 import { formatDate } from '@/utils/format-date';
 
+import Rocket from './images/rocket.png';
+
 export enum ProfileStatus {
     VERIFIED = 1,
     PENDING = 0,
@@ -36,19 +39,7 @@ const Profile = () => {
     const [loadingSubmitPhone, setLoadingSubmitPhone] = useState<boolean>(false);
     const [form] = useForm();
     const { verifyPhoneNumber } = useVerifyPhoneNumber();
-    const { loading, fetchProfile } = useProfile();
-
-    const profile = {
-        userId: '123456',
-        fullName: 'John Doe',
-        email: 'john@gmail.com',
-        country: 'Indonesia',
-        phoneNumber: '08123456789',
-        phoneStatus: 2,
-        dateOfBirth: new Date(),
-        basic: 2,
-        phoneNumberUid: '123456'
-    };
+    const { loading, fetchProfile, profile } = useProfile();
 
     const isPhoneVerify = profile?.phoneStatus === 1;
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
@@ -93,12 +84,13 @@ const Profile = () => {
                             content={
                                 <div className='flex flex-1 flex-row items-center gap-6'>
                                     <div className='flex flex-1 flex-row items-center gap-6'>
-                                        <div className='h-20 w-20 bg-gray-300' />
+                                        {/* <div className='h-20 w-20 bg-gray-300' /> */}
+                                        <Image src={Rocket} unoptimized alt='rocket' width={80} height={80} />
                                         <div className='flex w-auto flex-col gap-2'>
-                                            <p className='text-sm font-bold text-gray-800'>
+                                            <p className='text-sm font-semibold text-gray-800'>
                                                 Verifikasi akun Anda untuk memulai transaksi di Binaloka
                                             </p>
-                                            <p className='text-sm font-normal text-gray-800'>
+                                            <p className='text-sm font-normal text-gray-600'>
                                                 Lakukan verifikasi akun hanya dalam 5 menit. Lengkapi informasi dengan
                                                 benar dan ikuti petunjuknya dengan seksama.
                                             </p>
@@ -146,7 +138,6 @@ const Profile = () => {
                                                             WrapperClassName='pl-1 cursor-pointer'
                                                             onClick={() => {
                                                                 copy(profile?.userId as string);
-                                                                toast.info('Copied to clipboard');
                                                             }}
                                                         />
                                                     </>

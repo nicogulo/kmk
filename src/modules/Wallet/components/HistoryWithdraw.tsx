@@ -18,10 +18,10 @@ import { formatRupiah } from '@/utils/currency';
 import { formatDate } from '@/utils/format-date';
 
 interface Props {
-    profile: ProfileModel;
+    profile?: ProfileModel;
 }
 
-const Withdraw: React.FC<Props> = ({ profile }: Props) => {
+const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [status, setStatus] = useState<number | undefined>();
     const [openModal, setOpenModal] = useState(false);
@@ -262,4 +262,4 @@ const Withdraw: React.FC<Props> = ({ profile }: Props) => {
     );
 };
 
-export default Withdraw;
+export default WithdrawHistory;

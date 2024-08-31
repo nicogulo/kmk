@@ -2,6 +2,8 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 import { When } from 'react-if';
 
+import useProfile from '@/hooks/useProfile';
+
 import Container from '@/components/Container';
 import Tabs, { Tab } from '@/components/Tabs';
 
@@ -11,18 +13,7 @@ import HistoryWithdraw from './components/HistoryWithdraw';
 
 const Wallet = () => {
     const [tab, setTab] = useState('deposit');
-
-    const profile = {
-        userId: '123456',
-        fullName: 'John Doe',
-        email: 'johndea@gmail.com',
-        country: 'Indonesia',
-        phoneNumber: '08123456789',
-        phoneStatus: 1,
-        phoneNumberUid: '123456',
-        dateOfBirth: new Date().toDateString(),
-        basic: 1
-    };
+    const { profile } = useProfile();
 
     const balance = {
         total: 10000000,

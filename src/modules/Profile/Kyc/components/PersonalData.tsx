@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import Form, { Field } from 'rc-field-form';
 import React, { useEffect } from 'react';
+import { When } from 'react-if';
 
 import classNames from '@/lib/classnames';
 import { useGetDocuments } from '@/hooks/useUpload';
 
 import Button from '@/components/Button';
+import Icons from '@/components/Icon';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import SelectSearch from '@/components/SelectSearch';
-import { When } from 'react-if';
+
 import { EMAIL_REGEX } from '@/constant/regex';
 
 export interface PersonalDataProps {
@@ -401,6 +403,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                 classNameWrapper='!w-[150px]'
                                             />
                                         </Field>
+
                                         <Field
                                             name='month'
                                             rules={[
@@ -466,6 +469,11 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                             />
                                         </Field>
                                     </div>
+                                    {(errorDay || errorMonth || errorYear) && (
+                                        <span className='mb-1 mr-[10px] flex flex-row gap-1 pt-2 text-xs text-[#C9353F]'>
+                                            <Icons icon='Interuption' /> {errorDay || errorMonth || errorYear}
+                                        </span>
+                                    )}
                                     <Field name='country_of_birth'>
                                         <Select
                                             items={countries}
@@ -567,6 +575,11 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                         required
                                     />
                                 </Field>
+                                {errorOccupation && (
+                                    <span className='-mt-6 mr-[10px] flex flex-row gap-1 pt-2 text-xs text-[#C9353F]'>
+                                        <Icons icon='Interuption' /> {errorOccupation}
+                                    </span>
+                                )}
                                 <When condition={form.getFieldValue('occupation') === 'Lainnya'}>
                                     <Field
                                         name='occupation_other'
@@ -609,6 +622,11 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                             })}
                                         />
                                     </Field>
+                                    {errorAnnualIncome && (
+                                        <span className='-mt-6 mr-[10px] flex flex-row gap-1 pt-2 text-xs text-[#C9353F]'>
+                                            <Icons icon='Interuption' /> {errorAnnualIncome}
+                                        </span>
+                                    )}
                                     <Field
                                         name='account_opening_purpose'
                                         rules={[
@@ -635,6 +653,11 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                             })}
                                         />
                                     </Field>
+                                    {errorPurpose && (
+                                        <span className='-mt-6 mr-[10px] flex flex-row gap-1 pt-2 text-xs text-[#C9353F]'>
+                                            <Icons icon='Interuption' /> {errorPurpose}
+                                        </span>
+                                    )}
                                 </When>
 
                                 <div className='flex w-full flex-row justify-end gap-4 '>

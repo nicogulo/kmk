@@ -40,15 +40,15 @@ const useProfile = () => {
     const { auth } = useAuth();
 
     const profileDataModel = (profileData: Profile): ProfileModel => ({
-        userId: profileData.uid,
-        fullName: profileData.full_name,
-        email: profileData.email,
-        country: '',
-        phoneNumber: profileData.phone_number,
+        userId: profileData.uid || '123456',
+        fullName: profileData.full_name || 'John Doe',
+        email: profileData.email || 'john@gmail.com',
+        country: 'Indonesia',
+        phoneNumber: profileData.phone_number || '08123456789',
         dateOfBirth: '',
-        basic: profileData.basic,
-        phoneStatus: profileData.phone_number_status,
-        phoneNumberUid: profileData.phone_number_uid
+        basic: profileData.basic || 2,
+        phoneStatus: profileData.phone_number_status || 1,
+        phoneNumberUid: profileData.phone_number_uid || '123456'
     });
 
     const fetchProfile = async () => {

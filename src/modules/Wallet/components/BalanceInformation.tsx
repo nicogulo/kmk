@@ -5,6 +5,7 @@ import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
+import Modal from '@/components/Modal';
 import ModalUnverified from '@/components/Modal/ModalUnverified';
 
 import { formatRupiah } from '@/utils/currency';
@@ -18,12 +19,14 @@ interface Balance {
 
 interface Props {
     balance: Balance;
-    profile: ProfileModel;
+    profile?: ProfileModel;
 }
 
 const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
     const [openModal, setOpenModal] = useState(false);
+    const [openModalWithdraw, setOpenModalWithdraw] = useState(false);
     const router = useRouter();
+
     const { total, available, open, pending } = balance;
 
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
@@ -68,6 +71,9 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
                                 if (isUnverifiedBasic) {
                                     setOpenModal(true);
                                 }
+                                if (isVerifiedBasic) {
+                                    setOpenModalWithdraw(true);
+                                }
                             }}
                         >
                             <Icons icon='ArrowLeft' className='rotate-90' width={24} height={24} />
@@ -78,6 +84,36 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
             </div>
 
             <ModalUnverified isOpen={openModal} handleClose={() => setOpenModal(false)} />
+            <Modal
+                open={openModalWithdraw}
+                onClose={() => setOpenModalWithdraw(false)}
+                title='Withdraw'
+                closePosition='right'
+                width={480}
+                wrapperClassName='max-w-[480px]'
+            >
+                <div className='flex flex-col gap-4'>
+                    <div
+                        className='flex cursor-pointer flex-row items-center gap-4 rounded-[3px] border border-gray-300 px-3 py-2 hover:bg-gray-100'
+                        onClick={() => router.push('/wallet/withdraw/withdraw-request')}
+                    >
+                        <Icons icon='MoneyWithdraw' width={24} height={24} className='text-gray-700' />
+                        <div className='flex flex-col gap-1'>
+                            <span className='xs font-semibold text-gray-800'>Withdraw Request</span>
+                            <span className='xs text-gray-600'>
+                                Withdraw your available balance to your bank account.
+                            </span>
+                        </div>
+                    </div>
+                    <div className='flex cursor-pointer flex-row items-center gap-4 rounded-[3px] border border-gray-300 px-3 py-2 hover:bg-gray-100'>
+                        <Icons icon='Bank' width={24} height={24} className='text-gray-700' />
+                        <div className='flex flex-col gap-1'>
+                            <span className='xs font-semibold text-gray-800'>Add Bank for Withdrawal</span>
+                            <span className='xs text-gray-600'>Link a bank account to enable withdrawals.</span>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </>
     );
 };

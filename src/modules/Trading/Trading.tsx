@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { When } from 'react-if';
 
+import useProfile from '@/hooks/useProfile';
+
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
 import Modal from '@/components/Modal';
@@ -12,16 +14,8 @@ import { ProfileStatus } from '@/modules/Profile/Profile';
 const Trading = () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
-    const profile = {
-        userId: '123456',
-        fullName: 'John Doe',
-        email: 'john@gmail.com',
-        country: 'Indonesia',
-        phoneNumber: '08123456789',
-        dateOfBirth: new Date(),
-        basic: 1,
-        phoneNumberUid: '123456'
-    };
+    const { profile } = useProfile();
+
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.basic;
 

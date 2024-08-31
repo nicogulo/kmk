@@ -418,7 +418,7 @@ const Table: React.FC<TableProps> = ({
                 <tr
                     key={index}
                     className={classNames(
-                        'table w-full table-fixed last-of-type:border-transparent last:dark:border-transparent',
+                        'table w-full table-fixed last-of-type:border-transparent last:dark:border-transparent ',
                         className,
                         {
                             'hover:bg-gray-100 ': !noHover
@@ -445,7 +445,7 @@ const Table: React.FC<TableProps> = ({
             return (
                 <tr
                     className={classNames(
-                        'table w-full table-fixed last-of-type:border-transparent last:dark:border-transparent',
+                        'table w-full table-fixed last-of-type:border-transparent last:dark:border-transparent ',
                         {
                             'hover:bg-gray-100 ': !noHover
                         }
@@ -512,25 +512,12 @@ const Table: React.FC<TableProps> = ({
 
             const renderedDataByColumn = columns.map(({ dataIndex, width, align, render }) => {
                 const value = item?.[dataIndex];
-                //     const Data = styled.td<DataProps>`
-                //     align-items: center;
-                //     text-align: ${({ align }) => align || "left"};
-                //     padding: 10px 15px;
-
-                //     &:first-of-type {
-                //         padding-left: 0px;
-                //     }
-
-                //     &:last-of-type {
-                //         padding-right: 0px;
-                //     }
-                // `
 
                 return (
                     <td
                         key={dataIndex}
                         className={classNames(
-                            'items-center px-4 py-2.5 first-of-type:pl-0 last-of-type:pr-0',
+                            'items-center px-4 py-2.5 first-of-type:pl-0 last-of-type:pr-0 ',
                             className,
 
                             {
@@ -562,13 +549,13 @@ const Table: React.FC<TableProps> = ({
                     <tr
                         onClick={handleClick}
                         className={classNames(
-                            'table w-full table-fixed last-of-type:border-transparent last:dark:border-transparent',
+                            'table w-full table-fixed last-of-type:border-transparent last:dark:border-transparent ',
                             className,
                             {
                                 'cursor-pointer': isExpandable,
                                 'border-b border-b-[#1E1E1E1A]': !isExpanded,
                                 'bg-white': isExpanded,
-                                'hover:bg-gray-100 ': !noHover && !isExpanded
+                                'cursor-pointer hover:bg-gray-100': !noHover && !isExpanded
                             }
                         )}
                         style={{

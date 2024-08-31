@@ -1,7 +1,9 @@
+import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
 import React, { useState } from 'react';
-import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Label } from '@headlessui/react';
-import Icons from '@/components/Icon';
+
 import classNames from '@/lib/classnames';
+
+import Icons from '@/components/Icon';
 
 interface SelectSearchProps {
     selected: any;
@@ -16,6 +18,8 @@ interface SelectSearchProps {
     type?: string;
     readOnly?: boolean;
     required?: boolean;
+    withAction?: boolean;
+    action?: React.ReactNode;
 }
 
 const SelectSearch: React.FC<SelectSearchProps> = ({
@@ -30,7 +34,9 @@ const SelectSearch: React.FC<SelectSearchProps> = ({
     onChange,
     type = 'text',
     readOnly = false,
-    required
+    required,
+    withAction = false,
+    action
 }) => {
     const [query, setQuery] = useState(search ?? '');
     const [openMenu, setOpenMenu] = useState(false);
@@ -52,18 +58,21 @@ const SelectSearch: React.FC<SelectSearchProps> = ({
                     )}
                     <div
                         className={classNames(
-                            'relative flex h-12 w-full flex-row items-center rounded border border-[#E8E8E9] bg-white text-left ',
+                            'border-text-transparent-10 relative flex h-12 w-full flex-row items-center rounded border bg-white text-left ',
                             className,
                             {
                                 'border-primary-300': open,
                                 'cursor-not-allowed': disabled
                             }
                         )}
+                        onClick={() => {
+                            setOpenMenu((e) => !e);
+                        }}
                     >
                         <div className='flex w-full flex-col'>
                             <ComboboxInput
                                 className={classNames(
-                                    'w-full truncate border-none text-sm font-bold text-[#18181E] outline-none placeholder:font-normal placeholder:text-[#07142280] focus:ring-0 disabled:bg-white',
+                                    'w-full truncate border-none text-sm  text-gray-800 outline-none placeholder:font-normal placeholder:text-[#07142280] focus:ring-0 disabled:bg-white',
                                     {
                                         'cursor-pointer': readOnly
                                     }
@@ -73,7 +82,6 @@ const SelectSearch: React.FC<SelectSearchProps> = ({
                                     onChange?.(event.target.value);
                                     setQuery(event.target.value);
                                 }}
-                                onFocus={() => setOpenMenu(true)}
                                 onBlur={() => {
                                     setTimeout(() => {
                                         setOpenMenu(false);
@@ -94,7 +102,7 @@ const SelectSearch: React.FC<SelectSearchProps> = ({
                     {openMenu && (
                         <ComboboxOptions
                             static
-                            className='absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm'
+                            className='border-text-transparent-10 absolute z-[51] mt-1 max-h-60 w-full overflow-auto rounded border bg-white py-1 text-base shadow-lg focus:outline-none sm:text-sm'
                         >
                             {filteredData.length === 0 && query !== '' ? (
                                 <div className='relative cursor-default select-none px-4 py-2 text-gray-700'>
@@ -113,9 +121,19 @@ const SelectSearch: React.FC<SelectSearchProps> = ({
                                         value={item}
                                         onClick={() => setOpenMenu(false)}
                                     >
-                                        <p className='block truncate text-sm font-normal text-[#18181E]'>{item.name}</p>
+                                        <p className='block truncate text-sm font-normal text-gray-800'>{item.name}</p>
                                     </ComboboxOption>
                                 ))
+                            )}
+
+                            {withAction && (
+                                <ComboboxOption
+                                    className='border-t-text-transparent-10 relative cursor-pointer select-none border-t px-4 py-2'
+                                    value={query}
+                                    onClick={() => setOpenMenu(false)}
+                                >
+                                    {action}
+                                </ComboboxOption>
                             )}
                         </ComboboxOptions>
                     )}

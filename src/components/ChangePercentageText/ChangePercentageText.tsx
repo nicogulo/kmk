@@ -118,6 +118,7 @@ const ChangePercentageText: React.FC<Props> = ({
                                         'text-gray-400': !isPositive && !isNegative
                                     })}
                                 >
+                                    {isPositive ? '+' : '-'}
                                     {asterisk
                                         ? printAsterisk()
                                         : formatChangePercentage(

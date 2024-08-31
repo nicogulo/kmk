@@ -33,7 +33,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, breakpoint }) => {
                     <div className='flex items-center' key={item.title}>
                         <If condition={isLast}>
                             <Then>
-                                <span className='p text-primary-300 line-clamp-1'>{item.title}</span>
+                                <span className='xs text-primary-300 line-clamp-1'>{item.title}</span>
                             </Then>
                             <Else>
                                 <ConditionalWrapper

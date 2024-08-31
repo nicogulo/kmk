@@ -265,18 +265,18 @@ const Input: React.FC<InputProps> = ({
     };
 
     const wrapperClasses = clsx(
-        'flex items-center w-full border rounded overflow-hidden',
+        'flex items-center w-full border border-text-transparent-10 rounded overflow-hidden',
         'bg-white',
         size === 'sm' ? 'h-[40px] p-3 text-xs' : 'h-[48px] py-3.5 px-4 text-sm',
         focus ? '!border-primary-300' : 'border-[#08192B4D]',
-        disabled ? 'bg-[#F4F6F8] !border-[#08192B4D] ' : 'xl:hover:border-primary-300 ',
+        disabled ? '!bg-gray-200 !border-text-transparent-15 ' : 'xl:hover:border-primary-300 ',
         error ? '!border-[#C9353F]' : '',
         success ? '!border-primary-300' : '',
         className
     );
     const inputClasses = clsx(
-        'text-sm text-[#121416] font-bold placeholder:text-[#07142280] placeholder:font-normal placeholder:text-sm bg-white !outline-none w-full border-none flex-1 !p-0',
-        disabled && 'cursor-not-allowed',
+        'text-sm text-gray-800 placeholder:text-gray-600 placeholder:font-normal placeholder:text-sm bg-white !outline-none w-full border-none flex-1 !p-0',
+        disabled && 'cursor-not-allowed !bg-gray-200',
         'hover:border-primary-300',
         focus && 'focus:!caret-primary-300 focus:ring-0',
         size === 'sm' && 'text-[10px]',
@@ -289,14 +289,14 @@ const Input: React.FC<InputProps> = ({
         <div className={clsx(groupClassName)}>
             {label && (
                 <div>
-                    <span className={clsx(labelClassName, size === 'sm' ? 'text-[10px]' : 'text-xs', 'text-[#525D66]')}>
+                    <span className={clsx(labelClassName, size === 'sm' ? 'text-[10px]' : 'text-xs', 'text-gray-700')}>
                         {label}
                         {required && <span className={clsx('text-xs text-[#C9353F]')}>*</span>}
                     </span>
                     {labelSuffix && <div>{labelSuffix}</div>}
                 </div>
             )}
-            <div ref={inputWrapperRef} className={clsx('flex justify-between gap-2', wrapperClasses)}>
+            <div ref={inputWrapperRef} className={clsx('flex justify-between gap-1', wrapperClasses)}>
                 {prefix && <div className={clsx('flex', prefixClassName)}>{prefix}</div>}
                 <MaskedStyledInput
                     data-testid='binaloka-input'

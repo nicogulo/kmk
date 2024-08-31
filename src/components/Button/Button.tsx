@@ -53,7 +53,13 @@ const buttonVariants = cva(
                     'disabled:text-[#BBC2C8]',
                     'border-none'
                 ],
-                dangerOutline: ['bg-transparent', '!border-error-300', 'text-error-300', ...disabledOutline],
+                dangerOutline: [
+                    'bg-transparent',
+                    '!border-error-300',
+                    'text-error-300',
+                    'hover:bg-error-100',
+                    ...disabledOutline
+                ],
                 gray: [
                     'bg-gray-[#F4F6F8]',
                     'hover:bg-opacity-80',

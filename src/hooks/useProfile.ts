@@ -46,7 +46,7 @@ const useProfile = () => {
         country: 'Indonesia',
         phoneNumber: profileData.phone_number || '08123456789',
         dateOfBirth: '',
-        basic: profileData.basic || 2,
+        basic: profileData.basic || 1,
         phoneStatus: profileData.phone_number_status || 1,
         phoneNumberUid: profileData.phone_number_uid || '123456'
     });

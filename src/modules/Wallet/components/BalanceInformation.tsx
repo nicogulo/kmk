@@ -105,7 +105,10 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
                             </span>
                         </div>
                     </div>
-                    <div className='flex cursor-pointer flex-row items-center gap-4 rounded-[3px] border border-gray-300 px-3 py-2 hover:bg-gray-100'>
+                    <div
+                        className='flex cursor-pointer flex-row items-center gap-4 rounded-[3px] border border-gray-300 px-3 py-2 hover:bg-gray-100'
+                        onClick={() => router.push('/wallet/withdraw/withdraw-bank')}
+                    >
                         <Icons icon='Bank' width={24} height={24} className='text-gray-700' />
                         <div className='flex flex-col gap-1'>
                             <span className='xs font-semibold text-gray-800'>Add Bank for Withdrawal</span>

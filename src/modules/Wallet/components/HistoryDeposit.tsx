@@ -244,10 +244,10 @@ const ModalUploadProof = ({ data, onCallbak }: ModalProps) => {
 };
 
 interface Props {
-    profile: ProfileModel;
+    profile?: ProfileModel;
 }
 
-const Deposit: React.FC<Props> = ({ profile }: Props) => {
+const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [status, setStatus] = useState<number | undefined>();
     const [openModal, setOpenModal] = useState(false);
@@ -518,4 +518,4 @@ const Deposit: React.FC<Props> = ({ profile }: Props) => {
     );
 };
 
-export default Deposit;
+export default DepositHistory;

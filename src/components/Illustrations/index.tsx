@@ -1,4 +1,4 @@
-import Illustration from "./Illustrations"
+import Illustration from './Illustrations';
 
-export { IllustrationComponent, type IllustrationType } from "./Illustrations"
-export default Illustration
+export { type IllustrationType, IllustrationComponent } from './Illustrations';
+export default Illustration;

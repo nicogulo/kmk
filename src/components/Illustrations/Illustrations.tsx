@@ -3,10 +3,12 @@ import React, { Suspense } from 'react';
 
 import AccountVerification from './AccountVerification';
 import ErrorStateIllustration from './ErrorState';
+import GeneralStateIllustration from './General';
 
 export const IllustrationComponent = {
     ...AccountVerification,
-    ...ErrorStateIllustration
+    ...ErrorStateIllustration,
+    ...GeneralStateIllustration
 };
 
 export type IllustrationType = keyof typeof IllustrationComponent;

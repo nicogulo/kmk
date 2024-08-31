@@ -46,6 +46,7 @@ const Faq = () => {
                                 titleClassName='!text-white !text-[16px] !leading-6'
                                 className='!border-none'
                                 defaultExpanded={index === 0}
+                                key={index}
                             >
                                 <span className='xs text-gray-300'> {item.answer}</span>
                             </Collapse>

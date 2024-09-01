@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -7,8 +6,7 @@ import React, { useEffect } from 'react';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
-
-import ImageSuccess from '@/assets/Images/success.webp';
+import Illustration from '@/components/Illustrations';
 
 const EmailSuccess = () => {
     const router = useRouter();
@@ -33,7 +31,7 @@ const EmailSuccess = () => {
             </div>
             <Container className='flex h-[calc(100vh-108px)] flex-col items-center justify-center'>
                 <div className='flex h-full flex-col items-center justify-center gap-8 xl:w-[400px]'>
-                    <Image src={ImageSuccess} alt='Email Verification' width={120} height={120} />
+                    <Illustration name='Success' width={240} height={240} />
                     <div className='-mt-2 flex flex-col items-center justify-center gap-3'>
                         <h1 className='text-2xl font-bold text-[#18181E] xl:text-[32px] xl:leading-10'>
                             Email has been verified

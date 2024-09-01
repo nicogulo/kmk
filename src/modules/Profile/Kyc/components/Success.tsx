@@ -20,7 +20,7 @@ const Success = () => {
                 <link rel='icon' href='/logo.ico' />
             </Head>
             <div className='flex justify-center py-4 xl:py-10'>
-                <Icons icon='Logo' width={78} height={28} />
+                <Icons icon='Logo' width={120} height={32} />
             </div>
             <Container className='flex h-[calc(100vh-108px)] flex-col items-center justify-center'>
                 <div className='flex h-full flex-col items-center justify-center gap-8 xl:w-[400px]'>

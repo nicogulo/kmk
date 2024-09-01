@@ -1,9 +1,17 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-shadow */
 import Form, { Field } from 'rc-field-form';
 import React, { useEffect } from 'react';
 import { When } from 'react-if';
 
 import classNames from '@/lib/classnames';
+import useCountry, {
+    useAnnualIncome,
+    useGender,
+    useOccupation,
+    usePurposeOfAccountOpening,
+    useSourceOfFund
+} from '@/hooks/useMasterData';
 import { useGetDocuments } from '@/hooks/useUpload';
 
 import Button from '@/components/Button';
@@ -12,24 +20,22 @@ import Input from '@/components/Input';
 import Select from '@/components/Select';
 import SelectSearch from '@/components/SelectSearch';
 
-import { EMAIL_REGEX } from '@/constant/regex';
-
 export interface PersonalDataProps {
     full_name: string;
     middle_name?: string;
     last_name?: string;
     date_of_birth: string;
     gender: string;
-    country_of_birth: string;
+    place_of_birth: string;
     citizenship: string;
     identity_card: string;
     npwp?: string;
     occupation?: string;
-    annual_income?: string;
-    account_opening_purpose?: string;
+    average_yearly_income?: string;
+    purpose_of_account_opening?: string;
     occupation_other?: string;
-    email: string;
-    phone: string;
+    source_of_fund?: string;
+    source_of_fund_other?: string;
 }
 interface PersonalDataForm {
     full_name: string;
@@ -39,16 +45,16 @@ interface PersonalDataForm {
     day: string;
     month: string;
     year: string;
-    country_of_birth: string;
+    place_of_birth: string;
     country: string;
     identity_card: string;
     npwp?: string;
     occupation?: string;
-    annual_income?: string;
-    account_opening_purpose?: string;
+    average_yearly_income?: string;
+    purpose_of_account_opening?: string;
     occupation_other?: string;
-    email: string;
-    phone: string;
+    source_of_fund?: string;
+    source_of_fund_other?: string;
 }
 interface Props {
     onBack: () => void;
@@ -59,99 +65,18 @@ interface Props {
 const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
     const [form] = Form.useForm();
 
-    // const { countries } = useCountry();
+    const { countries } = useCountry();
+    const { occupation } = useOccupation();
+    const { sourceOfFund } = useSourceOfFund();
+    const { annualIncome } = useAnnualIncome();
+    const { purposeOfAccountOpening } = usePurposeOfAccountOpening();
     const { getDocuments, documents } = useGetDocuments();
-    const countries = [
-        {
-            key: 100,
-            value: 100,
-            name: 'Indonesia',
-            phone_code: '62'
-        }
-    ];
-
-    // const { gender } = useGender();
-    const gender = [
-        {
-            id: 'laki-laki',
-            key: 'laki-laki',
-            name: 'Laki-Laki',
-            label: 'Laki-Laki',
-            value: 'Laki-Laki'
-        },
-        {
-            id: 'perempuan',
-            key: 'perempuan',
-            name: 'Perempuan',
-            label: 'Perempuan',
-            value: 'Perempuan'
-        }
-    ];
-    const annualIncome = [
-        {
-            id: '<-100-mio-idr',
-            key: '<-100-mio-idr',
-            name: '<100 Mio IDR',
-            label: '<100 Mio IDR',
-            value: '<100 Mio IDR'
-        },
-        {
-            id: '100-250-mio-idr',
-            key: '100-250-mio-idr',
-            name: '100-250 Mio IDR',
-            label: '100-250 Mio IDR',
-            value: '100-250 Mio IDR'
-        },
-        {
-            id: '250-500-mio-idr',
-            key: '250-500-mio-idr',
-            name: '250-500 Mio IDR',
-            label: '250-500 Mio IDR',
-            value: '250-500 Mio IDR'
-        },
-        {
-            id: '>-500-mio-idr',
-            key: '>-500-mio-idr',
-            name: '>500 Mio IDR',
-            label: '>500 Mio IDR',
-            value: '>500 Mio IDR'
-        }
-    ];
-
-    const purposeOfAccountOpening = [
-        {
-            id: 'hedging',
-            key: 'hedging',
-            name: 'Hedging',
-            label: 'Hedging',
-            value: 'Hedging'
-        },
-        {
-            id: 'gain',
-            key: 'gain',
-            name: 'Gain',
-            label: 'Gain',
-            value: 'Gain'
-        },
-        {
-            id: 'spekulasi',
-            key: 'spekulasi',
-            name: 'Spekulasi',
-            label: 'Spekulasi',
-            value: 'Spekulasi'
-        },
-        {
-            id: 'lainnya',
-            key: 'lainnya',
-            name: 'Lainnya',
-            label: 'Lainnya',
-            value: 'Lainnya'
-        }
-    ];
+    const { gender } = useGender();
 
     const defaultCountry = {
         name: 'Indonesia'
     };
+
     const genderData = documents?.metadata?.gender.toLowerCase();
 
     const nik = documents?.metadata?.nik;
@@ -165,52 +90,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
         form.getFieldValue('occupation') === 'Mahasiswa' ||
         form.getFieldValue('occupation') === 'Lainnya';
 
-    const selectOccupation = [
-        {
-            id: 'profesional',
-            key: 'profesional',
-            name: 'Profesional',
-            label: 'Profesional',
-            value: 'Profesional'
-        },
-        {
-            id: 'wirausaha',
-            key: 'wirausaha',
-            name: 'Wirausaha',
-            label: 'Wirausaha',
-            value: 'Wirausaha'
-        },
-        {
-            id: 'mahasiswa',
-            key: 'mahasiswa',
-            name: 'Mahasiswa',
-            label: 'Mahasiswa',
-            value: 'Mahasiswa'
-        },
-        {
-            id: 'pegawai-negeri',
-            key: 'pegawai-negeri',
-            name: 'Pegawai Negeri',
-            label: 'Pegawai Negeri',
-            value: 'Pegawai Negeri'
-        },
-        {
-            id: 'ibu-rumah-tangga',
-            key: 'ibu-rumah-tangga',
-            name: 'Ibu Rumah Tangga',
-            label: 'Ibu Rumah Tangga',
-            value: 'Ibu Rumah Tangga'
-        },
-        {
-            id: 'lainnya',
-            key: 'lainnya',
-            name: 'Lainnya',
-            label: 'Lainnya',
-            value: 'Lainnya'
-        }
-    ];
-
-    const occupationLabel = selectOccupation.find((item) => item.label === data?.occupation)?.label || 'Lainnya';
+    const otherSourceFund = form.getFieldValue('source_of_fund') === 'Lainnya';
 
     const date = [
         {
@@ -233,6 +113,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
 
         const dob = `${dayValues || values.day}-${monthValues || values.month}-${yearValues || values.year}`;
         const occupationOther = values.occupation_other || '';
+        const sourceFundOther = values.source_of_fund_other || '';
         if (otherOccupation) {
             onNext({
                 occupation: values.occupation === 'Lainnya' ? occupationOther : values.occupation,
@@ -241,13 +122,13 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 middle_name: values.middle_name,
                 last_name: values.last_name,
                 gender: values.gender,
-                email: values.email,
-                phone: values.phone,
                 date_of_birth: dob,
-                country_of_birth: values.country_of_birth || 'Indonesia',
+                place_of_birth: values.place_of_birth || 'Indonesia',
                 citizenship: values.country || 'Indonesia',
                 identity_card: values.identity_card,
-                npwp: values.npwp
+                npwp: values.npwp,
+                source_of_fund: values.source_of_fund === 'Lainnya' ? sourceFundOther : values.source_of_fund,
+                source_of_fund_other: values.source_of_fund_other
             });
         } else {
             onNext({
@@ -256,43 +137,50 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 last_name: values.last_name,
                 gender: values.gender || (defaultGenderName as string),
                 date_of_birth: dob,
-                country_of_birth: values.country_of_birth || 'Indonesia',
+                place_of_birth: values.place_of_birth || 'Indonesia',
                 citizenship: values.country || 'Indonesia',
                 identity_card: values.identity_card,
                 npwp: values.npwp,
                 occupation: values.occupation === 'Lainnya' ? occupationOther : values.occupation,
-                annual_income: values.annual_income,
-                account_opening_purpose: values.account_opening_purpose,
-                email: values.email,
-                phone: values.phone
+                average_yearly_income: values.average_yearly_income,
+                purpose_of_account_opening: values.purpose_of_account_opening,
+                source_of_fund: values.source_of_fund === 'Lainnya' ? sourceFundOther : values.source_of_fund,
+                source_of_fund_other: values.source_of_fund_other
             });
         }
     };
 
     useEffect(() => {
         if (data) {
+            // selectOccupation.find((item) => item.label === data?.occupation)?.label || 'Lainnya';
             form.setFieldsValue({
                 full_name: data.full_name,
                 middle_name: data.middle_name,
                 last_name: data.last_name,
                 gender: data.gender,
                 identity_card: data.identity_card,
-                country_of_birth: data.country_of_birth,
+                place_of_birth: data.place_of_birth,
                 country: data.citizenship,
                 npwp: data.npwp,
-                occupation: data.occupation,
-                annual_income: data.annual_income,
-                account_opening_purpose: data.account_opening_purpose,
-                email: data.email,
-                phone: data.phone
+                occupation: (occupation.find((item: any) => item.label === data.occupation) as any)?.label || 'Lainnya',
+                occupation_other: data.occupation_other,
+                average_yearly_income: data.average_yearly_income,
+                purpose_of_account_opening: data.purpose_of_account_opening,
+                source_of_fund:
+                    (sourceOfFund.find((item: any) => item.label === data.source_of_fund) as any)?.label || 'Lainnya',
+                source_of_fund_other: data.source_of_fund
             });
         } else {
             form.setFieldsValue({
                 full_name: documents?.metadata?.full_name,
                 gender: defaultGenderName,
-                identity_card: nik
+                identity_card: nik,
+                day: date[0].day.name,
+                month: date[0].month.name,
+                year: date[0].year.name
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, defaultGenderName, documents?.metadata?.full_name, form, fullName, nik]);
 
     useEffect(() => {
@@ -311,7 +199,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 </div>
 
                 <Form form={form} onFinish={handleSubmit} className='flex w-full flex-col gap-6' autoComplete='off'>
-                    {(_, { getFieldError, getFieldValue }) => {
+                    {(_, { getFieldError, getFieldsValue }) => {
                         const errorNpwp = getFieldError('npwp')[0];
 
                         const disableSubmit = form.getFieldsError().some((item) => item.errors.length > 0);
@@ -320,12 +208,11 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                         const errorDay = getFieldError('day')[0];
                         const errorMonth = getFieldError('month')[0];
                         const errorYear = getFieldError('year')[0];
-                        const errorPhone = getFieldError('phone')[0];
-                        const errorEmail = getFieldError('email')[0];
                         const errorOccupation = getFieldError('occupation')[0];
                         const errorOccupationOther = getFieldError('occupation_other')[0];
-                        const errorAnnualIncome = getFieldError('annual_income')[0];
-                        const errorPurpose = getFieldError('account_opening_purpose')[0];
+                        const errorAnnualIncome = getFieldError('average_yearly_income')[0];
+                        const errorPurpose = getFieldError('purpose_of_account_opening')[0];
+                        const errorSourceFund = getFieldError('source_of_fund')[0];
 
                         return (
                             <>
@@ -379,7 +266,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                     message: 'Lengkapi tanggal lahir anda!'
                                                 }
                                             ]}
-                                            initialValue=''
+                                            initialValue={date[0].day.name}
                                         >
                                             <SelectSearch
                                                 items={Array.from({ length: 31 }, (_, i) => ({
@@ -412,6 +299,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                     message: 'Lengkapi bulan lahir anda!'
                                                 }
                                             ]}
+                                            initialValue={date[0].month.name}
                                         >
                                             <SelectSearch
                                                 items={Array.from({ length: 12 }, (_, i) => ({
@@ -443,6 +331,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                     message: 'Lengkapi tahun lahir anda!'
                                                 }
                                             ]}
+                                            initialValue={date[0].year.name}
                                         >
                                             <SelectSearch
                                                 items={
@@ -474,63 +363,23 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                             <Icons icon='Interuption' /> {errorDay || errorMonth || errorYear}
                                         </span>
                                     )}
-                                    <Field name='country_of_birth'>
+                                    <Field name='place_of_birth'>
                                         <Select
                                             items={countries}
                                             label='Negara Kelahiran'
                                             selected={{
-                                                name: form.getFieldValue('country_of_birth') || defaultCountry.name
+                                                name: form.getFieldValue('place_of_birth') || defaultCountry.name
                                             }}
                                             setSelected={(value) => {
                                                 form.setFieldsValue({
-                                                    country_of_birth: value.name
+                                                    place_of_birth: value.name
                                                 });
                                             }}
                                             name='country'
                                         />
                                     </Field>
                                 </div>
-                                <Field
-                                    name='email'
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Lengkapi email anda!'
-                                        },
-                                        {
-                                            pattern: EMAIL_REGEX,
-                                            message: 'Email tidak valid!'
-                                        }
-                                    ]}
-                                >
-                                    <Input
-                                        label='Email'
-                                        placeholder='Masukkan email anda'
-                                        name='email'
-                                        autoComplete='off'
-                                        error={errorEmail}
-                                        required
-                                    />
-                                </Field>
-                                <Field
-                                    name='phone'
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Lengkapi nomor telepon anda!'
-                                        }
-                                    ]}
-                                >
-                                    <Input
-                                        label='Nomor Telepon'
-                                        placeholder='Masukkan nomor telepon Anda'
-                                        name='phone'
-                                        mask={/^[0-9]*$/}
-                                        required
-                                        prefix='+62'
-                                        error={errorPhone}
-                                    />
-                                </Field>
+
                                 <Field
                                     name='npwp'
                                     rules={[
@@ -561,7 +410,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                     <SelectSearch
                                         label='Pekerjaan'
                                         name='occupation'
-                                        items={selectOccupation}
+                                        items={occupation}
                                         selected={{
                                             name: form.getFieldValue('occupation')
                                         }}
@@ -602,20 +451,20 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                 </When>
                                 <When condition={!otherOccupation}>
                                     <Field
-                                        name='annual_income'
+                                        name='average_yearly_income'
                                         rules={[{ required: true, message: 'Mohon isi pendapatan tahunan Anda!' }]}
                                     >
                                         <SelectSearch
                                             label='Pendapatan Tahunan'
-                                            name='annual_income'
+                                            name='average_yearly_income'
                                             readOnly
                                             required
                                             items={annualIncome}
                                             selected={{
-                                                name: form.getFieldValue('annual_income')
+                                                name: form.getFieldValue('average_yearly_income')
                                             }}
                                             onChange={(value) => {
-                                                form.setFieldsValue({ annual_income: value.name });
+                                                form.setFieldsValue({ average_yearly_income: value.name });
                                             }}
                                             className={classNames({
                                                 'border-[#C9353F]': errorAnnualIncome
@@ -628,7 +477,58 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                         </span>
                                     )}
                                     <Field
-                                        name='account_opening_purpose'
+                                        name='source_of_fund'
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Tolong pilih sumber gaji anda!'
+                                            }
+                                        ]}
+                                    >
+                                        <SelectSearch
+                                            label='Sumber Gaji'
+                                            items={sourceOfFund}
+                                            readOnly
+                                            required
+                                            selected={{
+                                                name: form.getFieldValue('source_of_fund')
+                                            }}
+                                            onChange={(e) => {
+                                                form.setFieldsValue({ source_of_fund: e.name });
+                                            }}
+                                            name='source_of_fund'
+                                            className={classNames({
+                                                'border-[#C9353F]': errorSourceFund
+                                            })}
+                                        />
+                                    </Field>
+                                    {errorSourceFund && (
+                                        <span className='-mt-6 mr-[10px] flex flex-row gap-1 pt-2 text-xs text-[#C9353F]'>
+                                            <Icons icon='Interuption' /> {errorSourceFund}
+                                        </span>
+                                    )}
+                                    <When condition={otherSourceFund}>
+                                        <Field
+                                            name='source_of_fund_other'
+                                            rules={[
+                                                {
+                                                    required: form.getFieldValue('source_of_fund') === 'Lainnya',
+                                                    message: 'Sumber gaji wajib diisi'
+                                                }
+                                            ]}
+                                        >
+                                            <Input
+                                                size='sm'
+                                                label='Sumber Gaji Lainnya'
+                                                name='source_of_fund_other'
+                                                placeholder='Sumber Gaji Lainnya'
+                                                error={errorSourceFund}
+                                                required
+                                            />
+                                        </Field>
+                                    </When>
+                                    <Field
+                                        name='purpose_of_account_opening'
                                         rules={[
                                             {
                                                 required: true,
@@ -642,12 +542,12 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                             readOnly
                                             required
                                             selected={{
-                                                name: form.getFieldValue('account_opening_purpose')
+                                                name: form.getFieldValue('purpose_of_account_opening')
                                             }}
                                             onChange={(e) => {
-                                                form.setFieldsValue({ account_opening_purpose: e.name });
+                                                form.setFieldsValue({ purpose_of_account_opening: e.name });
                                             }}
-                                            name='account_opening_purpose'
+                                            name='purpose_of_account_opening'
                                             className={classNames({
                                                 'border-[#C9353F]': errorPurpose
                                             })}
@@ -664,12 +564,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                     <Button className='w-[120px]' variant='grayOutline' onClick={onBack}>
                                         Kembali
                                     </Button>
-                                    <Button
-                                        type='submit'
-                                        className='w-[120px]'
-                                        disabled={disableSubmit}
-                                        //  onClick={handleSubmit} disabled={loading} loading={loading}
-                                    >
+                                    <Button type='submit' className='w-[120px]' disabled={disableSubmit}>
                                         Lanjut
                                     </Button>
                                 </div>

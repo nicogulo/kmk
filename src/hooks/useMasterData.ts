@@ -263,6 +263,38 @@ export const useOccupation = () => {
     };
 };
 
+// useSourceOfFund
+
+export const useSourceOfFund = () => {
+    const [sourceOfFund, setSourceOfFund] = useState<string[]>([]);
+    const { auth } = useAuth();
+
+    const fetchSourceOfFund = async () => {
+        try {
+            const response = await fetch(`${API_URL}/master-data/source-of-fund`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            const data = await response.json();
+            if (!data) throw new Error();
+            setSourceOfFund(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchSourceOfFund();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return {
+        sourceOfFund
+    };
+};
+
 export const useAnnualIncome = () => {
     const [annualIncome, setAnnualIncome] = useState<string[]>([]);
     const { auth } = useAuth();

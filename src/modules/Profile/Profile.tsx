@@ -42,7 +42,7 @@ const Profile = () => {
     const { loading, fetchProfile, profile } = useProfile();
 
     const isPhoneVerify = profile?.phoneStatus === 1;
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
 
     const verifyPhone = async () => {
         setLoadingSubmitPhone(true);
@@ -219,10 +219,10 @@ const Profile = () => {
                                                             Basic KYC
                                                         </h2>
                                                         <Switch>
-                                                            <Case condition={profile?.basic === ProfileStatus.PENDING}>
+                                                            <Case condition={profile?.kyc === ProfileStatus.PENDING}>
                                                                 <Badge variant='blue'>In Review</Badge>
                                                             </Case>
-                                                            <Case condition={profile?.basic === ProfileStatus.VERIFIED}>
+                                                            <Case condition={profile?.kyc === ProfileStatus.VERIFIED}>
                                                                 <Badge variant='green'>Verified</Badge>
                                                             </Case>
                                                             <Default>
@@ -301,8 +301,8 @@ const Profile = () => {
                                                     }
                                                 }}
                                                 disabled={
-                                                    ProfileStatus.VERIFIED === profile?.basic ||
-                                                    ProfileStatus.PENDING === profile?.basic ||
+                                                    ProfileStatus.VERIFIED === profile?.kyc ||
+                                                    ProfileStatus.PENDING === profile?.kyc ||
                                                     loading
                                                 }
                                                 loading={loading}

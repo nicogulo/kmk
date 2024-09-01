@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import toast from 'react-hot-toast';
+
+import { toast } from '@/components/Toast';
 
 import { API_URL } from '@/constant/env';
 import { getAuth, resetAuth, setAuth } from '@/utils/auth';
@@ -49,6 +50,7 @@ export const useLogin = () => {
 
             const res = await response.json();
             if (!res) throw new Error('Oops! Something went wrong. Please try again later');
+            if (res.code === 200001001) throw new Error('Oops! Something went wrong. Password or email is incorrect');
 
             if (res?.token) {
                 setAuth({ token: res.token });

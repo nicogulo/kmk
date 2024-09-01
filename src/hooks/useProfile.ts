@@ -16,11 +16,10 @@ interface Profile {
     uid: string;
     email: string;
     full_name: string;
-    basic: number;
+    kyc: number;
     phone_number: string;
     phone_number_status: number;
     phone_number_uid: string;
-    live_number: string;
 }
 export interface ProfileModel {
     userId: string;
@@ -31,7 +30,7 @@ export interface ProfileModel {
     phoneStatus: number;
     phoneNumberUid: string;
     dateOfBirth: string;
-    basic: number;
+    kyc: number;
 }
 
 const useProfile = () => {
@@ -40,15 +39,15 @@ const useProfile = () => {
     const { auth } = useAuth();
 
     const profileDataModel = (profileData: Profile): ProfileModel => ({
-        userId: profileData.uid || '123456',
-        fullName: profileData.full_name || 'John Doe',
-        email: profileData.email || 'john@gmail.com',
-        country: 'Indonesia',
-        phoneNumber: profileData.phone_number || '08123456789',
+        userId: profileData.uid,
+        fullName: profileData.full_name,
+        email: profileData.email,
+        country: '',
+        phoneNumber: profileData.phone_number,
         dateOfBirth: '',
-        basic: profileData.basic || 1,
-        phoneStatus: profileData.phone_number_status || 1,
-        phoneNumberUid: profileData.phone_number_uid || '123456'
+        kyc: profileData.kyc,
+        phoneStatus: profileData.phone_number_status,
+        phoneNumberUid: profileData.phone_number_uid
     });
 
     const fetchProfile = async () => {

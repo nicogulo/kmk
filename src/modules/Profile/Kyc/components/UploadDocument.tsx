@@ -47,6 +47,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
     const [selfieFile, setSelfieFile] = useState<File>();
     const [npwpPreview, setNpwpPreview] = useState('');
     const [npwpFile, setNpwpFile] = useState<File>();
+    const [loadingUpload, setLoadingUpload] = useState(false);
 
     const [fileInputKey, setFileInputKey] = useState(Date.now());
 
@@ -56,7 +57,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
 
     const router = useRouter();
 
-    const { upload, loading } = useUpload();
+    const { upload } = useUpload();
     const { loading: loadingDoc, documents, getDocuments } = useGetDocuments();
     const { profile } = useProfile();
 
@@ -220,52 +221,59 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
             return;
         }
 
-        const uploadResults = await Promise.all(
-            newUploads.map(async (item) =>
-                upload({
-                    file: item.file,
-                    type: item.type as 'ktp' | 'selfie' | 'npwp'
-                })
-            )
-        );
+        setLoadingUpload(true); // Set loading to true before starting the upload
 
-        let allUploadsSuccessful = true;
-        uploadResults.forEach((result) => {
-            if (result && result.url) {
-                const { type, url } = result;
-                switch (type) {
-                    case 'ktp':
-                        toast.success('Unggah KTP berhasil');
-                        setKtpPreviewUrl(url);
-                        break;
-                    case 'selfie':
-                        toast.success('Unggah Selfie berhasil');
-                        setSelfiePreviewUrl(url);
-                        break;
-                    case 'npwp':
-                        toast.success('Unggah NPWP berhasil');
-                        setNpwpPreviewUrl(url);
+        try {
+            const uploadResults = await Promise.all(
+                newUploads.map(async (item) =>
+                    upload({
+                        file: item.file,
+                        type: item.type as 'ktp' | 'selfie' | 'npwp'
+                    })
+                )
+            );
 
-                        break;
-                    default:
-                        allUploadsSuccessful = false;
+            let allUploadsSuccessful = true;
+            uploadResults.forEach((result) => {
+                if (result && result.url) {
+                    const { type, url } = result;
+                    switch (type) {
+                        case 'ktp':
+                            toast.success('Unggah KTP berhasil');
+                            setKtpPreviewUrl(url);
+                            break;
+                        case 'selfie':
+                            toast.success('Unggah Selfie berhasil');
+                            setSelfiePreviewUrl(url);
+                            break;
+                        case 'npwp':
+                            toast.success('Unggah NPWP berhasil');
+                            setNpwpPreviewUrl(url);
+                            break;
+                        default:
+                            allUploadsSuccessful = false;
+                    }
+                } else {
+                    allUploadsSuccessful = false;
                 }
-            } else {
-                allUploadsSuccessful = false;
-            }
-        });
+            });
 
-        if (allUploadsSuccessful) {
-            setTab(1);
-        } else {
-            toast.error('Gagal mengunggah file. Silahkan coba lagi.');
+            if (allUploadsSuccessful) {
+                setTab(1);
+            } else {
+                toast.error('Gagal mengunggah file. Silahkan coba lagi.');
+            }
+        } catch (error) {
+            toast.error('Terjadi kesalahan saat mengunggah file. Silahkan coba lagi.');
+        } finally {
+            setLoadingUpload(false); // Set loading to false after the upload process is complete
         }
     };
 
     useEffect(() => {
         getDocuments('ktp');
         getDocuments('selfie');
-
+        getDocuments('npwp');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -277,6 +285,11 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
         if (documents?.type === 'selfie') {
             setSelfiePreviewUrl(documents?.url as string);
             setSelfiePreview(documents?.url as string);
+        }
+
+        if (documents?.type === 'npwp') {
+            setNpwpPreviewUrl(documents?.url as string);
+            setNpwpPreview(documents?.url as string);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -541,7 +554,12 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                     >
                         Kembali
                     </Button>
-                    <Button className='w-[120px]' onClick={handleSubmit} disabled={loading} loading={loading}>
+                    <Button
+                        className='w-[120px]'
+                        onClick={handleSubmit}
+                        disabled={loadingUpload}
+                        loading={loadingUpload}
+                    >
                         Lanjut
                     </Button>
                 </div>

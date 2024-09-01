@@ -6,6 +6,7 @@ import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
 import Modal from '@/components/Modal';
+import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
 import ModalUnverified from '@/components/Modal/ModalUnverified';
 
 import { formatRupiah } from '@/utils/currency';
@@ -25,12 +26,13 @@ interface Props {
 const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalWithdraw, setOpenModalWithdraw] = useState(false);
+    const [openModalPending, setOpenModalPending] = useState(false);
     const router = useRouter();
 
     const { total, available, open, pending } = balance;
 
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
-    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.basic;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
     return (
         <>
@@ -57,9 +59,10 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
                             onClick={() => {
                                 if (isUnverifiedBasic) {
                                     setOpenModal(true);
-                                }
-                                if (isVerifiedBasic) {
+                                } else if (isVerifiedBasic) {
                                     router.push('/wallet/deposit');
+                                } else {
+                                    setOpenModalPending(true);
                                 }
                             }}
                         >
@@ -70,9 +73,10 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
                             onClick={() => {
                                 if (isUnverifiedBasic) {
                                     setOpenModal(true);
-                                }
-                                if (isVerifiedBasic) {
+                                } else if (isVerifiedBasic) {
                                     setOpenModalWithdraw(true);
+                                } else {
+                                    setOpenModalPending(true);
                                 }
                             }}
                         >
@@ -117,6 +121,8 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
                     </div>
                 </div>
             </Modal>
+
+            <ModalPendingVerif isOpen={openModalPending} handleClose={() => setOpenModalPending(false)} />
         </>
     );
 };

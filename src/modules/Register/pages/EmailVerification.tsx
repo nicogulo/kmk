@@ -11,6 +11,7 @@ import { useRegister } from '@/hooks/useAuth';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
+import { toast } from '@/components/Toast';
 
 interface FormValues {
     otp: string;
@@ -35,14 +36,18 @@ const EmailVerification = () => {
                 otp: values.otp
             };
             const res = await submitOtp(payload);
-            console.log(res);
-            if (res) {
+            if (res.code === 200003003) {
+                throw new Error(res.message || 'Failed to verify email');
+            }
+
+            if (res.message === 'success') {
                 router.push('/register/email-success');
             }
             setLoading(false);
         } catch (error) {
-            //
+            toast.error('Failed to verify email');
         }
+        setLoading(false);
     };
 
     const handleResendClick = async () => {
@@ -75,7 +80,7 @@ const EmailVerification = () => {
     return (
         <>
             <Head>
-                <title>Email Verification | XTB Indonesia</title>
+                <title>Email Verification | Binaloka Indonesia</title>
                 <meta name='description' content='Email Verification' />
                 <link rel='icon' href='/logo.ico' />
             </Head>

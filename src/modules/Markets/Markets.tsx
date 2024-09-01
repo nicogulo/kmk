@@ -7,6 +7,7 @@ import useProfile, { ProfileStatus } from '@/hooks/useProfile';
 import ChangePercentageText from '@/components/ChangePercentageText';
 import Container from '@/components/Container';
 import List from '@/components/List';
+import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
 import ModalTrade from '@/components/Modal/ModalTrade';
 import ModalUnverified from '@/components/Modal/ModalUnverified';
 import Table, { TableColumn } from '@/components/Table/Table';
@@ -17,10 +18,13 @@ import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/uti
 const Markets = () => {
     const [openUnverif, setOpenUnverif] = useState(false);
     const [openTrade, setOpenTrade] = useState(false);
+
+    const [openModalPending, setOpenModalPending] = useState(false);
+
     const { profile } = useProfile();
 
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
-    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.basic;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
     const data = [
         {
@@ -229,9 +233,16 @@ const Markets = () => {
                             columns={columns}
                             onRow={(record) => ({
                                 onClick: () => {
-                                    console.log('====================================');
-                                    console.log('Trade', record.name);
-                                    console.log('====================================');
+                                    if (isUnverifiedBasic) {
+                                        setOpenUnverif(true);
+                                    } else if (isVerifiedBasic) {
+                                        setOpenTrade(true);
+                                        console.log('====================================');
+                                        console.log('Trade', name);
+                                        console.log('====================================');
+                                    } else {
+                                        setOpenModalPending(true);
+                                    }
                                 }
                             })}
                         />
@@ -253,12 +264,13 @@ const Markets = () => {
                                     onClick={() => {
                                         if (isUnverifiedBasic) {
                                             setOpenUnverif(true);
-                                        }
-                                        if (isVerifiedBasic) {
+                                        } else if (isVerifiedBasic) {
                                             setOpenTrade(true);
                                             console.log('====================================');
                                             console.log('Trade', name);
                                             console.log('====================================');
+                                        } else {
+                                            setOpenModalPending(true);
                                         }
                                     }}
                                     coinLogo={`https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/${logo}.png`}
@@ -269,6 +281,7 @@ const Markets = () => {
                 </div>
             </Container>
             <ModalUnverified isOpen={openUnverif} handleClose={() => setOpenUnverif(false)} />
+            <ModalPendingVerif isOpen={openModalPending} handleClose={() => setOpenModalPending(false)} />
             <ModalTrade isOpen={openTrade} handleClose={() => setOpenTrade(false)} />
         </>
     );

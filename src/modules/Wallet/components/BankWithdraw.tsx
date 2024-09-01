@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import Head from 'next/head';
 import Form, { Field, useForm } from 'rc-field-form';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 
 import classNames from '@/lib/classnames';
-import { useBank } from '@/hooks/useMasterData';
+import { useBank, useBankUser } from '@/hooks/useMasterData';
 import useProfile from '@/hooks/useProfile';
 
 import Breadcrumb from '@/components/Breadcrumb';
@@ -18,6 +19,7 @@ import SelectSearch from '@/components/SelectSearch';
 import Table, { TableColumn } from '@/components/Table/Table';
 
 import EditBank from '@/modules/Wallet/components/EditBank';
+import debounce from '@/utils/debounce';
 
 interface FormValues {
     name: number;
@@ -25,12 +27,17 @@ interface FormValues {
     accountNumber: string;
 }
 
+const debounced = debounce((action: Function) => action(), 500);
+
 const BankWithdraw = () => {
     const [openAddBank, setOpenAddBank] = useState(false);
+    const [search, setSearch] = useState('');
+    const [bankName, setBankName] = useState<string>('');
 
     const [form] = useForm<FormValues>();
     const { profile } = useProfile();
-    const { banks } = useBank();
+    const { banks, fetchBanks } = useBank();
+    const { bankUser } = useBankUser();
 
     const breadcrumbItems = [
         {
@@ -49,41 +56,34 @@ const BankWithdraw = () => {
 
     const name = profile?.fullName || 'John Doe';
 
-    const bankOptions = banks.map((bank) => ({
-        value: bank.value,
-        label: bank.name
-    }));
+    const listBank =
+        bankUser?.map((item) => ({
+            name: item.bank_name,
+            value: item.bank_name,
+            bankAccountNameHolder: item.name,
+            bankCode: item.bank_code,
+            bankAccountNumber: item.number,
+            bankBranchName: item.branch_name,
+            type: item.type,
+            uid: item.uid
+        })) || [];
 
     const handleClose = () => {
         setOpenAddBank(false);
         form.resetFields();
     };
-    const listBank = [
-        {
-            id: '1',
-            name: 'Bank Central Asia',
-            accountNumber: '1234567890',
-            bankHolder: 'John Doe'
-        },
-        {
-            id: '2',
-            name: 'Bank Mandiri',
-            accountNumber: '0987654321',
-            bankHolder: 'John Doe'
-        },
-        {
-            id: '3',
-            name: 'Bank Rakyat Indonesia',
-            accountNumber: '0987654321',
-            bankHolder: 'John Doe'
-        },
-        {
-            id: '4',
-            name: 'Bank Negara Indonesia',
-            accountNumber: '0987654321',
-            bankHolder: 'John Doe'
-        }
-    ];
+
+    useEffect(() => {
+        debounced(() => {
+            const valueToFetch = (search as any)?.name || search;
+            if (valueToFetch) {
+                fetchBanks(valueToFetch);
+            } else {
+                fetchBanks('');
+            }
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [search]);
 
     const columns: TableColumn[] = [
         {
@@ -93,12 +93,12 @@ const BankWithdraw = () => {
         },
         {
             title: 'BANK ACCOUNT NUMBER',
-            dataIndex: 'accountNumber',
+            dataIndex: 'bankAccountNumber',
             render: (value) => <span className='text-[16px] font-semibold leading-6 text-gray-800'>{value}</span>
         },
         {
             title: 'ACCOUNT HOLDER NAME',
-            dataIndex: 'bankHolder',
+            dataIndex: 'bankAccountNameHolder',
             render: (value) => <span className='text-[16px]  leading-6 text-gray-800'>{value}</span>
         },
         {
@@ -107,7 +107,7 @@ const BankWithdraw = () => {
             render: (_, record) => {
                 return (
                     <EditBank
-                        bankOptions={bankOptions}
+                        bankOptions={banks}
                         data={record}
                         form={form}
                         name={name}
@@ -184,14 +184,17 @@ const BankWithdraw = () => {
                                         <SelectSearch
                                             name='bankId'
                                             label='Bank Name'
-                                            items={bankOptions}
+                                            items={banks}
                                             selected={{
-                                                name: form.getFieldValue('bankId')
+                                                name: banks.find((item) => item.value === form.getFieldValue('bankId'))
+                                                    ?.name
                                             }}
                                             onChange={(value) => {
                                                 form.setFieldsValue({
-                                                    bankId: value?.name
+                                                    bankId: value?.value
                                                 });
+                                                setSearch(value);
+                                                setBankName(value?.name);
                                             }}
                                             className={classNames({
                                                 'border-[#C9353F]': errorBank

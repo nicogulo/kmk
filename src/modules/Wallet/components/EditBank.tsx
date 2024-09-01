@@ -22,7 +22,7 @@ const EditBank: React.FC<Props> = ({ bankOptions, form, name, data }) => {
     const handleClose = () => {
         setOpen(false);
     };
-    console.log(data);
+
     return (
         <>
             <div className='flex flex-row gap-2'>

@@ -17,9 +17,9 @@ export const getAuth = (options?: OptionsType) => {
     const checkAuth = Boolean((uhash && binalokahash) || binalokahash);
 
     return {
-        token: checkAuth ? binalokahash : 'token',
-        hash: uhash || 'hash',
-        isLoggedIn: checkAuth || true
+        token: checkAuth ? binalokahash : undefined,
+        hash: uhash || undefined,
+        isLoggedIn: checkAuth || false
     };
 };
 

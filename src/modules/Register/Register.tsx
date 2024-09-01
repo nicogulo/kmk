@@ -28,7 +28,6 @@ interface FormValues {
 }
 
 const Register: React.FC = () => {
-    // const [errorPass, setShowErrorPass] = useState(false)
     const [form] = useForm<FormValues>();
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();

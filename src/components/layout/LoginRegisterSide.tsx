@@ -41,8 +41,8 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
                                 <Icons icon='ArrowLeft' width={16} height={16} />
                                 Back
                             </Button>
-                            <h1 className='text-2xl font-bold text-[#18181E] xl:text-[32px] xl:leading-10'>{title}</h1>
-                            <p className='text-[14px] leading-6 text-[#525D66]'>
+                            <h1 className='text-2xl font-bold text-gray-800 xl:text-[32px] xl:leading-10'>{title}</h1>
+                            <p className='text-[14px] leading-6 text-gray-600'>
                                 {subtitle}{' '}
                                 <Link
                                     href={isRegister ? '/login' : '/register'}
@@ -57,7 +57,7 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
                     </div>
                 </Container>
             </div>
-            <div className='bg-primary-50 hidden max-h-screen basis-1/5 flex-col items-center justify-center gap-[72px] px-10 xl:flex'>
+            <div className='bg-primary-100 hidden max-h-screen basis-1/5 flex-col items-center justify-center gap-[72px] px-10 xl:flex'>
                 <Icons icon='Logo' width={120} height={32} />
                 <Image src={WelcomeScreen} alt='Welcome Screen' />
                 <div className='flex flex-col items-center gap-4'>

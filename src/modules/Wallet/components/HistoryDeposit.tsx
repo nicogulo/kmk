@@ -160,7 +160,7 @@ const ModalUploadProof = ({ data, onCallbak }: ModalProps) => {
 
             setOpenModal(false);
         } catch (error) {
-            console.log('eee', error);
+            // empty
         }
         setLoading(false);
     };
@@ -255,8 +255,8 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
 
     const router = useRouter();
 
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.basic;
-    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.basic;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
     const { history, fetchHistory } = useHistory({
         filter: {

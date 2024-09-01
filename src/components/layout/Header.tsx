@@ -5,12 +5,11 @@ import { When } from 'react-if';
 import { useMediaQuery } from 'react-responsive';
 
 import classNames from '@/lib/classnames';
-import useAuth from '@/hooks/useAuth';
+import useAuth, { useLogout } from '@/hooks/useAuth';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons, { IconsProps } from '@/components/Icon';
-import ButtonLink from '@/components/links/ButtonLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import ModalTrade from '@/components/Modal/ModalTrade';
 
@@ -20,6 +19,7 @@ const Header = () => {
     const {
         auth: { isLoggedIn }
     } = useAuth();
+    const { logout } = useLogout();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -119,8 +119,11 @@ const Header = () => {
                                                                 />
                                                                 {link.label}
                                                             </UnstyledLink>
-                                                            <span className='flex cursor-pointer flex-row items-center gap-2 px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900'>
-                                                                <Icons icon='Logout' className='h-4 w-4' />
+                                                            <span
+                                                                className='text-error-300 flex cursor-pointer flex-row items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-gray-100 data-[focus]:text-gray-900'
+                                                                onClick={() => logout(true)}
+                                                            >
+                                                                <Icons icon='Trash' className='h-4 w-4' />
                                                                 Logout
                                                             </span>
                                                         </>
@@ -135,7 +138,9 @@ const Header = () => {
                                             <UnstyledLink href='/login' className='flex flex-row items-center gap-1'>
                                                 Login
                                             </UnstyledLink>
-                                            <ButtonLink href='/register'>Create Account</ButtonLink>
+                                            <UnstyledLink href='/register' className='w-full'>
+                                                <Button variant='primary'>Create Account</Button>
+                                            </UnstyledLink>
                                         </When>
                                     </>
                                 )}

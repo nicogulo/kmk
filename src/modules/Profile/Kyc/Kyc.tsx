@@ -4,11 +4,14 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { Case, Default, Switch } from 'react-if';
 
+import useKyc from '@/hooks/useKyc';
+
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Input from '@/components/Input';
 import Modal from '@/components/Modal';
 import Tabs, { Tab } from '@/components/Tabs';
+import { toast } from '@/components/Toast';
 
 import { PersonalDataProps } from '@/modules/Profile/Kyc/components/PersonalData';
 
@@ -23,6 +26,7 @@ const Kyc = () => {
     const [checked, setChecked] = useState(false);
     const [activeTab, setActiveTab] = useState(0);
     const [personalData, setPersonalData] = useState<PersonalDataProps | null>(null);
+    const { submitKyc } = useKyc();
 
     const menu = [
         {
@@ -43,6 +47,18 @@ const Kyc = () => {
         setPersonalData(values);
         setActiveTab(2);
     };
+
+    const submit = async () => {
+        try {
+            const payload = {
+                personalData: personalData as PersonalDataProps
+            };
+            await submitKyc(payload);
+        } catch (error) {
+            toast.error('Failed to submit KYC');
+        }
+    };
+
     return (
         <>
             <Head>
@@ -86,7 +102,7 @@ const Kyc = () => {
                             <Case condition={activeTab === 2}>
                                 <FacialRecognition
                                     onNext={() => {
-                                        console.log('Next');
+                                        submit();
                                     }}
                                     onBack={() => {
                                         setActiveTab(1);

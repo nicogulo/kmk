@@ -84,7 +84,6 @@ const Profile = () => {
                             content={
                                 <div className='flex flex-1 flex-row items-center gap-6'>
                                     <div className='flex flex-1 flex-row items-center gap-6'>
-                                        {/* <div className='h-20 w-20 bg-gray-300' /> */}
                                         <Image src={Rocket} unoptimized alt='rocket' width={80} height={80} />
                                         <div className='flex w-auto flex-col gap-2'>
                                             <p className='text-sm font-semibold text-gray-800'>
@@ -98,7 +97,13 @@ const Profile = () => {
                                     </div>
                                     <Button
                                         onClick={() => {
-                                            router.push('profile/kyc');
+                                            if (!isPhoneVerify && isUnverifiedBasic) {
+                                                setOpenModalPhone(true);
+                                                return;
+                                            }
+                                            if (isUnverifiedBasic) {
+                                                router.push('/profile/kyc');
+                                            }
                                         }}
                                         className='mr-6 h-fit w-[136px]'
                                     >

@@ -27,7 +27,7 @@ const ModalTrade: React.FC<Props> = ({ handleClose, isOpen }) => {
                         Cancel
                     </Button>
                     <Button block onClick={() => router.push(`/profile/kyc`)}>
-                        Proced
+                        Proceed
                     </Button>
                 </div>
             }

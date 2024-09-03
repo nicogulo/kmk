@@ -1,10 +1,12 @@
-import Button from '@/components/Button';
-import Container from '@/components/Container';
+import Image from 'next/image';
 import React from 'react';
 
-import Hero from '../images/start-trading.webp';
-import Image from 'next/image';
+import Button from '@/components/Button';
+import Container from '@/components/Container';
+
+import CoinImage from '../images/coins.png';
 import Ellipise from '../images/ellipse-2.png';
+import Hero from '../images/start-trading.webp';
 
 const StartTrading = () => {
     return (
@@ -14,6 +16,16 @@ const StartTrading = () => {
                 style={{ backgroundImage: `url(${Ellipise.src})`, backgroundPosition: '50% -310px' }}
             />
             <Container className='bg-secondary-100 relative z-[2] flex flex-row items-end justify-between rounded-2xl p-8'>
+                <Image
+                    src={CoinImage.src}
+                    width={0}
+                    height={0}
+                    quality={100}
+                    sizes='100vw'
+                    alt='coin-image'
+                    className='absolute top-0'
+                    style={{ width: '100%' }}
+                />
                 <div className='flex flex-col gap-3'>
                     <span className='text-[56px] font-bold leading-[64px] text-gray-800'>
                         Start Trading <br /> Crypto Today

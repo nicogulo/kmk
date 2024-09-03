@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 
 import classNames from '@/lib/classnames';
+import { useAddBank } from '@/hooks/useBank';
 import { useBank, useBankUser } from '@/hooks/useMasterData';
 import useProfile from '@/hooks/useProfile';
 
@@ -17,14 +18,16 @@ import Input from '@/components/Input';
 import Modal from '@/components/Modal';
 import SelectSearch from '@/components/SelectSearch';
 import Table, { TableColumn } from '@/components/Table/Table';
+import { toast } from '@/components/Toast';
 
-import EditBank from '@/modules/Wallet/components/EditBank';
+import DeleteBank from '@/modules/Wallet/components/DeleteBank';
 import debounce from '@/utils/debounce';
 
 interface FormValues {
-    name: number;
-    bankId: string;
-    accountNumber: string;
+    bank_id: number;
+    name: string;
+    number: string;
+    branch_name: string;
 }
 
 const debounced = debounce((action: Function) => action(), 500);
@@ -32,12 +35,12 @@ const debounced = debounce((action: Function) => action(), 500);
 const BankWithdraw = () => {
     const [openAddBank, setOpenAddBank] = useState(false);
     const [search, setSearch] = useState('');
-    const [bankName, setBankName] = useState<string>('');
 
     const [form] = useForm<FormValues>();
     const { profile } = useProfile();
     const { banks, fetchBanks } = useBank();
-    const { bankUser } = useBankUser();
+    const { bankUser, fetchBankUser } = useBankUser();
+    const { addBank, loading } = useAddBank();
 
     const breadcrumbItems = [
         {
@@ -56,21 +59,41 @@ const BankWithdraw = () => {
 
     const name = profile?.fullName || 'John Doe';
 
-    const listBank =
-        bankUser?.map((item) => ({
-            name: item.bank_name,
-            value: item.bank_name,
-            bankAccountNameHolder: item.name,
-            bankCode: item.bank_code,
-            bankAccountNumber: item.number,
-            bankBranchName: item.branch_name,
-            type: item.type,
-            uid: item.uid
-        })) || [];
+    const listBank = bankUser?.map((item) => ({
+        name: item.bank_name,
+        value: item.bank_name,
+        bankAccountNameHolder: item.name,
+        bankCode: item.bank_code,
+        bankAccountNumber: item.number,
+        bankBranchName: item.branch_name,
+        type: item.type,
+        uid: item.uid
+    }));
 
     const handleClose = () => {
         setOpenAddBank(false);
         form.resetFields();
+    };
+
+    const handleAddBank = async (values: FormValues) => {
+        try {
+            const payload = {
+                bank_id: values.bank_id,
+                name: values.name,
+                number: values.number,
+                branch_name: values.branch_name
+            };
+
+            const res = await addBank(payload);
+
+            if (res.message === 'success') {
+                await fetchBankUser();
+                toast.success('Bank account added successfully');
+                handleClose();
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
     };
 
     useEffect(() => {
@@ -89,28 +112,33 @@ const BankWithdraw = () => {
         {
             title: 'BANK NAME / branch',
             dataIndex: 'name',
+            width: 250,
             render: (value) => <span className='text-[16px] leading-6 text-gray-800'>{value}</span>
         },
         {
             title: 'BANK ACCOUNT NUMBER',
             dataIndex: 'bankAccountNumber',
+            width: 150,
             render: (value) => <span className='text-[16px] font-semibold leading-6 text-gray-800'>{value}</span>
         },
         {
             title: 'ACCOUNT HOLDER NAME',
             dataIndex: 'bankAccountNameHolder',
+            width: 150,
             render: (value) => <span className='text-[16px]  leading-6 text-gray-800'>{value}</span>
         },
         {
             title: 'ACTION',
             dataIndex: 'id',
+            width: 50,
             render: (_, record) => {
                 return (
-                    <EditBank
+                    <DeleteBank
                         bankOptions={banks}
                         data={record}
                         form={form}
                         name={name}
+                        onCallback={() => fetchBanks(search)}
                         // callback after edit bank
                     />
                 );
@@ -129,7 +157,7 @@ const BankWithdraw = () => {
                 <Breadcrumb items={breadcrumbItems} />
                 <div className='flex flex-row items-center justify-between'>
                     <h3 className='!font-semibold text-gray-800'>Bank for Withdrawal</h3>
-                    {listBank && listBank.length > 5 && (
+                    {listBank && listBank.length < 5 && (
                         <Button
                             variant='primary'
                             onClick={() => setOpenAddBank(true)}
@@ -170,31 +198,31 @@ const BankWithdraw = () => {
                     <span className='xs text-gray-600'>
                         This account will be used as the destination for your withdrawal funds.
                     </span>
-                    <Form form={form} className='flex flex-col gap-6 '>
+                    <Form form={form} className='flex flex-col gap-6' onFinish={handleAddBank}>
                         {(_, { getFieldError, getFieldsError }) => {
                             const errors = getFieldsError().flatMap((item) => item.errors);
                             const errorBank = getFieldError('bankId')[0];
                             const errorAccountNumber = getFieldError('accountNumber')[0];
                             const errorName = getFieldError('name')[0];
+                            const errorBranchName = getFieldError('branch_name')[0];
                             const isSubmitDisabled = errors.length > 0;
 
                             return (
                                 <>
-                                    <Field name='bankId' rules={[{ required: true, message: 'Bank is required' }]}>
+                                    <Field name='bank_id' rules={[{ required: true, message: 'Bank is required' }]}>
                                         <SelectSearch
-                                            name='bankId'
+                                            name='bank_id'
                                             label='Bank Name'
                                             items={banks}
                                             selected={{
-                                                name: banks.find((item) => item.value === form.getFieldValue('bankId'))
+                                                name: banks.find((item) => item.value === form.getFieldValue('bank_id'))
                                                     ?.name
                                             }}
                                             onChange={(value) => {
                                                 form.setFieldsValue({
-                                                    bankId: value?.value
+                                                    bank_id: value?.value
                                                 });
                                                 setSearch(value);
-                                                setBankName(value?.name);
                                             }}
                                             className={classNames({
                                                 'border-[#C9353F]': errorBank
@@ -208,7 +236,19 @@ const BankWithdraw = () => {
                                         </span>
                                     )}
                                     <Field
-                                        name='accountNumber'
+                                        name='branch_name'
+                                        rules={[{ required: true, message: 'Branch bank is required' }]}
+                                    >
+                                        <Input
+                                            label='Branch Name'
+                                            placeholder='Branch Number'
+                                            className=''
+                                            error={errorBranchName}
+                                            required
+                                        />
+                                    </Field>
+                                    <Field
+                                        name='number'
                                         rules={[{ required: true, message: 'Branch Account Number is required' }]}
                                     >
                                         <Input
@@ -235,7 +275,9 @@ const BankWithdraw = () => {
                                         />
                                     </Field>
                                     <div className='flex flex-row justify-end gap-4'>
-                                        <Button disabled={isSubmitDisabled}>Submit</Button>
+                                        <Button disabled={isSubmitDisabled || loading} loading={loading}>
+                                            Submit
+                                        </Button>
                                     </div>
                                 </>
                             );

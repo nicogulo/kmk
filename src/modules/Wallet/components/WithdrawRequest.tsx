@@ -4,6 +4,7 @@ import Form, { Field, useForm } from 'rc-field-form';
 import React, { useState } from 'react';
 
 import classNames from '@/lib/classnames';
+import { useBankUser } from '@/hooks/useMasterData';
 
 import Breadcrumb from '@/components/Breadcrumb';
 import Button from '@/components/Button';
@@ -25,6 +26,7 @@ const WithdrawRequest = () => {
     const [form] = useForm<FormValues>();
     const [openModal, setOpenModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { bankUser } = useBankUser();
     const breadcrumbItems = [
         {
             title: 'Wallet',
@@ -37,18 +39,6 @@ const WithdrawRequest = () => {
     ];
 
     const balance = formatNumber(104231120);
-    const listBank = [
-        {
-            id: '1',
-            name: 'Bank Central Asia',
-            accountNumber: '1234567890'
-        },
-        {
-            id: '2',
-            name: 'Bank Mandiri',
-            accountNumber: '0987654321'
-        }
-    ];
 
     const handleSubmit = (values: FormValues) => {
         setLoading(true);
@@ -129,7 +119,7 @@ const WithdrawRequest = () => {
                                         </Field>
                                         <Field name='bankId' rules={[{ required: true, message: 'Bank is required' }]}>
                                             <SelectSearch
-                                                items={listBank}
+                                                items={bankUser}
                                                 name='bankId'
                                                 label='Bank'
                                                 selected={{

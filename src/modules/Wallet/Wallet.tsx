@@ -38,7 +38,7 @@ const Wallet = () => {
                     >
                         <div className='relative flex h-full flex-col gap-6'>
                             <div className='flex flex-row items-center justify-between '>
-                                <p className='text-2xl font-bold text-gray-800'>Transaction History</p>
+                                <p className='text-2xl font-bold text-gray-800'>Balance History</p>
                             </div>
                             <div className='flex flex-col gap-4'>
                                 <Tabs>

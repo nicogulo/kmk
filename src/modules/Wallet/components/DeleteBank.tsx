@@ -2,6 +2,7 @@ import Form, { Field } from 'rc-field-form';
 import React, { useState } from 'react';
 
 import classNames from '@/lib/classnames';
+import { useDeleteBank } from '@/hooks/useBank';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
@@ -14,21 +15,32 @@ interface Props {
     bankOptions: any;
     name: string;
     data: any;
+    onCallback?: () => void;
 }
 
-const EditBank: React.FC<Props> = ({ bankOptions, form, name, data }) => {
+const DeleteBank: React.FC<Props> = ({ bankOptions, form, name, data, onCallback }) => {
     const [open, setOpen] = useState(false);
     const [openDeleteBank, setOpenDeleteBank] = useState(false);
+    const { deleteBank, loading } = useDeleteBank();
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleDelete = async () => {
+        try {
+            const response = await deleteBank(data.uid);
+            console.log(response);
+            if (!response) throw new Error('Failed to delete bank');
+            onCallback?.();
+            setOpenDeleteBank(false);
+        } catch (error) {
+            console.error('Failed to delete bank', error);
+        }
     };
 
     return (
         <>
             <div className='flex flex-row gap-2'>
-                <Button variant='grayOutline' size='sm' onClick={() => setOpen(true)}>
-                    Edit
-                </Button>
                 <Button
                     variant='dangerOutline'
                     size='sm'
@@ -118,7 +130,7 @@ const EditBank: React.FC<Props> = ({ bankOptions, form, name, data }) => {
                 title='Delete Bank Account'
                 closePosition='right'
                 footer={
-                    <Button variant='dangerOutline' block>
+                    <Button variant='dangerOutline' block onClick={handleDelete} loading={loading} disabled={loading}>
                         Delete
                     </Button>
                 }
@@ -133,4 +145,4 @@ const EditBank: React.FC<Props> = ({ bankOptions, form, name, data }) => {
     );
 };
 
-export default EditBank;
+export default DeleteBank;

@@ -405,7 +405,8 @@ export const useBankUser = () => {
     }, []);
 
     return {
-        bankUser
+        bankUser,
+        fetchBankUser
     };
 };
 

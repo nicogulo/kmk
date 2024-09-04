@@ -46,6 +46,7 @@ const Kyc = () => {
     const submitPersonalData = (values: PersonalDataProps) => {
         setPersonalData(values);
         setActiveTab(2);
+        console.log(values);
     };
 
     const submit = async () => {

@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { When } from 'react-if';
 
 import classNames from '@/lib/classnames';
-import useCountry, {
+import {
     useAnnualIncome,
     useGender,
     useOccupation,
@@ -17,7 +17,6 @@ import { useGetDocuments } from '@/hooks/useUpload';
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
 import Input from '@/components/Input';
-import Select from '@/components/Select';
 import SelectSearch from '@/components/SelectSearch';
 
 export interface PersonalDataProps {
@@ -65,17 +64,12 @@ interface Props {
 const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
     const [form] = Form.useForm();
 
-    const { countries } = useCountry();
     const { occupation } = useOccupation();
     const { sourceOfFund } = useSourceOfFund();
     const { annualIncome } = useAnnualIncome();
     const { purposeOfAccountOpening } = usePurposeOfAccountOpening();
     const { getDocuments, documents } = useGetDocuments();
     const { gender } = useGender();
-
-    const defaultCountry = {
-        name: 'Indonesia'
-    };
 
     const genderData = documents?.metadata?.gender.toLowerCase();
 
@@ -123,7 +117,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 last_name: values.last_name,
                 gender: values.gender,
                 date_of_birth: dob,
-                place_of_birth: values.place_of_birth || 'Indonesia',
+                place_of_birth: values.place_of_birth,
                 citizenship: values.country || 'Indonesia',
                 identity_card: values.identity_card,
                 npwp: values.npwp,
@@ -137,7 +131,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 last_name: values.last_name,
                 gender: values.gender || (defaultGenderName as string),
                 date_of_birth: dob,
-                place_of_birth: values.place_of_birth || 'Indonesia',
+                place_of_birth: values.place_of_birth,
                 citizenship: values.country || 'Indonesia',
                 identity_card: values.identity_card,
                 npwp: values.npwp,
@@ -177,7 +171,8 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 identity_card: nik,
                 day: date[0].day.name,
                 month: date[0].month.name,
-                year: date[0].year.name
+                year: date[0].year.name,
+                place_of_birth: documents?.metadata?.place_of_birth
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -213,6 +208,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                         const errorAnnualIncome = getFieldError('average_yearly_income')[0];
                         const errorPurpose = getFieldError('purpose_of_account_opening')[0];
                         const errorSourceFund = getFieldError('source_of_fund')[0];
+                        const errorPlaceOfBirth = getFieldError('place_of_birth')[0];
 
                         return (
                             <>
@@ -363,22 +359,24 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                             <Icons icon='Interuption' /> {errorDay || errorMonth || errorYear}
                                         </span>
                                     )}
-                                    <Field name='place_of_birth'>
-                                        <Select
-                                            items={countries}
-                                            label='Negara Kelahiran'
-                                            selected={{
-                                                name: form.getFieldValue('place_of_birth') || defaultCountry.name
-                                            }}
-                                            setSelected={(value) => {
-                                                form.setFieldsValue({
-                                                    place_of_birth: value.name
-                                                });
-                                            }}
-                                            name='country'
-                                        />
-                                    </Field>
                                 </div>
+                                <Field
+                                    name='place_of_birth'
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Tempat lahir wajib diisi'
+                                        }
+                                    ]}
+                                >
+                                    <Input
+                                        label='Tempat Lahir'
+                                        name='place_of_birth'
+                                        placeholder='Masukkan tempat lahir anda'
+                                        error={errorPlaceOfBirth}
+                                        required
+                                    />
+                                </Field>
 
                                 <Field
                                     name='npwp'

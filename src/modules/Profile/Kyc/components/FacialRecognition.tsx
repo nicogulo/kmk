@@ -1,12 +1,15 @@
+import Builder from '@verihubs/liveness';
+import Image from 'next/image';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Else, If, Then } from 'react-if';
+
+import useUpload from '@/hooks/useUpload';
+
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
-import Modal from '@/components/Modal';
-import useUpload from '@/hooks/useUpload';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { When } from 'react-if';
-import Webcam from 'react-webcam';
+import { toast } from '@/components/Toast';
+
+import FaceImage from '../images/face.webp';
 
 interface Props {
     onBack: () => void;
@@ -14,27 +17,148 @@ interface Props {
 }
 
 const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
-    const router = useRouter();
-    const [isOpen, setIsOpen] = useState(false);
     const [image, setImage] = useState<string | null>(null);
-    const webcamRef = React.useRef<Webcam>(null);
-    const capture = React.useCallback(() => {
-        const imageSrc = webcamRef?.current?.getScreenshot();
-        if (imageSrc) {
-            setImage(imageSrc);
-        }
-    }, [webcamRef]);
+
+    const [blob, setBlob] = useState<File | null>();
 
     const { upload, loading } = useUpload();
     const handleSubmit = () => {
-        console.log('submit');
-        onNext();
+        if (blob) {
+            upload({
+                type: 'selfie',
+                file: blob
+            })
+                .then(() => {
+                    toast.success('Berhasil upload foto');
+                    setTimeout(() => {
+                        onNext();
+                    }, 1000);
+                })
+                .catch(() => {
+                    toast.error('Gagal upload foto');
+                });
+        }
     };
 
-    const handleClose = () => {
-        setIsOpen(false);
-        setImage(null);
+    const appId = '34230937-f5cc-4b94-9e6e-a31f64338842';
+    const appKey = 'kVWllGbYVvEx1ZraDKEP1AiJYzRCvw+A';
+
+    const base64ToFile = (base64: string, fileName: string): File | null => {
+        if (!base64 || typeof base64 !== 'string') {
+            console.error('Invalid Base64 string');
+            return null;
+        }
+
+        const [header, base64Data] = base64.split(',');
+
+        if (!base64Data) {
+            console.error('Invalid Base64 format');
+            return null;
+        }
+
+        const mimeType = header.match(/:(.*?);/)?.[1];
+
+        if (!mimeType) {
+            console.error('Invalid MIME type');
+            return null;
+        }
+
+        const buffer = Buffer.from(base64Data, 'base64');
+
+        return new File([buffer], fileName, { type: mimeType });
     };
+
+    useEffect(() => {
+        (window as any).LivenessSDK = new Builder()
+            .setCredential({
+                clientId: appId,
+                secret: appKey
+            })
+            .setInstruction(['look_left', 'look_right'], {
+                commands: ['open_mouth'],
+                seedLimit: 2
+            })
+
+            .setProxyMiddleware({
+                PassiveLiveness: {
+                    url: 'https://verihubs.binalokaindonesia.com/v1/liveness/face'
+                },
+                License: {
+                    url: `https://verihubs.binalokaindonesia.com/v1/license/check`
+                }
+            })
+            .setTimeout(60000)
+            .setURL('../liveness')
+            .setVirtualCameraLabel(['OBS', 'Virtual', 'Camera'])
+            .build();
+    }, []);
+
+    useEffect(() => {
+        const livenessMessageListener = ({ data: { data, subject } }: { data: any; subject: string }) => {
+            switch (subject) {
+                case 'Verification.Verbose':
+                    console.log('[Verbose]', data);
+                    break;
+
+                case 'Camera.NotAllowed':
+                case 'Camera.NotFound':
+                case 'Camera.PermissionDenied':
+                case 'ScreenOrientation.NotAllowed':
+                case 'Verification.Disrupted':
+                case 'Verification.Timeout':
+                    alert(`Terjadi kesalahan: ${subject}`);
+                    (global as any).LivenessSDK.onDestroy();
+                    break;
+
+                case 'Verification.Success':
+                    setTimeout(() => {
+                        setImage(`data:image/png;base64,${data.image.url}`);
+                    }, 1500);
+                    (global as any).LivenessSDK.onDestroy();
+
+                    // eslint-disable-next-line no-case-declarations
+                    const file = base64ToFile(`data:image/png;base64,${data.image.url}`, 'image/png');
+                    setBlob(file);
+
+                    if (file) {
+                        upload({
+                            type: 'selfie',
+                            file: file
+                        })
+                            .then(() => {
+                                toast.success('Berhasil upload foto');
+                                setTimeout(() => {
+                                    onNext();
+                                }, 1000);
+                            })
+                            .catch(() => {
+                                toast.error('Gagal upload foto');
+                            });
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+        };
+
+        if (typeof window !== 'undefined') {
+            window.addEventListener('message', livenessMessageListener as unknown as EventListener);
+        }
+
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('message', livenessMessageListener as unknown as EventListener);
+            }
+        };
+    }, [image, onNext, upload]);
+
+    const doLivenessVerification = useCallback(() => {
+        if (typeof window !== 'undefined') {
+            (window as any).LivenessSDK?.onStart();
+        }
+    }, []);
 
     return (
         <>
@@ -49,7 +173,11 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
                         </p>
                     </div>
                     <div className='flex w-full items-center justify-center'>
-                        <div className='h-[240px] w-[240px] bg-[#E8E8E8] ' />
+                        {image ? (
+                            <Image alt='liveness' src={image} width={372} height={240} />
+                        ) : (
+                            <Image alt='liveness' src={FaceImage} width={372} height={240} />
+                        )}
                     </div>
                     <div className='flex flex-col gap-4'>
                         <div className='flex flex-col gap-2 rounded-lg bg-[#F2F6FA] p-4'>
@@ -72,55 +200,21 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
                         <Button className='w-[120px]' variant='grayOutline' onClick={onBack}>
                             Kembali
                         </Button>
-                        <Button onClick={() => setIsOpen(true)} disabled={loading} loading={loading}>
-                            <Icons icon='Camera' width={20} height={20} /> Klik untuk memulai
-                        </Button>
+                        <If condition={!image}>
+                            <Then>
+                                <Button onClick={doLivenessVerification} disabled={loading} loading={loading}>
+                                    <Icons icon='Camera' width={20} height={20} /> Klik untuk memulai
+                                </Button>
+                            </Then>
+                            <Else>
+                                <Button onClick={handleSubmit} disabled={loading} loading={loading}>
+                                    Kirim
+                                </Button>
+                            </Else>
+                        </If>
                     </div>
                 </div>
             </div>
-            <Modal
-                open={isOpen}
-                onClose={handleClose}
-                title='Konfirmasi Tinjauan Gambar'
-                closePosition='right'
-                footer={
-                    <>
-                        <When condition={image}>
-                            <div className='flex flex-row gap-4'>
-                                <Button block onClick={() => setImage(null)} variant='grayOutline'>
-                                    Ulangi
-                                </Button>
-                                <Button block onClick={handleSubmit}>
-                                    Gunakan Foto
-                                </Button>
-                            </div>
-                        </When>
-                        <When condition={!image}>
-                            <div className='flex flex-col items-center gap-1'>
-                                <Button
-                                    onClick={() => {
-                                        capture();
-                                    }}
-                                    variant='gray'
-                                    className='h-12 w-12 rounded-full'
-                                >
-                                    <Icons icon='Camera' width={24} height={24} color='#454F5B' />
-                                </Button>
-                                <p className='text-xs font-normal text-[#525D66]'>Ambil Foto</p>
-                            </div>
-                        </When>
-                    </>
-                }
-            >
-                <div className='flex h-[240px] w-full items-center justify-center'>
-                    {/* <video ref={videoRef} autoPlay style={{ width: '100%', height: 240 }} /> */}
-                    {image ? (
-                        <Image alt='liveness' src={image} width={372} height={240} />
-                    ) : (
-                        <Webcam height={240} ref={webcamRef} />
-                    )}
-                </div>
-            </Modal>
         </>
     );
 };

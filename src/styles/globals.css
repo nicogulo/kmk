@@ -407,3 +407,10 @@ input[type='number'] {
         color: #525d66;
     }
 }
+
+.data-result {
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    background-color: #0002;
+    overflow: auto;
+}

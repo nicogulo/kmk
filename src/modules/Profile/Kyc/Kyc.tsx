@@ -147,19 +147,19 @@ const Kyc = () => {
                         </div>
                     </div>
                     <p className='xs text-gray-800'>
-                        Sehubungan dengan verifikasi identitas untuk tujuan Verifikasi Akun Tokocrypto (KYC), data
-                        pribadi Anda berupa data demografi dan/atau biometrik akan diperiksa kesesuaiannya, oleh PT
-                        Indonesia Digital Identity (VIDA) sebagai mitra kami, dengan data yang tercatat pada sistem
-                        instansi pemerintahan yang berhak mengeluarkan identitas tersebut. Apabila data pribadi Anda
-                        terverifikasi kesesuaiannya, maka VIDA sebagai Penyelenggara Sertifikasi Elektronik
-                        tersertifikasi oleh Kementerian Telekomunikasi dan Informasi, akan menerbitkan sertifikat
-                        elektronik sebagai bukti bahwa data pribadi Anda telah diverifikasi dan sesuai dengan data yang
-                        tercatat pada sistem instansi yang berhak mengeluarkan identitas tersebut.
+                        Sehubungan dengan verifikasi identitas untuk tujuan Verifikasi Akun Binaloka (KYC), data pribadi
+                        Anda berupa data demografi dan/atau biometrik akan diperiksa kesesuaiannya, oleh PT Verihubs
+                        sebagai mitra kami, dengan data yang tercatat pada sistem instansi pemerintahan yang berhak
+                        mengeluarkan identitas tersebut. Apabila data pribadi Anda terverifikasi kesesuaiannya, maka
+                        Verihubs sebagai Penyelenggara Sertifikasi Elektronik tersertifikasi oleh Kementerian
+                        Telekomunikasi dan Informasi, akan menerbitkan sertifikat elektronik sebagai bukti bahwa data
+                        pribadi Anda telah diverifikasi dan sesuai dengan data yang tercatat pada sistem instansi yang
+                        berhak mengeluarkan identitas tersebut.
                         <br />
                         <br />
                         Oleh karenanya, Anda menjamin keakuratan data pribadi yang Anda sediakan dan setuju atas
                         pemrosesan data pribadi Anda tersebut untuk tujuan penerbitan sertifikat elektronik serta
-                        layanan lain yang melekat pada sertifikat elektronik yang dilakukan oleh VIDA termasuk tanda
+                        layanan lain yang melekat pada sertifikat elektronik yang dilakukan oleh Verihubs termasuk tanda
                         tangan digital tersebut.
                         <br />
                         <br />
@@ -185,7 +185,7 @@ const Kyc = () => {
                         <span className='xs text-gray-800'>
                             Saya dengan ini menyatakan telah membaca, memahami, dan menyetujui syarat dan ketentuan
                             layanan Penyelenggara Sertifikasi Elektronik serta menjamin keakuratan data pribadi saya
-                            untuk diproses lebih lanjut oleh VIDA sebagai mitra dari Tokocrypto untuk keperluan
+                            untuk diproses lebih lanjut oleh Verihubs sebagai mitra dari Binaloka untuk keperluan
                             penerbitan dan pengelolaan Sertifikat Elektronik.
                         </span>
                     </label>

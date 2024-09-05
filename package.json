@@ -21,6 +21,7 @@
         "@headlessui/react": "^2.1.2",
         "@tanstack/react-query": "^5.51.23",
         "@tanstack/react-query-devtools": "^5.51.23",
+        "@verihubs/liveness": "file:public/liveness",
         "auto-zustand-selectors-hook": "^2.0.5",
         "axios": "^1.7.3",
         "bignumber.js": "^9.1.2",

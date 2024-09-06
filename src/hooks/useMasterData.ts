@@ -1,7 +1,7 @@
+import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
 
 import api from '@/lib/api';
-import useProfile from '@/hooks/useProfile';
 
 import useAuth from './useAuth';
 
@@ -39,14 +39,14 @@ interface BankUserProps {
 const useCountry = () => {
     const [countries, setCountries] = useState<string[]>([]);
     const { auth } = useAuth();
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchCountries = async (search?: string) => {
         try {
             const response = await api(`/master-data/country?search=${search}`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -69,14 +69,14 @@ const useCountry = () => {
 export const useProvince = () => {
     const [provinces, setProvinces] = useState<ProvinceProps[]>([]);
 
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchProvinces = async (search?: string) => {
         try {
             const response = await api(`/master-data/province?search=${search}`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -93,14 +93,14 @@ export const useProvince = () => {
 export const useCity = () => {
     const [cities, setCities] = useState<ValueProps[]>([]);
 
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchCities = async (search: string, code: number) => {
         try {
             const response = await api(`/master-data/regency?province_code=${code}&search=${search}`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -118,14 +118,14 @@ export const useCity = () => {
 export const useMaritalStatus = () => {
     // /master-data/marital-status
     const [maritalStatus, setMaritalStatus] = useState<string[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchMaritalStatus = async () => {
         try {
             const response = await api(`/master-data/marital-status`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -149,14 +149,14 @@ export const useMaritalStatus = () => {
 export const useGender = () => {
     // /master-data/gender
     const [gender, setgender] = useState<GenderProps[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchGender = async () => {
         try {
             const response = await api(`/master-data/gender`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -179,14 +179,14 @@ export const useGender = () => {
 
 export const useHouseOwnership = () => {
     const [houseOwnership, setHouseOwnership] = useState<string[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchHouseOwnership = async () => {
         try {
             const response = await api(`/master-data/house-ownership`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -209,14 +209,14 @@ export const useHouseOwnership = () => {
 
 export const usePurposeOfAccountOpening = () => {
     const [purposeOfAccountOpening, setPurposeOfAccountOpening] = useState<string[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchPurposeOfAccountOpening = async () => {
         try {
             const response = await api(`/master-data/purpose-of-account-opening`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -239,14 +239,14 @@ export const usePurposeOfAccountOpening = () => {
 
 export const useOccupation = () => {
     const [occupation, setOccupation] = useState<string[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchOccupation = async () => {
         try {
             const response = await api(`/master-data/occupation`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -260,7 +260,7 @@ export const useOccupation = () => {
     useEffect(() => {
         fetchOccupation();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         occupation
@@ -271,14 +271,14 @@ export const useOccupation = () => {
 
 export const useSourceOfFund = () => {
     const [sourceOfFund, setSourceOfFund] = useState<string[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchSourceOfFund = async () => {
         try {
             const response = await api(`/master-data/source-of-fund`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -301,14 +301,14 @@ export const useSourceOfFund = () => {
 
 export const useAnnualIncome = () => {
     const [annualIncome, setAnnualIncome] = useState<string[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchAnnualIncome = async () => {
         try {
             const response = await api(`/master-data/annual-income`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -331,14 +331,14 @@ export const useAnnualIncome = () => {
 
 export const useBank = () => {
     const [banks, setBanks] = useState<ValueProps[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchBanks = async (search?: string) => {
         try {
             const response = await api(`/master-data/bank?search=${search}`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -354,14 +354,14 @@ export const useBank = () => {
 
 export const useBankAccountType = () => {
     const [bankAccountType, setBankAccountType] = useState<string[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const fetchBankAccountType = async () => {
         try {
             const response = await api(`/master-data/bank-account-type`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();
@@ -384,13 +384,13 @@ export const useBankAccountType = () => {
 
 export const useBankUser = () => {
     const [bankUser, setBankUser] = useState<BankUserProps[]>([]);
-    const { profile } = useProfile();
+    const { user } = useUser();
     const fetchBankUser = async () => {
         try {
             const response = await api(`/user-bank`, {
                 method: 'GET',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();

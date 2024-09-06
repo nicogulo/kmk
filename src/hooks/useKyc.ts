@@ -7,8 +7,6 @@ import { toast } from '@/components/Toast';
 
 import { PersonalDataProps } from '@/modules/Profile/Kyc/components/PersonalData';
 
-import useAuth from './useAuth';
-
 export type KycBasicArgs = {
     personalData: PersonalDataProps;
 };
@@ -29,7 +27,6 @@ const convertToPayload = (args: KycBasicArgs): KycBasicPayload => ({
 });
 
 const useKyc = () => {
-    const { auth } = useAuth();
     const router = useRouter();
 
     const { profile } = useProfile();
@@ -62,7 +59,6 @@ const useKyc = () => {
 };
 
 export const useGetKyc = () => {
-    const { auth } = useAuth();
     const { profile } = useProfile();
     const getKyc = async () => {
         try {

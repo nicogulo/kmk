@@ -1,9 +1,9 @@
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 
-import useProfile from '@/hooks/useProfile';
 import useUpload, { useGetDocuments } from '@/hooks/useUpload';
 
 import Button from '@/components/Button';
@@ -59,7 +59,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
 
     const { upload } = useUpload();
     const { loading: loadingDoc, documents, getDocuments } = useGetDocuments();
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const handleUpload = (e: any) => {
         const file = e.target.files[0];
@@ -74,7 +74,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
         };
         reader.readAsDataURL(file);
     };
-    console.log('ktp', ktpFile);
+
     const handleChangeFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
@@ -276,7 +276,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
         getDocuments('selfie');
         getDocuments('npwp');
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         if (documents?.type === 'ktp') {

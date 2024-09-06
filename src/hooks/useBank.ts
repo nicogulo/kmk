@@ -1,8 +1,8 @@
+import { useUser } from '@auth0/nextjs-auth0/client';
 import { useState } from 'react';
 
 import api from '@/lib/api';
 import useAuth from '@/hooks/useAuth';
-import useProfile from '@/hooks/useProfile';
 
 import { toast } from '@/components/Toast';
 
@@ -16,7 +16,7 @@ interface Payload {
 export const useAddBank = () => {
     const [loading, setLoading] = useState(false);
     const { auth } = useAuth();
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const addBank = async (payload: Payload) => {
         if (!auth.isLoggedIn) return;
@@ -27,7 +27,7 @@ export const useAddBank = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 },
                 body: JSON.stringify(payload)
             });
@@ -47,7 +47,7 @@ export const useAddBank = () => {
 export const useDeleteBank = () => {
     const [loading, setLoading] = useState(false);
     const { auth } = useAuth();
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const deleteBank = async (id: number) => {
         if (!auth.isLoggedIn) return;
@@ -58,7 +58,7 @@ export const useDeleteBank = () => {
                 method: 'DELETE',
                 body: JSON.stringify({ id }),
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();

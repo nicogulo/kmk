@@ -1,8 +1,8 @@
 /* eslint-disable consistent-return */
+import { useUser } from '@auth0/nextjs-auth0/client';
 import { useState } from 'react';
 
 import api from '@/lib/api';
-import useProfile from '@/hooks/useProfile';
 
 import { toast } from '@/components/Toast';
 
@@ -22,7 +22,7 @@ interface UploadResponse {
 const useUpload = () => {
     const { auth } = useAuth();
     const [loading, setLoading] = useState(false);
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const upload = async ({ type, file }: UploadPayload) => {
         if (!auth.isLoggedIn) return;
@@ -36,7 +36,7 @@ const useUpload = () => {
             const response = await api(`/kyc/upload`, {
                 method: 'POST',
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 },
                 body: formData
             });
@@ -59,7 +59,7 @@ export const useGetDocuments = () => {
     const [loading, setLoading] = useState(false);
     const [documents, setDocuments] = useState<UploadResponse>();
 
-    const { profile } = useProfile();
+    const { user } = useUser();
 
     const getDocuments = async (type: 'ktp' | 'selfie' | 'npwp' | 'kk' | 'bank_statement') => {
         if (!auth.isLoggedIn) return;
@@ -68,7 +68,7 @@ export const useGetDocuments = () => {
         try {
             const response = await api(`/kyc/file/${type}`, {
                 headers: {
-                    email: profile?.email ?? ''
+                    email: user?.email ?? ''
                 }
             });
             const data = await response.json();

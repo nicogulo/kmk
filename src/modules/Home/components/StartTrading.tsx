@@ -9,6 +9,19 @@ import Ellipise from '../images/ellipse-2.png';
 import Hero from '../images/start-trading.webp';
 
 const StartTrading = () => {
+    const scrollToMarket = () => {
+        const marketListElement = document.getElementById('market-list');
+        if (marketListElement) {
+            const offset = -56;
+            const elementPosition = marketListElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
     return (
         <div className='relative bg-gray-800 pb-[80px]'>
             <div
@@ -34,7 +47,9 @@ const StartTrading = () => {
                         Start trading crypto easily and securely. Sign up now to unlock <br /> seamless transactions and
                         low fees.
                     </span>
-                    <Button className='mt-3 w-fit'>Start Investing</Button>
+                    <Button className='mt-3 w-fit' onClick={scrollToMarket}>
+                        Start Investing
+                    </Button>
                 </div>
                 <Image src={Hero.src} width={480} height={560} alt='start-trading' quality={100} />
             </Container>

@@ -1,11 +1,16 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+
+import useProfile, { ProfileStatus } from '@/hooks/useProfile';
 
 import chartData from '@/data/chart.json';
 import data from '@/data/market.json';
 
 import ChangePercentageText from '@/components/ChangePercentageText';
 import Container from '@/components/Container';
+import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
+import ModalTrade from '@/components/Modal/ModalTrade';
+import ModalUnverified from '@/components/Modal/ModalUnverified';
 import Table from '@/components/Table';
 import { TableColumn } from '@/components/Table/Table';
 
@@ -13,6 +18,15 @@ import LineChart from '@/modules/Markets/components/LineChart';
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
 
 const MarketList = () => {
+    const { profile } = useProfile();
+    const [openUnverif, setOpenUnverif] = useState(false);
+    const [openTrade, setOpenTrade] = useState(false);
+
+    const [openModalPending, setOpenModalPending] = useState(false);
+
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
+
     const columns: TableColumn[] = [
         {
             title: 'Name',
@@ -80,27 +94,37 @@ const MarketList = () => {
     ];
 
     return (
-        <Container className='flex flex-col items-center pb-[80px]'>
-            <div className='flex flex-col gap-3 pb-14 text-center'>
-                <h1 className='font-semibold text-gray-800'>Market Price</h1>
-                <p className='text-[#637381]'>Trending crypto market price in Rupiah in the last 24 hours</p>
-            </div>
-            <div className='flex w-[70%] flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
-                <div className='  flex items-center justify-center pt-4'>
-                    <Table
-                        data={data}
-                        columns={columns}
-                        onRow={(record) => ({
-                            onClick: () => {
-                                console.log('====================================');
-                                console.log('Trade', record.name);
-                                console.log('====================================');
-                            }
-                        })}
-                    />
+        <>
+            <Container className='flex flex-col items-center pb-[80px]'>
+                <div className='flex flex-col gap-3 pb-14 text-center' id='market-list'>
+                    <h1 className='font-semibold text-gray-800'>Market Price</h1>
+                    <p className='text-[#637381]'>Trending crypto market price in Rupiah in the last 24 hours</p>
                 </div>
-            </div>
-        </Container>
+                <div className='flex w-[70%] flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
+                    <div className='  flex items-center justify-center pt-4'>
+                        <Table
+                            data={data}
+                            columns={columns}
+                            onRow={(record) => ({
+                                onClick: () => {
+                                    if (isUnverifiedBasic) {
+                                        setOpenUnverif(true);
+                                    } else if (isVerifiedBasic) {
+                                        setOpenTrade(true);
+                                    } else {
+                                        setOpenModalPending(true);
+                                    }
+                                }
+                            })}
+                        />
+                    </div>
+                </div>
+            </Container>
+
+            <ModalUnverified isOpen={openUnverif} handleClose={() => setOpenUnverif(false)} />
+            <ModalPendingVerif isOpen={openModalPending} handleClose={() => setOpenModalPending(false)} />
+            <ModalTrade isOpen={openTrade} handleClose={() => setOpenTrade(false)} />
+        </>
     );
 };
 

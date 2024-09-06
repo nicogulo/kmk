@@ -9,6 +9,19 @@ import Ellipise from '../images/ellipse.png';
 import HeroImage from '../images/hero.webp';
 
 const Hero = () => {
+    const scrollToMarket = () => {
+        const marketListElement = document.getElementById('market-list');
+        if (marketListElement) {
+            const offset = -56;
+            const elementPosition = marketListElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset + offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
     return (
         <div className='bg-primary-100 relative h-[686px]'>
             <div
@@ -28,7 +41,9 @@ const Hero = () => {
                         Your Gateway to Secure and Seamless <br />
                         Crypto Transactions
                     </span>
-                    <Button className='mt-4 w-fit'>Start Investing</Button>
+                    <Button className='mt-4 w-fit' onClick={scrollToMarket}>
+                        Start Investing
+                    </Button>
                 </div>
                 <Image src={HeroImage.src} unoptimized alt='Hero' width={671} height={573} />
             </Container>

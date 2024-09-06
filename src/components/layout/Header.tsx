@@ -10,6 +10,7 @@ import useAuth, { useLogin, useLogout } from '@/hooks/useAuth';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons, { IconsProps } from '@/components/Icon';
+import LanguageSwitch from '@/components/layout/components/LanguageSwitch';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import ModalTrade from '@/components/Modal/ModalTrade';
 
@@ -27,6 +28,7 @@ const Header = () => {
     const isProfile = router.pathname.includes('/profile');
     const isWallet = router.pathname.includes('/wallet');
     const isMarket = router.pathname === '/markets';
+    const isTnc = router.pathname === '/terms-and-conditions';
 
     const { logout } = useLogout();
 
@@ -153,6 +155,7 @@ const Header = () => {
                                         </When>
                                     </>
                                 )}
+                                {isTnc && <LanguageSwitch />}
                                 <When condition={isMobile && !isLoggedIn}>
                                     <div className='absolute bottom-1/2 flex w-[calc(100vw-40px)] flex-col justify-between gap-3'>
                                         <UnstyledLink href='/login' className='w-full'>

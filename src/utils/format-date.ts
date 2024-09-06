@@ -8,7 +8,7 @@ import { LanguagesCode } from '@/constant/i18n';
 export const formatDate = (
     date: number | Date | string | Dayjs | null,
     format: string,
-    locale: LanguagesCode = 'en'
+    locale: LanguagesCode = 'id'
 ): string => {
     dayjs.extend(localeData);
 

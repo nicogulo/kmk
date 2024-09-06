@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import api from '@/lib/api';
 import useAuth from '@/hooks/useAuth';
+import useProfile from '@/hooks/useProfile';
 
 import { toast } from '@/components/Toast';
 
@@ -15,6 +16,7 @@ interface Payload {
 export const useAddBank = () => {
     const [loading, setLoading] = useState(false);
     const { auth } = useAuth();
+    const { profile } = useProfile();
 
     const addBank = async (payload: Payload) => {
         if (!auth.isLoggedIn) return;
@@ -24,8 +26,8 @@ export const useAddBank = () => {
             const response = await api(`/user-bank`, {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${auth.token}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    email: profile?.email ?? ''
                 },
                 body: JSON.stringify(payload)
             });
@@ -45,6 +47,7 @@ export const useAddBank = () => {
 export const useDeleteBank = () => {
     const [loading, setLoading] = useState(false);
     const { auth } = useAuth();
+    const { profile } = useProfile();
 
     const deleteBank = async (id: number) => {
         if (!auth.isLoggedIn) return;
@@ -55,7 +58,7 @@ export const useDeleteBank = () => {
                 method: 'DELETE',
                 body: JSON.stringify({ id }),
                 headers: {
-                    Authorization: `Bearer ${auth.token}`
+                    email: profile?.email ?? ''
                 }
             });
             const data = await response.json();

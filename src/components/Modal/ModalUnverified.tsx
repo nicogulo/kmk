@@ -22,7 +22,7 @@ const ModalUnverified: React.FC<Props> = ({ handleClose, isOpen }) => {
             closePosition='right'
             headerClassName='!items-start'
             footer={
-                <Button block onClick={() => router.push(`/profile/kyc`)}>
+                <Button block onClick={() => router.push(`/profile`)}>
                     Verify Now
                 </Button>
             }

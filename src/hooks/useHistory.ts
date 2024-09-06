@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import api from '@/lib/api';
+import useProfile from '@/hooks/useProfile';
 
 import { toast } from '@/components/Toast';
 
@@ -50,6 +51,7 @@ interface HistoryArgs {
 const useHistory = (args: HistoryArgs = {}) => {
     const { auth } = useAuth();
     const [history, setHistory] = useState<HistoryResponse>();
+    const { profile } = useProfile();
 
     const fetchHistory = async () => {
         try {
@@ -61,7 +63,7 @@ const useHistory = (args: HistoryArgs = {}) => {
 
             const response = await api(`/balance/history?${queryParams.toString()}`, {
                 headers: {
-                    Authorization: `Bearer ${auth.token}`
+                    email: profile?.email ?? ''
                 },
                 method: 'GET'
             });
@@ -88,13 +90,14 @@ export const useHistoryDetail = (uid?: string) => {
     const { auth } = useAuth();
     const [historyDetail, setHistoryDetail] = useState<History>();
     const [loading, setLoading] = useState(false);
+    const { profile } = useProfile();
 
     const fetchHistory = async () => {
         try {
             setLoading(true);
             const response = await api(`/balance/history/${uid}`, {
                 headers: {
-                    Authorization: `Bearer ${auth.token}`
+                    email: profile?.email ?? ''
                 },
                 method: 'GET'
             });
@@ -119,7 +122,7 @@ export const useHistoryDetail = (uid?: string) => {
         try {
             const response = await api(`/balance/history/${uid || uidPayload}`, {
                 headers: {
-                    Authorization: `Bearer ${auth.token}`
+                    email: profile?.email ?? ''
                 },
                 method: 'POST',
                 body: formData

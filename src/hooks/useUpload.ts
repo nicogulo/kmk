@@ -2,6 +2,7 @@
 import { useState } from 'react';
 
 import api from '@/lib/api';
+import useProfile from '@/hooks/useProfile';
 
 import { toast } from '@/components/Toast';
 
@@ -21,6 +22,7 @@ interface UploadResponse {
 const useUpload = () => {
     const { auth } = useAuth();
     const [loading, setLoading] = useState(false);
+    const { profile } = useProfile();
 
     const upload = async ({ type, file }: UploadPayload) => {
         if (!auth.isLoggedIn) return;
@@ -34,7 +36,7 @@ const useUpload = () => {
             const response = await api(`/kyc/upload`, {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${auth.token}`
+                    email: profile?.email ?? ''
                 },
                 body: formData
             });
@@ -56,6 +58,9 @@ export const useGetDocuments = () => {
     const { auth } = useAuth();
     const [loading, setLoading] = useState(false);
     const [documents, setDocuments] = useState<UploadResponse>();
+
+    const { profile } = useProfile();
+
     const getDocuments = async (type: 'ktp' | 'selfie' | 'npwp' | 'kk' | 'bank_statement') => {
         if (!auth.isLoggedIn) return;
 
@@ -63,7 +68,7 @@ export const useGetDocuments = () => {
         try {
             const response = await api(`/kyc/file/${type}`, {
                 headers: {
-                    Authorization: `Bearer ${auth.token}`
+                    email: profile?.email ?? ''
                 }
             });
             const data = await response.json();

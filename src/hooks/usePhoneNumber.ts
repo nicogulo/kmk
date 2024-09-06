@@ -1,11 +1,8 @@
 import api from '@/lib/api';
-
-import useAuth from './useAuth';
+import useProfile from '@/hooks/useProfile';
 
 const useVerifyPhoneNumber = () => {
-    const {
-        auth: { token }
-    } = useAuth();
+    const { profile } = useProfile();
 
     const verifyPhoneNumber = async (id: string) => {
         try {
@@ -13,7 +10,7 @@ const useVerifyPhoneNumber = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
+                    email: profile?.email ?? ''
                 },
                 body: null
             });

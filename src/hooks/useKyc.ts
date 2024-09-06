@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 
+import api from '@/lib/api';
+
 import { toast } from '@/components/Toast';
 
-import { API_URL } from '@/constant/env';
 import { PersonalDataProps } from '@/modules/Profile/Kyc/components/PersonalData';
 
 import useAuth from './useAuth';
@@ -32,7 +33,7 @@ const useKyc = () => {
     const submitKyc = async (args: KycBasicArgs) => {
         const payload = convertToPayload(args);
         try {
-            const response = await fetch(`${API_URL}/kyc`, {
+            const response = await api(`/kyc`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
@@ -61,7 +62,7 @@ export const useGetKyc = () => {
     const { auth } = useAuth();
     const getKyc = async () => {
         try {
-            const response = await fetch(`${API_URL}/kyc/basic`, {
+            const response = await api(`/kyc/basic`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`,

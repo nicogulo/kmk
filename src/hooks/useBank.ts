@@ -1,10 +1,9 @@
 import { useState } from 'react';
 
+import api from '@/lib/api';
 import useAuth from '@/hooks/useAuth';
 
 import { toast } from '@/components/Toast';
-
-import { API_URL } from '@/constant/env';
 
 interface Payload {
     bank_id: number;
@@ -22,7 +21,7 @@ export const useAddBank = () => {
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/user-bank`, {
+            const response = await api(`/user-bank`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
@@ -52,7 +51,7 @@ export const useDeleteBank = () => {
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/user-bank/${id}`, {
+            const response = await api(`/user-bank/${id}`, {
                 method: 'DELETE',
                 body: JSON.stringify({ id }),
                 headers: {

@@ -2,8 +2,8 @@
 
 export const getRedirectHref = (path: string) => {
     if (path === '/' || path.includes('register') || path.includes('login')) {
-        return '/login';
+        return '/api/auth/login';
     }
 
-    return `/login?redirect=${path}`;
+    return `/api/auth/login?redirect=${path}`;
 };

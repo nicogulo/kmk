@@ -1,4 +1,4 @@
-import { API_URL } from '@/constant/env';
+import api from '@/lib/api';
 
 import useAuth from './useAuth';
 
@@ -9,7 +9,7 @@ const useVerifyPhoneNumber = () => {
 
     const verifyPhoneNumber = async (id: string) => {
         try {
-            const response = await fetch(`${API_URL}/phone/verify/${id}`, {
+            const response = await api(`/phone/verify/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

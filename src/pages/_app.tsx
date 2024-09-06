@@ -1,3 +1,4 @@
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { AppProps } from 'next/app';
 import { IBM_Plex_Sans } from 'next/font/google';
 import Router, { useRouter } from 'next/router';
@@ -39,20 +40,26 @@ const ibmPlex = IBM_Plex_Sans({
 });
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+    const { user } = pageProps;
+
     const router = useRouter();
     const isIgnore = Boolean(pageIgnore.some((page) => router.pathname.includes(page)));
+
     return (
-        <main className={ibmPlex.className}>
-            <Layout>
-                <When condition={!isIgnore}>
-                    <Header />
-                </When>
-                <DismissableToast />
-                <div className='min-h-main bg-gray-50'>
-                    <Component {...pageProps} />
-                </div>
-            </Layout>
-        </main>
+        // <UserProvider user={user} profileUrl='/api/page-router-auth/me' loginUrl='/api/page-router-auth/login'>
+        <UserProvider>
+            <main className={ibmPlex.className}>
+                <Layout>
+                    <When condition={!isIgnore}>
+                        <Header />
+                    </When>
+                    <DismissableToast />
+                    <div className='min-h-main bg-gray-50'>
+                        <Component {...pageProps} />
+                    </div>
+                </Layout>
+            </main>
+        </UserProvider>
     );
 };
 

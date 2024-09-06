@@ -1,9 +1,9 @@
 /* eslint-disable consistent-return */
 import { useState } from 'react';
 
-import { toast } from '@/components/Toast';
+import api from '@/lib/api';
 
-import { API_URL } from '@/constant/env';
+import { toast } from '@/components/Toast';
 
 import useAuth from './useAuth';
 
@@ -31,7 +31,7 @@ const useUpload = () => {
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/kyc/upload`, {
+            const response = await api(`/kyc/upload`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -61,7 +61,7 @@ export const useGetDocuments = () => {
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/kyc/file/${type}`, {
+            const response = await api(`/kyc/file/${type}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

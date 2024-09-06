@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { toast } from '@/components/Toast';
+import api from '@/lib/api';
 
-import { API_URL } from '@/constant/env';
+import { toast } from '@/components/Toast';
 
 import useAuth from './useAuth';
 
@@ -59,7 +59,7 @@ const useHistory = (args: HistoryArgs = {}) => {
             if (args.filter?.sides) queryParams.append('sides', args.filter.sides);
             if (args.filter?.status) queryParams.append('status', args.filter.status.toString());
 
-            const response = await fetch(`${API_URL}/balance/history?${queryParams.toString()}`, {
+            const response = await api(`/balance/history?${queryParams.toString()}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 },
@@ -92,7 +92,7 @@ export const useHistoryDetail = (uid?: string) => {
     const fetchHistory = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`${API_URL}/balance/history/${uid}`, {
+            const response = await api(`/balance/history/${uid}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 },
@@ -117,7 +117,7 @@ export const useHistoryDetail = (uid?: string) => {
         formData.append('file', file);
 
         try {
-            const response = await fetch(`${API_URL}/balance/history/${uid || uidPayload}`, {
+            const response = await api(`/balance/history/${uid || uidPayload}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 },

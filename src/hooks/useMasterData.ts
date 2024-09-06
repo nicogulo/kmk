@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { API_URL } from '@/constant/env';
+import api from '@/lib/api';
 
 import useAuth from './useAuth';
 
@@ -41,7 +41,7 @@ const useCountry = () => {
 
     const fetchCountries = async (search?: string) => {
         try {
-            const response = await fetch(`${API_URL}/master-data/country?search=${search}`, {
+            const response = await api(`/master-data/country?search=${search}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -70,7 +70,7 @@ export const useProvince = () => {
 
     const fetchProvinces = async (search?: string) => {
         try {
-            const response = await fetch(`${API_URL}/master-data/province?search=${search}`, {
+            const response = await api(`/master-data/province?search=${search}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -93,7 +93,7 @@ export const useCity = () => {
 
     const fetchCities = async (search: string, code: number) => {
         try {
-            const response = await fetch(`${API_URL}/master-data/regency?province_code=${code}&search=${search}`, {
+            const response = await api(`/master-data/regency?province_code=${code}&search=${search}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -118,7 +118,7 @@ export const useMaritalStatus = () => {
 
     const fetchMaritalStatus = async () => {
         try {
-            const response = await fetch(`${API_URL}/master-data/marital-status`, {
+            const response = await api(`/master-data/marital-status`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -149,7 +149,7 @@ export const useGender = () => {
 
     const fetchGender = async () => {
         try {
-            const response = await fetch(`${API_URL}/master-data/gender`, {
+            const response = await api(`/master-data/gender`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -179,7 +179,7 @@ export const useHouseOwnership = () => {
 
     const fetchHouseOwnership = async () => {
         try {
-            const response = await fetch(`${API_URL}/master-data/house-ownership`, {
+            const response = await api(`/master-data/house-ownership`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -209,7 +209,7 @@ export const usePurposeOfAccountOpening = () => {
 
     const fetchPurposeOfAccountOpening = async () => {
         try {
-            const response = await fetch(`${API_URL}/master-data/purpose-of-account-opening`, {
+            const response = await api(`/master-data/purpose-of-account-opening`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -239,7 +239,7 @@ export const useOccupation = () => {
 
     const fetchOccupation = async () => {
         try {
-            const response = await fetch(`${API_URL}/master-data/occupation`, {
+            const response = await api(`/master-data/occupation`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -271,7 +271,7 @@ export const useSourceOfFund = () => {
 
     const fetchSourceOfFund = async () => {
         try {
-            const response = await fetch(`${API_URL}/master-data/source-of-fund`, {
+            const response = await api(`/master-data/source-of-fund`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -301,7 +301,7 @@ export const useAnnualIncome = () => {
 
     const fetchAnnualIncome = async () => {
         try {
-            const response = await fetch(`${API_URL}/master-data/annual-income`, {
+            const response = await api(`/master-data/annual-income`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -331,7 +331,7 @@ export const useBank = () => {
 
     const fetchBanks = async (search?: string) => {
         try {
-            const response = await fetch(`${API_URL}/master-data/bank?search=${search}`, {
+            const response = await api(`/master-data/bank?search=${search}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -354,7 +354,7 @@ export const useBankAccountType = () => {
 
     const fetchBankAccountType = async () => {
         try {
-            const response = await fetch(`${API_URL}/master-data/bank-account-type`, {
+            const response = await api(`/master-data/bank-account-type`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -384,7 +384,7 @@ export const useBankUser = () => {
 
     const fetchBankUser = async () => {
         try {
-            const response = await fetch(`${API_URL}/user-bank`, {
+            const response = await api(`/user-bank`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${auth.token}`

@@ -1,17 +1,21 @@
+import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import api from '@/lib/api';
+
 import { toast } from '@/components/Toast';
 
-import { API_URL } from '@/constant/env';
 import { getAuth, resetAuth, setAuth } from '@/utils/auth';
 
 const useAuth = () => {
-    const { isLoggedIn, token, hash } = getAuth();
+    const { isLoggedIn: authIsLoggedIn, token, hash } = getAuth();
+    const { user } = useUser();
+    const isLoggedIn = authIsLoggedIn || !!user;
 
     return {
         auth: {
-            isLoggedIn,
+            isLoggedIn: isLoggedIn,
             token: token ?? 'token',
             hash: hash ?? 'hash'
         }
@@ -35,54 +39,82 @@ interface OtpPayload {
 }
 
 export const useLogin = () => {
+    const { user } = useUser();
     const router = useRouter();
-    const redirect = router.query.redirect as string;
 
-    const handleLogin = async (payload: LoginPayload) => {
-        try {
-            const response = await fetch(`${API_URL}/auth/sign-in`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
-
-            const res = await response.json();
-            if (!res) throw new Error('Oops! Something went wrong. Please try again later');
-            if (res.code === 200001001) throw new Error('Oops! Something went wrong. Password or email is incorrect');
-
-            if (res?.token) {
-                setAuth({ token: res.token });
-                return res;
-            }
-
-            return res;
-        } catch (err: any) {
-            toast.error(err.message);
-            return err;
-        }
+    const handleLogin = async () => {
+        router.push('/api/auth/login');
     };
 
     useEffect(() => {
-        if (redirect) {
-            router.prefetch(redirect, redirect);
-        }
+        const fetchToken = async () => {
+            if (user) {
+                const response = await fetch('/api/protected');
+                const data = await response.json();
 
-        router.prefetch('/');
-    }, [router, redirect]);
+                if (data.accessToken) {
+                    setAuth({ token: data.accessToken });
+                }
+            }
+        };
+
+        fetchToken();
+    }, [user]);
 
     return {
-        login: handleLogin
+        login: handleLogin,
+        isAuthenticated: !!user // Menggunakan !!user untuk memeriksa status login
     };
 };
+// export const useLogin = () => {
+//     const router = useRouter();
+//     const redirect = router.query.redirect as string;
+
+//     const handleLogin = async (payload: LoginPayload) => {
+//         try {
+//             const response = await api(`/auth/sign-in`, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify(payload)
+//             });
+
+//             const res = await response.json();
+//             if (!res) throw new Error('Oops! Something went wrong. Please try again later');
+//             if (res.code === 200001001) throw new Error('Oops! Something went wrong. Password or email is incorrect');
+
+//             if (res?.token) {
+//                 setAuth({ token: res.token });
+//                 return res;
+//             }
+
+//             return res;
+//         } catch (err: any) {
+//             toast.error(err.message);
+//             return err;
+//         }
+//     };
+
+//     useEffect(() => {
+//         if (redirect) {
+//             router.prefetch(redirect, redirect);
+//         }
+
+//         router.prefetch('/');
+//     }, [router, redirect]);
+
+//     return {
+//         login: handleLogin
+//     };
+// };
 
 export const useRegister = () => {
     const { auth } = useAuth();
 
     const handleRegister = async (payload: RegisterPayload) => {
         try {
-            const response = await fetch(`${API_URL}/auth/sign-up`, {
+            const response = await api(`/auth/sign-up`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -110,7 +142,7 @@ export const useRegister = () => {
 
     const handleSubmitOtp = async (payload: OtpPayload) => {
         try {
-            const response = await fetch(`${API_URL}/auth/sign-up/verification/${auth.hash}`, {
+            const response = await api(`/auth/sign-up/verification/${auth.hash}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -130,7 +162,7 @@ export const useRegister = () => {
 
     const handleResendOtp = async () => {
         try {
-            const response = await fetch(`${API_URL}/auth/sign-up/verification/${auth.hash}/resend`, {
+            const response = await api(`/auth/sign-up/verification/${auth.hash}/resend`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -164,7 +196,8 @@ export const useLogout = () => {
         resetAuth();
         localStorage.removeItem('email');
         if (force) {
-            router.push('/login');
+            router.push('/api/auth/logout');
+            // router.push('/login');
         }
     };
 
@@ -176,7 +209,7 @@ export const useLogout = () => {
 export const useForgotPassword = () => {
     const handleForgotPassword = async (email: string) => {
         try {
-            const response = await fetch(`${API_URL}/auth/request-change-password`, {
+            const response = await api(`/auth/request-change-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -204,7 +237,7 @@ export const useChangePassword = () => {
     // /auth/change-password/{hash}
     const handleChangePassword = async (hash: string, password: string) => {
         try {
-            const response = await fetch(`${API_URL}/auth/change-password/${hash}`, {
+            const response = await api(`/auth/change-password/${hash}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

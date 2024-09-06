@@ -6,6 +6,7 @@ import Switch from '@/components/Switch';
 const LanguageSwitch = () => {
     const router = useRouter();
     const [checked, setChecked] = useState(router.locale === 'id');
+    console.log(router.locale);
 
     const handleChangeLanguage = () => {
         setChecked(!checked);
@@ -17,7 +18,7 @@ const LanguageSwitch = () => {
 
     return (
         <div>
-            <Switch onChange={handleChangeLanguage} />
+            <Switch onChange={handleChangeLanguage} checked={checked} />
         </div>
     );
 };

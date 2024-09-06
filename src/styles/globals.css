@@ -414,3 +414,9 @@ input[type='number'] {
     background-color: #0002;
     overflow: auto;
 }
+
+.tnc-text {
+    * {
+        text-align: justify;
+    }
+}

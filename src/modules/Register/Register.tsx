@@ -364,7 +364,10 @@ const Register: React.FC = () => {
                                             />
                                             <span className='text-xs font-normal text-[#121416]'>
                                                 I have read, understood and agreed to{' '}
-                                                <Link href='/register' className='text-primary-300 underline'>
+                                                <Link
+                                                    href='/terms-and-conditions'
+                                                    className='text-primary-300 underline'
+                                                >
                                                     PT Binaloka Indonesia Terms and Conditions
                                                 </Link>
                                             </span>

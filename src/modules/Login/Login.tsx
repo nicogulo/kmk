@@ -10,7 +10,6 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import InputPassword from '@/components/InputPassword';
 import LoginRegisterSide from '@/components/layout/LoginRegisterSide';
-import { toast } from '@/components/Toast';
 
 import { EMAIL_LOGIN_REGEX } from '@/constant/regex';
 
@@ -27,24 +26,24 @@ const Login: React.FC = () => {
 
     const handleLogin = async (values: FormValues) => {
         setIsLoading(true);
-        try {
-            const payload = {
-                email: values.email,
-                password: values.password
-            };
+        // try {
+        //     const payload = {
+        //         email: values.email,
+        //         password: values.password
+        //     };
 
-            const res = await login(payload);
+        //     const res = await login(payload);
 
-            if (res.type === 'sign-up-verification') {
-                router.push('/register/email-verification');
-            }
-            if (res?.token) {
-                toast.success('Login success');
-                router.push('/');
-            }
-        } catch (error) {
-            //
-        }
+        //     if (res.type === 'sign-up-verification') {
+        //         router.push('/register/email-verification');
+        //     }
+        //     if (res?.token) {
+        //         toast.success('Login success');
+        //         router.push('/');
+        //     }
+        // } catch (error) {
+        //     //
+        // }
         setIsLoading(false);
     };
 

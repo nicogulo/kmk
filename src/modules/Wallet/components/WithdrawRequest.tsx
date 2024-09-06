@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 
 import classNames from '@/lib/classnames';
 import { useBankUser } from '@/hooks/useMasterData';
+import useWithdraw from '@/hooks/useWithdraw';
 
 import Breadcrumb from '@/components/Breadcrumb';
 import Button from '@/components/Button';
@@ -14,6 +15,7 @@ import Illustration from '@/components/Illustrations';
 import Input from '@/components/Input';
 import Modal from '@/components/Modal';
 import SelectSearch from '@/components/SelectSearch';
+import { toast } from '@/components/Toast';
 
 import { formatNumber } from '@/utils/currency';
 
@@ -26,7 +28,9 @@ const WithdrawRequest = () => {
     const [form] = useForm<FormValues>();
     const [openModal, setOpenModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [bankId, setBankId] = useState('');
     const { bankUser } = useBankUser();
+    const { withdraw } = useWithdraw();
     const breadcrumbItems = [
         {
             title: 'Wallet',
@@ -38,19 +42,29 @@ const WithdrawRequest = () => {
         }
     ];
 
+    const listBank = Array.isArray(bankUser)
+        ? bankUser.map((item) => ({
+              name: item.bank_name + ' - ' + item.number,
+              value: item.uid
+          }))
+        : [];
+
     const balance = formatNumber(104231120);
 
-    const handleSubmit = (values: FormValues) => {
+    const handleSubmit = async (values: FormValues) => {
         setLoading(true);
         try {
-            console.log(values);
-        } catch (error) {
-            console.error(error);
-        }
-        setTimeout(() => {
+            const payload = {
+                amount: String(values.amount),
+                member_bank_uid: bankId
+            };
+            const res = await withdraw(payload);
             setOpenModal(true);
-            setLoading(false);
-        }, 2000); // Mengatur timeout selama 2 detik (2000 milidetik)
+            console.log(res);
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+        setLoading(false);
     };
     return (
         <>
@@ -119,7 +133,7 @@ const WithdrawRequest = () => {
                                         </Field>
                                         <Field name='bankId' rules={[{ required: true, message: 'Bank is required' }]}>
                                             <SelectSearch
-                                                items={bankUser}
+                                                items={listBank}
                                                 name='bankId'
                                                 label='Bank'
                                                 selected={{
@@ -127,6 +141,7 @@ const WithdrawRequest = () => {
                                                 }}
                                                 onChange={(value) => {
                                                     form.setFieldsValue({ bankId: value.name });
+                                                    setBankId(value.value);
                                                 }}
                                                 className={classNames('w-[420px]', {
                                                     'border-[#C9353F]': errorBank

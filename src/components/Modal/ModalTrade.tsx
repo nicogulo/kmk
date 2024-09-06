@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -26,9 +27,9 @@ const ModalTrade: React.FC<Props> = ({ handleClose, isOpen }) => {
                     <Button block onClick={handleClose} variant='grayOutline'>
                         Cancel
                     </Button>
-                    <Button block onClick={() => router.push(`/profile/kyc`)}>
-                        Proceed
-                    </Button>
+                    <Link href='https://sandbox-trade.binalokaindonesia.com' className='w-full' target='_blank'>
+                        <Button block>Proceed</Button>
+                    </Link>
                 </div>
             }
         >

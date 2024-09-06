@@ -16,16 +16,19 @@ import { TableColumn } from '@/components/Table/Table';
 
 import LineChart from '@/modules/Markets/components/LineChart';
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
+import ModalLogin from '@/components/Modal/ModalLogin';
 
 const MarketList = () => {
     const { profile } = useProfile();
     const [openUnverif, setOpenUnverif] = useState(false);
     const [openTrade, setOpenTrade] = useState(false);
+    const [openLogin, setOpenLogin] = useState(false);
 
     const [openModalPending, setOpenModalPending] = useState(false);
 
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
+    const isPendingBasic = ProfileStatus.PENDING === profile?.kyc;
 
     const columns: TableColumn[] = [
         {
@@ -107,12 +110,19 @@ const MarketList = () => {
                             columns={columns}
                             onRow={(record) => ({
                                 onClick: () => {
-                                    if (isUnverifiedBasic) {
-                                        setOpenUnverif(true);
-                                    } else if (isVerifiedBasic) {
-                                        setOpenTrade(true);
-                                    } else {
-                                        setOpenModalPending(true);
+                                    switch (true) {
+                                        case isUnverifiedBasic:
+                                            setOpenUnverif(true);
+                                            break;
+                                        case isVerifiedBasic:
+                                            setOpenTrade(true);
+                                            break;
+                                        case isPendingBasic:
+                                            setOpenModalPending(true);
+                                            break;
+                                        default:
+                                            setOpenLogin(true);
+                                            break;
                                     }
                                 }
                             })}
@@ -124,6 +134,7 @@ const MarketList = () => {
             <ModalUnverified isOpen={openUnverif} handleClose={() => setOpenUnverif(false)} />
             <ModalPendingVerif isOpen={openModalPending} handleClose={() => setOpenModalPending(false)} />
             <ModalTrade isOpen={openTrade} handleClose={() => setOpenTrade(false)} />
+            <ModalLogin isOpen={openLogin} handleClose={() => setOpenLogin(false)} />
         </>
     );
 };

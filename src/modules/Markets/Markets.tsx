@@ -17,17 +17,33 @@ import Table, { TableColumn } from '@/components/Table/Table';
 
 import LineChart from '@/modules/Markets/components/LineChart';
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
+import ModalLogin from '@/components/Modal/ModalLogin';
 
 const Markets = () => {
     const [openUnverif, setOpenUnverif] = useState(false);
     const [openTrade, setOpenTrade] = useState(false);
-
+    const [openLogin, setOpenLogin] = useState(false);
     const [openModalPending, setOpenModalPending] = useState(false);
 
     const { profile } = useProfile();
 
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
+    const isPendingBasic = ProfileStatus.PENDING === profile?.kyc;
+
+    const dataTable = data.map((item) => {
+        const { symbol, name, price, market_cap, volume_24h, change_24h } = item;
+        return {
+            symbol,
+            name,
+            price,
+            market_cap,
+            volume_24h,
+            change_24h
+        };
+    });
+
+    const topMovers = dataTable.sort((a, b) => b.change_24h - a.change_24h);
 
     const columns: TableColumn[] = [
         {
@@ -60,7 +76,9 @@ const Markets = () => {
             width: 160,
             align: 'right',
             render: (text) => (
-                <span className='text-xs font-semibold !leading-5 text-gray-800'>{formatRupiah(text as number)}</span>
+                <span className='text-xs font-semibold !leading-5 text-gray-800'>
+                    {formatRupiah(text as number, { precision: null })}
+                </span>
             )
         },
         {
@@ -122,14 +140,21 @@ const Markets = () => {
                         <Table
                             data={data}
                             columns={columns}
-                            onRow={(record) => ({
+                            onRow={() => ({
                                 onClick: () => {
-                                    if (isUnverifiedBasic) {
-                                        setOpenUnverif(true);
-                                    } else if (isVerifiedBasic) {
-                                        setOpenTrade(true);
-                                    } else {
-                                        setOpenModalPending(true);
+                                    switch (true) {
+                                        case isUnverifiedBasic:
+                                            setOpenUnverif(true);
+                                            break;
+                                        case isVerifiedBasic:
+                                            setOpenTrade(true);
+                                            break;
+                                        case isPendingBasic:
+                                            setOpenModalPending(true);
+                                            break;
+                                        default:
+                                            setOpenLogin(true);
+                                            break;
                                     }
                                 }
                             })}
@@ -139,7 +164,7 @@ const Markets = () => {
                 <div className='flex h-full flex-col gap-3 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
                     <span className='h4 font-semibold text-gray-800'>Top Movers</span>
                     <div className='flex flex-col'>
-                        {data.map((item, index) => {
+                        {topMovers.map((item, index) => {
                             const { symbol, name, change_24h, price } = item;
                             const logo = symbol.toLowerCase();
                             return (
@@ -150,12 +175,19 @@ const Markets = () => {
                                     changePercentage={change_24h}
                                     priceChangeText={formatRupiah(price)}
                                     onClick={() => {
-                                        if (isUnverifiedBasic) {
-                                            setOpenUnverif(true);
-                                        } else if (isVerifiedBasic) {
-                                            setOpenTrade(true);
-                                        } else {
-                                            setOpenModalPending(true);
+                                        switch (true) {
+                                            case isUnverifiedBasic:
+                                                setOpenUnverif(true);
+                                                break;
+                                            case isVerifiedBasic:
+                                                setOpenTrade(true);
+                                                break;
+                                            case isPendingBasic:
+                                                setOpenModalPending(true);
+                                                break;
+                                            default:
+                                                setOpenLogin(true);
+                                                break;
                                         }
                                     }}
                                     coinLogo={`https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/${logo}.png`}
@@ -168,6 +200,7 @@ const Markets = () => {
             <ModalUnverified isOpen={openUnverif} handleClose={() => setOpenUnverif(false)} />
             <ModalPendingVerif isOpen={openModalPending} handleClose={() => setOpenModalPending(false)} />
             <ModalTrade isOpen={openTrade} handleClose={() => setOpenTrade(false)} />
+            <ModalLogin isOpen={openLogin} handleClose={() => setOpenLogin(false)} />
         </>
     );
 };

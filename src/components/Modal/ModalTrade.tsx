@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 
 import Illustration from '@/components/Illustrations';
@@ -13,8 +12,6 @@ interface Props {
 }
 
 const ModalTrade: React.FC<Props> = ({ handleClose, isOpen }) => {
-    const router = useRouter();
-
     return (
         <Modal
             title={<Illustration name='Bell' />}
@@ -27,7 +24,12 @@ const ModalTrade: React.FC<Props> = ({ handleClose, isOpen }) => {
                     <Button block onClick={handleClose} variant='grayOutline'>
                         Cancel
                     </Button>
-                    <Link href='https://sandbox-trade.binalokaindonesia.com' className='w-full' target='_blank'>
+                    <Link
+                        href='https://sandbox-trade.binalokaindonesia.com'
+                        className='w-full'
+                        target='_blank'
+                        onClick={handleClose}
+                    >
                         <Button block>Proceed</Button>
                     </Link>
                 </div>

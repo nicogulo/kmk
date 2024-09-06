@@ -61,7 +61,7 @@ const useCountry = () => {
     useEffect(() => {
         fetchCountries('Indonesia');
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return { countries, fetchCountries };
 };
@@ -139,7 +139,7 @@ export const useMaritalStatus = () => {
     useEffect(() => {
         fetchMaritalStatus();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         maritalStatus
@@ -170,7 +170,7 @@ export const useGender = () => {
     useEffect(() => {
         fetchGender();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         gender
@@ -200,7 +200,7 @@ export const useHouseOwnership = () => {
     useEffect(() => {
         fetchHouseOwnership();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         houseOwnership
@@ -230,7 +230,7 @@ export const usePurposeOfAccountOpening = () => {
     useEffect(() => {
         fetchPurposeOfAccountOpening();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         purposeOfAccountOpening
@@ -292,7 +292,7 @@ export const useSourceOfFund = () => {
     useEffect(() => {
         fetchSourceOfFund();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         sourceOfFund
@@ -322,7 +322,7 @@ export const useAnnualIncome = () => {
     useEffect(() => {
         fetchAnnualIncome();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         annualIncome
@@ -375,7 +375,7 @@ export const useBankAccountType = () => {
     useEffect(() => {
         fetchBankAccountType();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         bankAccountType
@@ -405,7 +405,7 @@ export const useBankUser = () => {
     useEffect(() => {
         fetchBankUser();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     return {
         bankUser,

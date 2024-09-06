@@ -128,9 +128,6 @@ const Markets = () => {
                                         setOpenUnverif(true);
                                     } else if (isVerifiedBasic) {
                                         setOpenTrade(true);
-                                        console.log('====================================');
-                                        console.log('Trade', name);
-                                        console.log('====================================');
                                     } else {
                                         setOpenModalPending(true);
                                     }
@@ -157,9 +154,6 @@ const Markets = () => {
                                             setOpenUnverif(true);
                                         } else if (isVerifiedBasic) {
                                             setOpenTrade(true);
-                                            console.log('====================================');
-                                            console.log('Trade', name);
-                                            console.log('====================================');
                                         } else {
                                             setOpenModalPending(true);
                                         }

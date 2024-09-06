@@ -36,7 +36,7 @@ const useProfile = () => {
     const [profile, setProfile] = useState<ProfileModel>();
     const [loading, setLoading] = useState(false);
     const { auth } = useAuth();
-    const { user, isLoading } = useUser();
+    const { user } = useUser();
 
     const profileDataModel = (profileData: Profile): ProfileModel => ({
         userId: profileData.uid,

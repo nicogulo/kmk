@@ -133,19 +133,19 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
     const filter = [
         {
             name: 'All',
-            value: 0
+            value: undefined
         },
         {
             name: 'Pending',
-            value: 6
+            value: 0
         },
         {
             name: 'Success',
-            value: 3
+            value: 1
         },
         {
             name: 'Failed',
-            value: 5
+            value: 2
         }
     ];
 
@@ -220,7 +220,7 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
     const totalDataPage = 10;
     const startIndex = (currentPage - 1) * totalDataPage;
     const endIndex = startIndex + totalDataPage;
-    const dataFilter = status ? data.filter((item) => item.status === status) : data;
+    const dataFilter = status !== undefined && status !== null ? data.filter((item) => item.status === status) : data;
     const dataPerPage = dataFilter.slice(startIndex, endIndex);
 
     return (

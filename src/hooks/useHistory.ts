@@ -56,8 +56,8 @@ const useHistory = (args: HistoryArgs = {}) => {
 
     const fetchHistory = async () => {
         if (!user) return;
-        setLoading(true);
         try {
+            setLoading(true);
             const queryParams = new URLSearchParams();
             if (args.filter?.limit) queryParams.append('limit', args.filter.limit.toString());
             if (args.filter?.page) queryParams.append('page', args.filter.page.toString());
@@ -79,8 +79,9 @@ const useHistory = (args: HistoryArgs = {}) => {
             return data;
         } catch (error: any) {
             toast.error(error.message || 'Failed to get data history');
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
     useEffect(() => {
         fetchHistory();

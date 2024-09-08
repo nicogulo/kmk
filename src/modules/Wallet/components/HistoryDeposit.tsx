@@ -258,7 +258,7 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
-    const { history, fetchHistory } = useHistory({
+    const { history, loading } = useHistory({
         filter: {
             limit,
             page: currentPage,
@@ -267,91 +267,91 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
         }
     });
 
-    // const data =
-    //     history?.histories.map((item) => ({
-    //         uid: item.uid,
-    //         requestDate: item.created_at,
-    //         amount: item.amount,
-    //         status: item.status
-    //     })) || [];
+    const data =
+        history?.histories.map((item) => ({
+            uid: item.uid,
+            requestDate: item.created_at,
+            amount: item.idr_gross_amount,
+            status: item.status
+        })) || [];
 
-    const data = [
-        {
-            requestDate: 1719207840,
-            amount: 16000000,
-            status: 1
-        },
-        {
-            requestDate: 1719106260,
-            amount: 16000000,
-            status: 2
-        },
-        {
-            requestDate: 1718742480,
-            amount: 16000000,
-            status: 4
-        },
-        {
-            requestDate: 1718499120,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1718162700,
-            amount: 16000000,
-            status: 5
-        },
-        {
-            requestDate: 1718001000,
-            amount: 16000000,
-            status: 1
-        },
-        {
-            requestDate: 1717815360,
-            amount: 16000000,
-            status: 2
-        },
-        {
-            requestDate: 1717470240,
-            amount: 16000000,
-            status: 4
-        },
-        {
-            requestDate: 1717210980,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1716846240,
-            amount: 16000000,
-            status: 5
-        },
-        {
-            requestDate: 1716684540,
-            amount: 16000000,
-            status: 1
-        },
-        {
-            requestDate: 1716407160,
-            amount: 16000000,
-            status: 2
-        },
-        {
-            requestDate: 1716024960,
-            amount: 16000000,
-            status: 4
-        },
-        {
-            requestDate: 1715801820,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1715486640,
-            amount: 16000000,
-            status: 5
-        }
-    ];
+    // const data = [
+    //     {
+    //         requestDate: 1719207840,
+    //         amount: 16000000,
+    //         status: 1
+    //     },
+    //     {
+    //         requestDate: 1719106260,
+    //         amount: 16000000,
+    //         status: 2
+    //     },
+    //     {
+    //         requestDate: 1718742480,
+    //         amount: 16000000,
+    //         status: 4
+    //     },
+    //     {
+    //         requestDate: 1718499120,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1718162700,
+    //         amount: 16000000,
+    //         status: 5
+    //     },
+    //     {
+    //         requestDate: 1718001000,
+    //         amount: 16000000,
+    //         status: 1
+    //     },
+    //     {
+    //         requestDate: 1717815360,
+    //         amount: 16000000,
+    //         status: 2
+    //     },
+    //     {
+    //         requestDate: 1717470240,
+    //         amount: 16000000,
+    //         status: 4
+    //     },
+    //     {
+    //         requestDate: 1717210980,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1716846240,
+    //         amount: 16000000,
+    //         status: 5
+    //     },
+    //     {
+    //         requestDate: 1716684540,
+    //         amount: 16000000,
+    //         status: 1
+    //     },
+    //     {
+    //         requestDate: 1716407160,
+    //         amount: 16000000,
+    //         status: 2
+    //     },
+    //     {
+    //         requestDate: 1716024960,
+    //         amount: 16000000,
+    //         status: 4
+    //     },
+    //     {
+    //         requestDate: 1715801820,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1715486640,
+    //         amount: 16000000,
+    //         status: 5
+    //     }
+    // ];
 
     const filter = [
         {
@@ -359,27 +359,26 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
             value: 0
         },
         {
-            name: 'Pending Payment Proof',
+            name: 'Pending',
             value: 1
         },
-        {
-            name: 'Waiting Approval',
-            value: 2
-        },
+        // {
+        //     name: 'Waiting Approval',
+        //     value: 2
+        // },
         {
             name: 'Success',
             value: 3
         },
         {
-            name: 'Expired',
+            name: 'Failed',
             value: 4
-        },
-        {
-            name: 'Rejected',
-            value: 5
         }
+        // {
+        //     name: 'Rejected',
+        //     value: 5
+        // }
     ];
-
     const columns: TableColumn[] = [
         {
             title: 'REQUEST DATE',
@@ -401,15 +400,11 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
                 const getVariant = () => {
                     switch (data) {
                         case 1:
-                            return 'yellow';
-                        case 2:
-                            return 'yellow';
-                        case 3:
                             return 'green';
-                        case 4:
+                        case 2:
                             return 'red';
-                        case 5:
-                            return 'red';
+                        case 0:
+                            return 'yellow';
                         default:
                             return 'gray';
                     }
@@ -417,31 +412,12 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
                 return (
                     <Badge variant={getVariant()}>
                         <Switch>
-                            <Case condition={data === 1}>Pending Payment Proof</Case>
-                            <Case condition={data === 2}>Waiting Approval</Case>
-                            <Case condition={data === 3}>Success</Case>
-                            <Case condition={data === 4}>Expired</Case>
-                            <Case condition={data === 5}>Rejected</Case>
+                            <Case condition={data === 0}>Pending</Case>
+                            <Case condition={data === 1}>Success</Case>
+                            <Case condition={data === 2}>Failed</Case>
                         </Switch>
                     </Badge>
                 );
-            }
-        },
-        {
-            title: 'ACTION',
-            dataIndex: 'status',
-            headClassName: '!xs',
-            render: (data, value) => {
-                const proof = [2, 5];
-
-                if (proof.includes(data as number)) {
-                    return <ModalViewProof data={data} />;
-                }
-                if (data === 1) {
-                    return <ModalUploadProof data={value} onCallbak={fetchHistory} />;
-                }
-
-                return <></>;
             }
         }
     ];
@@ -482,6 +458,7 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
                             <Table
                                 data={dataPerPage}
                                 columns={columns}
+                                loading={loading}
                                 noHover
                                 maxRow={totalDataPage}
                                 currentPage={currentPage}
@@ -494,22 +471,28 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
                         </div>
                     </Then>
                     <Else>
-                        <div className='absolute -bottom-[460px] flex w-full flex-col items-center justify-center gap-4 py-6'>
-                            <Illustration name='Notfound' width={155} height={172} />
-                            <p className='text-center text-[32px] font-bold leading-10 text-[#121416]'>
-                                You don't have deposit <br />
-                                request history
-                            </p>
-                            <Button
-                                onClick={() => {
-                                    if (isUnverifiedBasic) {
-                                        setOpenModal(true);
-                                    }
-                                }}
-                            >
-                                Submit Deposit Request
-                            </Button>
-                        </div>
+                        {loading ? (
+                            <div className='absolute -bottom-[360px] flex w-full flex-col items-center justify-center gap-4 py-6'>
+                                <Loader type='Oval' width={40} height={40} />
+                            </div>
+                        ) : (
+                            <div className='absolute -bottom-[460px] flex w-full flex-col items-center justify-center gap-4 py-6'>
+                                <Illustration name='Notfound' width={155} height={172} />
+                                <p className='text-center text-[32px] font-bold leading-10 text-[#121416]'>
+                                    You don't have deposit <br />
+                                    request history
+                                </p>
+                                <Button
+                                    onClick={() => {
+                                        if (isUnverifiedBasic) {
+                                            setOpenModal(true);
+                                        }
+                                    }}
+                                >
+                                    Submit Deposit Request
+                                </Button>
+                            </div>
+                        )}
                     </Else>
                 </If>
             </TabGroup>

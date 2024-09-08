@@ -51,9 +51,12 @@ interface HistoryArgs {
 const useHistory = (args: HistoryArgs = {}) => {
     const { auth } = useAuth();
     const [history, setHistory] = useState<HistoryResponse>();
+    const [loading, setLoading] = useState(false);
     const { user } = useUser();
 
     const fetchHistory = async () => {
+        if (!user) return;
+        setLoading(true);
         try {
             const queryParams = new URLSearchParams();
             if (args.filter?.limit) queryParams.append('limit', args.filter.limit.toString());
@@ -77,13 +80,14 @@ const useHistory = (args: HistoryArgs = {}) => {
         } catch (error: any) {
             toast.error(error.message || 'Failed to get data history');
         }
+        setLoading(false);
     };
     useEffect(() => {
         fetchHistory();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [auth.token]);
+    }, [auth.token, user]);
 
-    return { history, fetchHistory };
+    return { history, fetchHistory, loading };
 };
 
 export const useHistoryDetail = (uid?: string) => {

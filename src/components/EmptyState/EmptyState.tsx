@@ -54,13 +54,9 @@ const EmptyState: React.FC<Props> = ({
                 </div>
             )}
             {title && (
-                <div className={classNames('text-main dark:text-dark-main mb-2 mt-6', titleClassName)}>{title}</div>
+                <div className={classNames('p mb-2 mt-6 font-semibold text-gray-800', titleClassName)}>{title}</div>
             )}
-            {description && (
-                <div className={classNames('text-additional dark:text-dark-additional', descriptionClassName)}>
-                    {description}
-                </div>
-            )}
+            {description && <div className={classNames('xs text-gray-600', descriptionClassName)}>{description}</div>}
         </div>
     );
 };

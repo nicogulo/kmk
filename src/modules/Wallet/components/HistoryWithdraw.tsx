@@ -10,6 +10,7 @@ import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
 import Badge from '@/components/Badge';
 import Button from '@/components/Button';
 import Illustration from '@/components/Illustrations';
+import Loader from '@/components/Loader';
 import ModalUnverified from '@/components/Modal/ModalUnverified';
 import Table from '@/components/Table';
 import { TableColumn } from '@/components/Table/Table';
@@ -32,7 +33,7 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
-    const { history, fetchHistory } = useHistory({
+    const { history, loading } = useHistory({
         filter: {
             limit,
             page: currentPage,
@@ -41,91 +42,93 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
         }
     });
 
-    // const data =
-    //     history?.histories.map((item) => ({
-    //         uid: item.uid,
-    //         requestDate: item.created_at,
-    //         amount: item.amount,
-    //         status: item.status
-    //     })) || [];
+    const data =
+        history?.histories.map((item) => ({
+            uid: item.uid,
+            requestDate: item.created_at,
+            amount: item.idr_gross_amount,
+            status: item.status,
+            bankName: item.bank_name,
+            bankAccount: item.account_number
+        })) || [];
 
-    const data = [
-        {
-            requestDate: 1719207840,
-            amount: 16000000,
-            status: 6
-        },
-        {
-            requestDate: 1719106260,
-            amount: 16000000,
-            status: 6
-        },
-        {
-            requestDate: 1718742480,
-            amount: 16000000,
-            status: 5
-        },
-        {
-            requestDate: 1718499120,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1718162700,
-            amount: 16000000,
-            status: 5
-        },
-        {
-            requestDate: 1718001000,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1717815360,
-            amount: 16000000,
-            status: 6
-        },
-        {
-            requestDate: 1717470240,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1717210980,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1716846240,
-            amount: 16000000,
-            status: 5
-        },
-        {
-            requestDate: 1716684540,
-            amount: 16000000,
-            status: 5
-        },
-        {
-            requestDate: 1716407160,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1716024960,
-            amount: 16000000,
-            status: 6
-        },
-        {
-            requestDate: 1715801820,
-            amount: 16000000,
-            status: 3
-        },
-        {
-            requestDate: 1715486640,
-            amount: 16000000,
-            status: 5
-        }
-    ];
+    // const data = [
+    //     {
+    //         requestDate: 1719207840,
+    //         amount: 16000000,
+    //         status: 6
+    //     },
+    //     {
+    //         requestDate: 1719106260,
+    //         amount: 16000000,
+    //         status: 6
+    //     },
+    //     {
+    //         requestDate: 1718742480,
+    //         amount: 16000000,
+    //         status: 5
+    //     },
+    //     {
+    //         requestDate: 1718499120,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1718162700,
+    //         amount: 16000000,
+    //         status: 5
+    //     },
+    //     {
+    //         requestDate: 1718001000,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1717815360,
+    //         amount: 16000000,
+    //         status: 6
+    //     },
+    //     {
+    //         requestDate: 1717470240,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1717210980,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1716846240,
+    //         amount: 16000000,
+    //         status: 5
+    //     },
+    //     {
+    //         requestDate: 1716684540,
+    //         amount: 16000000,
+    //         status: 5
+    //     },
+    //     {
+    //         requestDate: 1716407160,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1716024960,
+    //         amount: 16000000,
+    //         status: 6
+    //     },
+    //     {
+    //         requestDate: 1715801820,
+    //         amount: 16000000,
+    //         status: 3
+    //     },
+    //     {
+    //         requestDate: 1715486640,
+    //         amount: 16000000,
+    //         status: 5
+    //     }
+    // ];
 
     const filter = [
         {
@@ -141,7 +144,7 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
             value: 3
         },
         {
-            name: 'Rejected',
+            name: 'Failed',
             value: 5
         }
     ];
@@ -160,18 +163,35 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
             render: (data) => <p className='p text-gray-800'>{formatRupiah(data as number)}</p>
         },
         {
+            title: 'BANK',
+            dataIndex: 'bankAccount',
+            headClassName: '!xs',
+            render: (data, record) => (
+                <div className='flex flex-col items-start gap-2'>
+                    <p className='p font-semibold text-gray-800'>{record.bankName}</p>
+                    <p className='xs text-gray-800'>{data}</p>
+                </div>
+            )
+        },
+        {
             title: 'STATUS',
             dataIndex: 'status',
             headClassName: '!xs',
             render: (data) => {
                 const getVariant = () => {
                     switch (data) {
+                        case 0:
+                            return 'yellow';
                         case 6:
                             return 'yellow';
                         case 3:
                             return 'green';
+                        case 1:
+                            return 'green';
 
                         case 5:
+                            return 'red';
+                        case 2:
                             return 'red';
                         default:
                             return 'gray';
@@ -181,7 +201,10 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
                     <Badge variant={getVariant()}>
                         <Switch>
                             <Case condition={data === 6}>Pending</Case>
+                            <Case condition={data === 0}>Pending</Case>
+                            <Case condition={data === 1}>Success</Case>
                             <Case condition={data === 3}>Success</Case>
+                            <Case condition={data === 2}>Rejected</Case>
                             <Case condition={data === 5}>Rejected</Case>
                         </Switch>
                     </Badge>
@@ -238,22 +261,28 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
                         </div>
                     </Then>
                     <Else>
-                        <div className='absolute -bottom-[460px] flex w-full flex-col items-center justify-center gap-4 py-6'>
-                            <Illustration name='Notfound' width={155} height={172} />
-                            <p className='text-center text-[32px] font-bold leading-10 text-[#121416]'>
-                                You don't have deposit <br />
-                                request history
-                            </p>
-                            <Button
-                                onClick={() => {
-                                    if (isUnverifiedBasic) {
-                                        setOpenModal(true);
-                                    }
-                                }}
-                            >
-                                Submit Deposit Request
-                            </Button>
-                        </div>
+                        {loading ? (
+                            <div className='absolute -bottom-[360px] flex w-full flex-col items-center justify-center gap-4 py-6'>
+                                <Loader type='Oval' width={40} height={40} />
+                            </div>
+                        ) : (
+                            <div className='absolute -bottom-[460px] flex w-full flex-col items-center justify-center gap-4 py-6'>
+                                <Illustration name='Notfound' width={155} height={172} />
+                                <p className='text-center text-[32px] font-bold leading-10 text-[#121416]'>
+                                    You don't have deposit <br />
+                                    request history
+                                </p>
+                                <Button
+                                    onClick={() => {
+                                        if (isUnverifiedBasic) {
+                                            setOpenModal(true);
+                                        }
+                                    }}
+                                >
+                                    Submit Deposit Request
+                                </Button>
+                            </div>
+                        )}
                     </Else>
                 </If>
             </TabGroup>

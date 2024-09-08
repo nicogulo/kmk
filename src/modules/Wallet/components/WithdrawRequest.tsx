@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import Head from 'next/head';
 import Link from 'next/link';
 import Form, { Field, useForm } from 'rc-field-form';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import classNames from '@/lib/classnames';
+import useBalance from '@/hooks/useBalance';
 import { useBankUser } from '@/hooks/useMasterData';
 import useWithdraw from '@/hooks/useWithdraw';
 
@@ -22,6 +24,7 @@ import { formatNumber } from '@/utils/currency';
 interface FormValues {
     amount: number;
     bankId: string;
+    balance?: string;
 }
 
 const WithdrawRequest = () => {
@@ -31,6 +34,12 @@ const WithdrawRequest = () => {
     const [bankId, setBankId] = useState('');
     const { bankUser } = useBankUser();
     const { withdraw } = useWithdraw();
+    const { balance } = useBalance();
+
+    const available = balance?.available ?? 0;
+
+    const availableBalance = formatNumber(available);
+
     const breadcrumbItems = [
         {
             title: 'Wallet',
@@ -48,8 +57,6 @@ const WithdrawRequest = () => {
               value: item.uid
           }))
         : [];
-
-    const balance = formatNumber(104231120);
 
     const handleSubmit = async (values: FormValues) => {
         setLoading(true);
@@ -69,6 +76,10 @@ const WithdrawRequest = () => {
         }
         setLoading(false);
     };
+
+    useEffect(() => {
+        form.setFieldValue('balance', availableBalance);
+    }, [form, availableBalance]);
     return (
         <>
             <Container className='py-6'>
@@ -103,7 +114,7 @@ const WithdrawRequest = () => {
 
                                 return (
                                     <>
-                                        <Field name='balance' initialValue={balance}>
+                                        <Field name='balance'>
                                             <Input
                                                 disabled
                                                 label='Active Balance'
@@ -119,7 +130,19 @@ const WithdrawRequest = () => {
                                         </Field>
                                         <Field
                                             name='amount'
-                                            rules={[{ required: true, message: 'Amount is required' }]}
+                                            rules={[
+                                                { required: true, message: 'Amount is required' },
+                                                {
+                                                    validator: async (_, value) => {
+                                                        if (value > available) {
+                                                            return Promise.reject(
+                                                                'Amount must be less than the available balance'
+                                                            );
+                                                        }
+                                                        return Promise.resolve();
+                                                    }
+                                                }
+                                            ]}
                                         >
                                             <Input
                                                 label='Amount to Withdraw'

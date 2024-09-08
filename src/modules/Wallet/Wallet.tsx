@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 import { When } from 'react-if';
 
+import useBalance from '@/hooks/useBalance';
 import useProfile from '@/hooks/useProfile';
 
 import Container from '@/components/Container';
@@ -15,12 +16,7 @@ const Wallet = () => {
     const [tab, setTab] = useState('deposit');
     const { profile } = useProfile();
 
-    const balance = {
-        total: 10000000,
-        available: 10000000,
-        open: 412000,
-        pending: 1200131
-    };
+    const { balance } = useBalance();
 
     return (
         <>

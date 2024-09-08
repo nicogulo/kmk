@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
+import { Balance } from '@/hooks/useBalance';
 import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
 
 import Button from '@/components/Button';
@@ -8,18 +9,12 @@ import Icons from '@/components/Icon';
 import Modal from '@/components/Modal';
 import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
 import ModalUnverified from '@/components/Modal/ModalUnverified';
+import Skeleton from '@/components/Skeleton';
 
 import { formatRupiah } from '@/utils/currency';
 
-interface Balance {
-    total: number;
-    available: number;
-    open: number;
-    pending: number;
-}
-
 interface Props {
-    balance: Balance;
+    balance: Balance | null;
     profile?: ProfileModel;
 }
 
@@ -29,7 +24,9 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
     const [openModalPending, setOpenModalPending] = useState(false);
     const router = useRouter();
 
-    const { total, available, open, pending } = balance;
+    const available = balance?.available ?? 0;
+    const pendingWithdraw = balance?.pendingWithdraw ?? 0;
+    const total = available + pendingWithdraw;
 
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
@@ -39,20 +36,30 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
             <div className='border-text-transparent-10 flex flex-row items-start justify-between rounded-xl border bg-white p-6'>
                 <div className='flex flex-col gap-0.5'>
                     <p className='text-gray-600'>Total Balance</p>
-                    <p className='text-[32px] font-semibold leading-10 text-gray-800'>{formatRupiah(total)}</p>
+
+                    {!total ? (
+                        <Skeleton className='h-10 w-[160px]' />
+                    ) : (
+                        <p className='text-[32px] font-semibold leading-10 text-gray-800'>{formatRupiah(total)}</p>
+                    )}
                 </div>
                 <div className='flex flex-row items-center gap-6'>
                     <div className='flex min-w-[160px] flex-col'>
                         <p className='text-gray-600'>Available Balance</p>
-                        <p className='text-xl font-semibold text-gray-800'>{formatRupiah(available)}</p>
+                        {!available ? (
+                            <Skeleton className='h-7 w-[160px]' />
+                        ) : (
+                            <p className='text-xl font-semibold text-gray-800'>{formatRupiah(available)}</p>
+                        )}
                     </div>
-                    <div className='flex min-w-[160px] flex-col'>
-                        <p className='text-gray-600'>Orders</p>
-                        <p className='text-xl font-semibold text-gray-800'>{formatRupiah(open)}</p>
-                    </div>
+
                     <div className='flex min-w-[160px] flex-col'>
                         <p className='text-gray-600'>Pending Order</p>
-                        <p className='text-xl font-semibold text-gray-800'>{formatRupiah(pending)}</p>
+                        {!pendingWithdraw ? (
+                            <Skeleton className='h-7 w-[160px]' />
+                        ) : (
+                            <p className='text-xl font-semibold text-gray-800'>{formatRupiah(pendingWithdraw)}</p>
+                        )}
                     </div>
                     <div className='flex h-fit min-w-[160px] flex-row gap-4'>
                         <Button

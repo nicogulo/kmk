@@ -59,8 +59,10 @@ const WithdrawRequest = () => {
                 member_bank_uid: bankId
             };
             const res = await withdraw(payload);
-            setOpenModal(true);
-            console.log(res);
+            if (res.message === 'success') {
+                toast.success('Withdrawal Request Sent');
+                setOpenModal(true);
+            }
         } catch (error: any) {
             toast.error(error.message);
         }

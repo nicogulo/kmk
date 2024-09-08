@@ -62,6 +62,7 @@ const WithdrawRequest = () => {
             if (res.message === 'success') {
                 toast.success('Withdrawal Request Sent');
                 setOpenModal(true);
+                form.resetFields();
             }
         } catch (error: any) {
             toast.error(error.message);

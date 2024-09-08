@@ -1,13 +1,18 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Else, If, Then } from 'react-if';
 
 import classNames from '@/lib/classnames';
+import useVirtualAccount, { useDetailVirtualAccount } from '@/hooks/useVirtualAccount';
 
 import Breadcrumb from '@/components/Breadcrumb';
 import Button from '@/components/Button';
 import Collapse from '@/components/Collapse';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
+import Illustration from '@/components/Illustrations';
+import Loader from '@/components/Loader';
+import Skeleton from '@/components/Skeleton';
 
 import { copy } from '@/utils/clipboard';
 
@@ -18,7 +23,12 @@ import OtherBank from '../svgx/OtherBank';
 import Permata from '../svgx/Permata';
 
 const Deposit = () => {
-    const [selectBank, setSelectBank] = useState<number>(1);
+    const [selectBank, setSelectBank] = useState<string>('');
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+    const { virtualAccount, loading } = useVirtualAccount();
+    const { fetchDetailVirtualAccount, loading: loadingDetail, virtualAccountDetail } = useDetailVirtualAccount();
+
     const breadcrumbItems = [
         {
             title: 'Wallet',
@@ -30,12 +40,15 @@ const Deposit = () => {
         }
     ];
 
-    const listVirtualAccount = [
+    const getDetailVirtualAccount = async (uid: string) => {
+        await fetchDetailVirtualAccount(uid);
+    };
+
+    // console.log(virtualAccountDetail);
+
+    const listPaymentGuide = [
         {
-            bank: 'Bank Mandiri',
-            accountNumber: '1076679565442',
-            accountName: 'Mandiri Virtual Account',
-            idBank: 1,
+            code: 'mandiri',
             image: <Mandiri width={34} height={20} />,
             transfer_options: [
                 {
@@ -69,10 +82,7 @@ const Deposit = () => {
             ]
         },
         {
-            bank: 'Bank BRI',
-            accountNumber: '1076679565442',
-            accountName: 'Briva BRI',
-            idBank: 2,
+            code: 'bri',
             image: <Bri width={34} height={20} />,
             transfer_options: [
                 {
@@ -114,10 +124,7 @@ const Deposit = () => {
             ]
         },
         {
-            bank: 'Bank BCA',
-            accountNumber: '1076679565442',
-            accountName: 'BCA Virtual Account',
-            idBank: 3,
+            code: 'bca',
             image: <Bca width={34} height={20} />,
             transfer_options: [
                 {
@@ -155,10 +162,7 @@ const Deposit = () => {
             ]
         },
         {
-            bank: 'Bank Permata',
-            accountNumber: '1076679565442',
-            accountName: 'Permata Virtual Account',
-            idBank: 4,
+            code: 'permata',
             image: <Permata width={34} height={20} />,
             transfer_options: [
                 {
@@ -192,10 +196,7 @@ const Deposit = () => {
             ]
         },
         {
-            bank: 'Bank Lainnya',
-            accountNumber: '1076679565442',
-            accountName: 'Virtual Account',
-            idBank: 5,
+            code: 'other',
             image: <OtherBank width={34} height={20} />,
             transfer_options: [
                 {
@@ -230,8 +231,17 @@ const Deposit = () => {
         }
     ];
 
-    const accountNumber = listVirtualAccount.find((item) => item.idBank === selectBank)?.accountNumber;
-    const accountName = listVirtualAccount.find((item) => item.idBank === selectBank)?.accountName;
+    useEffect(() => {
+        if (isFirstLoad && virtualAccount.length > 0) {
+            fetchDetailVirtualAccount(virtualAccount[0].uid);
+            setSelectBank(virtualAccount[0].code);
+            setIsFirstLoad(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [virtualAccount]);
+
+    // const accountNumber = virtualAccount.find((item) => item.uid === selectBank)?.uid;
+    // const accountName = virtualAccount?.find((item) => item?.uid === selectBank)?.name;
 
     return (
         <Container className='py-6'>
@@ -246,67 +256,123 @@ const Deposit = () => {
                 <div className='flex flex-row gap-4 '>
                     <div className='border-text-transparent-10 flex h-full w-[360px] flex-col rounded-xl border bg-white p-6 '>
                         <span className='pb-3 text-xs text-gray-700'>Virtual Account Transfer</span>
-                        {listVirtualAccount.map((item, index) => (
-                            <div
-                                className={classNames(
-                                    'border-text-transparent-15 mb-2 flex cursor-pointer flex-row items-center gap-3 rounded-[3px] border p-3 transition-colors duration-150',
-                                    {
-                                        'border-primary-300 bg-blue-100': selectBank === item.idBank,
-                                        'bg-white': selectBank !== item.idBank
-                                    }
-                                )}
-                                key={index}
-                                onClick={() => setSelectBank(item.idBank)}
-                            >
-                                {item.image}
-                                <span className='xs font-semibold text-gray-800'>{item.bank}</span>
-                            </div>
-                        ))}
+                        <If condition={loading}>
+                            <Then>
+                                <div className='flex flex-col gap-2'>
+                                    {Array.from({ length: 8 }).map((_, index) => (
+                                        <Skeleton key={index} className='h-12 w-[238px]' />
+                                    ))}
+                                </div>
+                            </Then>
+                            <Else>
+                                {virtualAccount.map((item, index) => (
+                                    <div
+                                        className={classNames(
+                                            'border-text-transparent-15 mb-2 flex cursor-pointer flex-row items-center gap-3 rounded-[3px] border p-3 transition-colors duration-150',
+                                            {
+                                                'border-primary-300 bg-blue-100':
+                                                    selectBank.toUpperCase() === item.code,
+                                                'bg-white': selectBank.toUpperCase() !== item.code
+                                            }
+                                        )}
+                                        key={index}
+                                        onClick={async () => {
+                                            console.log(item.uid);
+                                            await getDetailVirtualAccount(item.uid);
+                                            setSelectBank(item.code);
+                                        }}
+                                    >
+                                        {/* {
+                                            listPaymentGuide.find((guide) => guide.code.toUpperCase() === item.code)
+                                                ?.image
+                                        } */}
+                                        <span className='xs font-semibold text-gray-800'>{item.name}</span>
+                                    </div>
+                                ))}
+                            </Else>
+                        </If>
                     </div>
                     <div className='border-text-transparent-10 flex w-full flex-col rounded-xl border bg-white p-6 '>
                         <span className='h4 font-semibold text-gray-800'>Deposit Instructions</span>
-                        <div className='flex flex-col gap-4'>
-                            <div className='flex flex-col gap-2 rounded-[3px] border border-gray-300 bg-[#D0F0FA80] px-4 py-3'>
-                                <span className='text-xs uppercase text-gray-600'>{accountName}</span>
-                                <div className='flex flex-row items-center gap-4'>
-                                    <div className='flex flex-row items-center gap-2'>
-                                        {listVirtualAccount.find((item) => item.idBank === selectBank)?.image}
-                                        <span className='h4 font-semibold text-gray-800'>{accountNumber}</span>
-                                    </div>
-                                    <Button size='sm' onClick={() => copy(accountNumber || '')}>
-                                        <Icons icon='Copy' /> Copy
-                                    </Button>
+                        <If condition={loadingDetail}>
+                            <Then>
+                                <div className='flex h-full flex-col items-center justify-center '>
+                                    <Loader />
                                 </div>
-                            </div>
-                            {listVirtualAccount
-                                .find((item) => item.idBank === selectBank)
-                                ?.transfer_options.map((option, index) => (
-                                    <Collapse
-                                        title={
-                                            <span className='xs font-semibold text-gray-800'>
-                                                {option.option_name.en}
-                                            </span>
-                                        }
-                                        key={index}
-                                        defaultExpanded={index === 0}
-                                    >
-                                        <div className='flex flex-col gap-[6px]'>
-                                            {option.steps.map((step, index) => (
-                                                <div className='flex flex-row gap-2' key={index}>
-                                                    <div className='text-secondary-300 flex h-6 w-6 items-center justify-center rounded-full bg-[#E4D4FB80] text-xs font-semibold'>
-                                                        {index + 1}
+                            </Then>
+                            <Else>
+                                <If condition={virtualAccountDetail !== null}>
+                                    <Then>
+                                        <div className='flex flex-col gap-4'>
+                                            <div className='flex flex-col gap-2 rounded-[3px] border border-gray-300 bg-[#D0F0FA80] px-4 py-3'>
+                                                <span className='text-xs uppercase text-gray-600'>
+                                                    {virtualAccountDetail?.account_name}
+                                                </span>
+                                                <div className='flex flex-row items-center gap-4'>
+                                                    <div className='flex flex-row items-center gap-2'>
+                                                        {/* {
+                                                            listPaymentGuide.find(
+                                                                (item) => item.code.toUpperCase() === selectBank
+                                                            )?.image
+                                                        } */}
+                                                        <span className='h4 font-semibold text-gray-800'>
+                                                            {virtualAccountDetail?.account_number}
+                                                        </span>
                                                     </div>
-                                                    <div
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: step.en
-                                                        }}
-                                                    />
+                                                    <Button
+                                                        size='sm'
+                                                        onClick={() => copy(virtualAccountDetail?.account_number || '')}
+                                                    >
+                                                        <Icons icon='Copy' /> Copy
+                                                    </Button>
                                                 </div>
-                                            ))}
+                                            </div>
+
+                                            {listPaymentGuide
+                                                .find((item) => item.code.toUpperCase() === selectBank)
+                                                ?.transfer_options.map((option, index) => (
+                                                    <Collapse
+                                                        title={
+                                                            <span className='xs font-semibold text-gray-800'>
+                                                                {option.option_name.en}
+                                                            </span>
+                                                        }
+                                                        key={index}
+                                                        defaultExpanded={index === 0}
+                                                    >
+                                                        <div className='flex flex-col gap-[6px]'>
+                                                            {option.steps.map((step, index) => (
+                                                                <div className='flex flex-row gap-2' key={index}>
+                                                                    <div className='text-secondary-300 flex h-6 w-6 items-center justify-center rounded-full bg-[#E4D4FB80] text-xs font-semibold'>
+                                                                        {index + 1}
+                                                                    </div>
+                                                                    <div
+                                                                        dangerouslySetInnerHTML={{
+                                                                            __html: step.en
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </Collapse>
+                                                ))}
                                         </div>
-                                    </Collapse>
-                                ))}
-                        </div>
+                                    </Then>
+                                    <Else>
+                                        <div className='flex h-full flex-col items-center justify-center gap-3'>
+                                            <Illustration name='Notfound' width={214} height={214} />
+                                            <span className='h4 font-semibold text-gray-800'>
+                                                Virtual Account not found
+                                            </span>
+
+                                            <span className='xs text-gray-600'>
+                                                Virtual Account not found, please select another virtual account
+                                            </span>
+                                        </div>
+                                    </Else>
+                                </If>
+                            </Else>
+                        </If>
                     </div>
                 </div>
             </div>

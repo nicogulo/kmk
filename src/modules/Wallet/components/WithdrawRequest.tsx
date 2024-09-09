@@ -36,7 +36,7 @@ const WithdrawRequest = () => {
     const { withdraw } = useWithdraw();
     const { balance } = useBalance();
 
-    const available = balance?.available ?? 0;
+    const available = balance?.available || 0;
 
     const availableBalance = formatNumber(available);
 
@@ -134,7 +134,7 @@ const WithdrawRequest = () => {
                                                 { required: true, message: 'Amount is required' },
                                                 {
                                                     validator: async (_, value) => {
-                                                        if (value > available) {
+                                                        if (Number(value) > Number(available)) {
                                                             return Promise.reject(
                                                                 'Amount must be less than the available balance'
                                                             );

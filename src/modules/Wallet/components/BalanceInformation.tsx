@@ -37,7 +37,7 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
                 <div className='flex flex-col gap-0.5'>
                     <p className='text-gray-600'>Total Balance</p>
 
-                    {!total ? (
+                    {total === undefined || total === null ? (
                         <Skeleton className='h-10 w-[160px]' />
                     ) : (
                         <p className='text-[32px] font-semibold leading-10 text-gray-800'>{formatRupiah(total)}</p>
@@ -46,7 +46,7 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
                 <div className='flex flex-row items-center gap-6'>
                     <div className='flex min-w-[160px] flex-col'>
                         <p className='text-gray-600'>Available Balance</p>
-                        {!available ? (
+                        {available === undefined || available === null ? (
                             <Skeleton className='h-7 w-[160px]' />
                         ) : (
                             <p className='text-xl font-semibold text-gray-800'>{formatRupiah(available)}</p>
@@ -55,7 +55,7 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
 
                     <div className='flex min-w-[160px] flex-col'>
                         <p className='text-gray-600'>Pending Order</p>
-                        {!pendingWithdraw ? (
+                        {pendingWithdraw === undefined || pendingWithdraw === null ? (
                             <Skeleton className='h-7 w-[160px]' />
                         ) : (
                             <p className='text-xl font-semibold text-gray-800'>{formatRupiah(pendingWithdraw)}</p>

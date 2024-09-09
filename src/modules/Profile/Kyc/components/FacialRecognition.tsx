@@ -97,7 +97,6 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
         const livenessMessageListener = ({ data: { data, subject } }: { data: any; subject: string }) => {
             switch (subject) {
                 case 'Verification.Verbose':
-                    console.log('[Verbose]', data);
                     break;
 
                 case 'Camera.NotAllowed':
@@ -106,15 +105,19 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
                 case 'ScreenOrientation.NotAllowed':
                 case 'Verification.Disrupted':
                 case 'Verification.Timeout':
-                    alert(`Terjadi kesalahan: ${subject}`);
-                    (global as any).LivenessSDK.onDestroy();
+                    toast.error(`Terjadi kesalahan: ${subject}`);
+
+                    setTimeout(() => {
+                        toast.info('Sedang memulai ulang, harap tunggu...');
+                        (global as any).LivenessSDK.onStart();
+                    }, 1500);
                     break;
 
                 case 'Verification.Success':
                     setTimeout(() => {
                         setImage(`data:image/png;base64,${data.image.url}`);
+                        (global as any).LivenessSDK.onDestroy();
                     }, 1500);
-                    (global as any).LivenessSDK.onDestroy();
 
                     // eslint-disable-next-line no-case-declarations
                     const file = base64ToFile(`data:image/png;base64,${data.image.url}`, 'image/png');

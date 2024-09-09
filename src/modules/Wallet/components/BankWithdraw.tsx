@@ -157,12 +157,12 @@ const BankWithdraw = () => {
                 <Breadcrumb items={breadcrumbItems} />
                 <div className='flex flex-row items-center justify-between'>
                     <h3 className='!font-semibold text-gray-800'>Bank for Withdrawal</h3>
-                    {listBank && listBank.length < 5 && (
+                    {listBank && listBank.length <= 4 && (
                         <Button
                             variant='primary'
                             onClick={() => setOpenAddBank(true)}
                             className='mt-5'
-                            disabled={listBank.length > 4}
+                            disabled={listBank.length > 3}
                         >
                             Add Bank Account
                         </Button>

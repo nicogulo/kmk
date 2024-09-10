@@ -102,21 +102,71 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
         const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
         if (fileInput) fileInput.value = '';
     };
-    const handleSelfieUpload = (e: any) => {
-        const file = e.target.files[0];
+
+    const handleSelfieUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
         if (!file) {
             return;
         }
+
+        // Log ukuran file asli
+        console.log('Original file size (bytes):', file.size);
+
         if (file.size > 5242880) {
-            // 5MB in bytes
             toast.error('Ukuran file tidak boleh melebihi 5MB.');
             return;
         }
+
         const reader = new FileReader();
         reader.onloadend = () => {
-            setSelfiePreview(reader.result as string);
-            setSelfieFile(file);
+            const img = new window.Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                // Set the canvas dimensions for the cropped image
+                const targetWidth = 480;
+                const targetHeight = 640;
+                canvas.width = targetWidth;
+                canvas.height = targetHeight;
+
+                // Determine cropping area (center crop in this example)
+                const startX = (img.width - targetWidth) / 2; // Start cropping from the center
+                const startY = (img.height - targetHeight) / 2;
+
+                // Crop the image and draw the cropped area on the canvas
+                ctx?.drawImage(
+                    img,
+                    startX,
+                    startY, // Source X, Y (top-left corner of cropping area)
+                    targetWidth,
+                    targetHeight, // Source width and height (crop size)
+                    0,
+                    0, // Destination X, Y (top-left corner of canvas)
+                    targetWidth,
+                    targetHeight // Destination width and height (canvas size)
+                );
+
+                // Convert the canvas content to a data URL
+                const croppedDataUrl = canvas.toDataURL('image/jpeg');
+
+                // Convert the data URL to a blob
+                fetch(croppedDataUrl)
+                    .then((res) => res.blob())
+                    .then((croppedBlob) => {
+                        // Create a new file from the cropped blob
+                        const croppedFile = new File([croppedBlob], file.name, {
+                            type: 'image/jpeg'
+                        });
+
+                        setSelfiePreview(croppedDataUrl);
+                        setSelfieFile(croppedFile);
+                    });
+            };
+
+            img.src = reader.result as string;
         };
+
         reader.readAsDataURL(file);
     };
 
@@ -128,12 +178,59 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                 toast.error('Ukuran file tidak boleh melebihi 5MB.');
                 return;
             }
+
             const reader = new FileReader();
             reader.onloadend = () => {
-                setSelfiePreview(reader.result as string);
-                setSelfieFile(file);
-                setSelfiePreviewUrl('');
+                const img = new window.Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    // Set the canvas dimensions for the cropped image
+                    const targetWidth = 480;
+                    const targetHeight = 640;
+                    canvas.width = targetWidth;
+                    canvas.height = targetHeight;
+
+                    // Determine cropping area (center crop in this example)
+                    const startX = (img.width - targetWidth) / 2; // Start cropping from the center
+                    const startY = (img.height - targetHeight) / 2;
+
+                    // Crop the image and draw the cropped area on the canvas
+                    ctx?.drawImage(
+                        img,
+                        startX,
+                        startY, // Source X, Y (top-left corner of cropping area)
+                        targetWidth,
+                        targetHeight, // Source width and height (crop size)
+                        0,
+                        0, // Destination X, Y (top-left corner of canvas)
+                        targetWidth,
+                        targetHeight // Destination width and height (canvas size)
+                    );
+
+                    // Convert the canvas content to a data URL
+                    const croppedDataUrl = canvas.toDataURL('image/jpeg');
+
+                    // Convert the data URL to a blob
+                    fetch(croppedDataUrl)
+                        .then((res) => res.blob())
+                        .then((croppedBlob) => {
+                            // Create a new file from the cropped blob
+                            const croppedFile = new File([croppedBlob], file.name, {
+                                type: 'image/jpeg'
+                            });
+
+                            // Set the cropped image preview and file
+                            setSelfiePreview(croppedDataUrl);
+                            setSelfieFile(croppedFile);
+                            setSelfiePreviewUrl('');
+                        });
+                };
+
+                img.src = reader.result as string;
             };
+
             reader.readAsDataURL(file);
         } else {
             setSelfiePreview('');
@@ -408,9 +505,14 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                         <Image
                                             src={selfiePreviewUrl || selfiePreview}
                                             alt='Selfie Preview'
-                                            width={216}
-                                            height={164}
+                                            width={0}
+                                            height={0}
                                             unoptimized
+                                            sizes='100vw'
+                                            style={{
+                                                width: '100%',
+                                                height: 'auto'
+                                            }}
                                         />
                                     </div>
                                     <div className='flex w-full flex-col items-center gap-2'>

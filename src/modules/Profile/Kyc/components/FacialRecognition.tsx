@@ -25,7 +25,7 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
     const handleSubmit = () => {
         if (blob) {
             upload({
-                type: 'selfie',
+                type: 'liveness',
                 file: blob
             })
                 .then(() => {
@@ -125,7 +125,7 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
 
                     if (file) {
                         upload({
-                            type: 'selfie',
+                            type: 'liveness',
                             file: file
                         })
                             .then(() => {

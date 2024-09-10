@@ -10,7 +10,7 @@ import useAuth from './useAuth';
 
 interface UploadPayload {
     file?: File;
-    type: 'ktp' | 'selfie' | 'npwp' | 'kk' | 'bank_statement';
+    type: 'ktp' | 'selfie' | 'npwp' | 'kk' | 'bank_statement' | 'liveness';
 }
 
 interface UploadResponse {

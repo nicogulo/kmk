@@ -36,9 +36,9 @@ const WithdrawRequest = () => {
     const { withdraw } = useWithdraw();
     const { balance } = useBalance();
 
-    const available = balance?.available || 0;
+    const available = Number(balance?.available);
 
-    const availableBalance = formatNumber(available);
+    const availableBalance = formatNumber(available, { precision: 0 });
 
     const breadcrumbItems = [
         {

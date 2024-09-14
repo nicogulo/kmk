@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Form, { Field, useForm } from 'rc-field-form';
 import React, { useEffect, useState } from 'react';
 
@@ -32,6 +33,7 @@ const WithdrawRequest = () => {
     const [openModal, setOpenModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [bankId, setBankId] = useState('');
+    const router = useRouter();
     const { bankUser } = useBankUser();
     const { withdraw } = useWithdraw();
     const { balance } = useBalance();
@@ -69,7 +71,10 @@ const WithdrawRequest = () => {
             if (res.message === 'success') {
                 toast.success('Withdrawal Request Sent');
                 setOpenModal(true);
+
                 form.resetFields();
+
+                router.push('/wallet');
             }
         } catch (error: any) {
             toast.error(error.message);

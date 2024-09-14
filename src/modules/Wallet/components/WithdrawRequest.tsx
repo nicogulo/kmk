@@ -73,11 +73,16 @@ const WithdrawRequest = () => {
                 setOpenModal(true);
 
                 form.resetFields();
-
-                router.push('/wallet');
+                setTimeout(() => {
+                    router.push('/wallet');
+                }, 2500);
             }
         } catch (error: any) {
-            toast.error(error.message);
+            if (error.response && error.response.status === 500) {
+                toast.error('Internal Server Error. Please try again later.');
+            } else {
+                toast.error(error.message);
+            }
         }
         setLoading(false);
     };

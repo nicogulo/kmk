@@ -151,6 +151,16 @@ const WithdrawRequest = () => {
                                                         }
                                                         return Promise.resolve();
                                                     }
+                                                },
+                                                {
+                                                    validator: async (_, value) => {
+                                                        if (Number(value) < 10000) {
+                                                            return Promise.reject(
+                                                                'Minimum withdrawal amount is Rp 10,000'
+                                                            );
+                                                        }
+                                                        return Promise.resolve();
+                                                    }
                                                 }
                                             ]}
                                         >

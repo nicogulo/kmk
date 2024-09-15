@@ -61,9 +61,9 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
                 <Icons icon='Logo' width={120} height={32} />
                 <Image src={WelcomeScreen} alt='Welcome Screen' />
                 <div className='flex flex-col items-center gap-4'>
-                    <p className='text-center text-xl font-bold text-[#18181E]'>Much more than Stocks & ETFs...</p>
+                    <p className='text-center text-xl font-bold text-[#18181E]'>Much more than Crypto!</p>
                     <p className='text-center text-sm font-normal text-[#525D66]'>
-                        Invest in a wide range of assets, including cryptocurrencies, IPOs, and more.
+                        Invest and trade in wide range of crypto assets and more.
                     </p>
                 </div>
             </div>

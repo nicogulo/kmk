@@ -479,12 +479,12 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Tolong pilih sumber gaji anda!'
+                                                message: 'Tolong pilih sumber dana anda!'
                                             }
                                         ]}
                                     >
                                         <SelectSearch
-                                            label='Sumber Gaji'
+                                            label='Sumber Dana'
                                             items={sourceOfFund}
                                             readOnly
                                             required
@@ -511,15 +511,15 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                             rules={[
                                                 {
                                                     required: form.getFieldValue('source_of_fund') === 'Lainnya',
-                                                    message: 'Sumber gaji wajib diisi'
+                                                    message: 'Sumber dana wajib diisi'
                                                 }
                                             ]}
                                         >
                                             <Input
                                                 size='sm'
-                                                label='Sumber Gaji Lainnya'
+                                                label='Sumber Dana Lainnya'
                                                 name='source_of_fund_other'
-                                                placeholder='Sumber Gaji Lainnya'
+                                                placeholder='Sumber Dana Lainnya'
                                                 error={errorSourceFund}
                                                 required
                                             />

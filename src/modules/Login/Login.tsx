@@ -11,8 +11,6 @@ import Input from '@/components/Input';
 import InputPassword from '@/components/InputPassword';
 import LoginRegisterSide from '@/components/layout/LoginRegisterSide';
 
-import { EMAIL_LOGIN_REGEX } from '@/constant/regex';
-
 interface FormValues {
     email: string;
     password: string;
@@ -82,11 +80,11 @@ const Login: React.FC = () => {
                                             {
                                                 required: true,
                                                 message: 'Email is required'
-                                            },
-                                            {
-                                                pattern: EMAIL_LOGIN_REGEX,
-                                                message: 'Email is invalid'
                                             }
+                                            // {
+                                            //     pattern: EMAIL_LOGIN_REGEX,
+                                            //     message: 'Email is invalid'
+                                            // }
                                         ]}
                                     >
                                         <Input

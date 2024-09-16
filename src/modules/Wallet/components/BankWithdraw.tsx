@@ -57,7 +57,7 @@ const BankWithdraw = () => {
         }
     ];
 
-    const name = profile?.fullName || 'John Doe';
+    const name = profile?.fullName as string;
 
     const listBank = bankUser?.map((item) => ({
         name: item.bank_name,
@@ -266,7 +266,6 @@ const BankWithdraw = () => {
                                         initialValue={name}
                                     >
                                         <Input
-                                            disabled
                                             label='Account Holder Name'
                                             placeholder='Name'
                                             className=''

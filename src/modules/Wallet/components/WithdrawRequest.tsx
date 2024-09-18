@@ -213,7 +213,7 @@ const WithdrawRequest = () => {
                                         )}
                                         <div className='flex flex-row justify-end gap-4'>
                                             <Button disabled={isSubmitDisabled || loading} loading={loading}>
-                                                Submit Deposit Request
+                                                Submit Withdraw Request
                                             </Button>
                                         </div>
                                     </>

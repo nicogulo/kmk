@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import { Else, If, Then } from 'react-if';
+import { Else, If, Then, When } from 'react-if';
 
 import classNames from '@/lib/classnames';
 import useVirtualAccount, { useDetailVirtualAccount } from '@/hooks/useVirtualAccount';
-
+import Form, { Field, useForm } from 'rc-field-form';
 import Breadcrumb from '@/components/Breadcrumb';
 import Button from '@/components/Button';
 import Collapse from '@/components/Collapse';
@@ -21,13 +21,49 @@ import Bri from '../svgx/Bri';
 import Mandiri from '../svgx/Mandiri';
 import OtherBank from '../svgx/OtherBank';
 import Permata from '../svgx/Permata';
+import { useRouter } from 'next/router';
+import useProfile, { ProfileStatus } from '@/hooks/useProfile';
+import Input from '@/components/Input';
+import Select from '@/components/Select';
+import { toast } from '@/components/Toast';
+import useDeposit from '@/hooks/useDeposit';
+import Modal from '@/components/Modal';
+import { useHistoryDetail } from '@/hooks/useHistory';
+import { formatRupiah } from '@/utils/currency';
+import Image from 'next/image';
+import { Transition, TransitionChild } from '@headlessui/react';
+import SelectSearch from '@/components/SelectSearch';
+
+interface ResponseData {
+    uid: string;
+    created_at: string;
+    amount: string;
+    bank_account_logo: string;
+    bank_account_name: string;
+    bank_account_number: string;
+}
 
 const Deposit = () => {
-    const [selectBank, setSelectBank] = useState<string>('');
-    const [isFirstLoad, setIsFirstLoad] = useState(true);
+    const [form] = useForm();
 
+    const [open, setOpen] = useState(false);
+    const [step, setStep] = useState(0);
+    const [count, setCount] = useState(0);
+    const [paymentProof, setPaymentProof] = useState('');
+    const [file, setFile] = useState<File | null>(null);
+    const [loadingUpload, setLoadingUpload] = useState(false);
+    const [loadingRequest, setLoadingRequest] = useState(false);
+    const [openError, setOpenError] = useState(false);
+    const [selectUid, setSelectUid] = useState('');
+    const [responseData, setResponseData] = useState<ResponseData>();
+    const router = useRouter();
+    const { deposit } = useDeposit();
+    const { uploadBankReceipt } = useHistoryDetail();
     const { virtualAccount, loading } = useVirtualAccount();
     const { fetchDetailVirtualAccount, loading: loadingDetail, virtualAccountDetail } = useDetailVirtualAccount();
+
+    const { profile } = useProfile();
+    const isVerify = profile?.kyc === ProfileStatus.VERIFIED;
 
     const breadcrumbItems = [
         {
@@ -40,343 +76,446 @@ const Deposit = () => {
         }
     ];
 
+    const amountValue = form.getFieldValue('amount');
     const getDetailVirtualAccount = async (uid: string) => {
         await fetchDetailVirtualAccount(uid);
     };
 
-    // console.log(virtualAccountDetail);
-
-    const listPaymentGuide = [
-        {
-            code: 'mandiri',
-            image: <Mandiri width={34} height={20} />,
-            transfer_options: [
-                {
-                    option_name: {
-                        en: 'Mobile Banking',
-                        id: 'Mobile Banking'
-                    },
-                    steps: [
-                        {
-                            en: '<p><span style="color: rgb(0, 0, 0);">Open Livin Mandiri app, choose </span><strong style="color: rgb(0, 0, 0);">Transfer</strong><span style="color: rgb(0, 0, 0);"> menu</span>',
-                            id: '<p><span style="color: rgb(0, 0, 0);">Buka aplikasi Livin Mandiri, pilih menu </span><strong style="color: rgb(0, 0, 0);">Transfer</strong>'
-                        },
-                        {
-                            en: '<p> Search <strong style="color: rgb(0, 0, 0);">Xendit 88608 </strong><span style="color: rgb(0, 0, 0);">on the </span><strong style="color: rgb(0, 0, 0);">Cari penyedia jasa</strong></p>',
-                            id: '<p><span style="color: rgb(0, 0, 0);"> Lakukan pencarian </span><strong style="color: rgb(0, 0, 0);">Xendit 88608 </strong><span style="color: rgb(0, 0, 0);">pada </span><strong style="color: rgb(0, 0, 0);">Cari penyedia jasa</strong></p>'
-                        },
-                        {
-                            en: '<p><span style="color: rgb(0, 0, 0);"> In the </span><strong style="color: rgb(0, 0, 0);">No Virtual Account</strong><span style="color: rgb(0, 0, 0);">, Input VA number</span></p>',
-                            id: '<p><span style="color: rgb(0, 0, 0);">Pada </span><strong style="color: rgb(0, 0, 0);">No Virtual Account</strong><span style="color: rgb(0, 0, 0);">, masukkan nomor VA</span></p>'
-                        },
-                        {
-                            en: '<p><span style="color: rgb(0, 0, 0);">In the </span><strong style="color: rgb(0, 0, 0);">Nominal</strong><span style="color: rgb(0, 0, 0);">, input transfer amount</span></p>',
-                            id: '<p><span style="color: rgb(0, 0, 0);">Pada </span><strong style="color: rgb(0, 0, 0);">Nominal</strong><span style="color: rgb(0, 0, 0);">, masukkan jumlah transfer</span></p>'
-                        },
-                        {
-                            en: '<p><span style="color: rgb(0, 0, 0);"> Click</span><strong style="color: rgb(0, 0, 0);"> Next</strong><span style="color: rgb(0, 0, 0);">, do the </span><strong style="color: rgb(0, 0, 0);">Payment Confirmation</strong></p>',
-                            id: '<p><span style="color: rgb(0, 0, 0);">Klik</span><strong style="color: rgb(0, 0, 0);"> Lanjutkan</strong><span style="color: rgb(0, 0, 0);">, lakukan </span><strong style="color: rgb(0, 0, 0);">Konfirmasi Pembayaran</strong></p>'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            code: 'bri',
-            image: <Bri width={34} height={20} />,
-            transfer_options: [
-                {
-                    option_name: {
-                        en: 'Mobile Banking',
-                        id: 'Mobile Banking'
-                    },
-                    steps: [
-                        {
-                            en: '<p>Open BRImo app, choose <strong>Pembayaran </strong>menu</p>',
-                            id: '<p>Buka aplikasi BRImo, pilih menu <strong>Pembayaran</strong></p>'
-                        },
-                        {
-                            en: '<p>Choose <strong>BRIVA</strong></p>',
-                            id: '<p>Pilih <strong>BRIVA</strong></p>'
-                        },
-                        {
-                            en: '<p>Click <strong>Tambah Pembayaran Baru</strong></p>',
-                            id: '<p>Klik <strong>Tambah Pembayaran Baru</strong></p>'
-                        },
-                        {
-                            en: '<p>In the <strong>Nomor Tujuan</strong>, input VA number</p>',
-                            id: '<p>Pada <strong>Nomor Tujuan</strong>, masukkan nomor VA</p>'
-                        },
-                        {
-                            en: '<p>In the<strong> Nomina</strong>l, input transfer amount</p>',
-                            id: '<p>Pada<strong> Nomina</strong>l, masukkan jumlah transfer</p>'
-                        },
-                        {
-                            en: '<p>Click <strong>Lanjutkan</strong>, do the <strong>Payment Confirmation</strong></p>',
-                            id: '<p>Klik <strong>Lanjutkan</strong>, lakukan <strong>Konfirmasi Pembayaran</strong></p>'
-                        },
-                        {
-                            en: '<p>If the amount of transfer exceeds your bank card limit, do the split transfer amount</p>',
-                            id: '<p>Jika jumlah transfer melebihi limit kartu bank Anda, lakukan pembagian jumlah transfer secara berkala (split transfer)</p>'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            code: 'bca',
-            image: <Bca width={34} height={20} />,
-            transfer_options: [
-                {
-                    option_name: {
-                        en: 'Mobile Banking',
-                        id: 'Mobile Banking'
-                    },
-                    steps: [
-                        {
-                            en: '<p>Buka aplikasi m-BCA, pilih menu <strong>m-Transfer</strong></p>',
-                            id: '<p>Open m-BCA app, choose <strong>m-Transfer </strong>menu</p>'
-                        },
-                        {
-                            en: '<p>Pada <strong>Transfer</strong>, pilih <strong>Antar Bank</strong></p>',
-                            id: '<p>In the <strong>Transfer</strong>, choose <strong>Antar Bank</strong></p>'
-                        },
-                        {
-                            en: '<p>Klik <strong>Bank</strong>,<strong> </strong>pilih <strong>Bank Tujuan</strong></p>',
-                            id: '<p>Click <strong>Bank</strong>,<strong> </strong>choose <strong>Bank Tujuan</strong></p>'
-                        },
-                        {
-                            en: '<p>Klik <strong>Ke Rekening Tujuan</strong>,<strong> </strong>pilih nomor rekening atas nama <strong>Binaloka</strong></p>',
-                            id: '<p>Click <strong>Ke Rekening Tujuan</strong>,<strong> </strong>choose the account number on behalf of of <strong>Binaloka</strong></p>'
-                        },
-                        {
-                            en: '<p>Pada <strong>Jumlah Uang</strong>, masukkan jumlah transfer</p>',
-                            id: '<p>In the <strong>Jumlah Uang</strong>, input the transfer amount</p>'
-                        },
-                        {
-                            en: '<p>Pada <strong>Layanan Transfer</strong>, pilih <strong>BI-FAST</strong></p>',
-                            id: '<p>In the <strong>Layanan Transfer</strong>, choose <strong>BI-FAST</strong></p>'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            code: 'permata',
-            image: <Permata width={34} height={20} />,
-            transfer_options: [
-                {
-                    option_name: {
-                        en: 'Mobile Banking',
-                        id: 'Mobile Banking'
-                    },
-                    steps: [
-                        {
-                            en: '<p>Open mobile Permata app, choose <strong>Pembayaran Tagihan</strong></p>',
-                            id: '<p>Pada aplikasi mobile Permata, pilih <strong>Pembayaran Tagihan</strong></p>'
-                        },
-                        {
-                            en: '<p>Choose <strong>Virtual Account</strong></p>',
-                            id: '<p>Pilih <strong>Virtual Account</strong></p>'
-                        },
-                        {
-                            en: '<p>In the <strong>Nomor Virtual Account</strong>, input VA number</p>',
-                            id: '<p>Pada <strong>Nomor Virtual Account</strong>, masukkan nomor VA</p>'
-                        },
-                        {
-                            en: '<p>Click <strong>Next</strong>, in the <strong>Nominal</strong> input transfer amount</p>',
-                            id: '<p>Klik <strong>Selanjutnya</strong>, pada <strong>Nominal</strong> masukkan jumlah transfer</p>'
-                        },
-                        {
-                            en: '<p>Click<strong> OK</strong>, do the <strong>Payment Confirmation</strong></p>',
-                            id: '<p>Klik<strong> OK</strong>, lakukan <strong>Konfirmasi Pembayaran</strong></p>'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            code: 'other',
-            image: <OtherBank width={34} height={20} />,
-            transfer_options: [
-                {
-                    option_name: {
-                        en: 'Mobile Banking',
-                        id: 'Mobile Banking'
-                    },
-                    steps: [
-                        {
-                            en: '<p>Open the mobile banking app, choose <strong>Transfer </strong>menu</p>',
-                            id: '<p>Buka aplikasi mobile banking, pilih menu <strong>Transfer</strong></p>'
-                        },
-                        {
-                            en: '<p>Choose<strong> Bank Tujuan</strong></p>',
-                            id: '<p>Pilih<strong> Bank Tujuan</strong></p>'
-                        },
-                        {
-                            en: '<p>In the<strong> Rekening Tujuan,</strong> input the VA number</p>',
-                            id: '<p>Pada<strong> Rekening Tujuan,</strong> masukkan nomor VA</p>'
-                        },
-                        {
-                            en: '<p>Input the <strong>Transfer Amount</strong></p>',
-                            id: '<p>Pada <strong>Nominal Transfer, m</strong>asukkan jumlah transfer</p>'
-                        },
-                        {
-                            en: '<p>Do the <strong>Payment Co</strong>n<strong>firmation</strong></p>',
-                            id: '<p>Lakukan <strong>Konfirmasi</strong> <strong>Pembayaran</strong></p>'
-                        }
-                    ]
-                }
-            ]
+    const handleUpload = (e: any) => {
+        const file = e.target.files[0];
+        if (!file) {
+            return;
         }
-    ];
+        if (file.size > 5242880) {
+            // 5MB in bytes
+            toast.error('File size should not exceed 5MB.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            setPaymentProof((reader.result as string) ?? '');
+            setFile(file);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleChangeFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            if (file.size > 5242880) {
+                // 5MB in bytes
+                toast.error('File size should not exceed 5MB.');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = () => {
+                setPaymentProof((reader.result as string) ?? '');
+                setFile(file);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPaymentProof('');
+            setFile(null);
+        }
+    };
+
+    const handleRemoveFile = () => {
+        setPaymentProof('');
+        setFile(null);
+    };
+
+    const handleSubmitUpload = () => {
+        if (file) {
+            setLoadingUpload(true);
+            uploadBankReceipt(file, responseData?.uid)
+                .then((e) => {
+                    if (e.code === 100001001) {
+                        throw new Error(e.message);
+                    }
+                    setStep(0);
+                    setOpen(false);
+                    setPaymentProof('');
+                    setFile(null);
+                    toast.success('Payment proof uploaded successfully');
+                })
+                .catch((e) => {
+                    toast.error(e.message ?? 'Failed to upload payment proof');
+                })
+                .finally(() => {
+                    setLoadingUpload(false);
+                });
+        } else {
+            toast.error('Please upload a payment proof');
+        }
+    };
+
+    const handleSubmit = async () => {
+        if (isVerify) {
+            setLoadingRequest(true);
+            try {
+                const values = form.getFieldsValue(true);
+                const payload = {
+                    amount: values.amount
+                };
+
+                const res = await deposit(payload);
+                if (payload) {
+                    setResponseData(res);
+                    // setResponseData({
+                    //     uid: '123',
+                    //     created_at: new Date().toISOString(),
+                    //     amount: payload.amount,
+                    //     bank_account_logo: '',
+                    //     bank_account_name: values.bank_name,
+                    //     bank_account_number: values.bank_account_number
+                    // });
+                    toast.success('Deposit request submitted successfully');
+                    setOpen(true);
+                }
+            } catch (error: any) {
+                toast.error(error.message ?? 'Failed to deposit');
+            } finally {
+                setLoadingRequest(false);
+            }
+        } else {
+            setOpenError(true);
+        }
+    };
+    const handleClose = () => {
+        setOpen(false);
+        setStep(0);
+    };
 
     useEffect(() => {
-        if (isFirstLoad && virtualAccount.length > 0) {
-            fetchDetailVirtualAccount(virtualAccount[0].uid);
-            setSelectBank(virtualAccount[0].code);
-            setIsFirstLoad(false);
+        if (isVerify) {
+            setOpenError(false);
+        } else {
+            setOpenError(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [virtualAccount]);
+    }, [isVerify]);
 
-    // const accountNumber = virtualAccount.find((item) => item.uid === selectBank)?.uid;
-    // const accountName = virtualAccount?.find((item) => item?.uid === selectBank)?.name;
+    useEffect(() => {
+        form.setFieldsValue({
+            bank_account_number: virtualAccountDetail?.account_number
+        });
+    }, [form, virtualAccountDetail]);
+
+    useEffect(() => {
+        if (open) {
+            setCount(21600); // Reset count when `open` changes to true
+            const interval = setInterval(() => {
+                setCount((prev) => prev - 1);
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [open]);
+
+    // Convert seconds to HH:mm:ss
+    const formatCount = (seconds: number) => {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return [hours, minutes, secs]
+            .map((val) => (val < 10 ? `0${val}` : val)) // Add leading zero if necessary
+            .join(':');
+    };
 
     return (
-        <Container className='py-6'>
-            <Head>
-                <title>Deposit Request | Binaloka</title>
-                <meta name='description' content='Login' />
-                <link rel='icon' href='/logo.ico' />
-            </Head>
-            <div className='flex flex-col gap-10'>
-                <Breadcrumb items={breadcrumbItems} />
-                <h3 className='!font-semibold text-gray-800'>Deposit Request</h3>
-                <div className='flex flex-row gap-4 '>
-                    <div className='border-text-transparent-10 flex h-full w-[360px] flex-col rounded-xl border bg-white p-6 '>
-                        <span className='pb-3 text-xs text-gray-700'>Virtual Account Transfer</span>
-                        <If condition={loading}>
-                            <Then>
-                                <div className='flex flex-col gap-2'>
-                                    {Array.from({ length: 8 }).map((_, index) => (
-                                        <Skeleton key={index} className='h-12 w-[238px]' />
-                                    ))}
-                                </div>
-                            </Then>
-                            <Else>
-                                {virtualAccount.map((item, index) => (
-                                    <div
-                                        className={classNames(
-                                            'border-text-transparent-15 mb-2 flex cursor-pointer flex-row items-center gap-3 rounded-[3px] border p-3 transition-colors duration-150',
-                                            {
-                                                'border-primary-300 bg-blue-100':
-                                                    selectBank.toUpperCase() === item.code,
-                                                'bg-white': selectBank.toUpperCase() !== item.code
-                                            }
-                                        )}
-                                        key={index}
-                                        onClick={async () => {
-                                            console.log(item.uid);
-                                            await getDetailVirtualAccount(item.uid);
-                                            setSelectBank(item.code);
-                                        }}
-                                    >
-                                        {/* {
-                                            listPaymentGuide.find((guide) => guide.code.toUpperCase() === item.code)
-                                                ?.image
-                                        } */}
-                                        <span className='xs font-semibold text-gray-800'>{item.name}</span>
-                                    </div>
-                                ))}
-                            </Else>
-                        </If>
-                    </div>
-                    <div className='border-text-transparent-10 flex w-full flex-col rounded-xl border bg-white p-6 '>
-                        <span className='h4 font-semibold text-gray-800'>Deposit Instructions</span>
-                        <If condition={loadingDetail}>
-                            <Then>
-                                <div className='flex h-full flex-col items-center justify-center '>
-                                    <Loader />
-                                </div>
-                            </Then>
-                            <Else>
-                                <If condition={virtualAccountDetail !== null}>
-                                    <Then>
-                                        <div className='flex flex-col gap-4'>
-                                            <div className='flex flex-col gap-2 rounded-[3px] border border-gray-300 bg-[#D0F0FA80] px-4 py-3'>
-                                                <span className='text-xs uppercase text-gray-600'>
-                                                    {virtualAccountDetail?.account_name}
-                                                </span>
-                                                <div className='flex flex-row items-center gap-4'>
-                                                    <div className='flex flex-row items-center gap-2'>
-                                                        {/* {
-                                                            listPaymentGuide.find(
-                                                                (item) => item.code.toUpperCase() === selectBank
-                                                            )?.image
-                                                        } */}
-                                                        <span className='h4 font-semibold text-gray-800'>
-                                                            {virtualAccountDetail?.account_number}
-                                                        </span>
-                                                    </div>
-                                                    <Button
-                                                        size='sm'
-                                                        onClick={() => copy(virtualAccountDetail?.account_number || '')}
-                                                    >
-                                                        <Icons icon='Copy' /> Copy
-                                                    </Button>
-                                                </div>
-                                            </div>
+        <>
+            <Container className='py-6'>
+                <Head>
+                    <title>Deposit Request | Binaloka</title>
+                    <meta name='description' content='Login' />
+                    <link rel='icon' href='/logo.ico' />
+                </Head>
+                <div className='flex flex-col gap-10'>
+                    <Breadcrumb items={breadcrumbItems} />
+                    <h3 className='!font-semibold text-gray-800'>Deposit Request</h3>
 
-                                            {listPaymentGuide
-                                                .find((item) => item.code.toUpperCase() === selectBank)
-                                                ?.transfer_options.map((option, index) => (
-                                                    <Collapse
-                                                        title={
-                                                            <span className='xs font-semibold text-gray-800'>
-                                                                {option.option_name.en}
-                                                            </span>
+                    <Form form={form} onFinish={handleSubmit} className='flex justify-center'>
+                        {(_, { getFieldError, getFieldsError }) => {
+                            const errors = getFieldsError().flatMap((item) => item.errors);
+                            const isSubmitDisabled = errors.length > 0;
+
+                            const amountError = getFieldError('amount')[0];
+                            const errorBankName = getFieldError('bank_name')[0];
+                            const errorBankAccountNumber = getFieldError('bank_account_number')[0];
+
+                            return (
+                                <div className='border-text-transparent-10 flex w-full max-w-5xl flex-col gap-3 rounded-xl border bg-white p-6 '>
+                                    <div className='flex flex-col items-start gap-6 '>
+                                        <Field
+                                            name='amount'
+                                            rules={[
+                                                { required: true, message: 'Amount is required' },
+                                                {
+                                                    validator: (_, value) => {
+                                                        if (value < 10000) {
+                                                            return Promise.reject(
+                                                                'The minimum amount to deposit is Rp10,000'
+                                                            );
                                                         }
-                                                        key={index}
-                                                        defaultExpanded={index === 0}
-                                                    >
-                                                        <div className='flex flex-col gap-[6px]'>
-                                                            {option.steps.map((step, index) => (
-                                                                <div className='flex flex-row gap-2' key={index}>
-                                                                    <div className='text-secondary-300 flex h-6 w-6 items-center justify-center rounded-full bg-[#E4D4FB80] text-xs font-semibold'>
-                                                                        {index + 1}
-                                                                    </div>
-                                                                    <div
-                                                                        dangerouslySetInnerHTML={{
-                                                                            __html: step.en
-                                                                        }}
-                                                                    />
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </Collapse>
-                                                ))}
-                                        </div>
-                                    </Then>
-                                    <Else>
-                                        <div className='flex h-full flex-col items-center justify-center gap-3'>
-                                            <Illustration name='Notfound' width={214} height={214} />
-                                            <span className='h4 font-semibold text-gray-800'>
-                                                Virtual Account not found
-                                            </span>
 
-                                            <span className='xs text-gray-600'>
-                                                Virtual Account not found, please select another virtual account
+                                                        return Promise.resolve();
+                                                    }
+                                                }
+                                            ]}
+                                        >
+                                            <Input
+                                                label='Amount'
+                                                name='amount'
+                                                groupClassName='w-full'
+                                                min={0}
+                                                mask={Number}
+                                                scale={2}
+                                                size='md'
+                                                placeholder='0.00'
+                                                prefix='Rp'
+                                                thousandsSeparator='.'
+                                                radix=','
+                                                required
+                                                error={amountError}
+                                            />
+                                        </Field>
+                                        <Field
+                                            name='bank_name'
+                                            rules={[{ required: true, message: 'Bank Name is required' }]}
+                                        >
+                                            <SelectSearch
+                                                items={virtualAccount}
+                                                label='Bank Name'
+                                                name='bank_name'
+                                                selected={{
+                                                    name: virtualAccount.find(
+                                                        (item) => item.code === form.getFieldValue('bank_name')
+                                                    )?.name
+                                                }}
+                                                onChange={(value) => {
+                                                    form.setFieldsValue({
+                                                        bank_name: value?.code
+                                                    });
+                                                    getDetailVirtualAccount(value?.uid);
+                                                }}
+                                                readOnly
+                                                required
+                                            />
+                                        </Field>
+                                        {errorBankName && (
+                                            <span className='-mt-6 mr-[10px] flex flex-row gap-1 pt-2 text-xs text-[#C9353F]'>
+                                                <Icons icon='Interuption' /> {errorBankName}
                                             </span>
-                                        </div>
-                                    </Else>
-                                </If>
-                            </Else>
-                        </If>
-                    </div>
+                                        )}
+                                        <Field
+                                            name='bank_account_number'
+                                            rules={[{ required: true, message: 'Bank Account Number is required' }]}
+                                        >
+                                            <Input
+                                                label='Bank Account Number'
+                                                placeholder='Enter your bank account number'
+                                                groupClassName='w-full'
+                                                size='md'
+                                                mask={/^[0-9]*$/}
+                                                required
+                                                error={errorBankAccountNumber}
+                                            />
+                                        </Field>
+                                    </div>
+
+                                    <div className='flex flex-row items-end justify-end gap-6'>
+                                        <Button
+                                            type='submit'
+                                            disabled={isSubmitDisabled || loadingRequest}
+                                            loading={loadingRequest}
+                                        >
+                                            Submit Deposit Request
+                                        </Button>
+                                    </div>
+                                </div>
+                            );
+                        }}
+                    </Form>
                 </div>
-            </div>
-        </Container>
+            </Container>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                closePosition='right'
+                width={400}
+                wrapperClassName='!px-0'
+                headerClassName='px-6'
+                footerClassName='px-6'
+                title={
+                    <Icons
+                        icon='Dollar'
+                        width={24}
+                        height={24}
+                        color='#14b2e6'
+                        WrapperClassName='p-3 rounded-[10px] border border-[#08192B1A] shadow-[0px_1px_2px_0px_#1018280D]'
+                    />
+                }
+                footer={
+                    <>
+                        <When condition={step === 0}>
+                            <div className='flex flex-col gap-3'>
+                                <Button block onClick={() => setStep(1)}>
+                                    Upload Payment Proof
+                                </Button>
+                                <Button block variant='grayOutline' onClick={handleClose}>
+                                    Pay Later
+                                </Button>
+                            </div>
+                        </When>
+                        <When condition={step === 1}>
+                            <div className='flex w-full flex-row justify-end'>
+                                <Button
+                                    type='button'
+                                    onClick={handleSubmitUpload}
+                                    size='md'
+                                    loading={loadingUpload}
+                                    disabled={loadingUpload}
+                                >
+                                    Submit
+                                </Button>
+                            </div>
+                        </When>
+                    </>
+                }
+            >
+                <div className='flex flex-col gap-5'>
+                    <When condition={step === 0}>
+                        <div className='flex flex-col gap-5'>
+                            <div className='flex flex-col gap-1 px-6'>
+                                <p className='text-lg font-bold text-[#18181E]'>Deposit Instructions</p>
+                                <p className='text-sm font-normal text-[#525D66]'>
+                                    You must transfer the{' '}
+                                    <span className='font-bold text-[#18181E]'> exact amount</span> as stated
+                                </p>
+                            </div>
+                            <div className='flex flex-col gap-1 px-6'>
+                                <p className='text-[10px] font-normal uppercase leading-[14px] text-[#758089]'>
+                                    AMOUNT TO TRANSFER
+                                </p>
+                                <p className='text-2xl font-bold text-[#18181E]'>
+                                    {formatRupiah(amountValue)}{' '}
+                                    <Icons
+                                        icon='Copy'
+                                        width={20}
+                                        height={20}
+                                        color='#525D66'
+                                        WrapperClassName='pl-1 cursor-pointer'
+                                        onClick={() => {
+                                            copy(amountValue as any as string);
+                                        }}
+                                    />
+                                </p>
+                            </div>
+                            <div className='flex flex-col gap-1 px-6'>
+                                <p className='text-[10px] font-normal uppercase leading-[14px] text-[#758089]'>
+                                    TRANSFER TO
+                                </p>
+                                <div className='flex w-full flex-row items-center gap-4'>
+                                    {/* <Image src={BCALogo} alt='BCA Logo' width={64} height={20} /> */}
+                                    <p className='text-2xl font-bold text-[#18181E]'>
+                                        {virtualAccountDetail?.account_number}
+                                        <Icons
+                                            icon='Copy'
+                                            width={20}
+                                            height={20}
+                                            color='#525D66'
+                                            WrapperClassName='pl-1 cursor-pointer'
+                                            onClick={() => {
+                                                copy(virtualAccountDetail?.account_number as any as string);
+                                            }}
+                                        />
+                                    </p>
+                                </div>
+                            </div>
+                            <div className='flex flex-col gap-1 px-6'>
+                                <p className='text-[10px] font-normal uppercase leading-[14px] text-[#758089]'>
+                                    ACCOUNT HOLDER NAME
+                                </p>
+
+                                <p className='text-2xl font-bold text-[#18181E]'>
+                                    {virtualAccountDetail?.account_name}
+                                </p>
+                            </div>
+                            <div className='relative flex w-full flex-row items-center gap-2 bg-[#FFFAEB] px-6 py-2'>
+                                <Icons icon='AlertTriangleFilled' width={24} height={24} />
+                                <p className='text-sm font-normal text-[#525D66]'>
+                                    Please complete payment in{' '}
+                                    <span className='text-[16px] font-bold leading-6 text-[#DC6803]'>
+                                        {formatCount(count)}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </When>
+                    <When condition={step === 1}>
+                        <div className='flex flex-col gap-5'>
+                            <div className='flex flex-col gap-1 px-6'>
+                                <p className='text-lg font-bold text-[#18181E]'>Upload Payment Proof</p>
+                                <p className='text-sm font-normal text-[#525D66]'>
+                                    You must transfer the exact amount as stated
+                                </p>
+                            </div>
+                            <If condition={paymentProof}>
+                                <Then>
+                                    <div className='mt-4 flex flex-row gap-4 px-6'>
+                                        <div className='w-full'>
+                                            <Image
+                                                src={paymentProof}
+                                                alt='Preview Payment Proof'
+                                                width={216}
+                                                height={164}
+                                                unoptimized
+                                            />
+                                        </div>
+                                        <div className='flex w-full flex-col items-center gap-2'>
+                                            <label className='w-full cursor-pointer'>
+                                                <div className='text-center'>
+                                                    <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
+                                                        Change
+                                                    </div>
+                                                    <input
+                                                        type='file'
+                                                        className='hidden'
+                                                        onChange={(e: any) => handleChangeFileUpload(e)}
+                                                    />
+                                                </div>
+                                            </label>
+                                            <Button
+                                                variant='grayOutline'
+                                                block
+                                                className='!gap-1 !border-none !text-[#DB2430]'
+                                                onClick={handleRemoveFile}
+                                            >
+                                                <Icons icon='Trash' width={16} height={16} /> Remove
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </Then>
+                                <Else>
+                                    <div className='w-full px-6 pt-2'>
+                                        <label className='flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed border-[#14b2e6] bg-[#14b2e608]'>
+                                            <div className='text-center'>
+                                                <Icons icon='Upload' width={24} height={24} color='#14b2e6' />
+                                                <p className='text-sm font-bold text-[#14b2e6]'>Upload Payment Proof</p>
+                                                <p className='text-xs font-normal text-[#525D66]'>
+                                                    Click to upload or drag and drop <br />
+                                                    PNG, JPG or PDF (max. 5 MB)
+                                                </p>
+                                                <input type='file' className='hidden' onChange={handleUpload} />
+                                            </div>
+                                        </label>
+                                    </div>
+                                </Else>
+                            </If>
+                        </div>
+                    </When>
+                </div>
+            </Modal>
+        </>
     );
 };
 

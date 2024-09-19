@@ -33,6 +33,7 @@ import { formatRupiah } from '@/utils/currency';
 import Image from 'next/image';
 import { Transition, TransitionChild } from '@headlessui/react';
 import SelectSearch from '@/components/SelectSearch';
+import ModalUnverified from '@/components/Modal/ModalUnverified';
 
 interface ResponseData {
     uid: string;
@@ -54,7 +55,7 @@ const Deposit = () => {
     const [loadingUpload, setLoadingUpload] = useState(false);
     const [loadingRequest, setLoadingRequest] = useState(false);
     const [openError, setOpenError] = useState(false);
-    const [selectUid, setSelectUid] = useState('');
+
     const [responseData, setResponseData] = useState<ResponseData>();
     const router = useRouter();
     const { deposit } = useDeposit();
@@ -138,6 +139,9 @@ const Deposit = () => {
                     setPaymentProof('');
                     setFile(null);
                     toast.success('Payment proof uploaded successfully');
+                    setTimeout(() => {
+                        router.push('/wallet');
+                    }, 1500);
                 })
                 .catch((e) => {
                     toast.error(e.message ?? 'Failed to upload payment proof');
@@ -283,7 +287,7 @@ const Deposit = () => {
                                             rules={[{ required: true, message: 'Bank Name is required' }]}
                                         >
                                             <SelectSearch
-                                                items={virtualAccount}
+                                                items={virtualAccount.filter((item) => item.code === 'BCA')}
                                                 label='Bank Name'
                                                 name='bank_name'
                                                 selected={{
@@ -515,6 +519,7 @@ const Deposit = () => {
                     </When>
                 </div>
             </Modal>
+            <ModalUnverified isOpen={openError} handleClose={() => setOpenError(false)} />
         </>
     );
 };

@@ -201,7 +201,8 @@ const Deposit = () => {
 
     useEffect(() => {
         form.setFieldsValue({
-            bank_account_number: 821765274582
+            bank_account_number: '821765274582',
+            bank_name: 'BCA'
         });
     }, [form]);
 

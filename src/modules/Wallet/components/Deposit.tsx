@@ -201,9 +201,9 @@ const Deposit = () => {
 
     useEffect(() => {
         form.setFieldsValue({
-            bank_account_number: virtualAccountDetail?.account_number
+            bank_account_number: 821765274582
         });
-    }, [form, virtualAccountDetail]);
+    }, [form]);
 
     useEffect(() => {
         if (open) {
@@ -421,7 +421,7 @@ const Deposit = () => {
                                 <div className='flex w-full flex-row items-center gap-4'>
                                     {/* <Image src={BCALogo} alt='BCA Logo' width={64} height={20} /> */}
                                     <p className='text-2xl font-bold text-[#18181E]'>
-                                        {virtualAccountDetail?.account_number}
+                                        821765274582
                                         <Icons
                                             icon='Copy'
                                             width={20}
@@ -429,7 +429,7 @@ const Deposit = () => {
                                             color='#525D66'
                                             WrapperClassName='pl-1 cursor-pointer'
                                             onClick={() => {
-                                                copy(virtualAccountDetail?.account_number as any as string);
+                                                copy(821765274582 as any as string);
                                             }}
                                         />
                                     </p>
@@ -440,9 +440,7 @@ const Deposit = () => {
                                     ACCOUNT HOLDER NAME
                                 </p>
 
-                                <p className='text-2xl font-bold text-[#18181E]'>
-                                    {virtualAccountDetail?.account_name}
-                                </p>
+                                <p className='text-2xl font-bold text-[#18181E]'>PT Binaloka Indonesia</p>
                             </div>
                             <div className='relative flex w-full flex-row items-center gap-2 bg-[#FFFAEB] px-6 py-2'>
                                 <Icons icon='AlertTriangleFilled' width={24} height={24} />

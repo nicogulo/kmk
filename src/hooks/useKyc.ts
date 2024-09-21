@@ -43,6 +43,8 @@ const useKyc = () => {
             });
             const data = await response.json();
 
+            if (data.code === 200003002) throw new Error(data.message);
+
             if (!data) throw new Error('Failed to submit KYC');
             if (data.message === 'success') {
                 toast.success('KYC submitted successfully');

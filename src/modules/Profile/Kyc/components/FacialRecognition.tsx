@@ -28,11 +28,13 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
                 type: 'liveness',
                 file: blob
             })
-                .then(() => {
-                    toast.success('Berhasil upload foto');
-                    setTimeout(() => {
-                        onNext();
-                    }, 1000);
+                .then((res) => {
+                    if (res) {
+                        toast.success('Berhasil upload foto');
+                        setTimeout(() => {
+                            onNext();
+                        }, 1000);
+                    }
                 })
                 .catch(() => {
                     toast.error('Gagal upload foto');

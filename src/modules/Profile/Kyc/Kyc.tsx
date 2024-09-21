@@ -20,6 +20,7 @@ import VidaLogo from '../images/vida-logo.png';
 const UploadDocument = dynamic(() => import('./components/UploadDocument'));
 const PersonalData = dynamic(() => import('./components/PersonalData'));
 const FacialRecognition = dynamic(() => import('./components/FacialRecognition'));
+const TermsCondition = dynamic(() => import('./components/TermsCondition'));
 
 const Kyc = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -40,13 +41,19 @@ const Kyc = () => {
         {
             title: 'Facial Recognition',
             content: 'Facial Recognition'
+        },
+        {
+            title: 'Persyaratan Persetujuan',
+            content: 'Terms & Condition'
         }
     ];
 
     const submitPersonalData = (values: PersonalDataProps) => {
         setPersonalData(values);
         setActiveTab(2);
-        console.log(values);
+    };
+    const submitFacialRecognition = () => {
+        setActiveTab(3);
     };
 
     const submit = async () => {
@@ -69,7 +76,7 @@ const Kyc = () => {
             </Head>
             <div className='h-full max-h-screen w-full flex-grow overflow-hidden bg-[#F5F7FA] p-10'>
                 <Container className='flex h-[calc(100vh-142px)] flex-row'>
-                    <div className='mx-4 flex  w-[200px] flex-col justify-between overflow-hidden  text-[#525D66]'>
+                    <div className='mx-4 flex w-[240px] flex-col justify-between overflow-hidden  text-[#525D66]'>
                         <div className='flex flex-col gap-10'>
                             <p className='text-2xl font-bold text-[#18181E]'>Basic Verification</p>
                             <Tabs vertical>
@@ -102,14 +109,16 @@ const Kyc = () => {
                             </Case>
                             <Case condition={activeTab === 2}>
                                 <FacialRecognition
-                                    onNext={() => {
-                                        submit();
-                                    }}
+                                    onNext={submitFacialRecognition}
                                     onBack={() => {
                                         setActiveTab(1);
                                     }}
                                 />
                             </Case>
+                            <Case condition={activeTab === 3}>
+                                <TermsCondition onBack={() => setActiveTab(2)} onNext={() => submit()} />
+                            </Case>
+
                             <Default>
                                 <UploadDocument
                                     setTab={() => {

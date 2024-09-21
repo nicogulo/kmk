@@ -48,7 +48,7 @@ const Form1: React.FC<Props> = ({ checked }) => (
         <div className='flex items-center justify-center'>
             <Icons icon='Logo' width={90} height={32} />
         </div>
-        <div>
+        {/* <div>
             <p>
                 <strong>Formulir PBK. CDDS. 01 </strong>
             </p>
@@ -385,7 +385,7 @@ const Form1: React.FC<Props> = ({ checked }) => (
             </div>
 
             <p>*) Isi sesuai dengan kontrak yang diperdagangkan (mini lot)</p>
-        </div>
+        </div> */}
     </>
 );
 

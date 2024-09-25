@@ -280,7 +280,8 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
             uid: item.uid,
             requestDate: item.created_at,
             amount: item.idr_gross_amount,
-            status: item.status
+            status: item.status,
+            file_id: item.file_id
         })) || [];
 
     // const data = [
@@ -425,18 +426,21 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
             title: 'ACTION',
             dataIndex: 'uid',
             headClassName: '!xs',
-            render: (data, item) => (
-                <Fragment>
-                    <Switch>
-                        <Case condition={!item.file_url}>
-                            <ModalUploadProof data={item} onCallbak={fetchHistory} />
-                        </Case>
-                        <Case condition={item.file_url}>
-                            <ModalViewProof data={item} />
-                        </Case>
-                    </Switch>
-                </Fragment>
-            )
+            render: (data, item) => {
+                console.log(item.file_id);
+                return (
+                    <Fragment>
+                        <Switch>
+                            <Case condition={!item.file_id}>
+                                <ModalUploadProof data={item} onCallbak={fetchHistory} />
+                            </Case>
+                            <Case condition={item.file_id}>
+                                <ModalViewProof data={item} />
+                            </Case>
+                        </Switch>
+                    </Fragment>
+                );
+            }
         }
     ];
 

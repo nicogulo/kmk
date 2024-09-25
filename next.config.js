@@ -13,7 +13,11 @@ const nextConfig = {
     swcMinify: true,
 
     images: {
-        domains: ['cdn.jsdelivr.net', 'binaloka-identity.s3.ap-southeast-3.amazonaws.com']
+        domains: [
+            'cdn.jsdelivr.net',
+            'binaloka-identity.s3.ap-southeast-3.amazonaws.com',
+            'binaloka-history.s3.ap-southeast-3.amazonaws.com'
+        ]
     },
 
     // SVGR

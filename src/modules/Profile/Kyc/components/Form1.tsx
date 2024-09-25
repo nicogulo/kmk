@@ -48,6 +48,30 @@ const Form1: React.FC<Props> = ({ checked }) => (
         <div className='flex items-center justify-center'>
             <Icons icon='Logo' width={90} height={32} />
         </div>
+        <div>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi minima perferendis rerum blanditiis sint
+            distinctio sapiente corrupti veniam vero tenetur tempore natus deserunt nisi quo reiciendis, debitis qui
+            maxime officia earum magni similique ad unde. Maxime maiores officiis consectetur, nam fugit voluptatem
+            iste, magni sunt corporis atque fugiat vero minus aperiam nisi enim recusandae ducimus porro aliquid
+            provident quaerat? Quaerat mollitia odit ut saepe vitae. Ipsum blanditiis excepturi beatae unde fuga quod,
+            ea laboriosam iure nisi itaque quia consequuntur? Consequuntur illo incidunt repellat? Provident, vel. Nisi
+            quas praesentium incidunt doloremque hic deserunt eveniet itaque ea in dolore velit voluptates autem fugit
+            reprehenderit dolorum minima, fuga labore voluptatem. Cum earum quia qui odio illum ad, explicabo
+            perspiciatis eum officiis reprehenderit deserunt laboriosam illo facilis dolor molestiae voluptatem incidunt
+            temporibus accusamus eius quo fugiat. Ipsam sed, dicta, perferendis in cumque, architecto alias libero
+            deserunt aliquam nulla autem error animi. Voluptates aspernatur adipisci debitis harum, fugit doloribus esse
+            illo asperiores porro, natus sint. Quisquam rem eaque quis laudantium sint repudiandae praesentium
+            blanditiis sed enim aut est tempore necessitatibus impedit suscipit, error qui illo dolorem perferendis
+            sapiente quaerat quibusdam nam non inventore consequuntur. Possimus culpa omnis repudiandae et dolor ipsam
+            vitae sunt, nostrum illum doloribus a reprehenderit excepturi ipsum dignissimos repellat ea quos beatae
+            reiciendis accusamus. Exercitationem esse, rerum minima debitis dolores illo nulla. Totam iure suscipit
+            omnis eius est, dolorum aut reprehenderit atque sed obcaecati dolor quisquam labore explicabo dolores,
+            inventore corrupti facilis qui repellendus. Voluptas architecto pariatur quod temporibus nostrum similique
+            perferendis doloribus in sit itaque eveniet alias nobis natus id, aperiam unde doloremque vitae dolorem a
+            nulla est voluptate. Labore corporis voluptates vitae suscipit quo voluptatem, iste quas neque obcaecati
+            nemo aliquid numquam placeat laboriosam quaerat error iure saepe. Ipsam ab quod esse tenetur quam accusamus
+            molestias necessitatibus nemo veniam nostrum.
+        </div>
         {/* <div>
             <p>
                 <strong>Formulir PBK. CDDS. 01 </strong>

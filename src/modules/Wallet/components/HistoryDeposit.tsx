@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Tab, TabGroup, TabList } from '@headlessui/react';
+import { Dialog, Tab, TabGroup, TabList, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
 import { Case, Else, If, Switch, Then } from 'react-if';
 
-import useHistory from '@/hooks/useHistory';
+import useHistory, { useHistoryDetail } from '@/hooks/useHistory';
 import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
 
 import Badge from '@/components/Badge';
@@ -17,6 +17,238 @@ import { TableColumn } from '@/components/Table/Table';
 
 import { formatRupiah } from '@/utils/currency';
 import { formatDate } from '@/utils/format-date';
+import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
+import Image from 'next/image';
+import Icons from '@/components/Icon';
+import Modal from '@/components/Modal';
+import { toast } from '@/components/Toast';
+
+interface ModalProps {
+    data: any;
+    onCallbak?: () => void;
+}
+
+const ModalViewProof = ({ data }: ModalProps) => {
+    const [openModal, setOpenModal] = useState(false);
+
+    const { fetchHistory, history, loading } = useHistoryDetail(data?.uid);
+    const handleOpen = () => {
+        setOpenModal(true);
+        fetchHistory();
+    };
+
+    return (
+        <>
+            <Button variant='grayOutline' className='!w-fit' onClick={handleOpen}>
+                View Proof
+            </Button>
+            <Transition appear show={openModal} as={Fragment}>
+                <Dialog as='div' className='relative z-10' onClose={() => setOpenModal(false)}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter='ease-out duration-300'
+                        enterFrom='opacity-0'
+                        enterTo='opacity-100'
+                        leave='ease-in duration-200'
+                        leaveFrom='opacity-100'
+                        leaveTo='opacity-0'
+                    >
+                        <div className='fixed inset-0 bg-black/90' />
+                    </Transition.Child>
+
+                    <div className='fixed inset-0 overflow-y-auto'>
+                        <Button onClick={() => setOpenModal(false)} className='absolute right-4 top-4'>
+                            Close
+                        </Button>
+                        <div className='flex min-h-full items-center justify-center p-4 text-center'>
+                            <Transition.Child
+                                as={Fragment}
+                                enter='ease-out duration-300'
+                                enterFrom='opacity-0 scale-95'
+                                enterTo='opacity-100 scale-100'
+                                leave='ease-in duration-200'
+                                leaveFrom='opacity-100 scale-100'
+                                leaveTo='opacity-0 scale-95'
+                            >
+                                <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl  p-6 text-left align-middle  transition-all'>
+                                    {loading ? (
+                                        <Loader type='Oval' width={80} height={80} />
+                                    ) : (
+                                        <Image
+                                            src={history?.file_url || ''}
+                                            alt='Proof'
+                                            width={0}
+                                            height={0}
+                                            sizes='100vw'
+                                            style={{ height: '100%', width: 'auto' }}
+                                        />
+                                    )}
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
+        </>
+    );
+};
+
+const ModalUploadProof = ({ data, onCallbak }: ModalProps) => {
+    const [openModal, setOpenModal] = useState(false);
+    const [imagePreview, setImagePreview] = useState<string>('');
+    const [imageFile, setImageFile] = useState<File>();
+    const [loading, setLoading] = useState(false);
+
+    const { uploadBankReceipt } = useHistoryDetail(data.uid);
+
+    const handleUpload = (e: any) => {
+        const file = e.target.files[0];
+        if (file && file.size > 5242880) {
+            // 5MB in bytes
+            toast.error('File size should not exceed 5MB.');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreview((reader.result as string) ?? '');
+            setImageFile(file);
+        };
+        reader.readAsDataURL(file);
+    };
+    const handleChangeFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            if (file.size > 5242880) {
+                // 5MB in bytes
+                toast.error('File size should not exceed 5MB.');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result as string);
+                setImageFile(file);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setImagePreview('');
+        }
+    };
+    const handleRemoveFile = () => {
+        setImagePreview('');
+        setImageFile(undefined);
+
+        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+    };
+    const handleOpen = () => {
+        setOpenModal(true);
+    };
+    const onSubmit = async () => {
+        if (!imageFile) {
+            toast.error('Please upload a payment proof.');
+            return;
+        }
+        setLoading(true);
+        try {
+            const formData = new FormData();
+            formData.append('file', imageFile);
+            const res = await uploadBankReceipt(imageFile);
+
+            if (res.message === 'success') {
+                toast.success('Upload payment proof success');
+                onCallbak?.();
+            }
+
+            setOpenModal(false);
+        } catch (error) {
+            console.log('eee', error);
+        }
+        setLoading(false);
+    };
+
+    return (
+        <>
+            <Button variant='grayOutline' className='!w-fit' onClick={handleOpen}>
+                Upload Payment Proof
+            </Button>
+            <Modal
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                closePosition='right'
+                width={400}
+                title={
+                    <Icons
+                        icon='Dollar'
+                        width={24}
+                        height={24}
+                        color='#14b2e6'
+                        WrapperClassName='p-3 rounded-[10px] border border-[#08192B1A] shadow-[0px_1px_2px_0px_#1018280D]'
+                    />
+                }
+                footer={
+                    <div className='flex flex-row justify-end gap-3'>
+                        <Button onClick={onSubmit} loading={loading} disabled={loading}>
+                            Submit
+                        </Button>
+                    </div>
+                }
+            >
+                <div className='flex flex-col gap-6'>
+                    <div className='flex flex-col gap-1'>
+                        <p className='text-lg font-bold text-[#18181E]'>Upload Payment Proof</p>
+                        <p className='text-sm font-normal text-[#525D66]'>
+                            You must transfer the <span className='!font-bold !text-[#18181E]'> exact amount</span> as
+                            stated
+                        </p>
+                    </div>
+                    {imagePreview ? (
+                        <div className='mt-4 flex flex-row gap-4'>
+                            <div className='w-full'>
+                                <Image src={imagePreview || ''} alt='Preview KTP' width={216} height={164} />
+                            </div>
+                            <div className='flex w-full flex-col items-center gap-2'>
+                                <label className='w-full cursor-pointer'>
+                                    <div className='text-center'>
+                                        <div className='flex h-10 w-full items-center justify-center rounded border border-[#08192B1A]'>
+                                            Change
+                                        </div>
+                                        <input
+                                            type='file'
+                                            className='hidden'
+                                            onChange={(e: any) => handleChangeFileUpload(e)}
+                                        />
+                                    </div>
+                                </label>
+                                <Button
+                                    variant='grayOutline'
+                                    block
+                                    className='!gap-1 !border-none !text-[#DB2430]'
+                                    onClick={handleRemoveFile}
+                                >
+                                    <Icons icon='Trash' width={16} height={16} /> Remove
+                                </Button>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='w-full pt-2'>
+                            <label className='flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed border-[#14b2e6] bg-[#14b2e608]'>
+                                <div className='text-center'>
+                                    <Icons icon='Upload' width={24} height={24} color='#14b2e6' />
+                                    <p className='text-sm font-bold text-[#14b2e6]'>Upload Payment Proof</p>
+                                    <p className='text-xs font-normal text-[#525D66]'>
+                                        Click to upload or drag and drop <br />
+                                        PNG, JPG (max. 5 MB)
+                                    </p>
+                                    <input type='file' className='hidden' onChange={(e: any) => handleUpload(e)} />
+                                </div>
+                            </label>
+                        </div>
+                    )}
+                </div>
+            </Modal>
+        </>
+    );
+};
 
 interface Props {
     profile?: ProfileModel;
@@ -26,6 +258,7 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [status, setStatus] = useState<number | undefined>();
     const [openModal, setOpenModal] = useState(false);
+    const [openModalPending, setOpenModalPending] = useState(false);
     const limit = 10;
 
     const router = useRouter();
@@ -33,7 +266,7 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
-    const { history, loading } = useHistory({
+    const { history, loading, fetchHistory } = useHistory({
         filter: {
             limit,
             page: currentPage,
@@ -187,6 +420,23 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
                     </Badge>
                 );
             }
+        },
+        {
+            title: 'ACTION',
+            dataIndex: 'uid',
+            headClassName: '!xs',
+            render: (data, item) => (
+                <Fragment>
+                    <Switch>
+                        <Case condition={!item.file_url}>
+                            <ModalUploadProof data={item} onCallbak={fetchHistory} />
+                        </Case>
+                        <Case condition={item.file_url}>
+                            <ModalViewProof data={item} />
+                        </Case>
+                    </Switch>
+                </Fragment>
+            )
         }
     ];
 
@@ -254,6 +504,10 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
                                     onClick={() => {
                                         if (isUnverifiedBasic) {
                                             setOpenModal(true);
+                                        } else if (isVerifiedBasic) {
+                                            router.push('/wallet/deposit');
+                                        } else {
+                                            setOpenModalPending(true);
                                         }
                                     }}
                                 >
@@ -265,6 +519,7 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
                 </If>
             </TabGroup>
             <ModalUnverified isOpen={openModal} handleClose={() => setOpenModal(false)} />
+            <ModalPendingVerif isOpen={openModalPending} handleClose={() => setOpenModalPending(false)} />
         </>
     );
 };

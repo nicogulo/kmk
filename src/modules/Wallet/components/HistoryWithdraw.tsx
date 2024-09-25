@@ -17,6 +17,9 @@ import { TableColumn } from '@/components/Table/Table';
 
 import { formatRupiah } from '@/utils/currency';
 import { formatDate } from '@/utils/format-date';
+import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
+import Icons from '@/components/Icon';
+import Modal from '@/components/Modal';
 
 interface Props {
     profile?: ProfileModel;
@@ -26,12 +29,15 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [status, setStatus] = useState<number | undefined>();
     const [openModal, setOpenModal] = useState(false);
+    const [openModalPending, setOpenModalPending] = useState(false);
+    const [openModalWithdraw, setOpenModalWithdraw] = useState(false);
     const limit = 10;
 
     const router = useRouter();
 
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
+    const isPendingBasic = ProfileStatus.PENDING === profile?.kyc;
 
     const { history, loading } = useHistory({
         filter: {
@@ -269,17 +275,21 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
                             <div className='absolute -bottom-[460px] flex w-full flex-col items-center justify-center gap-4 py-6'>
                                 <Illustration name='Notfound' width={155} height={172} />
                                 <p className='text-center text-[32px] font-bold leading-10 text-[#121416]'>
-                                    You don't have deposit <br />
+                                    You don't have withdraw <br />
                                     request history
                                 </p>
                                 <Button
                                     onClick={() => {
                                         if (isUnverifiedBasic) {
                                             setOpenModal(true);
+                                        } else if (isVerifiedBasic) {
+                                            setOpenModalWithdraw(true);
+                                        } else {
+                                            setOpenModalPending(true);
                                         }
                                     }}
                                 >
-                                    Submit Deposit Request
+                                    Submit Withdraw Request
                                 </Button>
                             </div>
                         )}
@@ -287,6 +297,40 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
                 </If>
             </TabGroup>
             <ModalUnverified isOpen={openModal} handleClose={() => setOpenModal(false)} />
+            <ModalPendingVerif isOpen={openModalPending} handleClose={() => setOpenModalPending(false)} />
+            <Modal
+                open={openModalWithdraw}
+                onClose={() => setOpenModalWithdraw(false)}
+                title='Withdraw'
+                closePosition='right'
+                width={480}
+                wrapperClassName='max-w-[480px]'
+            >
+                <div className='flex flex-col gap-4'>
+                    <div
+                        className='flex cursor-pointer flex-row items-center gap-4 rounded-[3px] border border-gray-300 px-3 py-2 hover:bg-gray-100'
+                        onClick={() => router.push('/wallet/withdraw/withdraw-request')}
+                    >
+                        <Icons icon='MoneyWithdraw' width={24} height={24} className='text-gray-700' />
+                        <div className='flex flex-col gap-1'>
+                            <span className='xs font-semibold text-gray-800'>Withdraw Request</span>
+                            <span className='xs text-gray-600'>
+                                Withdraw your available balance to your bank account.
+                            </span>
+                        </div>
+                    </div>
+                    <div
+                        className='flex cursor-pointer flex-row items-center gap-4 rounded-[3px] border border-gray-300 px-3 py-2 hover:bg-gray-100'
+                        onClick={() => router.push('/wallet/withdraw/withdraw-bank')}
+                    >
+                        <Icons icon='Bank' width={24} height={24} className='text-gray-700' />
+                        <div className='flex flex-col gap-1'>
+                            <span className='xs font-semibold text-gray-800'>Add Bank for Withdrawal</span>
+                            <span className='xs text-gray-600'>Link a bank account to enable withdrawals.</span>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </>
     );
 };

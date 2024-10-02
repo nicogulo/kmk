@@ -120,7 +120,7 @@ const Form1: React.FC<Props> = ({ checked }) => (
                 <li>
                     Aset Kripto adalah komoditi yang tidak berwujud yang berbentuk digital, menggunakan kriptografi,
                     jaringan informasi teknologi, dan buku besar yang terdistribusi, untuk mengatur penciptaan unit
-                    baru, memverifikasi transaksi, dan mengamankan transaksi tanpa campur tangan pihak lain. ​
+                    baru, memverifikasi transaksi, dan mengamankan transaksi tanpa campur tangan pihak lain.
                 </li>
                 <li>
                     Aktivitas perdagangan Aset Kripto merupakan aktivitas berisiko tinggi. Nilai dari Aset Kripto ini
@@ -649,7 +649,7 @@ const Form1: React.FC<Props> = ({ checked }) => (
                             sumber kekayaan, tujuan pembukaan Akun, tujuan investasi, segala rencana keuangan atau
                             informasi keuangan terkait lainnya dari Pelanggan. Jika diperlukan oleh Perusahaan,
                             Pelanggan juga setuju untuk menyediakan data terbaru tentang informasi tersebut kepada
-                            Perusahaan.​
+                            Perusahaan.
                         </li>
                         <li>
                             14.2. Bahwa Perusahaan mematuhi ketentuan anti pencucian uang, melawan pendanaan terorisme
@@ -711,7 +711,7 @@ const Form1: React.FC<Props> = ({ checked }) => (
                                     listStyle: 'lower-alpha'
                                 }}
                             >
-                                <li>Musyawarah untuk mufakat antara para pihak;​</li>
+                                <li>Musyawarah untuk mufakat antara para pihak;</li>
                                 <li>
                                     Jika tidak tercapai mufakat pada poin (a), maka penyelesaian perselisihan dilakukan
                                     melalui Bursa Aset Kripto; dan

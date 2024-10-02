@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unknown-property */
-import Icons from '@/components/Icon';
 import dayjs from 'dayjs';
 import React from 'react';
+
+import Icons from '@/components/Icon';
 
 interface Props {
     checked: boolean | null;

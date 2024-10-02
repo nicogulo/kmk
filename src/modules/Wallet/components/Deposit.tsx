@@ -1,39 +1,27 @@
 import Head from 'next/head';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import Form, { Field, useForm } from 'rc-field-form';
 import React, { useEffect, useState } from 'react';
 import { Else, If, Then, When } from 'react-if';
 
-import classNames from '@/lib/classnames';
+import useDeposit from '@/hooks/useDeposit';
+import { useHistoryDetail } from '@/hooks/useHistory';
+import useProfile, { ProfileStatus } from '@/hooks/useProfile';
 import useVirtualAccount, { useDetailVirtualAccount } from '@/hooks/useVirtualAccount';
-import Form, { Field, useForm } from 'rc-field-form';
+
 import Breadcrumb from '@/components/Breadcrumb';
 import Button from '@/components/Button';
-import Collapse from '@/components/Collapse';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
-import Illustration from '@/components/Illustrations';
-import Loader from '@/components/Loader';
-import Skeleton from '@/components/Skeleton';
+import Input from '@/components/Input';
+import Modal from '@/components/Modal';
+import ModalUnverified from '@/components/Modal/ModalUnverified';
+import SelectSearch from '@/components/SelectSearch';
+import { toast } from '@/components/Toast';
 
 import { copy } from '@/utils/clipboard';
-
-import Bca from '../svgx/Bca';
-import Bri from '../svgx/Bri';
-import Mandiri from '../svgx/Mandiri';
-import OtherBank from '../svgx/OtherBank';
-import Permata from '../svgx/Permata';
-import { useRouter } from 'next/router';
-import useProfile, { ProfileStatus } from '@/hooks/useProfile';
-import Input from '@/components/Input';
-import Select from '@/components/Select';
-import { toast } from '@/components/Toast';
-import useDeposit from '@/hooks/useDeposit';
-import Modal from '@/components/Modal';
-import { useHistoryDetail } from '@/hooks/useHistory';
 import { formatRupiah } from '@/utils/currency';
-import Image from 'next/image';
-import { Transition, TransitionChild } from '@headlessui/react';
-import SelectSearch from '@/components/SelectSearch';
-import ModalUnverified from '@/components/Modal/ModalUnverified';
 
 interface ResponseData {
     uid: string;

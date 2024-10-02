@@ -1,11 +1,11 @@
-import Link from 'next/link';
 import React from 'react';
+
+import { useLogin } from '@/hooks/useAuth';
 
 import Illustration from '@/components/Illustrations';
 
 import Modal from './Modal';
 import Button from '../Button';
-import { useLogin } from '@/hooks/useAuth';
 
 interface Props {
     isOpen: boolean;

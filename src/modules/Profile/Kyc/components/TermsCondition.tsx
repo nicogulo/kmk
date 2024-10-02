@@ -1,10 +1,13 @@
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
+
+import classNames from '@/lib/classnames';
+
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Loader from '@/components/Loader';
-import classNames from '@/lib/classnames';
+
 import Form1 from '@/modules/Profile/Kyc/components/Form1';
-import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
 
 interface Props {
     onBack: () => void;

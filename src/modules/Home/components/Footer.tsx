@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
+
+import classNames from '@/lib/classnames';
 
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
-import { useRouter } from 'next/router';
-import classNames from '@/lib/classnames';
 
 const Footer = () => {
     const router = useRouter();

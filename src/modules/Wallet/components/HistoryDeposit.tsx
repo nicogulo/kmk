@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Dialog, Tab, TabGroup, TabList, Transition } from '@headlessui/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
 import { Case, Else, If, Switch, Then } from 'react-if';
@@ -9,19 +10,18 @@ import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
 
 import Badge from '@/components/Badge';
 import Button from '@/components/Button';
+import Icons from '@/components/Icon';
 import Illustration from '@/components/Illustrations';
 import Loader from '@/components/Loader';
+import Modal from '@/components/Modal';
+import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
 import ModalUnverified from '@/components/Modal/ModalUnverified';
 import Table from '@/components/Table';
 import { TableColumn } from '@/components/Table/Table';
+import { toast } from '@/components/Toast';
 
 import { formatRupiah } from '@/utils/currency';
 import { formatDate } from '@/utils/format-date';
-import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
-import Image from 'next/image';
-import Icons from '@/components/Icon';
-import Modal from '@/components/Modal';
-import { toast } from '@/components/Toast';
 
 interface ModalProps {
     data: any;

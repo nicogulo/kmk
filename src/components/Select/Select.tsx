@@ -1,4 +1,4 @@
-import { Input, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react';
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
 
 import classNames from '@/lib/classnames';

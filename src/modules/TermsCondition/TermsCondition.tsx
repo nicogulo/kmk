@@ -1,12 +1,12 @@
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
 
 import Container from '@/components/Container';
+
 import Footer from '@/modules/Home/components/Footer';
-import IndoVersion from '@/modules/TermsCondition/components/IndoVersion';
 import EnglishVersion from '@/modules/TermsCondition/components/EnglishVersion';
+import IndoVersion from '@/modules/TermsCondition/components/IndoVersion';
 
 const TermsCondition = () => {
     const { i18n } = useTranslation();

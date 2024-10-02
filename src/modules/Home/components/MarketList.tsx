@@ -8,6 +8,7 @@ import data from '@/data/market.json';
 
 import ChangePercentageText from '@/components/ChangePercentageText';
 import Container from '@/components/Container';
+import ModalLogin from '@/components/Modal/ModalLogin';
 import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
 import ModalTrade from '@/components/Modal/ModalTrade';
 import ModalUnverified from '@/components/Modal/ModalUnverified';
@@ -16,7 +17,6 @@ import { TableColumn } from '@/components/Table/Table';
 
 import LineChart from '@/modules/Markets/components/LineChart';
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
-import ModalLogin from '@/components/Modal/ModalLogin';
 
 const MarketList = () => {
     const { profile } = useProfile();

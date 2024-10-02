@@ -1,7 +1,7 @@
-import { API_URL } from '@/constant/env';
-import useAuth from './useAuth';
 import api from '@/lib/api';
 import useProfile from '@/hooks/useProfile';
+
+import useAuth from './useAuth';
 
 interface PayloadDeposit {
     amount: string;

@@ -1,11 +1,11 @@
-import Feature2 from '../images/feature-2.webp';
-import Feature3 from '../images/feature-3.webp';
 import Image from 'next/image';
 import React from 'react';
 
 import Container from '@/components/Container';
 
 import Feature1 from '../images/feature-1.webp';
+import Feature2 from '../images/feature-2.webp';
+import Feature3 from '../images/feature-3.webp';
 
 const Feature = () => {
     return (

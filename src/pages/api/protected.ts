@@ -1,6 +1,6 @@
 // pages/api/protected.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Define type for the response data
 interface TokenResponse {

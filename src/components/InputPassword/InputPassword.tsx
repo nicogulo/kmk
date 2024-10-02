@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
-import Icons from '@/components/Icon';
-import Input, { InputProps } from '@/components/Input/Input';
-
 import { useState } from 'react';
 import { isWindows } from 'react-device-detect';
+
+import Icons from '@/components/Icon';
+import Input, { InputProps } from '@/components/Input/Input';
 
 const inputStyleMedium = {
     textSecurity: 'disc',

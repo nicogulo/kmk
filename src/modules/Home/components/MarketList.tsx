@@ -1,10 +1,8 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 
+import { useMarkets } from '@/hooks/useMarkets';
 import useProfile, { ProfileStatus } from '@/hooks/useProfile';
-
-import chartData from '@/data/chart.json';
-import data from '@/data/market.json';
 
 import ChangePercentageText from '@/components/ChangePercentageText';
 import Container from '@/components/Container';
@@ -15,7 +13,6 @@ import ModalUnverified from '@/components/Modal/ModalUnverified';
 import Table from '@/components/Table';
 import { TableColumn } from '@/components/Table/Table';
 
-import LineChart from '@/modules/Markets/components/LineChart';
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
 
 const MarketList = () => {
@@ -25,6 +22,8 @@ const MarketList = () => {
     const [openLogin, setOpenLogin] = useState(false);
 
     const [openModalPending, setOpenModalPending] = useState(false);
+
+    const { markets, loading: loadingMarket } = useMarkets();
 
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
@@ -41,15 +40,21 @@ const MarketList = () => {
                     <div className='flex w-full flex-row items-center gap-4'>
                         <div className='h-9 w-9'>
                             <Image
-                                src={`https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/${code}.png`}
+                                src={record.logo as string}
                                 width={36}
                                 height={36}
                                 alt={text as string}
+                                className='rounded-full'
                             />
                         </div>
                         <div className='flex flex-col'>
                             <span className='text-xs font-semibold !leading-5 text-gray-800'>{text}</span>
-                            <span className='text-xs uppercase text-gray-600'>{code}</span>
+                            <span
+                                className='te xt-gray-600 text-xs
+                            uppercase'
+                            >
+                                {code}
+                            </span>
                         </div>
                     </div>
                 );
@@ -57,42 +62,32 @@ const MarketList = () => {
         },
         {
             title: 'Price',
-            dataIndex: 'price',
+            dataIndex: 'close',
             width: 80,
             align: 'right',
             render: (text) => (
-                <span className='text-xs font-semibold !leading-5 text-gray-800'>{formatRupiah(text as number)}</span>
-            )
-        },
-        {
-            title: 'Market Cap',
-            dataIndex: 'market_cap',
-            width: 60,
-            align: 'right',
-            render: (text) => (
                 <span className='text-xs font-semibold !leading-5 text-gray-800'>
-                    Rp{removeTrailingZero(formatAbbreviatedNumber(text as number, { format: '0,0.00a' }))}
+                    {formatRupiah(text as number, { precision: null })}
                 </span>
             )
         },
-
+        {
+            title: 'Volume 24h',
+            dataIndex: 'volume',
+            width: 120,
+            align: 'right',
+            render: (text) => (
+                <span className='text-xs font-semibold !leading-5 text-gray-800'>
+                    {removeTrailingZero(formatAbbreviatedNumber(text as number, { format: '0.[00]a' }))}
+                </span>
+            )
+        },
         {
             title: '24h Change',
-            dataIndex: 'change_24h',
+            dataIndex: 'changePercentage',
             align: 'right',
             width: 60,
             render: (text) => <ChangePercentageText value={text as number} prefix='icon' />
-        },
-        {
-            title: 'Markets',
-            dataIndex: 'chart',
-            width: 60,
-            render: (_, value) => {
-                const chart = chartData.find((d) => d.Symbol === `${value.symbol}-USD`)?.Values;
-
-                const colorLine = value.change_24h > 0 ? '#54D62C' : '#FF4842';
-                return <LineChart data={chart} colorLine={colorLine} />;
-            }
         }
     ];
 
@@ -106,8 +101,10 @@ const MarketList = () => {
                 <div className='flex w-[70%] flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8'>
                     <div className='  flex items-center justify-center pt-4'>
                         <Table
-                            data={data}
+                            data={markets}
                             columns={columns}
+                            loading={loadingMarket}
+                            loadingRowCount={10}
                             onRow={(record) => ({
                                 onClick: () => {
                                     switch (true) {

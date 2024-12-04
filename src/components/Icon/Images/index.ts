@@ -59,6 +59,7 @@ const IconComponents = {
     Question: lazy(() => import('./Question')),
     Repeat: lazy(() => import('./Repeat')),
     Stack: lazy(() => import('./Stack')),
+    Search: lazy(() => import('./Search')),
     Sort: lazy(() => import('./Sort')),
     StackFilled: lazy(() => import('./StackFilled')),
     SquareFilled: lazy(() => import('./SquareFilled')),

@@ -26,6 +26,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
         loader={loader}
         scrollableTarget={scrollableTarget}
         scrollThreshold={scrollThreshold}
+        className='scrollbar-thin'
     >
         {children}
     </ReactInfiniteScroll>

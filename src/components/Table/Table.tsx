@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useComponentHydrated } from 'react-hydration-provider';
-import { Case, Default, Switch, When } from 'react-if';
 
 import classNames from '@/lib/classnames';
 
@@ -9,6 +8,7 @@ import ConditionalWrapper from '@/components/ConditionalWrapper';
 import CustomScroll from '@/components/CustomScroll';
 import EmptyState from '@/components/EmptyState';
 import Icons from '@/components/Icon';
+import { Case, Default, Switch, When } from '@/components/If';
 import { IllustrationProps } from '@/components/Illustrations/Illustrations';
 import InfiniteScroll from '@/components/InfiniteScroll';
 import Pagination from '@/components/Pagination';
@@ -407,7 +407,7 @@ const Table: React.FC<TableProps> = ({
                         width: `${width}px`
                     }}
                 >
-                    {loaderProp?.[dataIndex] ?? <Skeleton />}
+                    {loaderProp?.[dataIndex] ?? <Skeleton className={width ? `w-[${width / 2}]` : 'w-20'} />}
                 </td>
             ));
 
@@ -608,17 +608,7 @@ const Table: React.FC<TableProps> = ({
 
     return (
         <>
-            <style jsx>{`
-                .styled-table {
-                    min-width: 100%;
-                    border-collapse: collapse;
-                }
-                .rcs-custom-scroll .rcs-custom-scrollbar {
-                    width: 4px;
-                    right: 1px !important;
-                }
-            `}</style>
-            <div className={classNames('reku-new-theme', wrapperClassName, isWidth)}>
+            <div className={classNames(wrapperClassName, isWidth, 'min-w-full')}>
                 <InfiniteScroll
                     hasMore={(dataLength > 0 && infiniteScroll?.hasMore) || false}
                     next={handleNext}
@@ -627,7 +617,7 @@ const Table: React.FC<TableProps> = ({
                     loader={<></>}
                     scrollableTarget={scrollableTarget}
                 >
-                    <table className={classNames(classNameProp, 'styled-table')}>
+                    <table className={classNames(classNameProp, 'w-full min-w-full border-collapse')}>
                         <tr
                             className={classNames(
                                 'table w-full table-fixed last-of-type:border-transparent last:dark:border-transparent',

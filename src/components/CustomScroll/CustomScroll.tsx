@@ -39,8 +39,7 @@ const CustomScroll = React.forwardRef<CustomScrollRef, Props>(({ children, flex 
         <>
             <style jsx>{`
                 .rcs-custom-scroll {
-                    widtk: 100%;
-
+                    width: 100%;
                     min-height: 0;
                     min-width: 0;
                 }
@@ -86,13 +85,11 @@ const CustomScroll = React.forwardRef<CustomScrollRef, Props>(({ children, flex 
                 .rcs-custom-scroll .rcs-custom-scrollbar {
                     position: absolute;
                     height: 100%;
-
                     width: 8px;
-                    right: -;
+                    right: 0;
                     opacity: 0;
                     z-index: 1;
                     transition: opacity 0.4s ease-out;
-
                     padding: 8px 0;
                     box-sizing: border-box;
                     will-change: opacity;
@@ -112,10 +109,9 @@ const CustomScroll = React.forwardRef<CustomScrollRef, Props>(({ children, flex 
                 }
                 .rcs-custom-scroll .rcs-inner-handle {
                     width: calc(100% - 24px);
-
-                    marging-top: 12px;
-                    // bg-neutral-200 hover:bg-neutral-300 active:bg-neutral-300 dark:bg-dark-background-subtle
-                    border-radiud: 100%;
+                    margin-top: 12px;
+                    background-color: var(--neutral-200);
+                    border-radius: 100%;
                 }
             `}</style>
 

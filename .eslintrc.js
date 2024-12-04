@@ -21,6 +21,9 @@ module.exports = {
         'react/display-name': 'off',
         'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
 
+        //#region  //*=========== Ban Types ===========
+        '@typescript-eslint/ban-types': 'off',
+
         //#region  //*=========== Unused Import ===========
         '@typescript-eslint/no-unused-vars': 'off',
         'unused-imports/no-unused-imports': 'warn',

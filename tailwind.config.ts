@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import type { Config } from 'tailwindcss';
 
+const tailwindScroll = require('tailwind-scrollbar');
 export default {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
@@ -110,5 +112,5 @@ export default {
             }
         }
     },
-    plugins: [require('@tailwindcss/forms')]
+    plugins: [tailwindScroll({ nocompatible: true }), { nocompatible: true }, require('@tailwindcss/forms')]
 } satisfies Config;

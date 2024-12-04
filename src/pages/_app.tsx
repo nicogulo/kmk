@@ -4,12 +4,12 @@ import { IBM_Plex_Sans } from 'next/font/google';
 import Router, { useRouter } from 'next/router';
 import { appWithTranslation } from 'next-i18next';
 import nProgress from 'nprogress';
-import { When } from 'react-if';
 
 import '@/styles/globals.css';
 import '@/styles/nprogress.css';
 
 import DismissableToast from '@/components/DismissableToast';
+import { When } from '@/components/If';
 import Header from '@/components/layout/Header';
 import Layout from '@/components/layout/Layout';
 

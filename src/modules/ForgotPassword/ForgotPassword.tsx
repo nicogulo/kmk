@@ -3,13 +3,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Form, { Field, useForm } from 'rc-field-form';
 import React, { useState } from 'react';
-import { When } from 'react-if';
 
 import { useForgotPassword } from '@/hooks/useAuth';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
+import { When } from '@/components/If';
 import Input from '@/components/Input';
 
 import { EMAIL_LOGIN_REGEX } from '@/constant/regex';

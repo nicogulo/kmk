@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Form, { Field, useForm } from 'rc-field-form';
 import React, { useState } from 'react';
-import { Case, Default, Switch, When } from 'react-if';
 import OtpInput from 'react-otp-input';
 
 import useVerifyPhoneNumber from '@/hooks/usePhoneNumber';
@@ -14,6 +13,7 @@ import Badge from '@/components/Badge';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
+import { Case, Default, Switch, When } from '@/components/If';
 import Modal from '@/components/Modal';
 import Tabs, { Tab } from '@/components/Tabs';
 import { toast } from '@/components/Toast';

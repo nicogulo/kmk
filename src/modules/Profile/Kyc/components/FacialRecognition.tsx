@@ -1,12 +1,12 @@
 import Builder from '@verihubs/liveness';
 import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Else, If, Then } from 'react-if';
 
 import useUpload from '@/hooks/useUpload';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
+import { Else, If, Then } from '@/components/If';
 import { toast } from '@/components/Toast';
 
 import FaceImage from '../images/face.webp';

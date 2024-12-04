@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { Else, If, Then, When } from 'react-if';
 
 import classNames from '@/lib/classnames';
 
 import Icons, { IconsProps } from '@/components/Icon/Icon';
+import { Else, If, Then, When } from '@/components/If';
 
 const variants = {
     success: 'bg-green-500',

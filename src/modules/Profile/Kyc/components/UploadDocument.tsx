@@ -2,12 +2,12 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Else, If, Then } from 'react-if';
 
 import useUpload, { useGetDocuments } from '@/hooks/useUpload';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
+import { Else, If, Then } from '@/components/If';
 import Loader from '@/components/Loader';
 import { toast } from '@/components/Toast';
 

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import { Else, If, Then } from 'react-if';
+import { Else, If, Then } from '@/components/If';
 
 import ChangePercentageText from '@/components/ChangePercentageText';
 import Skeleton from '@/components/Skeleton';

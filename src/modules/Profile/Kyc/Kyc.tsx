@@ -2,12 +2,12 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { Case, Default, Switch } from 'react-if';
 
 import useKyc from '@/hooks/useKyc';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
+import { Case, Default, Switch } from '@/components/If';
 import Input from '@/components/Input';
 import Modal from '@/components/Modal';
 import Tabs, { Tab } from '@/components/Tabs';

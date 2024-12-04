@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { Else, If, Then } from 'react-if';
 
 import Container from '@/components/Container';
+import { Else, If, Then } from '@/components/If';
 
 import Footer from '@/modules/Home/components/Footer';
 import EnglishVersion from '@/modules/TermsCondition/components/EnglishVersion';

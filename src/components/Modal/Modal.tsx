@@ -1,6 +1,6 @@
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import React, { Fragment, PropsWithChildren } from 'react';
-import { When } from 'react-if';
+import { When } from '@/components/If';
 
 import classNames from '@/lib/classnames';
 

@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { When } from 'react-if';
 
 import useProfile from '@/hooks/useProfile';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
+import { When } from '@/components/If';
 import Modal from '@/components/Modal';
 
 import { ProfileStatus } from '@/modules/Profile/Profile';

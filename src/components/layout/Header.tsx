@@ -1,7 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
-import { When } from 'react-if';
 import { useMediaQuery } from 'react-responsive';
 
 import classNames from '@/lib/classnames';
@@ -10,6 +9,7 @@ import useAuth, { useLogin, useLogout } from '@/hooks/useAuth';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons, { IconsProps } from '@/components/Icon';
+import { When } from '@/components/If';
 import LanguageSwitch from '@/components/layout/components/LanguageSwitch';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import ModalTrade from '@/components/Modal/ModalTrade';

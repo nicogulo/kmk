@@ -2,7 +2,6 @@
 import Head from 'next/head';
 import Form, { Field, useForm } from 'rc-field-form';
 import React, { useEffect, useState } from 'react';
-import { Else, If, Then } from 'react-if';
 
 import classNames from '@/lib/classnames';
 import { useAddBank } from '@/hooks/useBank';
@@ -13,6 +12,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
+import { Else, If, Then } from '@/components/If';
 import Illustration from '@/components/Illustrations';
 import Input from '@/components/Input';
 import Modal from '@/components/Modal';

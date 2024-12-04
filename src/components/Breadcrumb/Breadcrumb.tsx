@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import React from 'react';
-import { Else, If, Then, When } from 'react-if';
 
 import classNames from '@/lib/classnames';
 
 import ConditionalWrapper from '@/components/ConditionalWrapper';
 import Icons from '@/components/Icon';
+import { Else, If, Then, When } from '@/components/If';
 
 interface BreadcrumbProps {
     /**

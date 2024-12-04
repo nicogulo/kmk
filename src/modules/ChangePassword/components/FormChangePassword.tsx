@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import Form, { Field, useForm } from 'rc-field-form';
 import React, { useState } from 'react';
-import { Else, If, Then } from 'react-if';
 import { useMediaQuery } from 'react-responsive';
 
 import classNames from '@/lib/classnames';
@@ -10,6 +9,7 @@ import usePasswordValidator from '@/hooks/usePasswordValidator';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
+import { Else, If, Then } from '@/components/If';
 import InputPassword from '@/components/InputPassword';
 import { toast } from '@/components/Toast';
 

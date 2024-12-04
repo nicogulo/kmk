@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Form, { Field, useForm } from 'rc-field-form';
 import React, { useState } from 'react';
-import { Else, If, Then, When } from 'react-if';
 
 import classNames from '@/lib/classnames';
 import { useRegister } from '@/hooks/useAuth';
@@ -11,6 +10,7 @@ import usePasswordValidator from '@/hooks/usePasswordValidator';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
+import { Else, If, Then, When } from '@/components/If';
 import Input from '@/components/Input';
 import InputPassword from '@/components/InputPassword';
 import LoginRegisterSide from '@/components/layout/LoginRegisterSide';

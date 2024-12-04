@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
-import { When } from 'react-if';
 
 import useBalance from '@/hooks/useBalance';
 import useProfile from '@/hooks/useProfile';
 
 import Container from '@/components/Container';
+import { When } from '@/components/If';
 import Tabs, { Tab } from '@/components/Tabs';
 
 import BalanceInformation from './components/BalanceInformation';

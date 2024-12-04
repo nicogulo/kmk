@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import Form, { Field } from 'rc-field-form';
 import React, { useEffect } from 'react';
-import { When } from 'react-if';
 
 import classNames from '@/lib/classnames';
 import {
@@ -16,6 +15,7 @@ import { useGetDocuments } from '@/hooks/useUpload';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
+import { When } from '@/components/If';
 import Input from '@/components/Input';
 import SelectSearch from '@/components/SelectSearch';
 

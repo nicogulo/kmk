@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import { Else, If, Then } from 'react-if';
 
 import classNames from '@/lib/classnames';
 import useVirtualAccount, { useDetailVirtualAccount } from '@/hooks/useVirtualAccount';
@@ -10,6 +9,7 @@ import Button from '@/components/Button';
 import Collapse from '@/components/Collapse';
 import Container from '@/components/Container';
 import Icons from '@/components/Icon';
+import { Else, If, Then } from '@/components/If';
 import Illustration from '@/components/Illustrations';
 import Loader from '@/components/Loader';
 import Skeleton from '@/components/Skeleton';

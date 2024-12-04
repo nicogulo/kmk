@@ -3,7 +3,6 @@ import { Dialog, Tab, TabGroup, TabList, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
-import { Case, Else, If, Switch, Then } from 'react-if';
 
 import useHistory, { useHistoryDetail } from '@/hooks/useHistory';
 import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
@@ -11,6 +10,7 @@ import { ProfileModel, ProfileStatus } from '@/hooks/useProfile';
 import Badge from '@/components/Badge';
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
+import { Case, Else, If, Switch, Then } from '@/components/If';
 import Illustration from '@/components/Illustrations';
 import Loader from '@/components/Loader';
 import Modal from '@/components/Modal';

@@ -16,7 +16,8 @@ const nextConfig = {
         domains: [
             'cdn.jsdelivr.net',
             'binaloka-identity.s3.ap-southeast-3.amazonaws.com',
-            'binaloka-history.s3.ap-southeast-3.amazonaws.com'
+            'binaloka-history.s3.ap-southeast-3.amazonaws.com',
+            'www.cryptocompare.com'
         ]
     },
 

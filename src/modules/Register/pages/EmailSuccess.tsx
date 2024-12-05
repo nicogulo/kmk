@@ -13,7 +13,8 @@ const EmailSuccess = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.push('/api/auth/login');
+            // router.push('/api/auth/login');
+            router.push('/login');
         }, 2000);
 
         return () => clearTimeout(timer);

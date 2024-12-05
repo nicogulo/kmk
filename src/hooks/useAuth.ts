@@ -38,76 +38,76 @@ interface OtpPayload {
     otp: string;
 }
 
-export const useLogin = () => {
-    const { user } = useUser();
-    const router = useRouter();
-
-    const handleLogin = async () => {
-        router.push('/api/auth/login');
-    };
-
-    useEffect(() => {
-        const fetchToken = async () => {
-            if (user) {
-                const response = await fetch('/api/protected');
-                const data = await response.json();
-
-                if (data.accessToken) {
-                    setAuth({ token: data.accessToken });
-                }
-            }
-        };
-
-        fetchToken();
-    }, [user]);
-
-    return {
-        login: handleLogin,
-        isAuthenticated: !!user // Menggunakan !!user untuk memeriksa status login
-    };
-};
 // export const useLogin = () => {
+//     const { user } = useUser();
 //     const router = useRouter();
-//     const redirect = router.query.redirect as string;
 
-//     const handleLogin = async (payload: LoginPayload) => {
-//         try {
-//             const response = await api(`/auth/sign-in`, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify(payload)
-//             });
-
-//             const res = await response.json();
-//             if (!res) throw new Error('Oops! Something went wrong. Please try again later');
-//             if (res.code === 200001001) throw new Error('Oops! Something went wrong. Password or email is incorrect');
-
-//             if (res?.token) {
-//                 setAuth({ token: res.token });
-//                 return res;
-//             }
-
-//             return res;
-//         } catch (err: any) {
-//             toast.error(err.message);
-//             return err;
-//         }
+//     const handleLogin = async () => {
+//         router.push('/api/auth/login');
 //     };
 
 //     useEffect(() => {
-//         if (redirect) {
-//             router.prefetch(redirect, redirect);
-//         }
+//         const fetchToken = async () => {
+//             if (user) {
+//                 const response = await fetch('/api/protected');
+//                 const data = await response.json();
 
-//         router.prefetch('/');
-//     }, [router, redirect]);
+//                 if (data.accessToken) {
+//                     setAuth({ token: data.accessToken });
+//                 }
+//             }
+//         };
+
+//         fetchToken();
+//     }, [user]);
 
 //     return {
-//         login: handleLogin
+//         login: handleLogin,
+//         isAuthenticated: !!user // Menggunakan !!user untuk memeriksa status login
 //     };
 // };
+export const useLogin = () => {
+    const router = useRouter();
+    const redirect = router.query.redirect as string;
+
+    const handleLogin = async (payload: LoginPayload) => {
+        try {
+            const response = await api(`/auth/sign-in`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const res = await response.json();
+            if (!res) throw new Error('Oops! Something went wrong. Please try again later');
+            if (res.code === 200001001) throw new Error('Oops! Something went wrong. Password or email is incorrect');
+
+            if (res?.token) {
+                setAuth({ token: res.token });
+                return res;
+            }
+
+            return res;
+        } catch (err: any) {
+            toast.error(err.message);
+            return err;
+        }
+    };
+
+    useEffect(() => {
+        if (redirect) {
+            router.prefetch(redirect, redirect);
+        }
+
+        router.prefetch('/');
+    }, [router, redirect]);
+
+    return {
+        login: handleLogin
+    };
+};
 
 export const useRegister = () => {
     const { auth } = useAuth();

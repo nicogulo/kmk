@@ -1,16 +1,15 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
+import { When } from 'react-if';
 import { useMediaQuery } from 'react-responsive';
 
 import classNames from '@/lib/classnames';
-import useAuth, { useLogin, useLogout } from '@/hooks/useAuth';
+import useAuth, { useLogout } from '@/hooks/useAuth';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons, { IconsProps } from '@/components/Icon';
-import { When } from '@/components/If';
-import LanguageSwitch from '@/components/layout/components/LanguageSwitch';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import ModalTrade from '@/components/Modal/ModalTrade';
 
@@ -20,7 +19,7 @@ const Header = () => {
     const {
         auth: { isLoggedIn }
     } = useAuth();
-
+    const { logout } = useLogout();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -28,11 +27,6 @@ const Header = () => {
     const isProfile = router.pathname.includes('/profile');
     const isWallet = router.pathname.includes('/wallet');
     const isMarket = router.pathname === '/markets';
-    const isTnc = router.pathname === '/terms-and-conditions';
-
-    const { logout } = useLogout();
-
-    const { login } = useLogin();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -125,7 +119,6 @@ const Header = () => {
                                                                 />
                                                                 {link.label}
                                                             </UnstyledLink>
-
                                                             <span
                                                                 className='text-error-300 flex cursor-pointer flex-row items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-gray-100 data-[focus]:text-gray-900'
                                                                 onClick={() => logout(true)}
@@ -142,20 +135,15 @@ const Header = () => {
                                 ) : (
                                     <>
                                         <When condition={!isMobile}>
-                                            {/* <Link href='/api/auth/login'>Login</Link> */}
-                                            <span
-                                                onClick={login}
-                                                className='flex cursor-pointer flex-row items-center gap-1'
-                                            >
+                                            <UnstyledLink href='/login' className='flex flex-row items-center gap-1'>
                                                 Login
-                                            </span>
+                                            </UnstyledLink>
                                             <UnstyledLink href='/register' className='w-full'>
                                                 <Button variant='primary'>Create Account</Button>
                                             </UnstyledLink>
                                         </When>
                                     </>
                                 )}
-                                {isTnc && <LanguageSwitch />}
                                 <When condition={isMobile && !isLoggedIn}>
                                     <div className='absolute bottom-1/2 flex w-[calc(100vw-40px)] flex-col justify-between gap-3'>
                                         <UnstyledLink href='/login' className='w-full'>

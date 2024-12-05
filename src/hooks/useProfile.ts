@@ -1,7 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
 
-import api from '@/lib/api';
+import { API_URL } from '@/constant/env';
 
 import useAuth from './useAuth';
 
@@ -55,18 +55,28 @@ const useProfile = () => {
 
         setLoading(true);
         try {
-            if (user) {
-                const response = await api(`/auth/profile`, {
-                    method: 'GET',
-                    headers: {
-                        email: user?.email ?? ''
-                    }
-                });
-                const data: Profile = await response.json();
-                if (!data) throw new Error('Failed to fetch profile');
-                const profileModel = profileDataModel(data);
-                setProfile(profileModel);
-            }
+            // if (user) {
+            //     const response = await api(`/auth/profile`, {
+            //         method: 'GET',
+            //         headers: {
+            //             email: user?.email ?? ''
+            //         }
+            //     });
+            //     const data: Profile = await response.json();
+            //     if (!data) throw new Error('Failed to fetch profile');
+            //     const profileModel = profileDataModel(data);
+            //     setProfile(profileModel);
+            // }
+
+            const response = await fetch(`${API_URL}/auth/profile`, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            const data: Profile = await response.json();
+            if (!data) throw new Error('Failed to fetch profile');
+            const profileModel = profileDataModel(data);
+            setProfile(profileModel);
         } catch (error) {
             console.error('Failed to fetch profile', error);
         } finally {

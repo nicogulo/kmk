@@ -2,14 +2,12 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-import useProfile from '@/hooks/useProfile';
+import useProfile, { ProfileStatus } from '@/hooks/useProfile';
 
 import Button from '@/components/Button';
 import Icons from '@/components/Icon';
 import { When } from '@/components/If';
 import Modal from '@/components/Modal';
-
-import { ProfileStatus } from '@/modules/Profile/Profile';
 
 const Trading = () => {
     const router = useRouter();

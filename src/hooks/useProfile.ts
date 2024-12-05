@@ -6,16 +6,17 @@ import { API_URL } from '@/constant/env';
 import useAuth from './useAuth';
 
 export enum ProfileStatus {
-    VERIFIED = 1,
-    PENDING = 0,
-    UNVERIFIED = 2
+    VERIFIED = 'success',
+    PENDING = 'pending',
+    UNVERIFIED = 'no',
+    REVOKE = 'revoke'
 }
 
 interface Profile {
     uid: string;
     email: string;
     full_name: string;
-    kyc: number;
+    kyc: ProfileStatus;
     phone_number: string;
     phone_number_status: number;
     phone_number_uid: string;
@@ -29,7 +30,7 @@ export interface ProfileModel {
     phoneStatus: number;
     phoneNumberUid: string;
     dateOfBirth: string;
-    kyc: number;
+    kyc: ProfileStatus;
 }
 
 const useProfile = () => {

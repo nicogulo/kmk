@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 
 import useVerifyPhoneNumber from '@/hooks/usePhoneNumber';
-import useProfile from '@/hooks/useProfile';
+import useProfile, { ProfileStatus } from '@/hooks/useProfile';
 
 import Alert from '@/components/Alert';
 import Badge from '@/components/Badge';
@@ -22,12 +22,6 @@ import { copy } from '@/utils/clipboard';
 import { formatDate } from '@/utils/format-date';
 
 import Rocket from './images/rocket.png';
-
-export enum ProfileStatus {
-    VERIFIED = 1,
-    PENDING = 0,
-    UNVERIFIED = 2
-}
 
 const Profile = () => {
     const router = useRouter();

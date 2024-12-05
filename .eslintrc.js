@@ -23,6 +23,11 @@ module.exports = {
 
         //#region  //*=========== Ban Types ===========
         '@typescript-eslint/ban-types': 'off',
+        //#endregion  //*======== Ban Types ===========
+
+        //#region  //*=========== No Empty Interface ===========
+        '@typescript-eslint/no-empty-interface': 'off',
+        //#endregion  //*======== No Empty Interface ===========
 
         //#region  //*=========== Unused Import ===========
         '@typescript-eslint/no-unused-vars': 'off',

@@ -1,6 +1,5 @@
+import Link from 'next/link';
 import React from 'react';
-
-import { useLogin } from '@/hooks/useAuth';
 
 import Illustration from '@/components/Illustrations';
 
@@ -13,7 +12,6 @@ interface Props {
 }
 
 const ModalLogin: React.FC<Props> = ({ handleClose, isOpen }) => {
-    const { login } = useLogin();
     return (
         <Modal
             title={<Illustration name='Bell' />}
@@ -23,9 +21,9 @@ const ModalLogin: React.FC<Props> = ({ handleClose, isOpen }) => {
             headerClassName='!items-start'
             footer={
                 <div className='flex flex-row gap-3'>
-                    <Button onClick={login} block>
-                        Login
-                    </Button>
+                    <Link href='/login' className='!w-full'>
+                        <Button block>Login</Button>
+                    </Link>
                 </div>
             }
         >

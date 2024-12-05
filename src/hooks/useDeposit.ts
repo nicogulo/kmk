@@ -1,5 +1,4 @@
 import api from '@/lib/api';
-import useProfile from '@/hooks/useProfile';
 
 import useAuth from './useAuth';
 
@@ -9,7 +8,6 @@ interface PayloadDeposit {
 
 const useDeposit = () => {
     const { auth } = useAuth();
-    const { profile } = useProfile();
 
     const deposit = async (payload: PayloadDeposit) => {
         try {
@@ -17,8 +15,7 @@ const useDeposit = () => {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
-                    'Content-Type': 'application/json',
-                    email: profile?.email ?? ''
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     amount: payload.amount

@@ -1,16 +1,12 @@
 import api from '@/lib/api';
-import useProfile from '@/hooks/useProfile';
 
 const useVerifyPhoneNumber = () => {
-    const { profile } = useProfile();
-
     const verifyPhoneNumber = async (id: string) => {
         try {
             const response = await api(`/phone/verify/${id}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    email: profile?.email ?? ''
+                    'Content-Type': 'application/json'
                 },
                 body: null
             });

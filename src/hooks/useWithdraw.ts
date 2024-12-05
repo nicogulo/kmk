@@ -14,7 +14,6 @@ const useWithdraw = () => {
             const response = await api(`/balance/withdraw`, {
                 method: 'POST',
                 headers: {
-                    email: profile?.email ?? '',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({

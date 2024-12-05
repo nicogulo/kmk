@@ -111,6 +111,7 @@ export const useMarkets = (args: MarketArgs = {}) => {
 
     useEffect(() => {
         fetchMarkets();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [args.search]);
 
     return { markets, loading };

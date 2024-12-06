@@ -12,13 +12,19 @@ export enum ProfileStatus {
     REVOKE = 'revoke'
 }
 
+export enum PhoneNumberStatus {
+    ACTIVE = 'active',
+    INACTIVE = 'inactive',
+    DELETED = 'deleted'
+}
+
 interface Profile {
     uid: string;
     email: string;
     full_name: string;
     kyc: ProfileStatus;
     phone_number: string;
-    phone_number_status: number;
+    phone_number_status: PhoneNumberStatus;
     phone_number_uid: string;
 }
 export interface ProfileModel {
@@ -27,7 +33,7 @@ export interface ProfileModel {
     email: string;
     country: string;
     phoneNumber: string;
-    phoneStatus: number;
+    phoneStatus: PhoneNumberStatus;
     phoneNumberUid: string;
     dateOfBirth: string;
     kyc: ProfileStatus;

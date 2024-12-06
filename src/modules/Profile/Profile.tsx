@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 
 import useVerifyPhoneNumber from '@/hooks/usePhoneNumber';
-import useProfile, { ProfileStatus } from '@/hooks/useProfile';
+import useProfile, { PhoneNumberStatus, ProfileStatus } from '@/hooks/useProfile';
 
 import Alert from '@/components/Alert';
 import Badge from '@/components/Badge';
@@ -35,7 +35,7 @@ const Profile = () => {
     const { verifyPhoneNumber } = useVerifyPhoneNumber();
     const { loading, fetchProfile, profile } = useProfile();
 
-    const isPhoneVerify = profile?.phoneStatus === 1;
+    const isPhoneVerify = PhoneNumberStatus.ACTIVE === profile?.phoneStatus;
     const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
 
     const verifyPhone = async () => {

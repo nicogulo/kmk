@@ -159,11 +159,11 @@ const Profile = () => {
                                         </div>
                                         <div className='flex flex-row justify-between gap-6'>
                                             <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>Email</p>
-                                            <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
+                                            <p className='line-clamp-3 max-w-[120px] overflow-hidden text-ellipsis break-words text-right text-sm font-bold text-gray-800 xl:w-full xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
                                                     <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200 text-right xl:text-left' />
                                                 ) : (
-                                                    profile?.email
+                                                    profile?.email || '-'
                                                 )}
                                             </p>
                                         </div>

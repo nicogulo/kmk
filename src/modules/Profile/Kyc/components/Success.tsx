@@ -15,7 +15,7 @@ const Success = () => {
     return (
         <>
             <Head>
-                <title>Success Submit KYC | Binaloka Indonesia</title>
+                <title>Success Submit KYC | KMK Indonesia</title>
                 <meta name='description' content='Email Verification' />
                 <link rel='icon' href='/logo.ico' />
             </Head>

@@ -9,7 +9,7 @@ const variants = {
     success: 'bg-green-500',
     error: 'bg-red-500',
     warning: 'bg-[#FFFAEB]',
-    info: 'bg-[#D0F0FA80]'
+    info: 'bg-[#D0F8D4]'
 };
 
 const sizes = {

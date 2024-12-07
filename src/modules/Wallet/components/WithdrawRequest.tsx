@@ -94,7 +94,7 @@ const WithdrawRequest = () => {
         <>
             <Container className='py-6'>
                 <Head>
-                    <title>Withdraw Request | Binaloka</title>
+                    <title>Withdraw Request | KMK</title>
                     <meta name='description' content='Login' />
                     <link rel='icon' href='/logo.ico' />
                 </Head>

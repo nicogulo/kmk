@@ -49,12 +49,12 @@ const Login: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Login | Binaloka</title>
+                <title>Login | KMK</title>
                 <meta name='description' content='Login' />
                 <link rel='icon' href='/logo.ico' />
             </Head>
 
-            <LoginRegisterSide title='Ready to trade with Binaloka?' subtitle='Don’t have an account?'>
+            <LoginRegisterSide title='Ready to trade with KMK?' subtitle='Don’t have an account?'>
                 <Form
                     form={form}
                     onFinish={(values) => handleLogin(values)}

@@ -158,7 +158,7 @@ const EnglishVersion = () => {
                             The User registration process will be conducted as follows: <br />
                             <ul className='list-decimal flex-col gap-2 pl-5'>
                                 <li>
-                                    Go to <Link href='/'>www.binaloka.id</Link> then click Register;
+                                    Go to <Link href='/'>www.kriptomaksima.id</Link> then click Register;
                                 </li>
                                 <li>
                                     Fill in the field with the name of the e-mail, then a password combination of at
@@ -176,7 +176,7 @@ const EnglishVersion = () => {
                                 </li>
                                 <li>
                                     If you want to login, please go to our main page at{' '}
-                                    <Link href='/'>www.binaloka.id</Link>, then click Login;
+                                    <Link href='/'>www.kriptomaksima.id</Link>, then click Login;
                                 </li>
                                 <li>
                                     Please enter the appropriate email address and password used in Bina Loka. Then

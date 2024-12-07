@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import useKyc from '@/hooks/useKyc';
 
@@ -28,6 +29,7 @@ const Kyc = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [personalData, setPersonalData] = useState<PersonalDataProps | null>(null);
     const { submitKyc } = useKyc();
+    const isMobile = useMediaQuery({ maxWidth: 1279 });
 
     const menu = [
         {
@@ -70,19 +72,22 @@ const Kyc = () => {
     return (
         <>
             <Head>
-                <title>Profile | Binaloka</title>
+                <title>Profile | KMK</title>
                 <meta name='description' content='Login' />
                 <link rel='icon' href='/logo.ico' />
             </Head>
-            <div className='h-full max-h-screen w-full flex-grow overflow-hidden bg-[#F5F7FA] p-10'>
-                <Container className='flex h-[calc(100vh-142px)] flex-row'>
-                    <div className='mx-4 flex w-[240px] flex-col justify-between overflow-hidden  text-[#525D66]'>
+            <div className='h-full w-full flex-grow overflow-hidden bg-[#F5F7FA] py-4 xl:max-h-screen xl:p-10'>
+                <Container className='flex flex-col gap-4 xl:h-[calc(100vh-142px)] xl:flex-row xl:gap-[unset]'>
+                    <div className='flex flex-col justify-between overflow-hidden text-[#525D66] xl:mx-4 xl:w-[240px]'>
                         <div className='flex flex-col gap-10'>
                             <p className='text-2xl font-bold text-[#18181E]'>Basic Verification</p>
-                            <Tabs vertical>
+                            <Tabs
+                                vertical={!isMobile}
+                                className='scrollbar-none !w-full overflow-x-scroll whitespace-nowrap px-3 pt-2'
+                            >
                                 {menu.map((item, index) => (
                                     <Tab
-                                        vertical
+                                        vertical={!isMobile}
                                         key={index}
                                         active={activeTab === index}
                                         textClassName={(active) => (active ? '!text-primary-300' : '')}
@@ -96,7 +101,7 @@ const Kyc = () => {
                             </Tabs>
                         </div>
                     </div>
-                    <div className='h-full w-full flex-grow overflow-auto rounded-2xl border border-[#08192B1A] bg-white p-8'>
+                    <div className='h-full w-full flex-grow overflow-auto rounded-2xl border border-[#08192B1A] bg-white p-3 xl:p-8'>
                         <Switch>
                             <Case condition={activeTab === 1}>
                                 <PersonalData
@@ -156,14 +161,14 @@ const Kyc = () => {
                         </div>
                     </div>
                     <p className='xs text-gray-800'>
-                        Sehubungan dengan verifikasi identitas untuk tujuan Verifikasi Akun Binaloka (KYC), data pribadi
-                        Anda berupa data demografi dan/atau biometrik akan diperiksa kesesuaiannya, oleh PT Verihubs
-                        sebagai mitra kami, dengan data yang tercatat pada sistem instansi pemerintahan yang berhak
-                        mengeluarkan identitas tersebut. Apabila data pribadi Anda terverifikasi kesesuaiannya, maka
-                        Verihubs sebagai Penyelenggara Sertifikasi Elektronik tersertifikasi oleh Kementerian
-                        Telekomunikasi dan Informasi, akan menerbitkan sertifikat elektronik sebagai bukti bahwa data
-                        pribadi Anda telah diverifikasi dan sesuai dengan data yang tercatat pada sistem instansi yang
-                        berhak mengeluarkan identitas tersebut.
+                        Sehubungan dengan verifikasi identitas untuk tujuan Verifikasi Akun KMK (KYC), data pribadi Anda
+                        berupa data demografi dan/atau biometrik akan diperiksa kesesuaiannya, oleh PT Verihubs sebagai
+                        mitra kami, dengan data yang tercatat pada sistem instansi pemerintahan yang berhak mengeluarkan
+                        identitas tersebut. Apabila data pribadi Anda terverifikasi kesesuaiannya, maka Verihubs sebagai
+                        Penyelenggara Sertifikasi Elektronik tersertifikasi oleh Kementerian Telekomunikasi dan
+                        Informasi, akan menerbitkan sertifikat elektronik sebagai bukti bahwa data pribadi Anda telah
+                        diverifikasi dan sesuai dengan data yang tercatat pada sistem instansi yang berhak mengeluarkan
+                        identitas tersebut.
                         <br />
                         <br />
                         Oleh karenanya, Anda menjamin keakuratan data pribadi yang Anda sediakan dan setuju atas
@@ -194,8 +199,8 @@ const Kyc = () => {
                         <span className='xs text-gray-800'>
                             Saya dengan ini menyatakan telah membaca, memahami, dan menyetujui syarat dan ketentuan
                             layanan Penyelenggara Sertifikasi Elektronik serta menjamin keakuratan data pribadi saya
-                            untuk diproses lebih lanjut oleh Verihubs sebagai mitra dari Binaloka untuk keperluan
-                            penerbitan dan pengelolaan Sertifikat Elektronik.
+                            untuk diproses lebih lanjut oleh Verihubs sebagai mitra dari KMK untuk keperluan penerbitan
+                            dan pengelolaan Sertifikat Elektronik.
                         </span>
                     </label>
                 </div>

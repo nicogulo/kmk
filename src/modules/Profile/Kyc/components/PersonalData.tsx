@@ -185,7 +185,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
 
     return (
         <div className='flex flex-col items-center gap-6 '>
-            <div className='flex max-w-[465px] flex-col items-start gap-6'>
+            <div className='flex flex-col items-start gap-6 xl:max-w-[465px]'>
                 <div className='flex flex-col gap-2'>
                     <p className='text-2xl font-bold text-[#18181E]'>Silahkan Isi Data Diri Anda</p>
                     <p className='text-sm font-normal text-[#525D66]'>
@@ -253,7 +253,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                     <p className='text-xs text-[#525D66]'>
                                         Tanggal Lahir <span className={classNames('text-xs text-[#C9353F]')}>*</span>
                                     </p>
-                                    <div className='flex w-full flex-row gap-4'>
+                                    <div className='flex w-full flex-col gap-4 xl:flex-row'>
                                         <Field
                                             name='day'
                                             rules={[
@@ -280,10 +280,10 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                     });
                                                 }}
                                                 name='day'
-                                                className={classNames('!w-[150px]', {
+                                                className={classNames('xl:!w-[150px]', {
                                                     'border-[#C9353F]': errorDay
                                                 })}
-                                                classNameWrapper='!w-[150px]'
+                                                classNameWrapper='xl:!w-[150px]'
                                             />
                                         </Field>
 
@@ -313,8 +313,8 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                     });
                                                 }}
                                                 name='month'
-                                                classNameWrapper='!w-[150px]'
-                                                className={classNames('!w-[150px]', {
+                                                classNameWrapper='xl:!w-[150px]'
+                                                className={classNames('xl:!w-[150px]', {
                                                     'border-[#C9353F]': errorMonth
                                                 })}
                                             />
@@ -347,8 +347,8 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                     });
                                                 }}
                                                 name='year'
-                                                classNameWrapper='!w-[150px]'
-                                                className={classNames('!w-[150px]', {
+                                                classNameWrapper='xl:!w-[150px]'
+                                                className={classNames('xl:!w-[150px]', {
                                                     'border-[#C9353F]': errorYear
                                                 })}
                                             />

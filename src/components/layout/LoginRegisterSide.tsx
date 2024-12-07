@@ -31,7 +31,7 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
                 }}
             >
                 <Container className='flex flex-col items-center'>
-                    <div className='flex flex-col items-start xl:w-[400px]'>
+                    <div className='flex w-full flex-col items-start xl:w-[400px]'>
                         <div className='flex flex-col items-start gap-2 pb-10'>
                             <Button
                                 onClick={() => router.push('/')}

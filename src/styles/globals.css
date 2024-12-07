@@ -11,12 +11,14 @@ body {
 :root {
     /* #region  /**=========== Primary Color =========== */
     /* !STARTERCONF Customize these variable, copy and paste from /styles/colors.css for list of colors */
-
-    --tw-color-primary-100: 208 240 250;
-    --tw-color-primary-200: 137 216 242;
-    --tw-color-primary-300: 20 178 230;
+    /* rgba(0, 170, 19, 1) */
+    /* rgba(182, 243, 188, 1) */
+    /* rgba(208, 248, 212, 1) */
+    --tw-color-primary-100: 208 248 212;
+    --tw-color-primary-200: 182 243 188;
+    --tw-color-primary-300: 0 170 19;
     --tw-color-primary-400: 13 119 153;
-    --tw-color-primary-500: 7 66 85;
+    --tw-color-primary-500: 0 170 19;
 
     --color-primary-100: rgb(var(--tw-color-primary-100)); /* #d0f0fa */
     --color-primary-200: rgb(var(--tw-color-primary-200)); /* #89d8f2 */

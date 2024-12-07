@@ -25,9 +25,9 @@ const Footer = () => {
                 >
                     <strong>DISCLAIMER:</strong> Perdagangan bitcoin dan aset kripto memiliki peluang dan resiko yang
                     tinggi. Pastikan Anda menggunakan pertimbangan yang matang dalam membuat keputusan jual dan beli
-                    aset Anda. Binaloka tidak memaksakan pengguna untuk melakukan transaksi jual beli dan semua
-                    keputusan jual beli aset uang digital Anda adalah keputusan Anda sendiri dan tidak dipengaruhi oleh
-                    pihak manapun.
+                    aset Anda. KMK tidak memaksakan pengguna untuk melakukan transaksi jual beli dan semua keputusan
+                    jual beli aset uang digital Anda adalah keputusan Anda sendiri dan tidak dipengaruhi oleh pihak
+                    manapun.
                 </span>
                 <div className='flex flex-row items-center justify-between border-t border-t-gray-700 pt-4'>
                     <span
@@ -35,7 +35,7 @@ const Footer = () => {
                             '!text-gray-800': isTnc
                         })}
                     >
-                        Copyright {new Date().getFullYear()} © PT Binaloka
+                        Copyright {new Date().getFullYear()} © PT KMK
                     </span>
                     <Link href='/terms-and-conditions'>
                         <div

@@ -1,6 +1,6 @@
 {
-    "name": "Binaloka Indonesia",
-    "short_name": "Binaloka",
+    "name": "KMK Indonesia",
+    "short_name": "KMK",
     "icons": [
         {
             "src": "/favicon/icon-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#14B2E6",
+    "theme_color": "#00AA13",
     "background_color": "#ffffff",
     "display": "standalone"
 }

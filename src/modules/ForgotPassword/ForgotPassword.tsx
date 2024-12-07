@@ -48,7 +48,7 @@ const ForgotPassword = () => {
     return (
         <>
             <Head>
-                <title>Forgot Password | Binaloka Indonesia</title>
+                <title>Forgot Password | KMK Indonesia</title>
                 <meta name='description' content='Login' />
                 <link rel='icon' href='/logo.ico' />
             </Head>

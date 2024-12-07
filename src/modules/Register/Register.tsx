@@ -61,7 +61,7 @@ const Register: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Register | Binaloka Indonesia</title>
+                <title>Register | KMK Indonesia</title>
                 <meta name='description' content='Register' />
                 <link rel='icon' href='/logo.ico' />
             </Head>
@@ -366,7 +366,7 @@ const Register: React.FC = () => {
                                                     href='/terms-and-conditions'
                                                     className='text-primary-300 underline'
                                                 >
-                                                    PT Binaloka Indonesia Terms and Conditions
+                                                    PT KMK Indonesia Terms and Conditions
                                                 </Link>
                                             </span>
                                         </label>
@@ -395,8 +395,8 @@ const Register: React.FC = () => {
                                                 errorClassName='absolute -bottom-1 left-0 !pt-0'
                                             />
                                             <span className='text-xs font-normal text-[#121416]'>
-                                                I allow Binaloka Indonesia to manage & transfer my personal data to
-                                                third parties in connection with account registration.
+                                                I allow KMK Indonesia to manage & transfer my personal data to third
+                                                parties in connection with account registration.
                                             </span>
                                         </label>
                                     </Field>

@@ -25,8 +25,6 @@ const Header = () => {
 
     const profileMenu = [{ href: '/profile', label: 'Profile', icon: 'User' }];
     const isProfile = router.pathname.includes('/profile');
-    const isWallet = router.pathname.includes('/wallet');
-    const isMarket = router.pathname === '/markets';
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -38,7 +36,11 @@ const Header = () => {
 
     return (
         <>
-            <header className='sticky top-0 z-50 bg-white'>
+            <header
+                className={classNames('bg-primary-100 sticky top-0 z-50', {
+                    'bg-white': isProfile
+                })}
+            >
                 <Container className=' relative flex h-14 items-center justify-between'>
                     <UnstyledLink
                         href='/'
@@ -55,34 +57,18 @@ const Header = () => {
                             <ul
                                 className={`flex-col items-center justify-between space-x-8 lg:flex-row ${
                                     isMenuOpen
-                                        ? 'min-h-main absolute left-0 top-14 flex w-full !items-start !justify-start gap-3 !space-x-0 bg-white px-5'
+                                        ? 'min-h-main absolute left-0 top-14 flex w-full !items-start !justify-start gap-3 !space-x-0 bg-white px-5 pt-4 xl:pt-0'
                                         : 'hidden'
                                 } lg:flex`}
                             >
                                 <When condition={isLoggedIn}>
-                                    <UnstyledLink
-                                        href='/markets'
-                                        className={classNames('flex flex-row items-center gap-1', {
-                                            'text-primary-300': isMarket
-                                        })}
-                                    >
-                                        <Icons icon='Repeat' /> Market
-                                    </UnstyledLink>
-                                    <UnstyledLink
-                                        href='/wallet'
-                                        className={classNames('flex flex-row items-center gap-1', {
-                                            'text-primary-300': isWallet
-                                        })}
-                                    >
-                                        <Icons icon='Wallet' /> Wallet
-                                    </UnstyledLink>
-
                                     <When condition={isMobile}>
                                         <UnstyledLink
                                             href='/profile'
                                             className={classNames('flex flex-row items-center gap-1', {
                                                 'text-primary-300': isProfile
                                             })}
+                                            onClick={() => setIsMenuOpen(false)}
                                         >
                                             <Icons icon='User' /> Profile
                                         </UnstyledLink>
@@ -160,7 +146,7 @@ const Header = () => {
                                 </When>
                                 <When condition={isMobile && isLoggedIn}>
                                     <div className='absolute bottom-14 !mr-5 flex w-[calc(100vw-40px)] flex-row justify-between gap-3'>
-                                        <Button variant='grayOutline' block>
+                                        <Button variant='grayOutline' block onClick={() => logout(true)}>
                                             Logout
                                         </Button>
                                     </div>

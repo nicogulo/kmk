@@ -24,7 +24,7 @@ const Trading = () => {
     return (
         <>
             <Head>
-                <title>Trading | Binaloka</title>
+                <title>Trading | KMK</title>
                 <meta name='description' content='Login' />
                 <link rel='icon' href='/logo.ico' />
             </Head>

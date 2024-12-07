@@ -4,7 +4,7 @@
  */
 module.exports = {
     // !STARTERCONF Change the siteUrl
-    siteUrl: 'https://www.binalokaindonesia.com',
+    siteUrl: 'https://www.kriptomaksima.id',
     generateRobotsTxt: true,
     robotsTxtOptions: {
         policies: [{ userAgent: '*', allow: '/' }]

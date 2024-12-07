@@ -3,18 +3,18 @@ import { useRouter } from 'next/router';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
-    title: 'Binaloka Indonesia',
-    siteName: 'Binaloka Indonesia',
+    title: 'KMK Indonesia',
+    siteName: 'KMK Indonesia',
     description: '',
     /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-    url: 'https://www.binalokaindonesia.com/',
+    url: 'https://www.kriptomaksima.id/',
     type: 'website',
     robots: 'follow, index',
     /**
      * No need to be filled, will be populated with openGraph function
      * If you wish to use a normal image, just specify the path below
      */
-    image: 'https://www.binalokaindonesia.com/images/large-og.png'
+    image: 'https://www.kriptomaksima.id/images/large-og.png'
 };
 
 type SeoProps = {
@@ -62,7 +62,7 @@ export default function Seo(props: SeoProps) {
                 <>
                     <meta property='article:published_time' content={meta.date} />
                     <meta name='publish_date' property='og:publish_date' content={meta.date} />
-                    <meta name='author' property='article:author' content='Binaloka Indonesia' />
+                    <meta name='author' property='article:author' content='KMK Indonesia' />
                 </>
             )}
 

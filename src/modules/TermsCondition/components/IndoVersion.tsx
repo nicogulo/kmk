@@ -171,7 +171,7 @@ const IndoVersion = () => {
                             Proses pendaftaran Pengguna akan dilakukan sebagai berikut: <br />
                             <ul className='list-decimal flex-col gap-2 pl-5'>
                                 <li>
-                                    Buka <Link href='/'>www.binaloka.id</Link> kemudian klik Daftar;
+                                    Buka <Link href='/'>www.kriptomaksima.id</Link> kemudian klik Daftar;
                                 </li>
                                 <li>
                                     Isi kolom dengan nama e-mail, kemudian kombinasi kata sandi minimal terdiri atas 8
@@ -189,7 +189,7 @@ const IndoVersion = () => {
                                 </li>
                                 <li>
                                     Jika ingin melakukan Login, silahkan buka laman utama kami di{' '}
-                                    <Link href='/'>www.binaloka.id</Link>, kemudian klik Masuk;
+                                    <Link href='/'>www.kriptomaksima.id</Link>, kemudian klik Masuk;
                                 </li>
                                 <li>
                                     Silakan masukkan alamat e-mail dan kata sandi sesuai yang didaftarkan di Bina Loka.

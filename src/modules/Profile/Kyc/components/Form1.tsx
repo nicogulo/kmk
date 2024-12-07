@@ -76,8 +76,8 @@ const Form1: React.FC<Props> = ({ checked }) => (
                 <tr>
                     <th>Website Struktur Manajemen</th>
                     <td>
-                        <a href='https://binalokaindonesia.com' className='text-blue-500'>
-                            binalokaindonesia.com
+                        <a href='https://kriptomaksima.id' className='text-blue-500'>
+                            kriptomaksima.id
                         </a>
                         <br />
                         PT BINA LOKA INDONESIA memiliki Direksi dan Dewan Komisaris yang bertanggung jawab sepenuhnya
@@ -106,7 +106,7 @@ const Form1: React.FC<Props> = ({ checked }) => (
                 <tr>
                     <th>Email / telepon</th>
                     <td>
-                        <a href='mailto:support@binalokaindonesia.com'>support@binalokaindonesia.com</a>
+                        <a href='mailto:support@kriptomaksima.id'>support@kriptomaksima.id</a>
                         <br /> Mohon diperhatikan bahwa Kami tidak menawarkan bantuan Pelanggan apa pun dari nomor
                         telepon ini. Untuk bantuan, silakan hubungi Layanan Pengaduan Pelanggan Kami.
                     </td>
@@ -691,7 +691,7 @@ const Form1: React.FC<Props> = ({ checked }) => (
                 <li>
                     <strong>Layanan Pengaduan Pelanggan Aset Kripto</strong>
                     <br />
-                    E-mail : <a href='mailto:support@binalokaindonesia.com'>support@binalokaindonesia.com.</a>
+                    E-mail : <a href='mailto:support@kriptomaksima.id'>support@kriptomaksima.id.</a>
                 </li>
                 <li>
                     <strong>Hukum yang Mengatur, Penyelesaian Perselisihan Pelanggan Aset Kripto, dan Bahasa</strong>

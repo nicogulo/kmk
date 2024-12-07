@@ -28,7 +28,7 @@ const RenderUploadDocumentKtp = ({ handleUpload }: RenderUploadDocumentProps) =>
     <div className='w-full pt-2'>
         <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
             <div className='text-center'>
-                <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
+                <Icons icon='Upload' width={24} height={24} color='#00AA13' />
                 <p className='text-primary-300 text-sm font-bold'>Unggah KTP</p>
                 <p className='text-xs font-normal text-[#525D66]'>
                     Klik untuk mengunggah atau seret dan lepas <br />
@@ -298,7 +298,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
 
     return (
         <div className='flex flex-col items-center gap-6 '>
-            <div className='flex max-w-[465px] flex-col items-start gap-6'>
+            <div className='flex w-full flex-col items-start gap-6 xl:max-w-[465px]'>
                 <div className='flex flex-col gap-2'>
                     <p className='text-2xl font-bold text-[#18181E]'>Unggah Dokumen untuk Verifikasi</p>
 
@@ -376,7 +376,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                 <div className='flex flex-col gap-4'>
                     <p className='text-sm font-bold text-[#121416]'>Unggah Foto Selfie Anda dengan Memegang KTP</p>
                     <div className='flex flex-col gap-2'>
-                        <div className='flex flex-row justify-center gap-10'>
+                        <div className='flex  flex-row justify-center gap-10'>
                             <Image src={CorrectSelfie} alt='Correct KTP' width={124} height={196} unoptimized />
                             <Image src={WrongSelfie} alt='Wrong KTP' width={124} height={196} unoptimized />
                         </div>
@@ -440,7 +440,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                 <div className='w-full pt-2'>
                                     <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
                                         <div className='text-center'>
-                                            <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
+                                            <Icons icon='Upload' width={24} height={24} color='#00AA13' />
                                             <p className='text-primary-300 text-sm font-bold'>
                                                 Upload Selfie Holding KTP
                                             </p>
@@ -466,7 +466,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                 <div className='flex flex-col gap-4'>
                     <p className='text-sm font-bold text-[#121416]'>Unggah NPWP</p>
                     <div className='flex flex-col gap-2'>
-                        <div className='flex flex-row justify-center gap-10'>
+                        <div className='flex flex-col justify-center gap-10 xl:flex-row'>
                             <Image src={CorrectNpwp} alt='Correct NPWP' width={212} height={132} unoptimized />
 
                             <Image src={WrongNpwp} alt='Wrong NPWP' width={212} height={132} unoptimized />
@@ -527,7 +527,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                 <div className='w-full pt-2'>
                                     <label className='border-primary-300 flex h-[164px] w-full cursor-pointer items-center justify-center rounded-lg border border-dashed bg-[#D0F0FA4D]'>
                                         <div className='text-center'>
-                                            <Icons icon='Upload' width={24} height={24} color='#14B2E6' />
+                                            <Icons icon='Upload' width={24} height={24} color='#00AA13' />
                                             <p className='text-primary-300 text-sm font-bold'>Unggah NPWP</p>
                                             <p className='text-xs font-normal text-[#525D66]'>
                                                 Klik untuk mengunggah atau seret dan lepas <br />

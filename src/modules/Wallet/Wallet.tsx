@@ -22,7 +22,7 @@ const Wallet = () => {
         <>
             <Container className='py-6'>
                 <Head>
-                    <title>Wallet | Binaloka</title>
+                    <title>Wallet | KMK</title>
                     <meta name='description' content='Login' />
                     <link rel='icon' href='/logo.ico' />
                 </Head>

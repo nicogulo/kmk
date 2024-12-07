@@ -23,7 +23,7 @@ const EmailSuccess = () => {
     return (
         <>
             <Head>
-                <title>Success Verification | Binaloka Indonesia</title>
+                <title>Success Verification | KMK Indonesia</title>
                 <meta name='description' content='Email Verification' />
                 <link rel='icon' href='/logo.ico' />
             </Head>

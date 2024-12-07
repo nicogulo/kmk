@@ -146,8 +146,8 @@ const Deposit = () => {
                             id: '<p>Click <strong>Bank</strong>,<strong> </strong>choose <strong>Bank Tujuan</strong></p>'
                         },
                         {
-                            en: '<p>Klik <strong>Ke Rekening Tujuan</strong>,<strong> </strong>pilih nomor rekening atas nama <strong>Binaloka</strong></p>',
-                            id: '<p>Click <strong>Ke Rekening Tujuan</strong>,<strong> </strong>choose the account number on behalf of of <strong>Binaloka</strong></p>'
+                            en: '<p>Klik <strong>Ke Rekening Tujuan</strong>,<strong> </strong>pilih nomor rekening atas nama <strong>KMK</strong></p>',
+                            id: '<p>Click <strong>Ke Rekening Tujuan</strong>,<strong> </strong>choose the account number on behalf of of <strong>KMK</strong></p>'
                         },
                         {
                             en: '<p>Pada <strong>Jumlah Uang</strong>, masukkan jumlah transfer</p>',
@@ -246,7 +246,7 @@ const Deposit = () => {
     return (
         <Container className='py-6'>
             <Head>
-                <title>Deposit Request | Binaloka</title>
+                <title>Deposit Request | KMK</title>
                 <meta name='description' content='Login' />
                 <link rel='icon' href='/logo.ico' />
             </Head>

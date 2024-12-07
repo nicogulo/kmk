@@ -54,7 +54,7 @@ const StyledTab: React.FC<StyledTabProps> = ({ active, onClick, children, isMobi
                 'flex-1 justify-center': isMobile,
                 [vertical ? activeTabCssVertical : activeTabCss]: active,
                 '-m-[2px] flex-col items-start py-2 pl-4': vertical,
-                'items-center pb-4': !vertical
+                'items-center pb-1 xl:pb-4': !vertical
             },
             className
         )}

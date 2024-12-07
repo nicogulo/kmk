@@ -22,7 +22,7 @@ const getRadioStyle = (isSelected: boolean | null) => ({
     height: '20px',
     borderRadius: '50%',
     margin: '0 5px',
-    border: isSelected === null ? '1px solid #08192B4D' : isSelected ? '6px solid #14b2e6' : '1px solid #08192B4D'
+    border: isSelected === null ? '1px solid #08192B4D' : isSelected ? '6px solid #00AA13' : '1px solid #08192B4D'
 });
 
 const TermsCondition: React.FC<Props> = ({ onBack, onNext }) => {
@@ -118,7 +118,7 @@ const TermsCondition: React.FC<Props> = ({ onBack, onNext }) => {
                                 disabled={disabled}
                             />
                             <span style={getRadioStyle(selection === true)} />
-                            <span className='text-sm font-normal text-[#121416]'>Ya</span>
+                            <span className='text-sm font-normal text-[##00AA13]'>Ya</span>
                         </label>
 
                         <label

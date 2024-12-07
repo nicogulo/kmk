@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import api from '@/lib/api';
-
-import data from '@/data/market.json';
-
 interface MarketApi {
     nm: string;
     c: string;
@@ -11,12 +7,12 @@ interface MarketApi {
     lg: string;
     bs: string;
     ss: string;
-    h: number;
-    l: number;
-    op: number;
-    cl: number;
-    v: number;
-    cp: number;
+    h: string;
+    l: string;
+    op: string;
+    cl: string;
+    v: string;
+    cp: string;
     vd: number;
     pd: number;
     o: number;
@@ -51,42 +47,27 @@ export const useMarkets = (args: MarketArgs = {}) => {
     const fetchMarkets = async () => {
         setLoading(true);
         try {
-            const response = await api('/markets', {
+            const response = await fetch('https://api.binalokaindonesia.com/v1/markets', {
                 method: 'GET'
             });
-            // const data: MarketApi[] = await response.json();
+            const data: MarketApi[] = await response.json();
             const markets = data
                 .map((market) => ({
-                    // name: market.nm,
-                    // code: market.c,
-                    // symbol: market.s,
-                    // logo: market.lg,
-                    // buy: market.bs,
-                    // sell: market.ss,
-                    // high: market.h,
-                    // low: market.l,
-                    // open: market.op,
-                    // close: market.cl,
-                    // volume: market.v,
-                    // changePercentage: market.cp,
-                    // volumeDecimals: market.vd,
-                    // priceDecimals: market.pd,
-                    // order: market.o
-                    name: market.name,
-                    code: market.code,
-                    symbol: market.symbol,
-                    logo: market.logo,
-                    buy: market.buy,
-                    sell: market.sell,
-                    high: market.high,
-                    low: market.low,
-                    open: market.open,
-                    close: market.close,
-                    volume: market.volume,
-                    changePercentage: market.changePercentage,
-                    volumeDecimals: market.volumeDecimals,
-                    priceDecimals: market.priceDecimals,
-                    order: market.order
+                    name: market.nm,
+                    code: market.c,
+                    symbol: market.s,
+                    logo: `https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/${market?.c.toLocaleLowerCase()}.png`,
+                    buy: market.bs,
+                    sell: market.ss,
+                    high: parseFloat(market.h),
+                    low: parseFloat(market.l),
+                    open: parseFloat(market.op),
+                    close: parseFloat(market.cl),
+                    volume: parseFloat(market.v),
+                    changePercentage: parseFloat(market.cp),
+                    volumeDecimals: market.vd,
+                    priceDecimals: market.pd,
+                    order: market.o
                 }))
                 .filter((market) => {
                     if (!market) return false;

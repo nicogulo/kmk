@@ -21,7 +21,7 @@ const ChangePassword = () => {
     return (
         <>
             <Head>
-                <title>Change Password | Binaloka Indonesia</title>
+                <title>Change Password | KMK Indonesia</title>
                 <meta name='description' content='Change Password' />
                 <link rel='icon' href='/logo.ico' />
             </Head>

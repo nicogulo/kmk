@@ -94,7 +94,7 @@ const Markets = () => {
         <>
             <Container className='flex flex-row gap-6 py-6'>
                 <Head>
-                    <title>Markets | Binaloka</title>
+                    <title>Markets | KMK</title>
                     <meta name='description' content='Login' />
                     <link rel='icon' href='/logo.ico' />
                 </Head>

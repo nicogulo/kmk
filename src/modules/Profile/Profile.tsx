@@ -62,7 +62,7 @@ const Profile = () => {
     return (
         <>
             <Head>
-                <title>Profile | Binaloka</title>
+                <title>Profile | KMK</title>
                 <meta name='description' content='Login' />
                 <link rel='icon' href='/logo.ico' />
             </Head>
@@ -76,12 +76,12 @@ const Profile = () => {
                             withChildren
                             contentCenter={false}
                             content={
-                                <div className='flex flex-1 flex-row items-center gap-6'>
-                                    <div className='flex flex-1 flex-row items-center gap-6'>
+                                <div className='flex flex-1 flex-col gap-6 xl:flex-row xl:items-center'>
+                                    <div className='flex flex-1 flex-col items-start gap-6 xl:flex-row xl:items-center'>
                                         <Image src={Rocket} unoptimized alt='rocket' width={80} height={80} />
                                         <div className='flex w-auto flex-col gap-2'>
                                             <p className='text-sm font-semibold text-gray-800'>
-                                                Verifikasi akun Anda untuk memulai transaksi di Binaloka
+                                                Verifikasi akun Anda untuk memulai transaksi di KMK
                                             </p>
                                             <p className='text-sm font-normal text-gray-600'>
                                                 Lakukan verifikasi akun hanya dalam 5 menit. Lengkapi informasi dengan
@@ -107,7 +107,7 @@ const Profile = () => {
                             }
                         />
                     )}
-                    <div className='flex flex-col gap-4'>
+                    <div className='flex flex-col gap-4 pb-4'>
                         <Tabs>
                             <Tab active={activeTab === 0} onClick={() => setActiveTab(0)}>
                                 My Profile
@@ -117,15 +117,17 @@ const Profile = () => {
                             </Tab>
                         </Tabs>
                         <When condition={activeTab === 0}>
-                            <div className='flex w-full flex-row items-start justify-center gap-4'>
-                                <div className='flex w-full flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-6'>
+                            <div className='flex w-full flex-col items-start justify-center gap-4 xl:flex-row'>
+                                <div className='flex w-full flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-4 xl:p-6'>
                                     <p className='text-[16px] font-bold leading-6 text-gray-800'>Your Details</p>
                                     <div className='flex flex-col gap-2'>
                                         <div className='flex flex-row justify-between gap-6'>
-                                            <p className='min-w-[200px] text-sm font-normal text-gray-600'>User ID</p>
-                                            <p className='w-full text-sm font-bold text-gray-800'>
+                                            <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
+                                                User ID
+                                            </p>
+                                            <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
-                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200' />
+                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200 text-right xl:text-left' />
                                                 ) : (
                                                     <>
                                                         {profile?.userId || '-'}
@@ -144,56 +146,59 @@ const Profile = () => {
                                             </p>
                                         </div>
                                         <div className='flex flex-row justify-between gap-6'>
-                                            <p className='min-w-[200px] text-sm font-normal text-gray-600'>Full Name</p>
-                                            <p className='w-full text-sm font-bold text-gray-800'>
+                                            <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
+                                                Full Name
+                                            </p>
+                                            <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
-                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200' />
+                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200 text-right xl:text-left' />
                                                 ) : (
                                                     profile?.fullName || '-'
                                                 )}
                                             </p>
                                         </div>
                                         <div className='flex flex-row justify-between gap-6'>
-                                            <p className='min-w-[200px] text-sm font-normal text-gray-600'>Email</p>
-                                            <p className='w-full text-sm font-bold text-gray-800'>
+                                            <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>Email</p>
+                                            <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
-                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200' />
+                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200 text-right xl:text-left' />
                                                 ) : (
-                                                    profile?.email || '-'
+                                                    profile?.email
                                                 )}
                                             </p>
                                         </div>
+
                                         <div className='flex flex-row justify-between gap-6'>
-                                            <p className='min-w-[200px] text-sm font-normal text-gray-600'>
+                                            <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
                                                 Country of residency
                                             </p>
-                                            <p className='w-full text-sm font-bold text-gray-800'>
+                                            <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
-                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200' />
+                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200 text-right xl:text-left' />
                                                 ) : (
                                                     profile?.country || '-'
                                                 )}
                                             </p>
                                         </div>
                                         <div className='flex flex-row justify-between gap-6'>
-                                            <p className='min-w-[200px] text-sm font-normal text-gray-600'>
+                                            <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
                                                 Phone Number
                                             </p>
-                                            <p className='w-full text-sm font-bold text-gray-800'>
+                                            <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
-                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200' />
+                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200 text-right xl:text-left' />
                                                 ) : (
                                                     profile?.phoneNumber || '-'
                                                 )}
                                             </p>
                                         </div>
                                         <div className='flex flex-row justify-between gap-6'>
-                                            <p className='min-w-[200px] text-sm font-normal text-gray-600'>
+                                            <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
                                                 Date of Birth
                                             </p>
-                                            <p className='w-full text-sm font-bold text-gray-800'>
+                                            <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
-                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200' />
+                                                    <span className='block h-4 w-32 animate-pulse rounded-md bg-gray-200 text-right xl:text-left' />
                                                 ) : profile?.dateOfBirth ? (
                                                     formatDate(profile?.dateOfBirth, 'D MMM YYYY')
                                                 ) : (
@@ -210,7 +215,7 @@ const Profile = () => {
                                     // className='border-left basic-kyc-border circle-top px-6 pb-4'
                                     >
                                         <span className='circle-bottom' />
-                                        <div className='mb-4 flex flex-col gap-4'>
+                                        <div className='flex w-full flex-col gap-4 xl:mb-4'>
                                             <div className='flex flex-col gap-2'>
                                                 <div className='flex flex-col gap-1'>
                                                     <div className='flex items-center justify-between'>
@@ -236,8 +241,8 @@ const Profile = () => {
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div className='flex flex-row  gap-10 border-t pt-4'>
-                                                <div className='flex min-w-[200px] flex-col gap-3'>
+                                            <div className='flex flex-row justify-between border-t pt-4 xl:gap-10'>
+                                                <div className='flex flex-col gap-3 xl:min-w-[200px]'>
                                                     <p className='text-normal text-xs uppercase text-gray-500'>
                                                         Requirements
                                                     </p>
@@ -253,7 +258,7 @@ const Profile = () => {
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className='flex min-w-[200px] flex-col gap-3'>
+                                                <div className='flex flex-col gap-3 xl:min-w-[200px]'>
                                                     <p className='text-normal text-xs uppercase text-gray-500'>
                                                         Permissions
                                                     </p>
@@ -263,7 +268,7 @@ const Profile = () => {
                                                                 icon='Wallet'
                                                                 width={20}
                                                                 height={20}
-                                                                color='#14B2E6'
+                                                                color='#00AA13'
                                                             />
                                                             Trading
                                                         </p>
@@ -272,7 +277,7 @@ const Profile = () => {
                                                                 icon='Wallet'
                                                                 width={20}
                                                                 height={20}
-                                                                color='#14B2E6'
+                                                                color='#00AA13'
                                                             />
                                                             Deposit
                                                         </p>
@@ -281,7 +286,7 @@ const Profile = () => {
                                                                 icon='Stack'
                                                                 width={20}
                                                                 height={20}
-                                                                color='#14B2E6'
+                                                                color='#00AA13'
                                                             />
                                                             Withdraw
                                                         </p>
@@ -314,9 +319,9 @@ const Profile = () => {
                             </div>
                         </When>
                         <When condition={activeTab === 1}>
-                            <div className='flex w-[536px] flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-6'>
+                            <div className='flex flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-6 xl:w-[536px]'>
                                 <p className='text-[16px] font-bold leading-4 text-gray-800 '>Authentication Method</p>
-                                <div className='flex flex-row items-center justify-between rounded-xl border border-[#08192B1A] p-4'>
+                                <div className='flex flex-col justify-between gap-2 rounded-xl border border-[#08192B1A] p-4 xl:flex-row xl:items-center xl:gap-[unset]'>
                                     <div className='flex flex-col gap-1'>
                                         <p className='text-sm font-bold text-gray-800'>Email Address</p>
                                         <p className='text-sm font-normal text-gray-500'>{profile?.email}</p>
@@ -325,7 +330,7 @@ const Profile = () => {
                                         Verified
                                     </Button>
                                 </div>
-                                <div className='flex flex-row items-center justify-between rounded-xl border border-[#08192B1A] p-4'>
+                                <div className='flex flex-col justify-between gap-2 rounded-xl border border-[#08192B1A] p-4 xl:flex-row xl:items-center xl:gap-[unset]'>
                                     <div className='flex flex-col gap-1'>
                                         <p className='text-sm font-bold text-gray-800'>Phone Number</p>
                                         <p className='text-sm font-normal text-gray-500'>+62{profile?.phoneNumber}</p>

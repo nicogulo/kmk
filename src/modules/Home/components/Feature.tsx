@@ -9,7 +9,7 @@ import Feature3 from '../images/feature-3.webp';
 
 const Feature = () => {
     return (
-        <Container className='flex flex-row justify-center gap-10 py-[80px]'>
+        <Container className='flex flex-col justify-center gap-10 py-[80px] xl:flex-row'>
             <div className='bg-primary-100 border-text-transparent-10 flex transform flex-col gap-4 rounded-xl border p-6 transition-transform duration-300 hover:scale-[1.03]'>
                 <Image src={Feature1.src} alt='Feature 1' width={330} height={184} quality={100} />
                 <div className='flex max-w-[330px] flex-col gap-1'>

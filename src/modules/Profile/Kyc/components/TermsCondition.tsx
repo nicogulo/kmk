@@ -78,7 +78,7 @@ const TermsCondition: React.FC<Props> = ({ onBack, onNext }) => {
     }, []);
     return (
         <div className='flex flex-col items-center gap-6 '>
-            <div className='flex max-w-[680px] flex-col items-start gap-6'>
+            <div className='flex w-full flex-col items-start gap-6 xl:max-w-[680px]'>
                 <div className='flex flex-col gap-2'>
                     <p className='text-2xl font-bold text-[#18181E]'>Tolong isi pernyataan persetujuan Anda</p>
 

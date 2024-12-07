@@ -90,7 +90,7 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
                 }
             })
             .setTimeout(60000)
-            .setURL('../liveness')
+            .setURL('../../liveness')
             .setVirtualCameraLabel(['OBS', 'Virtual', 'Camera'])
             .build();
     }, []);

@@ -10,7 +10,6 @@ import ModalLogin from '@/components/Modal/ModalLogin';
 import ModalPendingVerif from '@/components/Modal/ModalPendingVerify';
 import ModalTrade from '@/components/Modal/ModalTrade';
 import ModalUnverified from '@/components/Modal/ModalUnverified';
-import Table from '@/components/Table';
 import { TableColumn } from '@/components/Table/Table';
 
 import { formatAbbreviatedNumber, formatRupiah, removeTrailingZero } from '@/utils/currency';
@@ -91,13 +90,19 @@ const MarketList = () => {
         <>
             <Container className='flex flex-col items-center pb-[80px]'>
                 <div className='flex flex-col gap-3 pb-14 text-center' id='market-list'>
-                    <h1 className='font-semibold text-gray-800'>Market Price</h1>
+                    <h1 className='font-semibold text-gray-800'>Popular Crypto Assets</h1>
                     <p className='text-[#637381]'>Trending crypto market price in Rupiah in the last 24 hours</p>
                 </div>
-                <div className='flex w-11/12 flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white px-6 py-8 xl:w-[70%]'>
-                    <div className='  flex items-center justify-center pt-4'>
-                        <Table data={markets} columns={columns} loading={loadingMarket} loadingRowCount={10} noHover />
-                    </div>
+                <div className='flex w-full items-center justify-center pt-4'>
+                    {/* <Table data={markets} columns={columns} loading={loadingMarket} loadingRowCount={10} noHover /> */}
+
+                    {markets?.map((item, index) => {
+                        return (
+                            <div key={index} className='flex flex-col gap-6 bg-gray-200 p-4'>
+                                asd
+                            </div>
+                        );
+                    })}
                 </div>
             </Container>
 

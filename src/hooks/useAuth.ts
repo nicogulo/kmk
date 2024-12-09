@@ -196,8 +196,7 @@ export const useLogout = () => {
         resetAuth();
         localStorage.removeItem('email');
         if (force) {
-            router.push('/api/auth/logout');
-            // router.push('/login');
+            router.push('/login');
         }
     };
 

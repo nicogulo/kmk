@@ -47,6 +47,7 @@ const IconComponents = {
     Interuption: lazy(() => import('./Interuption')),
     KeyIllustration: lazy(() => import('./KeyIllustration')),
     Logo: lazy(() => import('./Logo')),
+    LogoWhite: lazy(() => import('./LogoWhite')),
     Logout: lazy(() => import('./Logout')),
     Mail: lazy(() => import('./Mail')),
     MinusCircle: lazy(() => import('./MinusCircle')),

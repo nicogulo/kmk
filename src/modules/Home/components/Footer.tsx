@@ -12,12 +12,12 @@ const Footer = () => {
     const isTnc = router.pathname === '/terms-and-conditions';
     return (
         <div
-            className={classNames('bg-gray-800 pb-[80px]', {
+            className={classNames('bg-gray-800 pb-[80px] pt-10', {
                 '!bg-white pt-3': isTnc
             })}
         >
             <Container className='flex flex-col gap-10'>
-                <Icons icon='Logo' width={151} height={40} />
+                <Icons icon='LogoWhite' width={151} height={40} />
                 <span
                     className={classNames('text-xs text-gray-400', {
                         '!text-gray-800': isTnc

@@ -25,31 +25,31 @@ const Faq = () => {
     ];
 
     return (
-        <div className=' relative bg-gray-800 pb-[80px] '>
+        <div className=' relative  pb-[80px] '>
             <Container className='flex flex-col items-center justify-between gap-9 xl:flex-row'>
                 <div className='flex flex-col gap-2'>
-                    <span className='text-[40px] font-bold leading-10 text-white'>
+                    <span className='text-[40px] font-bold leading-10 text-gray-900'>
                         Do you have more <br />
                         questions?
                     </span>
-                    <span className='text-[16px] font-normal leading-6 text-gray-300'>
+                    <span className='text-[16px] font-normal leading-6 text-gray-700'>
                         We have collected the most important topics that our <br />
                         customers most often are concerned about. If you still haven't <br />
                         found the answer to your question, please contact our Customer <br />
                         Support
                     </span>
                 </div>
-                <div className='rounded-2xl bg-gray-900 p-8 xl:w-[548px]'>
+                <div className=' xl:w-[548px]'>
                     {faqItems.map((item, index) => {
                         return (
                             <Collapse
                                 title={item.question}
-                                titleClassName='!text-white !text-[16px] !leading-6'
+                                titleClassName='!text-[16px] !leading-6'
                                 className='!border-none'
                                 defaultExpanded={index === 0}
                                 key={index}
                             >
-                                <div className='xs text-gray-300' dangerouslySetInnerHTML={{ __html: item.answer }} />
+                                <div className='xs text-gray-600' dangerouslySetInnerHTML={{ __html: item.answer }} />
                             </Collapse>
                         );
                     })}

@@ -5,10 +5,8 @@ import { useMediaQuery } from 'react-responsive';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 
-import CoinImage from '../images/coins.png';
-import CoinImageMobile from '../images/coins-mobile.png';
-import Ellipise from '../images/ellipse-2.png';
-import Hero from '../images/start-trading.webp';
+import StartTradingImage from '../images/image-start-trading.png';
+import StartTradingImageMobile from '../images/image-start-trading-mobile.png';
 
 const StartTrading = () => {
     const isMobile = useMediaQuery({ maxWidth: 1279 });
@@ -26,35 +24,31 @@ const StartTrading = () => {
         }
     };
     return (
-        <div className='relative bg-gray-800 pb-[80px]'>
-            <div
-                className='absolute inset-0 z-0 bg-cover bg-center bg-no-repeat'
-                style={{ backgroundImage: `url(${Ellipise.src})`, backgroundPosition: '50% -310px' }}
-            />
-            <Container className='bg-primary-100 relative z-[2] flex flex-col items-end justify-between gap-8 rounded-2xl p-8 xl:flex-row xl:gap-0'>
-                <Image
-                    src={isMobile ? CoinImageMobile.src : CoinImage.src}
-                    width={0}
-                    height={0}
-                    quality={100}
-                    sizes='100vw'
-                    alt='coin-image'
-                    className='top-0 xl:absolute'
-                    style={{ width: '100%' }}
-                />
-                <div className='flex flex-col gap-3'>
-                    <span className='text-[40px] font-bold leading-[44px] text-gray-800 xl:text-[56px] xl:leading-[64px]'>
-                        Start Trading <br /> Crypto Today
+        <div className='mx-4 pb-[80px] xl:mx-0'>
+            <Container className='relative flex flex-col items-end justify-between gap-8 overflow-hidden rounded-2xl bg-[#010101] p-8 xl:gap-0'>
+                <div className='flex w-full flex-col items-center gap-3 pb-20 text-center'>
+                    <span className='text-[40px] font-bold leading-[44px] text-white xl:text-[56px] xl:leading-[64px]'>
+                        Start Trading Crypto Today
                     </span>
-                    <span className='h4 !font-normal text-gray-700'>
+                    <span className='h4 !font-normal text-white'>
                         Start trading crypto easily and securely. Sign up now to unlock <br /> seamless transactions and
                         low fees.
                     </span>
                     <Button className='mt-3 xl:w-fit' onClick={scrollToMarket} block={isMobile}>
                         Start Investing
                     </Button>
+                    {/* <Image src={StartTradingImage.src} width={480} height={560} alt='start-trading' quality={100} /> */}
                 </div>
-                <Image src={Hero.src} width={480} height={560} alt='start-trading' quality={100} />
+                <Image
+                    src={isMobile ? StartTradingImageMobile.src : StartTradingImage.src}
+                    width={0}
+                    height={0}
+                    quality={100}
+                    sizes='100vw'
+                    alt='coin-image'
+                    className='absolute bottom-0 left-0'
+                    style={{ width: '100%' }}
+                />
             </Container>
         </div>
     );

@@ -36,11 +36,7 @@ const Header = () => {
 
     return (
         <>
-            <header
-                className={classNames('bg-primary-100 sticky top-0 z-50', {
-                    'bg-white': isProfile
-                })}
-            >
+            <header className='sticky top-0 z-50 bg-white'>
                 <Container className=' relative flex h-14 items-center justify-between'>
                     <UnstyledLink
                         href='/'

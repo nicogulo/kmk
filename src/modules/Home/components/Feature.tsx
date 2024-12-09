@@ -1,42 +1,69 @@
 import Image from 'next/image';
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import Container from '@/components/Container';
 
-import Feature1 from '../images/feature-1.webp';
-import Feature2 from '../images/feature-2.webp';
-import Feature3 from '../images/feature-3.webp';
+import Feature2 from '../images/feature-2.png';
+import Feature3 from '../images/feature-3.png';
+import Feature4 from '../images/feature-4.png';
+import FeatureMobile2 from '../images/feature-mobile-2.png';
+import FeatureMobile3 from '../images/feature-mobile-3.png';
+import FeatureMobile4 from '../images/feature-mobile-4.png';
 
 const Feature = () => {
+    const isMobile = useMediaQuery({ maxWidth: 1279 });
     return (
-        <Container className='flex flex-col justify-center gap-10 py-[80px] xl:flex-row'>
-            <div className='bg-primary-100 border-text-transparent-10 flex transform flex-col gap-4 rounded-xl border p-6 transition-transform duration-300 hover:scale-[1.03]'>
-                <Image src={Feature1.src} alt='Feature 1' width={330} height={184} quality={100} />
-                <div className='flex max-w-[330px] flex-col gap-1'>
-                    <span className='text-[20px] font-bold leading-7 text-gray-800'>Instant Transactions</span>
-                    <span className='text-[16px] leading-6 text-gray-700'>
-                        Experience lightning-fast and secure <br /> transactions with zero delays.
-                    </span>
+        <Container className='flex flex-col items-center justify-center gap-10 py-[80px]'>
+            <h1 className='text-center font-semibold text-gray-800'>Why Choose Us?</h1>
+            <div className='flex flex-col gap-6 xl:flex-row'>
+                <div className='relative flex transform flex-col gap-4 rounded-xl  transition-transform duration-300 hover:scale-[1.03]'>
+                    <Image
+                        src={isMobile ? FeatureMobile2 : Feature2.src}
+                        alt='Feature 2'
+                        width={isMobile ? 320 : 330}
+                        height={isMobile ? 388 : 184}
+                        quality={100}
+                    />
+                    <div className='absolute left-4 top-4 flex max-w-[330px] flex-col gap-1 text-white'>
+                        <span className='text-[20px] font-bold leading-7 '>Instant Transactions</span>
+                    </div>
                 </div>
-            </div>
-            <div className='bg-secondary-100 border-text-transparent-10 flex transform flex-col gap-4 rounded-xl border p-6 transition-transform duration-300 hover:scale-[1.03]'>
-                <Image src={Feature2.src} alt='Feature 2' width={330} height={184} quality={100} />
-                <div className='flex max-w-[330px] flex-col gap-1'>
-                    <span className='text-[20px] font-bold leading-7 text-gray-800'>
-                        Wide Range of Cryptocurrencies
-                    </span>
-                    <span className='text-[16px] leading-6 text-gray-700'>
-                        Explore an extensive portfolio of digital assets. We've got the right options for you.
-                    </span>
+                <div className='relative flex transform flex-col gap-4 rounded-xl  transition-transform duration-300 hover:scale-[1.03]'>
+                    <Image
+                        src={isMobile ? FeatureMobile2 : Feature2.src}
+                        alt='Feature 2'
+                        width={isMobile ? 320 : 330}
+                        height={isMobile ? 388 : 184}
+                        quality={100}
+                    />
+                    <div className='absolute left-4 top-4 flex max-w-[330px] flex-col gap-1 text-white'>
+                        <span className='text-[20px] font-bold leading-7 '>Instant Transactions</span>
+                    </div>
                 </div>
-            </div>
-            <div className='bg-warning-100 border-text-transparent-10 flex transform flex-col gap-4 rounded-xl border p-6 transition-transform duration-300 hover:scale-[1.03]'>
-                <Image src={Feature3.src} alt='Feature 1' width={330} height={184} quality={100} />
-                <div className='flex max-w-[330px] flex-col gap-1'>
-                    <span className='text-[20px] font-bold leading-7 text-gray-800'>24/7 Customer Support</span>
-                    <span className='text-[16px] leading-6 text-gray-700'>
-                        Our expert support team is here around the clock to assist you, anytime, anywhere.
-                    </span>
+                <div className='relative flex transform flex-col gap-4 rounded-xl  transition-transform duration-300 hover:scale-[1.03]'>
+                    <Image
+                        src={isMobile ? FeatureMobile3 : Feature3.src}
+                        alt='Feature 1'
+                        width={isMobile ? 320 : 330}
+                        height={isMobile ? 388 : 184}
+                        quality={100}
+                    />
+                    <div className='absolute left-4 top-4 flex max-w-[330px] flex-col gap-1 text-white'>
+                        <span className='text-[20px] font-bold leading-7 '>Easy & Flexible Transactions</span>
+                    </div>
+                </div>
+                <div className='relative flex transform flex-col gap-4 rounded-xl  transition-transform duration-300 hover:scale-[1.03]'>
+                    <Image
+                        src={isMobile ? FeatureMobile4 : Feature4.src}
+                        alt='Feature 1'
+                        width={isMobile ? 320 : 330}
+                        height={isMobile ? 388 : 184}
+                        quality={100}
+                    />
+                    <div className='absolute left-4 top-4 flex max-w-[330px] flex-col gap-1 text-white'>
+                        <span className='text-[20px] font-bold leading-7 '>24/7 Customer Support</span>
+                    </div>
                 </div>
             </div>
         </Container>

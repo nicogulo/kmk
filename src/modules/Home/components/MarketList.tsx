@@ -96,13 +96,16 @@ const MarketList = () => {
                 <div className='flex w-full items-center justify-center pt-4'>
                     {/* <Table data={markets} columns={columns} loading={loadingMarket} loadingRowCount={10} noHover /> */}
 
-                    <div className='flex flex-row gap-6'>
+                    <div className='flex w-full flex-col justify-center gap-6 xl:flex-row'>
                         {markets
                             ?.filter((item) => item.close)
                             .map((item, index) => {
                                 return (
-                                    <div className='flex flex-col gap-8 rounded-3xl bg-gray-200 p-4' key={index}>
-                                        <div className='flex min-w-[188px] flex-col gap-3'>
+                                    <div
+                                        className='flex flex-row gap-8 rounded-3xl bg-gray-200 p-4 xl:flex-col'
+                                        key={index}
+                                    >
+                                        <div className='flex w-full flex-col gap-3 xl:min-w-[188px]'>
                                             <div className='flex flex-row items-center gap-4'>
                                                 <Image
                                                     src={item.logo as string}

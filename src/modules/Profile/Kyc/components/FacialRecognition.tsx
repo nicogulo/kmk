@@ -9,6 +9,8 @@ import Icons from '@/components/Icon';
 import { Else, If, Then } from '@/components/If';
 import { toast } from '@/components/Toast';
 
+import { VERIHUB_APP_ID, VERIHUB_APP_KEY } from '@/constant/env';
+
 import FaceImage from '../images/face.webp';
 
 interface Props {
@@ -42,8 +44,8 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
         }
     };
 
-    const appId = '34230937-f5cc-4b94-9e6e-a31f64338842';
-    const appKey = 'kVWllGbYVvEx1ZraDKEP1AiJYzRCvw+A';
+    const appId = VERIHUB_APP_ID ?? '';
+    const appKey = VERIHUB_APP_KEY ?? '';
 
     const base64ToFile = (base64: string, fileName: string): File | null => {
         if (!base64 || typeof base64 !== 'string') {

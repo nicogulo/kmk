@@ -47,7 +47,7 @@ export const useMarkets = (args: MarketArgs = {}) => {
     const fetchMarkets = async () => {
         setLoading(true);
         try {
-            const response = await fetch('https://api.binalokaindonesia.com/v1/markets', {
+            const response = await fetch('https://api-development.binalokaindonesia.com/v1/markets', {
                 method: 'GET'
             });
             const data: MarketApi[] = await response.json();
@@ -56,7 +56,7 @@ export const useMarkets = (args: MarketArgs = {}) => {
                     name: market.nm,
                     code: market.c,
                     symbol: market.s,
-                    logo: `https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/${market?.c.toLocaleLowerCase()}.png`,
+                    logo: market?.lg,
                     buy: market.bs,
                     sell: market.ss,
                     high: parseFloat(market.h),

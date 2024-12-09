@@ -96,13 +96,36 @@ const MarketList = () => {
                 <div className='flex w-full items-center justify-center pt-4'>
                     {/* <Table data={markets} columns={columns} loading={loadingMarket} loadingRowCount={10} noHover /> */}
 
-                    {markets?.map((item, index) => {
-                        return (
-                            <div key={index} className='flex flex-col gap-6 bg-gray-200 p-4'>
-                                asd
-                            </div>
-                        );
-                    })}
+                    <div className='flex flex-row gap-6'>
+                        {markets
+                            ?.filter((item) => item.close)
+                            .map((item, index) => {
+                                return (
+                                    <div className='flex flex-col gap-8 rounded-3xl bg-gray-200 p-4' key={index}>
+                                        <div className='flex min-w-[188px] flex-col gap-3'>
+                                            <div className='flex flex-row items-center gap-4'>
+                                                <Image
+                                                    src={item.logo as string}
+                                                    width={36}
+                                                    height={36}
+                                                    alt={item.name as string}
+                                                    className='rounded-full'
+                                                />
+                                                <span className='text-2xl font-semibold text-gray-800'>
+                                                    {item.code}
+                                                </span>
+                                            </div>
+                                            <span className='text-xl text-gray-700'>{formatRupiah(item.close)}</span>
+                                        </div>
+                                        <ChangePercentageText
+                                            value={item.changePercentage}
+                                            prefix='icon'
+                                            className='!text-2xl'
+                                        />
+                                    </div>
+                                );
+                            })}
+                    </div>
                 </div>
             </Container>
 

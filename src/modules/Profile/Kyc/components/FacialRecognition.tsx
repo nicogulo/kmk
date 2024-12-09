@@ -44,8 +44,8 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
         }
     };
 
-    const appId = VERIHUB_APP_ID ?? '';
-    const appKey = VERIHUB_APP_KEY ?? '';
+    const appId = String(VERIHUB_APP_ID);
+    const appKey = String(VERIHUB_APP_KEY);
 
     const base64ToFile = (base64: string, fileName: string): File | null => {
         if (!base64 || typeof base64 !== 'string') {
@@ -85,10 +85,10 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
 
             .setProxyMiddleware({
                 PassiveLiveness: {
-                    url: 'https://verihubs.binalokaindonesia.com/v1/liveness/face'
+                    url: 'https://kmk-verihubs.binalokaindonesia.com/v1/liveness/face'
                 },
                 License: {
-                    url: `https://verihubs.binalokaindonesia.com/v1/license/check`
+                    url: `https://kmk-verihubs.binalokaindonesia.com/v1/license/check`
                 }
             })
             .setTimeout(60000)

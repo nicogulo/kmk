@@ -9,6 +9,7 @@ declare namespace util {
     export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
     export type OmitKeys<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
     export type MakePartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+    export type Exactly<T, X> = T & Record<Exclude<keyof X, keyof T>, never>;
     export const arrayToEnum: <T extends string, U extends [T, ...T[]]>(items: U) => { [k in U[number]]: k; };
     export const getValidEnumValues: (obj: any) => any[];
     export const objectValues: (obj: any) => any[];
@@ -26,10 +27,19 @@ declare namespace objectUtil {
     export type MergeShapes<U, V> = {
         [k in Exclude<keyof U, keyof V>]: U[k];
     } & V;
+    type optionalKeys<T extends object> = {
+        [k in keyof T]: undefined extends T[k] ? k : never;
+    }[keyof T];
     type requiredKeys<T extends object> = {
         [k in keyof T]: undefined extends T[k] ? never : k;
     }[keyof T];
-    export type addQuestionMarks<T extends object, R extends keyof T = requiredKeys<T>> = Pick<Required<T>, R> & Partial<T>;
+    export type addQuestionMarks<T extends object, _O = any> = {
+        [K in requiredKeys<T>]: T[K];
+    } & {
+        [K in optionalKeys<T>]?: T[K];
+    } & {
+        [k in keyof T]?: unknown;
+    };
     export type identity<T> = T;
     export type flatten<T> = identity<{
         [k in keyof T]: T[k];
@@ -41,7 +51,11 @@ declare namespace objectUtil {
         [k in noNeverKeys<T>]: k extends keyof T ? T[k] : never;
     }>;
     export const mergeShapes: <U, T>(first: U, second: T) => T & U;
-    export type extendShape<A, B> = flatten<Omit<A, keyof B> & B>;
+    export type extendShape<A extends object, B extends object> = {
+        [K in keyof A as K extends keyof B ? never : K]: A[K];
+    } & {
+        [K in keyof B]: B[K];
+    };
     export {};
 }
 declare const ZodParsedType: {
@@ -136,7 +150,7 @@ interface ZodInvalidReturnTypeIssue extends ZodIssueBase {
 interface ZodInvalidDateIssue extends ZodIssueBase {
     code: typeof ZodIssueCode.invalid_date;
 }
-declare type StringValidation = "email" | "url" | "emoji" | "uuid" | "regex" | "cuid" | "cuid2" | "ulid" | "datetime" | "ip" | {
+declare type StringValidation = "email" | "url" | "emoji" | "uuid" | "nanoid" | "regex" | "cuid" | "cuid2" | "ulid" | "datetime" | "date" | "time" | "duration" | "ip" | "base64" | {
     includes: string;
     position?: number;
 } | {
@@ -200,6 +214,7 @@ declare class ZodError<T = any> extends Error {
     format(): ZodFormattedError<T>;
     format<U>(mapper: (issue: ZodIssue) => U): ZodFormattedError<T, U>;
     static create: (issues: ZodIssue[]) => ZodError<any>;
+    static assert(value: unknown): asserts value is ZodError;
     toString(): string;
     get message(): string;
     get isEmpty(): boolean;
@@ -306,10 +321,10 @@ declare namespace partialUtil {
     } extends infer PI ? PI extends ZodTupleItems ? ZodTuple<PI> : never : never : T;
 }
 
-declare type RefinementCtx = {
+interface RefinementCtx {
     addIssue: (arg: IssueData) => void;
     path: (string | number)[];
-};
+}
 declare type ZodRawShape = {
     [k: string]: ZodTypeAny;
 };
@@ -327,15 +342,18 @@ declare type RawCreateParams = {
     errorMap?: ZodErrorMap;
     invalid_type_error?: string;
     required_error?: string;
+    message?: string;
     description?: string;
 } | undefined;
 declare type SafeParseSuccess<Output> = {
     success: true;
     data: Output;
+    error?: never;
 };
 declare type SafeParseError<Input> = {
     success: false;
     error: ZodError<Input>;
+    data?: never;
 };
 declare type SafeParseReturnType<Input, Output> = SafeParseSuccess<Output> | SafeParseError<Input>;
 declare abstract class ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef, Input = Output> {
@@ -357,6 +375,7 @@ declare abstract class ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef
     safeParse(data: unknown, params?: Partial<ParseParams>): SafeParseReturnType<Input, Output>;
     parseAsync(data: unknown, params?: Partial<ParseParams>): Promise<Output>;
     safeParseAsync(data: unknown, params?: Partial<ParseParams>): Promise<SafeParseReturnType<Input, Output>>;
+    /** Alias of safeParseAsync */
     spa: (data: unknown, params?: Partial<ParseParams> | undefined) => Promise<SafeParseReturnType<Input, Output>>;
     refine<RefinedOutput extends Output>(check: (arg: Output) => arg is RefinedOutput, message?: string | CustomErrorParams | ((arg: Output) => CustomErrorParams)): ZodEffects<this, RefinedOutput, Input>;
     refine(check: (arg: Output) => unknown | Promise<unknown>, message?: string | CustomErrorParams | ((arg: Output) => CustomErrorParams)): ZodEffects<this, Output, Input>;
@@ -365,6 +384,7 @@ declare abstract class ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef
     _refinement(refinement: RefinementEffect<Output>["refinement"]): ZodEffects<this, Output, Input>;
     superRefine<RefinedOutput extends Output>(refinement: (arg: Output, ctx: RefinementCtx) => arg is RefinedOutput): ZodEffects<this, RefinedOutput, Input>;
     superRefine(refinement: (arg: Output, ctx: RefinementCtx) => void): ZodEffects<this, Output, Input>;
+    superRefine(refinement: (arg: Output, ctx: RefinementCtx) => Promise<void>): ZodEffects<this, Output, Input>;
     constructor(def: Def);
     optional(): ZodOptional<this>;
     nullable(): ZodNullable<this>;
@@ -384,6 +404,7 @@ declare abstract class ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef
     }) => Output): ZodCatch<this>;
     describe(description: string): this;
     pipe<T extends ZodTypeAny>(target: T): ZodPipeline<this, T>;
+    readonly(): ZodReadonly<this>;
     isOptional(): boolean;
     isNullable(): boolean;
 }
@@ -411,6 +432,9 @@ declare type ZodStringCheck = {
     message?: string;
 } | {
     kind: "uuid";
+    message?: string;
+} | {
+    kind: "nanoid";
     message?: string;
 } | {
     kind: "cuid";
@@ -450,11 +474,25 @@ declare type ZodStringCheck = {
 } | {
     kind: "datetime";
     offset: boolean;
+    local: boolean;
     precision: number | null;
+    message?: string;
+} | {
+    kind: "date";
+    message?: string;
+} | {
+    kind: "time";
+    precision: number | null;
+    message?: string;
+} | {
+    kind: "duration";
     message?: string;
 } | {
     kind: "ip";
     version?: IpVersion;
+    message?: string;
+} | {
+    kind: "base64";
     message?: string;
 };
 interface ZodStringDef extends ZodTypeDef {
@@ -462,17 +500,19 @@ interface ZodStringDef extends ZodTypeDef {
     typeName: ZodFirstPartyTypeKind.ZodString;
     coerce: boolean;
 }
-declare class ZodString extends ZodType<string, ZodStringDef> {
+declare class ZodString extends ZodType<string, ZodStringDef, string> {
     _parse(input: ParseInput): ParseReturnType<string>;
-    protected _regex: (regex: RegExp, validation: StringValidation, message?: errorUtil.ErrMessage | undefined) => ZodEffects<this, string, string>;
+    protected _regex(regex: RegExp, validation: StringValidation, message?: errorUtil.ErrMessage): ZodEffects<this, string, string>;
     _addCheck(check: ZodStringCheck): ZodString;
     email(message?: errorUtil.ErrMessage): ZodString;
     url(message?: errorUtil.ErrMessage): ZodString;
     emoji(message?: errorUtil.ErrMessage): ZodString;
     uuid(message?: errorUtil.ErrMessage): ZodString;
+    nanoid(message?: errorUtil.ErrMessage): ZodString;
     cuid(message?: errorUtil.ErrMessage): ZodString;
     cuid2(message?: errorUtil.ErrMessage): ZodString;
     ulid(message?: errorUtil.ErrMessage): ZodString;
+    base64(message?: errorUtil.ErrMessage): ZodString;
     ip(options?: string | {
         version?: "v4" | "v6";
         message?: string;
@@ -481,7 +521,14 @@ declare class ZodString extends ZodType<string, ZodStringDef> {
         message?: string | undefined;
         precision?: number | null;
         offset?: boolean;
+        local?: boolean;
     }): ZodString;
+    date(message?: string): ZodString;
+    time(options?: string | {
+        message?: string | undefined;
+        precision?: number | null;
+    }): ZodString;
+    duration(message?: errorUtil.ErrMessage): ZodString;
     regex(regex: RegExp, message?: errorUtil.ErrMessage): ZodString;
     includes(value: string, options?: {
         message?: string;
@@ -492,25 +539,35 @@ declare class ZodString extends ZodType<string, ZodStringDef> {
     min(minLength: number, message?: errorUtil.ErrMessage): ZodString;
     max(maxLength: number, message?: errorUtil.ErrMessage): ZodString;
     length(len: number, message?: errorUtil.ErrMessage): ZodString;
-    nonempty: (message?: errorUtil.ErrMessage | undefined) => ZodString;
-    trim: () => ZodString;
-    toLowerCase: () => ZodString;
-    toUpperCase: () => ZodString;
+    /**
+     * @deprecated Use z.string().min(1) instead.
+     * @see {@link ZodString.min}
+     */
+    nonempty(message?: errorUtil.ErrMessage): ZodString;
+    trim(): ZodString;
+    toLowerCase(): ZodString;
+    toUpperCase(): ZodString;
     get isDatetime(): boolean;
+    get isDate(): boolean;
+    get isTime(): boolean;
+    get isDuration(): boolean;
     get isEmail(): boolean;
     get isURL(): boolean;
     get isEmoji(): boolean;
     get isUUID(): boolean;
+    get isNANOID(): boolean;
     get isCUID(): boolean;
     get isCUID2(): boolean;
     get isULID(): boolean;
     get isIP(): boolean;
+    get isBase64(): boolean;
     get minLength(): number | null;
     get maxLength(): number | null;
     static create: (params?: ({
         errorMap?: ZodErrorMap | undefined;
         invalid_type_error?: string | undefined;
         required_error?: string | undefined;
+        message?: string | undefined;
         description?: string | undefined;
     } & {
         coerce?: true | undefined;
@@ -542,12 +599,13 @@ interface ZodNumberDef extends ZodTypeDef {
     typeName: ZodFirstPartyTypeKind.ZodNumber;
     coerce: boolean;
 }
-declare class ZodNumber extends ZodType<number, ZodNumberDef> {
+declare class ZodNumber extends ZodType<number, ZodNumberDef, number> {
     _parse(input: ParseInput): ParseReturnType<number>;
     static create: (params?: ({
         errorMap?: ZodErrorMap | undefined;
         invalid_type_error?: string | undefined;
         required_error?: string | undefined;
+        message?: string | undefined;
         description?: string | undefined;
     } & {
         coerce?: boolean | undefined;
@@ -578,12 +636,13 @@ interface ZodBooleanDef extends ZodTypeDef {
     typeName: ZodFirstPartyTypeKind.ZodBoolean;
     coerce: boolean;
 }
-declare class ZodBoolean extends ZodType<boolean, ZodBooleanDef> {
+declare class ZodBoolean extends ZodType<boolean, ZodBooleanDef, boolean> {
     _parse(input: ParseInput): ParseReturnType<boolean>;
     static create: (params?: ({
         errorMap?: ZodErrorMap | undefined;
         invalid_type_error?: string | undefined;
         required_error?: string | undefined;
+        message?: string | undefined;
         description?: string | undefined;
     } & {
         coerce?: boolean | undefined;
@@ -592,7 +651,7 @@ declare class ZodBoolean extends ZodType<boolean, ZodBooleanDef> {
 interface ZodAnyDef extends ZodTypeDef {
     typeName: ZodFirstPartyTypeKind.ZodAny;
 }
-declare class ZodAny extends ZodType<any, ZodAnyDef> {
+declare class ZodAny extends ZodType<any, ZodAnyDef, any> {
     _any: true;
     _parse(input: ParseInput): ParseReturnType<this["_output"]>;
     static create: (params?: RawCreateParams) => ZodAny;
@@ -639,10 +698,10 @@ declare type objectInputType<Shape extends ZodRawShape, Catchall extends ZodType
 declare type baseObjectInputType<Shape extends ZodRawShape> = objectUtil.addQuestionMarks<{
     [k in keyof Shape]: Shape[k]["_input"];
 }>;
-declare type CatchallOutput<T extends ZodTypeAny> = ZodTypeAny extends T ? unknown : {
+declare type CatchallOutput<T extends ZodType> = ZodType extends T ? unknown : {
     [k: string]: T["_output"];
 };
-declare type CatchallInput<T extends ZodTypeAny> = ZodTypeAny extends T ? unknown : {
+declare type CatchallInput<T extends ZodType> = ZodType extends T ? unknown : {
     [k: string]: T["_input"];
 };
 declare type PassthroughType<T extends UnknownKeysParam> = T extends "passthrough" ? {
@@ -660,41 +719,56 @@ declare class ZodObject<T extends ZodRawShape, UnknownKeys extends UnknownKeysPa
     strict(message?: errorUtil.ErrMessage): ZodObject<T, "strict", Catchall>;
     strip(): ZodObject<T, "strip", Catchall>;
     passthrough(): ZodObject<T, "passthrough", Catchall>;
+    /**
+     * @deprecated In most cases, this is no longer needed - unknown properties are now silently stripped.
+     * If you want to pass through unknown properties, use `.passthrough()` instead.
+     */
     nonstrict: () => ZodObject<T, "passthrough", Catchall>;
     extend<Augmentation extends ZodRawShape>(augmentation: Augmentation): ZodObject<objectUtil.extendShape<T, Augmentation>, UnknownKeys, Catchall>;
-    augment: <Augmentation extends ZodRawShape>(augmentation: Augmentation) => ZodObject<{ [k in keyof (Omit<T, keyof Augmentation> & Augmentation)]: (Omit<T, keyof Augmentation> & Augmentation)[k]; }, UnknownKeys, Catchall, objectOutputType<{ [k in keyof (Omit<T, keyof Augmentation> & Augmentation)]: (Omit<T, keyof Augmentation> & Augmentation)[k]; }, Catchall, UnknownKeys>, objectInputType<{ [k in keyof (Omit<T, keyof Augmentation> & Augmentation)]: (Omit<T, keyof Augmentation> & Augmentation)[k]; }, Catchall, UnknownKeys>>;
+    /**
+     * @deprecated Use `.extend` instead
+     *  */
+    augment: <Augmentation extends ZodRawShape>(augmentation: Augmentation) => ZodObject<objectUtil.extendShape<T, Augmentation>, UnknownKeys, Catchall, objectOutputType<objectUtil.extendShape<T, Augmentation>, Catchall, UnknownKeys>, objectInputType<objectUtil.extendShape<T, Augmentation>, Catchall, UnknownKeys>>;
+    /**
+     * Prior to zod@1.0.12 there was a bug in the
+     * inferred type of merged objects. Please
+     * upgrade if you are experiencing issues.
+     */
     merge<Incoming extends AnyZodObject, Augmentation extends Incoming["shape"]>(merging: Incoming): ZodObject<objectUtil.extendShape<T, Augmentation>, Incoming["_def"]["unknownKeys"], Incoming["_def"]["catchall"]>;
     setKey<Key extends string, Schema extends ZodTypeAny>(key: Key, schema: Schema): ZodObject<T & {
         [k in Key]: Schema;
     }, UnknownKeys, Catchall>;
     catchall<Index extends ZodTypeAny>(index: Index): ZodObject<T, UnknownKeys, Index>;
-    pick<Mask extends {
+    pick<Mask extends util.Exactly<{
         [k in keyof T]?: true;
-    }>(mask: Mask): ZodObject<Pick<T, Extract<keyof T, keyof Mask>>, UnknownKeys, Catchall>;
-    omit<Mask extends {
+    }, Mask>>(mask: Mask): ZodObject<Pick<T, Extract<keyof T, keyof Mask>>, UnknownKeys, Catchall>;
+    omit<Mask extends util.Exactly<{
         [k in keyof T]?: true;
-    }>(mask: Mask): ZodObject<Omit<T, keyof Mask>, UnknownKeys, Catchall>;
+    }, Mask>>(mask: Mask): ZodObject<Omit<T, keyof Mask>, UnknownKeys, Catchall>;
+    /**
+     * @deprecated
+     */
     deepPartial(): partialUtil.DeepPartial<this>;
     partial(): ZodObject<{
         [k in keyof T]: ZodOptional<T[k]>;
     }, UnknownKeys, Catchall>;
-    partial<Mask extends {
+    partial<Mask extends util.Exactly<{
         [k in keyof T]?: true;
-    }>(mask: Mask): ZodObject<objectUtil.noNever<{
+    }, Mask>>(mask: Mask): ZodObject<objectUtil.noNever<{
         [k in keyof T]: k extends keyof Mask ? ZodOptional<T[k]> : T[k];
     }>, UnknownKeys, Catchall>;
     required(): ZodObject<{
         [k in keyof T]: deoptional<T[k]>;
     }, UnknownKeys, Catchall>;
-    required<Mask extends {
+    required<Mask extends util.Exactly<{
         [k in keyof T]?: true;
-    }>(mask: Mask): ZodObject<objectUtil.noNever<{
+    }, Mask>>(mask: Mask): ZodObject<objectUtil.noNever<{
         [k in keyof T]: k extends keyof Mask ? deoptional<T[k]> : T[k];
     }>, UnknownKeys, Catchall>;
     keyof(): ZodEnum<enumUtil.UnionToTupleString<keyof T>>;
-    static create: <T_1 extends ZodRawShape>(shape: T_1, params?: RawCreateParams) => ZodObject<T_1, "strip", ZodTypeAny, { [k_1 in keyof objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, { [k in keyof baseObjectOutputType<T_1>]: undefined extends baseObjectOutputType<T_1>[k] ? never : k; }[keyof T_1]>]: objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, { [k in keyof baseObjectOutputType<T_1>]: undefined extends baseObjectOutputType<T_1>[k] ? never : k; }[keyof T_1]>[k_1]; }, { [k_2 in keyof baseObjectInputType<T_1>]: baseObjectInputType<T_1>[k_2]; }>;
-    static strictCreate: <T_1 extends ZodRawShape>(shape: T_1, params?: RawCreateParams) => ZodObject<T_1, "strict", ZodTypeAny, { [k_1 in keyof objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, { [k in keyof baseObjectOutputType<T_1>]: undefined extends baseObjectOutputType<T_1>[k] ? never : k; }[keyof T_1]>]: objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, { [k in keyof baseObjectOutputType<T_1>]: undefined extends baseObjectOutputType<T_1>[k] ? never : k; }[keyof T_1]>[k_1]; }, { [k_2 in keyof baseObjectInputType<T_1>]: baseObjectInputType<T_1>[k_2]; }>;
-    static lazycreate: <T_1 extends ZodRawShape>(shape: () => T_1, params?: RawCreateParams) => ZodObject<T_1, "strip", ZodTypeAny, { [k_1 in keyof objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, { [k in keyof baseObjectOutputType<T_1>]: undefined extends baseObjectOutputType<T_1>[k] ? never : k; }[keyof T_1]>]: objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, { [k in keyof baseObjectOutputType<T_1>]: undefined extends baseObjectOutputType<T_1>[k] ? never : k; }[keyof T_1]>[k_1]; }, { [k_2 in keyof baseObjectInputType<T_1>]: baseObjectInputType<T_1>[k_2]; }>;
+    static create: <T_1 extends ZodRawShape>(shape: T_1, params?: RawCreateParams) => ZodObject<T_1, "strip", ZodTypeAny, { [k in keyof objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, any>]: objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, any>[k]; }, { [k_1 in keyof baseObjectInputType<T_1>]: baseObjectInputType<T_1>[k_1]; }>;
+    static strictCreate: <T_1 extends ZodRawShape>(shape: T_1, params?: RawCreateParams) => ZodObject<T_1, "strict", ZodTypeAny, { [k in keyof objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, any>]: objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, any>[k]; }, { [k_1 in keyof baseObjectInputType<T_1>]: baseObjectInputType<T_1>[k_1]; }>;
+    static lazycreate: <T_1 extends ZodRawShape>(shape: () => T_1, params?: RawCreateParams) => ZodObject<T_1, "strip", ZodTypeAny, { [k in keyof objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, any>]: objectUtil.addQuestionMarks<baseObjectOutputType<T_1>, any>[k]; }, { [k_1 in keyof baseObjectInputType<T_1>]: baseObjectInputType<T_1>[k_1]; }>;
 }
 declare type AnyZodObject = ZodObject<any, any, any>;
 declare type ZodUnionOptions = Readonly<[ZodTypeAny, ...ZodTypeAny[]]>;
@@ -723,11 +797,11 @@ declare class ZodIntersection<T extends ZodTypeAny, U extends ZodTypeAny> extend
 declare type ZodTupleItems = [ZodTypeAny, ...ZodTypeAny[]];
 declare type AssertArray<T> = T extends any[] ? T : never;
 declare type OutputTypeOfTuple<T extends ZodTupleItems | []> = AssertArray<{
-    [k in keyof T]: T[k] extends ZodType<any, any> ? T[k]["_output"] : never;
+    [k in keyof T]: T[k] extends ZodType<any, any, any> ? T[k]["_output"] : never;
 }>;
 declare type OutputTypeOfTupleWithRest<T extends ZodTupleItems | [], Rest extends ZodTypeAny | null = null> = Rest extends ZodTypeAny ? [...OutputTypeOfTuple<T>, ...Rest["_output"][]] : OutputTypeOfTuple<T>;
 declare type InputTypeOfTuple<T extends ZodTupleItems | []> = AssertArray<{
-    [k in keyof T]: T[k] extends ZodType<any, any> ? T[k]["_input"] : never;
+    [k in keyof T]: T[k] extends ZodType<any, any, any> ? T[k]["_input"] : never;
 }>;
 declare type InputTypeOfTupleWithRest<T extends ZodTupleItems | [], Rest extends ZodTypeAny | null = null> = Rest extends ZodTypeAny ? [...InputTypeOfTuple<T>, ...Rest["_input"][]] : InputTypeOfTuple<T>;
 interface ZodTupleDef<T extends ZodTupleItems | [] = ZodTupleItems, Rest extends ZodTypeAny | null = null> extends ZodTypeDef {
@@ -758,7 +832,7 @@ declare class ZodRecord<Key extends KeySchema = ZodString, Value extends ZodType
     static create<Value extends ZodTypeAny>(valueType: Value, params?: RawCreateParams): ZodRecord<ZodString, Value>;
     static create<Keys extends KeySchema, Value extends ZodTypeAny>(keySchema: Keys, valueType: Value, params?: RawCreateParams): ZodRecord<Keys, Value>;
 }
-declare type EnumValues = [string, ...string[]];
+declare type EnumValues<T extends string = string> = readonly [T, ...T[]];
 declare type Values<T extends EnumValues> = {
     [k in T[number]]: k;
 };
@@ -773,14 +847,15 @@ declare type FilterEnum<Values, ToExclude> = Values extends [] ? [] : Values ext
 declare type typecast<A, T> = A extends T ? A : never;
 declare function createZodEnum<U extends string, T extends Readonly<[U, ...U[]]>>(values: T, params?: RawCreateParams): ZodEnum<Writeable<T>>;
 declare function createZodEnum<U extends string, T extends [U, ...U[]]>(values: T, params?: RawCreateParams): ZodEnum<T>;
-declare class ZodEnum<T extends [string, ...string[]]> extends ZodType<T[number], ZodEnumDef<T>> {
+declare class ZodEnum<T extends [string, ...string[]]> extends ZodType<T[number], ZodEnumDef<T>, T[number]> {
+    #private;
     _parse(input: ParseInput): ParseReturnType<this["_output"]>;
     get options(): T;
     get enum(): Values<T>;
     get Values(): Values<T>;
     get Enum(): Values<T>;
-    extract<ToExtract extends readonly [T[number], ...T[number][]]>(values: ToExtract): ZodEnum<Writeable<ToExtract>>;
-    exclude<ToExclude extends readonly [T[number], ...T[number][]]>(values: ToExclude): ZodEnum<typecast<Writeable<FilterEnum<T, ToExclude[number]>>, [string, ...string[]]>>;
+    extract<ToExtract extends readonly [T[number], ...T[number][]]>(values: ToExtract, newDef?: RawCreateParams): ZodEnum<Writeable<ToExtract>>;
+    exclude<ToExclude extends readonly [T[number], ...T[number][]]>(values: ToExclude, newDef?: RawCreateParams): ZodEnum<typecast<Writeable<FilterEnum<T, ToExclude[number]>>, [string, ...string[]]>>;
     static create: typeof createZodEnum;
 }
 interface ZodPromiseDef<T extends ZodTypeAny = ZodTypeAny> extends ZodTypeDef {
@@ -802,7 +877,7 @@ declare type TransformEffect<T> = {
 };
 declare type PreprocessEffect<T> = {
     type: "preprocess";
-    transform: (arg: T) => any;
+    transform: (arg: T, ctx: RefinementCtx) => any;
 };
 declare type Effect<T> = RefinementEffect<T> | TransformEffect<T> | PreprocessEffect<T>;
 interface ZodEffectsDef<T extends ZodTypeAny = ZodTypeAny> extends ZodTypeDef {
@@ -815,7 +890,7 @@ declare class ZodEffects<T extends ZodTypeAny, Output = output<T>, Input = input
     sourceType(): T;
     _parse(input: ParseInput): ParseReturnType<this["_output"]>;
     static create: <I extends ZodTypeAny>(schema: I, effect: Effect<I["_output"]>, params?: RawCreateParams) => ZodEffects<I, I["_output"], input<I>>;
-    static createWithPreprocess: <I extends ZodTypeAny>(preprocess: (arg: unknown) => unknown, schema: I, params?: RawCreateParams) => ZodEffects<I, I["_output"], unknown>;
+    static createWithPreprocess: <I extends ZodTypeAny>(preprocess: (arg: unknown, ctx: RefinementCtx) => unknown, schema: I, params?: RawCreateParams) => ZodEffects<I, I["_output"], unknown>;
 }
 
 interface ZodOptionalDef<T extends ZodTypeAny = ZodTypeAny> extends ZodTypeDef {
@@ -848,6 +923,7 @@ declare class ZodDefault<T extends ZodTypeAny> extends ZodType<util.noUndefined<
         errorMap?: ZodErrorMap | undefined;
         invalid_type_error?: string | undefined;
         required_error?: string | undefined;
+        message?: string | undefined;
         description?: string | undefined;
     } & {
         default: T_1["_input"] | (() => util.noUndefined<T_1["_input"]>);
@@ -868,6 +944,7 @@ declare class ZodCatch<T extends ZodTypeAny> extends ZodType<T["_output"], ZodCa
         errorMap?: ZodErrorMap | undefined;
         invalid_type_error?: string | undefined;
         required_error?: string | undefined;
+        message?: string | undefined;
         description?: string | undefined;
     } & {
         catch: T_1["_output"] | (() => T_1["_output"]);
@@ -895,6 +972,19 @@ interface ZodPipelineDef<A extends ZodTypeAny, B extends ZodTypeAny> extends Zod
 declare class ZodPipeline<A extends ZodTypeAny, B extends ZodTypeAny> extends ZodType<B["_output"], ZodPipelineDef<A, B>, A["_input"]> {
     _parse(input: ParseInput): ParseReturnType<any>;
     static create<A extends ZodTypeAny, B extends ZodTypeAny>(a: A, b: B): ZodPipeline<A, B>;
+}
+declare type BuiltIn = (((...args: any[]) => any) | (new (...args: any[]) => any)) | {
+    readonly [Symbol.toStringTag]: string;
+} | Date | Error | Generator | Promise<unknown> | RegExp;
+declare type MakeReadonly<T> = T extends Map<infer K, infer V> ? ReadonlyMap<K, V> : T extends Set<infer V> ? ReadonlySet<V> : T extends [infer Head, ...infer Tail] ? readonly [Head, ...Tail] : T extends Array<infer V> ? ReadonlyArray<V> : T extends BuiltIn ? T : Readonly<T>;
+interface ZodReadonlyDef<T extends ZodTypeAny = ZodTypeAny> extends ZodTypeDef {
+    innerType: T;
+    typeName: ZodFirstPartyTypeKind.ZodReadonly;
+}
+declare class ZodReadonly<T extends ZodTypeAny> extends ZodType<MakeReadonly<T["_output"]>, ZodReadonlyDef<T>, MakeReadonly<T["_input"]>> {
+    _parse(input: ParseInput): ParseReturnType<this["_output"]>;
+    static create: <T_1 extends ZodTypeAny>(type: T_1, params?: RawCreateParams) => ZodReadonly<T_1>;
+    unwrap(): T;
 }
 declare enum ZodFirstPartyTypeKind {
     ZodString = "ZodString",
@@ -931,7 +1021,8 @@ declare enum ZodFirstPartyTypeKind {
     ZodCatch = "ZodCatch",
     ZodPromise = "ZodPromise",
     ZodBranded = "ZodBranded",
-    ZodPipeline = "ZodPipeline"
+    ZodPipeline = "ZodPipeline",
+    ZodReadonly = "ZodReadonly"
 }
 
 declare const InstructionSchema: ZodEnum<["look_left", "look_right", "open_mouth", "see_straight"]>;
@@ -958,13 +1049,13 @@ declare const ProxyMiddlewareSchema: ZodObject<{
         url: ZodString;
     }, "strip", ZodTypeAny, {
         url: string;
-        headers?: Record<string, any> | undefined;
         params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
         metaparameter?: Record<string, any> | undefined;
     }, {
         url: string;
-        headers?: Record<string, any> | undefined;
         params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
         metaparameter?: Record<string, any> | undefined;
     }>;
     PassiveLiveness: ZodObject<{
@@ -974,41 +1065,69 @@ declare const ProxyMiddlewareSchema: ZodObject<{
         url: ZodString;
     }, "strip", ZodTypeAny, {
         url: string;
-        headers?: Record<string, any> | undefined;
         params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
         metaparameter?: Record<string, any> | undefined;
     }, {
         url: string;
-        headers?: Record<string, any> | undefined;
         params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
         metaparameter?: Record<string, any> | undefined;
     }>;
+    GenerateKey: ZodOptional<ZodObject<{
+        headers: ZodOptional<ZodRecord<ZodString, ZodAny>>;
+        params: ZodOptional<ZodRecord<ZodString, ZodAny>>;
+        metaparameter: ZodOptional<ZodRecord<ZodString, ZodAny>>;
+        url: ZodString;
+    }, "strip", ZodTypeAny, {
+        url: string;
+        params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
+        metaparameter?: Record<string, any> | undefined;
+    }, {
+        url: string;
+        params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
+        metaparameter?: Record<string, any> | undefined;
+    }>>;
 }, "strip", ZodTypeAny, {
     License: {
         url: string;
-        headers?: Record<string, any> | undefined;
         params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
         metaparameter?: Record<string, any> | undefined;
     };
     PassiveLiveness: {
         url: string;
-        headers?: Record<string, any> | undefined;
         params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
         metaparameter?: Record<string, any> | undefined;
     };
+    GenerateKey?: {
+        url: string;
+        params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
+        metaparameter?: Record<string, any> | undefined;
+    } | undefined;
 }, {
     License: {
         url: string;
-        headers?: Record<string, any> | undefined;
         params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
         metaparameter?: Record<string, any> | undefined;
     };
     PassiveLiveness: {
         url: string;
-        headers?: Record<string, any> | undefined;
         params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
         metaparameter?: Record<string, any> | undefined;
     };
+    GenerateKey?: {
+        url: string;
+        params?: Record<string, any> | undefined;
+        headers?: Record<string, any> | undefined;
+        metaparameter?: Record<string, any> | undefined;
+    } | undefined;
 }>;
 declare const CredentialSchema: ZodObject<{
     clientId: ZodString;
@@ -1302,16 +1421,16 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                         backgroundColor?: string | undefined;
                     }>>;
                 }, "strip", ZodTypeAny, {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 }, {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
@@ -1328,59 +1447,56 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                         backgroundColor?: string | undefined;
                     }>>;
                 }, "strip", ZodTypeAny, {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 }, {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 }>>;
             }, "strip", ZodTypeAny, {
                 start?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
                 next?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
             }, {
                 start?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
                 next?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
             }>>;
         }, "strip", ZodTypeAny, {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
@@ -1389,32 +1505,32 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 color?: string | undefined;
                 fontSize?: string | undefined;
             } | undefined;
-            figcaption?: {
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
             action?: {
                 start?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
                 next?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
+            } | undefined;
+            figcaption?: {
+                color?: string | undefined;
+                fontSize?: string | undefined;
             } | undefined;
         }, {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
@@ -1423,27 +1539,30 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 color?: string | undefined;
                 fontSize?: string | undefined;
             } | undefined;
-            figcaption?: {
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
             action?: {
                 start?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
                 next?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
+            } | undefined;
+            figcaption?: {
+                color?: string | undefined;
+                fontSize?: string | undefined;
             } | undefined;
         }>>;
         Verification: ZodOptional<ZodObject<{
@@ -1521,12 +1640,17 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 fontSize?: string | undefined;
             }>>;
         }, "strip", ZodTypeAny, {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            instruction?: {
+                backgroundColor?: string | undefined;
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
             } | undefined;
             camera?: {
                 initial?: {
@@ -1538,19 +1662,19 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 detected?: {
                     borderColor?: string | undefined;
                 } | undefined;
-            } | undefined;
-            instruction?: {
-                backgroundColor?: string | undefined;
-                color?: string | undefined;
-                fontSize?: string | undefined;
             } | undefined;
         }, {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            instruction?: {
+                backgroundColor?: string | undefined;
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
             } | undefined;
             camera?: {
                 initial?: {
@@ -1562,11 +1686,6 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 detected?: {
                     borderColor?: string | undefined;
                 } | undefined;
-            } | undefined;
-            instruction?: {
-                backgroundColor?: string | undefined;
-                color?: string | undefined;
-                fontSize?: string | undefined;
             } | undefined;
         }>>;
         Result: ZodOptional<ZodObject<{
@@ -1588,27 +1707,51 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 fontSize?: string | undefined;
             }>>;
         }, "strip", ZodTypeAny, {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             description?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
             } | undefined;
         }, {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             description?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
+            } | undefined;
+        }>>;
+        Shared: ZodOptional<ZodObject<{
+            background: ZodOptional<ZodObject<{
+                backgroundColor: ZodOptional<ZodString>;
+                backgroundImage: ZodOptional<ZodString>;
+                backgroundSize: ZodOptional<ZodString>;
+            }, "strip", ZodTypeAny, {
+                backgroundColor?: string | undefined;
+                backgroundImage?: string | undefined;
+                backgroundSize?: string | undefined;
+            }, {
+                backgroundColor?: string | undefined;
+                backgroundImage?: string | undefined;
+                backgroundSize?: string | undefined;
+            }>>;
+        }, "strip", ZodTypeAny, {
+            background?: {
+                backgroundColor?: string | undefined;
+                backgroundImage?: string | undefined;
+                backgroundSize?: string | undefined;
+            } | undefined;
+        }, {
+            background?: {
+                backgroundColor?: string | undefined;
+                backgroundImage?: string | undefined;
+                backgroundSize?: string | undefined;
             } | undefined;
         }>>;
     }, "strip", ZodTypeAny, {
         Instruction?: {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
@@ -1617,36 +1760,44 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 color?: string | undefined;
                 fontSize?: string | undefined;
             } | undefined;
-            figcaption?: {
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
             action?: {
                 start?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
                 next?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
             } | undefined;
-        } | undefined;
-        Verification?: {
             frameContainer?: {
                 backgroundColor?: string | undefined;
             } | undefined;
+            figcaption?: {
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+        } | undefined;
+        Verification?: {
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            instruction?: {
+                backgroundColor?: string | undefined;
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
             } | undefined;
             camera?: {
                 initial?: {
@@ -1659,26 +1810,25 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                     borderColor?: string | undefined;
                 } | undefined;
             } | undefined;
-            instruction?: {
-                backgroundColor?: string | undefined;
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
         } | undefined;
         Result?: {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             description?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
+            } | undefined;
+        } | undefined;
+        Shared?: {
+            background?: {
+                backgroundColor?: string | undefined;
+                backgroundImage?: string | undefined;
+                backgroundSize?: string | undefined;
             } | undefined;
         } | undefined;
     }, {
         Instruction?: {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
@@ -1687,36 +1837,44 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 color?: string | undefined;
                 fontSize?: string | undefined;
             } | undefined;
-            figcaption?: {
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
             action?: {
                 start?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
                 next?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
             } | undefined;
-        } | undefined;
-        Verification?: {
             frameContainer?: {
                 backgroundColor?: string | undefined;
             } | undefined;
+            figcaption?: {
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+        } | undefined;
+        Verification?: {
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            instruction?: {
+                backgroundColor?: string | undefined;
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
             } | undefined;
             camera?: {
                 initial?: {
@@ -1729,19 +1887,21 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                     borderColor?: string | undefined;
                 } | undefined;
             } | undefined;
-            instruction?: {
-                backgroundColor?: string | undefined;
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
         } | undefined;
         Result?: {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             description?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
+            } | undefined;
+        } | undefined;
+        Shared?: {
+            background?: {
+                backgroundColor?: string | undefined;
+                backgroundImage?: string | undefined;
+                backgroundSize?: string | undefined;
             } | undefined;
         } | undefined;
     }>>;
@@ -1814,39 +1974,36 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
             button: ZodOptional<ZodString>;
         }, "strip", ZodTypeAny, {
             title?: string | undefined;
-            body?: string | undefined;
             caption?: string | undefined;
+            body?: string | undefined;
             button?: string | undefined;
         }, {
             title?: string | undefined;
-            body?: string | undefined;
             caption?: string | undefined;
+            body?: string | undefined;
             button?: string | undefined;
         }>>;
     }, "strip", ZodTypeAny, {
-        fontFamily?: string[] | undefined;
         fontSize?: {
             title?: string | undefined;
-            body?: string | undefined;
             caption?: string | undefined;
+            body?: string | undefined;
             button?: string | undefined;
         } | undefined;
+        fontFamily?: string[] | undefined;
     }, {
-        fontFamily?: string[] | undefined;
         fontSize?: {
             title?: string | undefined;
-            body?: string | undefined;
             caption?: string | undefined;
+            body?: string | undefined;
             button?: string | undefined;
         } | undefined;
+        fontFamily?: string[] | undefined;
     }>>;
     VendorPlaceholder: ZodOptional<ZodBoolean>;
 }, "strip", ZodTypeAny, {
     Component?: {
         Instruction?: {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
@@ -1855,36 +2012,44 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 color?: string | undefined;
                 fontSize?: string | undefined;
             } | undefined;
-            figcaption?: {
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
             action?: {
                 start?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
                 next?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
             } | undefined;
-        } | undefined;
-        Verification?: {
             frameContainer?: {
                 backgroundColor?: string | undefined;
             } | undefined;
+            figcaption?: {
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+        } | undefined;
+        Verification?: {
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            instruction?: {
+                backgroundColor?: string | undefined;
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
             } | undefined;
             camera?: {
                 initial?: {
@@ -1897,19 +2062,21 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                     borderColor?: string | undefined;
                 } | undefined;
             } | undefined;
-            instruction?: {
-                backgroundColor?: string | undefined;
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
         } | undefined;
         Result?: {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             description?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
+            } | undefined;
+        } | undefined;
+        Shared?: {
+            background?: {
+                backgroundColor?: string | undefined;
+                backgroundImage?: string | undefined;
+                backgroundSize?: string | undefined;
             } | undefined;
         } | undefined;
     } | undefined;
@@ -1928,21 +2095,18 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
         } | undefined;
     } | undefined;
     Typography?: {
-        fontFamily?: string[] | undefined;
         fontSize?: {
             title?: string | undefined;
-            body?: string | undefined;
             caption?: string | undefined;
+            body?: string | undefined;
             button?: string | undefined;
         } | undefined;
+        fontFamily?: string[] | undefined;
     } | undefined;
     VendorPlaceholder?: boolean | undefined;
 }, {
     Component?: {
         Instruction?: {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
@@ -1951,36 +2115,44 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                 color?: string | undefined;
                 fontSize?: string | undefined;
             } | undefined;
-            figcaption?: {
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
             action?: {
                 start?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
                 next?: {
+                    backgroundColor?: string | undefined;
                     color?: string | undefined;
                     fontSize?: string | undefined;
-                    backgroundColor?: string | undefined;
                     hover?: {
                         backgroundColor?: string | undefined;
                     } | undefined;
                 } | undefined;
             } | undefined;
-        } | undefined;
-        Verification?: {
             frameContainer?: {
                 backgroundColor?: string | undefined;
             } | undefined;
+            figcaption?: {
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+        } | undefined;
+        Verification?: {
             title?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            instruction?: {
+                backgroundColor?: string | undefined;
+                color?: string | undefined;
+                fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
             } | undefined;
             camera?: {
                 initial?: {
@@ -1993,19 +2165,21 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
                     borderColor?: string | undefined;
                 } | undefined;
             } | undefined;
-            instruction?: {
-                backgroundColor?: string | undefined;
-                color?: string | undefined;
-                fontSize?: string | undefined;
-            } | undefined;
         } | undefined;
         Result?: {
-            frameContainer?: {
-                backgroundColor?: string | undefined;
-            } | undefined;
             description?: {
                 color?: string | undefined;
                 fontSize?: string | undefined;
+            } | undefined;
+            frameContainer?: {
+                backgroundColor?: string | undefined;
+            } | undefined;
+        } | undefined;
+        Shared?: {
+            background?: {
+                backgroundColor?: string | undefined;
+                backgroundImage?: string | undefined;
+                backgroundSize?: string | undefined;
             } | undefined;
         } | undefined;
     } | undefined;
@@ -2024,13 +2198,13 @@ declare const PartialLivenessThemeConfigurationSchema: ZodObject<{
         } | undefined;
     } | undefined;
     Typography?: {
-        fontFamily?: string[] | undefined;
         fontSize?: {
             title?: string | undefined;
-            body?: string | undefined;
             caption?: string | undefined;
+            body?: string | undefined;
             button?: string | undefined;
         } | undefined;
+        fontFamily?: string[] | undefined;
     } | undefined;
     VendorPlaceholder?: boolean | undefined;
 }>;
@@ -2065,8 +2239,25 @@ declare const InstructionOptionsSchema: ZodObject<{
     isUseSound: boolean;
     speaker: Partial<Record<"look_left" | "look_right" | "open_mouth" | "see_straight", string>>;
 }>;
-declare const BuilderConfigSchema: ZodObject<{
-    url: ZodString;
+declare const BuilderConfigSchema: ZodObject<objectUtil.extendShape<{
+    credential: ZodObject<{
+        clientId: ZodString;
+        secret: ZodString;
+    }, "strip", ZodTypeAny, {
+        clientId: string;
+        secret: string;
+    }, {
+        clientId: string;
+        secret: string;
+    }>;
+    camera: ZodObject<{
+        virtualLabel: ZodOptional<ZodNullable<ZodArray<ZodString, "many">>>;
+    }, "strip", ZodTypeAny, {
+        virtualLabel?: string[] | null | undefined;
+    }, {
+        virtualLabel?: string[] | null | undefined;
+    }>;
+    disruptDuration: ZodNumber;
     instruction: ZodObject<{
         commands: ZodArray<ZodEnum<["look_left", "look_right", "open_mouth", "see_straight"]>, "many">;
         seeds: ZodArray<ZodEnum<["look_left", "look_right", "open_mouth", "see_straight"]>, "many">;
@@ -2098,24 +2289,6 @@ declare const BuilderConfigSchema: ZodObject<{
         isUseSound: boolean;
         speaker: Partial<Record<"look_left" | "look_right" | "open_mouth" | "see_straight", string>>;
     }>;
-    camera: ZodObject<{
-        virtualLabel: ZodArray<ZodString, "many">;
-    }, "strip", ZodTypeAny, {
-        virtualLabel: string[];
-    }, {
-        virtualLabel: string[];
-    }>;
-    credential: ZodObject<{
-        clientId: ZodString;
-        secret: ZodString;
-    }, "strip", ZodTypeAny, {
-        clientId: string;
-        secret: string;
-    }, {
-        clientId: string;
-        secret: string;
-    }>;
-    disruptDuration: ZodNumber;
     metadata: ZodObject<{
         CompressionAlgorithm: ZodObject<{
             dimension: ZodTuple<[ZodNumber, ZodNumber], null>;
@@ -2160,13 +2333,13 @@ declare const BuilderConfigSchema: ZodObject<{
             url: ZodString;
         }, "strip", ZodTypeAny, {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         }, {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         }>;
         PassiveLiveness: ZodObject<{
@@ -2176,44 +2349,1143 @@ declare const BuilderConfigSchema: ZodObject<{
             url: ZodString;
         }, "strip", ZodTypeAny, {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         }, {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         }>;
+        GenerateKey: ZodOptional<ZodObject<{
+            headers: ZodOptional<ZodRecord<ZodString, ZodAny>>;
+            params: ZodOptional<ZodRecord<ZodString, ZodAny>>;
+            metaparameter: ZodOptional<ZodRecord<ZodString, ZodAny>>;
+            url: ZodString;
+        }, "strip", ZodTypeAny, {
+            url: string;
+            params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
+            metaparameter?: Record<string, any> | undefined;
+        }, {
+            url: string;
+            params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
+            metaparameter?: Record<string, any> | undefined;
+        }>>;
     }, "strip", ZodTypeAny, {
         License: {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         };
         PassiveLiveness: {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         };
+        GenerateKey?: {
+            url: string;
+            params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
+            metaparameter?: Record<string, any> | undefined;
+        } | undefined;
     }, {
         License: {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         };
         PassiveLiveness: {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         };
+        GenerateKey?: {
+            url: string;
+            params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
+            metaparameter?: Record<string, any> | undefined;
+        } | undefined;
     }>;
     timeout: ZodNumber;
+    content: ZodObject<{
+        Instruction: ZodObject<{
+            title: ZodString;
+            subtitle: ZodString;
+            instructions: ZodArray<ZodObject<{
+                caption: ZodString;
+                image: ZodString;
+            }, "strip", ZodTypeAny, {
+                caption: string;
+                image: string;
+            }, {
+                caption: string;
+                image: string;
+            }>, "many">;
+            action: ZodObject<{
+                backIcon: ZodString;
+                start: ZodString;
+                next: ZodString;
+            }, "strip", ZodTypeAny, {
+                backIcon: string;
+                start: string;
+                next: string;
+            }, {
+                backIcon: string;
+                start: string;
+                next: string;
+            }>;
+        }, "strip", ZodTypeAny, {
+            title: string;
+            subtitle: string;
+            instructions: {
+                caption: string;
+                image: string;
+            }[];
+            action: {
+                backIcon: string;
+                start: string;
+                next: string;
+            };
+        }, {
+            title: string;
+            subtitle: string;
+            instructions: {
+                caption: string;
+                image: string;
+            }[];
+            action: {
+                backIcon: string;
+                start: string;
+                next: string;
+            };
+        }>;
+        Verification: ZodObject<{
+            title: ZodString;
+            action: ZodObject<{
+                backIcon: ZodString;
+            }, "strip", ZodTypeAny, {
+                backIcon: string;
+            }, {
+                backIcon: string;
+            }>;
+            instruction: ZodObject<{
+                loading: ZodObject<{
+                    caption: ZodString;
+                    image: ZodString;
+                    sound: ZodString;
+                }, "strip", ZodTypeAny, {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                }, {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                }>;
+                processing: ZodObject<{
+                    caption: ZodString;
+                    image: ZodString;
+                    sound: ZodString;
+                }, "strip", ZodTypeAny, {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                }, {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                }>;
+            }, "strip", ZodTypeAny, {
+                loading: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+                processing: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+            }, {
+                loading: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+                processing: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+            }>;
+        }, "strip", ZodTypeAny, {
+            title: string;
+            action: {
+                backIcon: string;
+            };
+            instruction: {
+                loading: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+                processing: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+            };
+        }, {
+            title: string;
+            action: {
+                backIcon: string;
+            };
+            instruction: {
+                loading: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+                processing: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+            };
+        }>;
+        Result: ZodObject<{
+            icon: ZodString;
+            description: ZodString;
+        }, "strip", ZodTypeAny, {
+            icon: string;
+            description: string;
+        }, {
+            icon: string;
+            description: string;
+        }>;
+    }, "strip", ZodTypeAny, {
+        Instruction: {
+            title: string;
+            subtitle: string;
+            instructions: {
+                caption: string;
+                image: string;
+            }[];
+            action: {
+                backIcon: string;
+                start: string;
+                next: string;
+            };
+        };
+        Verification: {
+            title: string;
+            action: {
+                backIcon: string;
+            };
+            instruction: {
+                loading: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+                processing: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+            };
+        };
+        Result: {
+            icon: string;
+            description: string;
+        };
+    }, {
+        Instruction: {
+            title: string;
+            subtitle: string;
+            instructions: {
+                caption: string;
+                image: string;
+            }[];
+            action: {
+                backIcon: string;
+                start: string;
+                next: string;
+            };
+        };
+        Verification: {
+            title: string;
+            action: {
+                backIcon: string;
+            };
+            instruction: {
+                loading: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+                processing: {
+                    caption: string;
+                    image: string;
+                    sound: string;
+                };
+            };
+        };
+        Result: {
+            icon: string;
+            description: string;
+        };
+    }>;
+    theme: ZodObject<{
+        Component: ZodObject<{
+            Instruction: ZodObject<{
+                frameContainer: ZodObject<{
+                    backgroundColor: ZodString;
+                }, "strip", ZodTypeAny, {
+                    backgroundColor: string;
+                }, {
+                    backgroundColor: string;
+                }>;
+                title: ZodObject<{
+                    color: ZodString;
+                    fontSize: ZodString;
+                }, "strip", ZodTypeAny, {
+                    color: string;
+                    fontSize: string;
+                }, {
+                    color: string;
+                    fontSize: string;
+                }>;
+                subtitle: ZodObject<{
+                    color: ZodString;
+                    fontSize: ZodString;
+                }, "strip", ZodTypeAny, {
+                    color: string;
+                    fontSize: string;
+                }, {
+                    color: string;
+                    fontSize: string;
+                }>;
+                figcaption: ZodObject<{
+                    color: ZodString;
+                    fontSize: ZodString;
+                }, "strip", ZodTypeAny, {
+                    color: string;
+                    fontSize: string;
+                }, {
+                    color: string;
+                    fontSize: string;
+                }>;
+                action: ZodObject<{
+                    start: ZodObject<{
+                        color: ZodString;
+                        fontSize: ZodString;
+                        backgroundColor: ZodString;
+                        hover: ZodObject<{
+                            backgroundColor: ZodString;
+                        }, "strip", ZodTypeAny, {
+                            backgroundColor: string;
+                        }, {
+                            backgroundColor: string;
+                        }>;
+                    }, "strip", ZodTypeAny, {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    }, {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    }>;
+                    next: ZodObject<{
+                        color: ZodString;
+                        fontSize: ZodString;
+                        backgroundColor: ZodString;
+                        hover: ZodObject<{
+                            backgroundColor: ZodString;
+                        }, "strip", ZodTypeAny, {
+                            backgroundColor: string;
+                        }, {
+                            backgroundColor: string;
+                        }>;
+                    }, "strip", ZodTypeAny, {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    }, {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    }>;
+                }, "strip", ZodTypeAny, {
+                    start: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                    next: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                }, {
+                    start: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                    next: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                }>;
+            }, "strip", ZodTypeAny, {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                subtitle: {
+                    color: string;
+                    fontSize: string;
+                };
+                action: {
+                    start: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                    next: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                figcaption: {
+                    color: string;
+                    fontSize: string;
+                };
+            }, {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                subtitle: {
+                    color: string;
+                    fontSize: string;
+                };
+                action: {
+                    start: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                    next: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                figcaption: {
+                    color: string;
+                    fontSize: string;
+                };
+            }>;
+            Verification: ZodObject<{
+                frameContainer: ZodObject<{
+                    backgroundColor: ZodString;
+                }, "strip", ZodTypeAny, {
+                    backgroundColor: string;
+                }, {
+                    backgroundColor: string;
+                }>;
+                title: ZodObject<{
+                    color: ZodString;
+                    fontSize: ZodString;
+                }, "strip", ZodTypeAny, {
+                    color: string;
+                    fontSize: string;
+                }, {
+                    color: string;
+                    fontSize: string;
+                }>;
+                camera: ZodObject<{
+                    initial: ZodObject<{
+                        borderColor: ZodString;
+                    }, "strip", ZodTypeAny, {
+                        borderColor: string;
+                    }, {
+                        borderColor: string;
+                    }>;
+                    undetected: ZodObject<{
+                        borderColor: ZodString;
+                    }, "strip", ZodTypeAny, {
+                        borderColor: string;
+                    }, {
+                        borderColor: string;
+                    }>;
+                    detected: ZodObject<{
+                        borderColor: ZodString;
+                    }, "strip", ZodTypeAny, {
+                        borderColor: string;
+                    }, {
+                        borderColor: string;
+                    }>;
+                }, "strip", ZodTypeAny, {
+                    initial: {
+                        borderColor: string;
+                    };
+                    undetected: {
+                        borderColor: string;
+                    };
+                    detected: {
+                        borderColor: string;
+                    };
+                }, {
+                    initial: {
+                        borderColor: string;
+                    };
+                    undetected: {
+                        borderColor: string;
+                    };
+                    detected: {
+                        borderColor: string;
+                    };
+                }>;
+                instruction: ZodObject<{
+                    backgroundColor: ZodString;
+                    color: ZodString;
+                    fontSize: ZodString;
+                }, "strip", ZodTypeAny, {
+                    backgroundColor: string;
+                    color: string;
+                    fontSize: string;
+                }, {
+                    backgroundColor: string;
+                    color: string;
+                    fontSize: string;
+                }>;
+            }, "strip", ZodTypeAny, {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                instruction: {
+                    backgroundColor: string;
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                camera: {
+                    initial: {
+                        borderColor: string;
+                    };
+                    undetected: {
+                        borderColor: string;
+                    };
+                    detected: {
+                        borderColor: string;
+                    };
+                };
+            }, {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                instruction: {
+                    backgroundColor: string;
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                camera: {
+                    initial: {
+                        borderColor: string;
+                    };
+                    undetected: {
+                        borderColor: string;
+                    };
+                    detected: {
+                        borderColor: string;
+                    };
+                };
+            }>;
+            Result: ZodObject<{
+                frameContainer: ZodObject<{
+                    backgroundColor: ZodString;
+                }, "strip", ZodTypeAny, {
+                    backgroundColor: string;
+                }, {
+                    backgroundColor: string;
+                }>;
+                description: ZodObject<{
+                    color: ZodString;
+                    fontSize: ZodString;
+                }, "strip", ZodTypeAny, {
+                    color: string;
+                    fontSize: string;
+                }, {
+                    color: string;
+                    fontSize: string;
+                }>;
+            }, "strip", ZodTypeAny, {
+                description: {
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+            }, {
+                description: {
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+            }>;
+            Shared: ZodObject<{
+                background: ZodObject<{
+                    backgroundColor: ZodString;
+                    backgroundImage: ZodString;
+                    backgroundSize: ZodString;
+                }, "strip", ZodTypeAny, {
+                    backgroundColor: string;
+                    backgroundImage: string;
+                    backgroundSize: string;
+                }, {
+                    backgroundColor: string;
+                    backgroundImage: string;
+                    backgroundSize: string;
+                }>;
+            }, "strip", ZodTypeAny, {
+                background: {
+                    backgroundColor: string;
+                    backgroundImage: string;
+                    backgroundSize: string;
+                };
+            }, {
+                background: {
+                    backgroundColor: string;
+                    backgroundImage: string;
+                    backgroundSize: string;
+                };
+            }>;
+        }, "strip", ZodTypeAny, {
+            Instruction: {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                subtitle: {
+                    color: string;
+                    fontSize: string;
+                };
+                action: {
+                    start: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                    next: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                figcaption: {
+                    color: string;
+                    fontSize: string;
+                };
+            };
+            Verification: {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                instruction: {
+                    backgroundColor: string;
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                camera: {
+                    initial: {
+                        borderColor: string;
+                    };
+                    undetected: {
+                        borderColor: string;
+                    };
+                    detected: {
+                        borderColor: string;
+                    };
+                };
+            };
+            Result: {
+                description: {
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+            };
+            Shared: {
+                background: {
+                    backgroundColor: string;
+                    backgroundImage: string;
+                    backgroundSize: string;
+                };
+            };
+        }, {
+            Instruction: {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                subtitle: {
+                    color: string;
+                    fontSize: string;
+                };
+                action: {
+                    start: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                    next: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                figcaption: {
+                    color: string;
+                    fontSize: string;
+                };
+            };
+            Verification: {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                instruction: {
+                    backgroundColor: string;
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                camera: {
+                    initial: {
+                        borderColor: string;
+                    };
+                    undetected: {
+                        borderColor: string;
+                    };
+                    detected: {
+                        borderColor: string;
+                    };
+                };
+            };
+            Result: {
+                description: {
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+            };
+            Shared: {
+                background: {
+                    backgroundColor: string;
+                    backgroundImage: string;
+                    backgroundSize: string;
+                };
+            };
+        }>;
+        Palette: ZodObject<{
+            primary: ZodObject<{
+                contrastText: ZodString;
+                default: ZodString;
+                LIGHT: ZodString;
+                DARK: ZodString;
+            }, "strip", ZodTypeAny, {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            }, {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            }>;
+            secondary: ZodObject<{
+                contrastText: ZodString;
+                default: ZodString;
+                LIGHT: ZodString;
+                DARK: ZodString;
+            }, "strip", ZodTypeAny, {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            }, {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            }>;
+        }, "strip", ZodTypeAny, {
+            primary: {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            };
+            secondary: {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            };
+        }, {
+            primary: {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            };
+            secondary: {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            };
+        }>;
+        Typography: ZodObject<{
+            fontFamily: ZodArray<ZodString, "many">;
+            fontSize: ZodObject<{
+                title: ZodString;
+                body: ZodString;
+                caption: ZodString;
+                button: ZodString;
+            }, "strip", ZodTypeAny, {
+                title: string;
+                caption: string;
+                body: string;
+                button: string;
+            }, {
+                title: string;
+                caption: string;
+                body: string;
+                button: string;
+            }>;
+        }, "strip", ZodTypeAny, {
+            fontSize: {
+                title: string;
+                caption: string;
+                body: string;
+                button: string;
+            };
+            fontFamily: string[];
+        }, {
+            fontSize: {
+                title: string;
+                caption: string;
+                body: string;
+                button: string;
+            };
+            fontFamily: string[];
+        }>;
+        VendorPlaceholder: ZodBoolean;
+    }, "strip", ZodTypeAny, {
+        Component: {
+            Instruction: {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                subtitle: {
+                    color: string;
+                    fontSize: string;
+                };
+                action: {
+                    start: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                    next: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                figcaption: {
+                    color: string;
+                    fontSize: string;
+                };
+            };
+            Verification: {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                instruction: {
+                    backgroundColor: string;
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                camera: {
+                    initial: {
+                        borderColor: string;
+                    };
+                    undetected: {
+                        borderColor: string;
+                    };
+                    detected: {
+                        borderColor: string;
+                    };
+                };
+            };
+            Result: {
+                description: {
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+            };
+            Shared: {
+                background: {
+                    backgroundColor: string;
+                    backgroundImage: string;
+                    backgroundSize: string;
+                };
+            };
+        };
+        Palette: {
+            primary: {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            };
+            secondary: {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            };
+        };
+        Typography: {
+            fontSize: {
+                title: string;
+                caption: string;
+                body: string;
+                button: string;
+            };
+            fontFamily: string[];
+        };
+        VendorPlaceholder: boolean;
+    }, {
+        Component: {
+            Instruction: {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                subtitle: {
+                    color: string;
+                    fontSize: string;
+                };
+                action: {
+                    start: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                    next: {
+                        backgroundColor: string;
+                        color: string;
+                        fontSize: string;
+                        hover: {
+                            backgroundColor: string;
+                        };
+                    };
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                figcaption: {
+                    color: string;
+                    fontSize: string;
+                };
+            };
+            Verification: {
+                title: {
+                    color: string;
+                    fontSize: string;
+                };
+                instruction: {
+                    backgroundColor: string;
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+                camera: {
+                    initial: {
+                        borderColor: string;
+                    };
+                    undetected: {
+                        borderColor: string;
+                    };
+                    detected: {
+                        borderColor: string;
+                    };
+                };
+            };
+            Result: {
+                description: {
+                    color: string;
+                    fontSize: string;
+                };
+                frameContainer: {
+                    backgroundColor: string;
+                };
+            };
+            Shared: {
+                background: {
+                    backgroundColor: string;
+                    backgroundImage: string;
+                    backgroundSize: string;
+                };
+            };
+        };
+        Palette: {
+            primary: {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            };
+            secondary: {
+                contrastText: string;
+                default: string;
+                LIGHT: string;
+                DARK: string;
+            };
+        };
+        Typography: {
+            fontSize: {
+                title: string;
+                caption: string;
+                body: string;
+                button: string;
+            };
+            fontFamily: string[];
+        };
+        VendorPlaceholder: boolean;
+    }>;
+    url: ZodString;
     verbose: ZodBoolean;
+}, {
     content: ZodObject<{
         Instruction: ZodOptional<ZodObject<{
             title: ZodOptional<ZodString>;
@@ -2496,16 +3768,16 @@ declare const BuilderConfigSchema: ZodObject<{
                             backgroundColor?: string | undefined;
                         }>>;
                     }, "strip", ZodTypeAny, {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     }, {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
@@ -2522,59 +3794,56 @@ declare const BuilderConfigSchema: ZodObject<{
                             backgroundColor?: string | undefined;
                         }>>;
                     }, "strip", ZodTypeAny, {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     }, {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     }>>;
                 }, "strip", ZodTypeAny, {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                 }, {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                 }>>;
             }, "strip", ZodTypeAny, {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
@@ -2583,32 +3852,32 @@ declare const BuilderConfigSchema: ZodObject<{
                     color?: string | undefined;
                     fontSize?: string | undefined;
                 } | undefined;
-                figcaption?: {
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
                 action?: {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+                figcaption?: {
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
                 } | undefined;
             }, {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
@@ -2617,27 +3886,30 @@ declare const BuilderConfigSchema: ZodObject<{
                     color?: string | undefined;
                     fontSize?: string | undefined;
                 } | undefined;
-                figcaption?: {
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
                 action?: {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+                figcaption?: {
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
                 } | undefined;
             }>>;
             Verification: ZodOptional<ZodObject<{
@@ -2715,12 +3987,17 @@ declare const BuilderConfigSchema: ZodObject<{
                     fontSize?: string | undefined;
                 }>>;
             }, "strip", ZodTypeAny, {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                instruction?: {
+                    backgroundColor?: string | undefined;
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
                 camera?: {
                     initial?: {
@@ -2732,19 +4009,19 @@ declare const BuilderConfigSchema: ZodObject<{
                     detected?: {
                         borderColor?: string | undefined;
                     } | undefined;
-                } | undefined;
-                instruction?: {
-                    backgroundColor?: string | undefined;
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
                 } | undefined;
             }, {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                instruction?: {
+                    backgroundColor?: string | undefined;
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
                 camera?: {
                     initial?: {
@@ -2756,11 +4033,6 @@ declare const BuilderConfigSchema: ZodObject<{
                     detected?: {
                         borderColor?: string | undefined;
                     } | undefined;
-                } | undefined;
-                instruction?: {
-                    backgroundColor?: string | undefined;
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
                 } | undefined;
             }>>;
             Result: ZodOptional<ZodObject<{
@@ -2782,27 +4054,51 @@ declare const BuilderConfigSchema: ZodObject<{
                     fontSize?: string | undefined;
                 }>>;
             }, "strip", ZodTypeAny, {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 description?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
             }, {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 description?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+            }>>;
+            Shared: ZodOptional<ZodObject<{
+                background: ZodOptional<ZodObject<{
+                    backgroundColor: ZodOptional<ZodString>;
+                    backgroundImage: ZodOptional<ZodString>;
+                    backgroundSize: ZodOptional<ZodString>;
+                }, "strip", ZodTypeAny, {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
+                }, {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
+                }>>;
+            }, "strip", ZodTypeAny, {
+                background?: {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
+                } | undefined;
+            }, {
+                background?: {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
                 } | undefined;
             }>>;
         }, "strip", ZodTypeAny, {
             Instruction?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
@@ -2811,36 +4107,44 @@ declare const BuilderConfigSchema: ZodObject<{
                     color?: string | undefined;
                     fontSize?: string | undefined;
                 } | undefined;
-                figcaption?: {
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
                 action?: {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                 } | undefined;
-            } | undefined;
-            Verification?: {
                 frameContainer?: {
                     backgroundColor?: string | undefined;
                 } | undefined;
+                figcaption?: {
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Verification?: {
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                instruction?: {
+                    backgroundColor?: string | undefined;
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
                 camera?: {
                     initial?: {
@@ -2853,26 +4157,25 @@ declare const BuilderConfigSchema: ZodObject<{
                         borderColor?: string | undefined;
                     } | undefined;
                 } | undefined;
-                instruction?: {
-                    backgroundColor?: string | undefined;
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
             } | undefined;
             Result?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 description?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Shared?: {
+                background?: {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
                 } | undefined;
             } | undefined;
         }, {
             Instruction?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
@@ -2881,36 +4184,44 @@ declare const BuilderConfigSchema: ZodObject<{
                     color?: string | undefined;
                     fontSize?: string | undefined;
                 } | undefined;
-                figcaption?: {
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
                 action?: {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                 } | undefined;
-            } | undefined;
-            Verification?: {
                 frameContainer?: {
                     backgroundColor?: string | undefined;
                 } | undefined;
+                figcaption?: {
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Verification?: {
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                instruction?: {
+                    backgroundColor?: string | undefined;
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
                 camera?: {
                     initial?: {
@@ -2923,19 +4234,21 @@ declare const BuilderConfigSchema: ZodObject<{
                         borderColor?: string | undefined;
                     } | undefined;
                 } | undefined;
-                instruction?: {
-                    backgroundColor?: string | undefined;
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
             } | undefined;
             Result?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 description?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Shared?: {
+                background?: {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
                 } | undefined;
             } | undefined;
         }>>;
@@ -3008,39 +4321,36 @@ declare const BuilderConfigSchema: ZodObject<{
                 button: ZodOptional<ZodString>;
             }, "strip", ZodTypeAny, {
                 title?: string | undefined;
-                body?: string | undefined;
                 caption?: string | undefined;
+                body?: string | undefined;
                 button?: string | undefined;
             }, {
                 title?: string | undefined;
-                body?: string | undefined;
                 caption?: string | undefined;
+                body?: string | undefined;
                 button?: string | undefined;
             }>>;
         }, "strip", ZodTypeAny, {
-            fontFamily?: string[] | undefined;
             fontSize?: {
                 title?: string | undefined;
-                body?: string | undefined;
                 caption?: string | undefined;
+                body?: string | undefined;
                 button?: string | undefined;
             } | undefined;
+            fontFamily?: string[] | undefined;
         }, {
-            fontFamily?: string[] | undefined;
             fontSize?: {
                 title?: string | undefined;
-                body?: string | undefined;
                 caption?: string | undefined;
+                body?: string | undefined;
                 button?: string | undefined;
             } | undefined;
+            fontFamily?: string[] | undefined;
         }>>;
         VendorPlaceholder: ZodOptional<ZodBoolean>;
     }, "strip", ZodTypeAny, {
         Component?: {
             Instruction?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
@@ -3049,36 +4359,44 @@ declare const BuilderConfigSchema: ZodObject<{
                     color?: string | undefined;
                     fontSize?: string | undefined;
                 } | undefined;
-                figcaption?: {
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
                 action?: {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                 } | undefined;
-            } | undefined;
-            Verification?: {
                 frameContainer?: {
                     backgroundColor?: string | undefined;
                 } | undefined;
+                figcaption?: {
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Verification?: {
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                instruction?: {
+                    backgroundColor?: string | undefined;
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
                 camera?: {
                     initial?: {
@@ -3091,19 +4409,21 @@ declare const BuilderConfigSchema: ZodObject<{
                         borderColor?: string | undefined;
                     } | undefined;
                 } | undefined;
-                instruction?: {
-                    backgroundColor?: string | undefined;
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
             } | undefined;
             Result?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 description?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Shared?: {
+                background?: {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
                 } | undefined;
             } | undefined;
         } | undefined;
@@ -3122,21 +4442,18 @@ declare const BuilderConfigSchema: ZodObject<{
             } | undefined;
         } | undefined;
         Typography?: {
-            fontFamily?: string[] | undefined;
             fontSize?: {
                 title?: string | undefined;
-                body?: string | undefined;
                 caption?: string | undefined;
+                body?: string | undefined;
                 button?: string | undefined;
             } | undefined;
+            fontFamily?: string[] | undefined;
         } | undefined;
         VendorPlaceholder?: boolean | undefined;
     }, {
         Component?: {
             Instruction?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
@@ -3145,36 +4462,44 @@ declare const BuilderConfigSchema: ZodObject<{
                     color?: string | undefined;
                     fontSize?: string | undefined;
                 } | undefined;
-                figcaption?: {
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
                 action?: {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                 } | undefined;
-            } | undefined;
-            Verification?: {
                 frameContainer?: {
                     backgroundColor?: string | undefined;
                 } | undefined;
+                figcaption?: {
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Verification?: {
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                instruction?: {
+                    backgroundColor?: string | undefined;
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
                 camera?: {
                     initial?: {
@@ -3187,19 +4512,21 @@ declare const BuilderConfigSchema: ZodObject<{
                         borderColor?: string | undefined;
                     } | undefined;
                 } | undefined;
-                instruction?: {
-                    backgroundColor?: string | undefined;
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
             } | undefined;
             Result?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 description?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Shared?: {
+                background?: {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
                 } | undefined;
             } | undefined;
         } | undefined;
@@ -3218,17 +4545,17 @@ declare const BuilderConfigSchema: ZodObject<{
             } | undefined;
         } | undefined;
         Typography?: {
-            fontFamily?: string[] | undefined;
             fontSize?: {
                 title?: string | undefined;
-                body?: string | undefined;
                 caption?: string | undefined;
+                body?: string | undefined;
                 button?: string | undefined;
             } | undefined;
+            fontFamily?: string[] | undefined;
         } | undefined;
         VendorPlaceholder?: boolean | undefined;
     }>;
-}, "strip", ZodTypeAny, {
+}>, "strip", ZodTypeAny, {
     url: string;
     instruction: {
         commands: ("look_left" | "look_right" | "open_mouth" | "see_straight")[];
@@ -3242,7 +4569,7 @@ declare const BuilderConfigSchema: ZodObject<{
         speaker: Partial<Record<"look_left" | "look_right" | "open_mouth" | "see_straight", string>>;
     };
     camera: {
-        virtualLabel: string[];
+        virtualLabel?: string[] | null | undefined;
     };
     credential: {
         clientId: string;
@@ -3262,16 +4589,22 @@ declare const BuilderConfigSchema: ZodObject<{
     proxy: {
         License: {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         };
         PassiveLiveness: {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         };
+        GenerateKey?: {
+            url: string;
+            params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
+            metaparameter?: Record<string, any> | undefined;
+        } | undefined;
     };
     timeout: number;
     content: {
@@ -3314,9 +4647,6 @@ declare const BuilderConfigSchema: ZodObject<{
     theme: {
         Component?: {
             Instruction?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
@@ -3325,36 +4655,44 @@ declare const BuilderConfigSchema: ZodObject<{
                     color?: string | undefined;
                     fontSize?: string | undefined;
                 } | undefined;
-                figcaption?: {
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
                 action?: {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                 } | undefined;
-            } | undefined;
-            Verification?: {
                 frameContainer?: {
                     backgroundColor?: string | undefined;
                 } | undefined;
+                figcaption?: {
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Verification?: {
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                instruction?: {
+                    backgroundColor?: string | undefined;
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
                 camera?: {
                     initial?: {
@@ -3367,19 +4705,21 @@ declare const BuilderConfigSchema: ZodObject<{
                         borderColor?: string | undefined;
                     } | undefined;
                 } | undefined;
-                instruction?: {
-                    backgroundColor?: string | undefined;
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
             } | undefined;
             Result?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 description?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Shared?: {
+                background?: {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
                 } | undefined;
             } | undefined;
         } | undefined;
@@ -3398,13 +4738,13 @@ declare const BuilderConfigSchema: ZodObject<{
             } | undefined;
         } | undefined;
         Typography?: {
-            fontFamily?: string[] | undefined;
             fontSize?: {
                 title?: string | undefined;
-                body?: string | undefined;
                 caption?: string | undefined;
+                body?: string | undefined;
                 button?: string | undefined;
             } | undefined;
+            fontFamily?: string[] | undefined;
         } | undefined;
         VendorPlaceholder?: boolean | undefined;
     };
@@ -3423,7 +4763,7 @@ declare const BuilderConfigSchema: ZodObject<{
         speaker: Partial<Record<"look_left" | "look_right" | "open_mouth" | "see_straight", string>>;
     };
     camera: {
-        virtualLabel: string[];
+        virtualLabel?: string[] | null | undefined;
     };
     credential: {
         clientId: string;
@@ -3443,16 +4783,22 @@ declare const BuilderConfigSchema: ZodObject<{
     proxy: {
         License: {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         };
         PassiveLiveness: {
             url: string;
-            headers?: Record<string, any> | undefined;
             params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
             metaparameter?: Record<string, any> | undefined;
         };
+        GenerateKey?: {
+            url: string;
+            params?: Record<string, any> | undefined;
+            headers?: Record<string, any> | undefined;
+            metaparameter?: Record<string, any> | undefined;
+        } | undefined;
     };
     timeout: number;
     content: {
@@ -3495,9 +4841,6 @@ declare const BuilderConfigSchema: ZodObject<{
     theme: {
         Component?: {
             Instruction?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
@@ -3506,36 +4849,44 @@ declare const BuilderConfigSchema: ZodObject<{
                     color?: string | undefined;
                     fontSize?: string | undefined;
                 } | undefined;
-                figcaption?: {
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
                 action?: {
                     start?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                     next?: {
+                        backgroundColor?: string | undefined;
                         color?: string | undefined;
                         fontSize?: string | undefined;
-                        backgroundColor?: string | undefined;
                         hover?: {
                             backgroundColor?: string | undefined;
                         } | undefined;
                     } | undefined;
                 } | undefined;
-            } | undefined;
-            Verification?: {
                 frameContainer?: {
                     backgroundColor?: string | undefined;
                 } | undefined;
+                figcaption?: {
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Verification?: {
                 title?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                instruction?: {
+                    backgroundColor?: string | undefined;
+                    color?: string | undefined;
+                    fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
                 } | undefined;
                 camera?: {
                     initial?: {
@@ -3548,19 +4899,21 @@ declare const BuilderConfigSchema: ZodObject<{
                         borderColor?: string | undefined;
                     } | undefined;
                 } | undefined;
-                instruction?: {
-                    backgroundColor?: string | undefined;
-                    color?: string | undefined;
-                    fontSize?: string | undefined;
-                } | undefined;
             } | undefined;
             Result?: {
-                frameContainer?: {
-                    backgroundColor?: string | undefined;
-                } | undefined;
                 description?: {
                     color?: string | undefined;
                     fontSize?: string | undefined;
+                } | undefined;
+                frameContainer?: {
+                    backgroundColor?: string | undefined;
+                } | undefined;
+            } | undefined;
+            Shared?: {
+                background?: {
+                    backgroundColor?: string | undefined;
+                    backgroundImage?: string | undefined;
+                    backgroundSize?: string | undefined;
                 } | undefined;
             } | undefined;
         } | undefined;
@@ -3579,13 +4932,13 @@ declare const BuilderConfigSchema: ZodObject<{
             } | undefined;
         } | undefined;
         Typography?: {
-            fontFamily?: string[] | undefined;
             fontSize?: {
                 title?: string | undefined;
-                body?: string | undefined;
                 caption?: string | undefined;
+                body?: string | undefined;
                 button?: string | undefined;
             } | undefined;
+            fontFamily?: string[] | undefined;
         } | undefined;
         VendorPlaceholder?: boolean | undefined;
     };
@@ -3663,10 +5016,13 @@ declare class Builder {
     setURL(url: SchemaTypeOf<typeof UrlSchema>): Builder;
     /**
      * Sets array of strings to be checked if any of the camera labels has the substring of any of the specified labels
+     *
+     * It's recommended to not set this as empty to avoid security issues
      * @param labels array of strings to be checked
+     * @default ['OBS', 'Virtual']
      * @returns this builder
      */
-    setVirtualCameraLabel(labels: string[]): Builder;
+    setVirtualCameraLabel(labels?: string[]): Builder;
     /**
      * Builds the SDK interface that can be started and destroyed
      * @returns the SDK interface

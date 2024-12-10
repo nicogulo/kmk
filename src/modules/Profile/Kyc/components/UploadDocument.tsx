@@ -508,7 +508,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                                 </div>
                                                 <input
                                                     type='file'
-                                                    className='hidden'
+                                                    // className='hidden'
                                                     onChange={(e: any) => handleChangeNpwpUpload(e)}
                                                 />
                                             </div>
@@ -536,7 +536,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                             <input
                                                 key={fileInputKey}
                                                 type='file'
-                                                className='hidden'
+                                                // className='hidden'
                                                 onChange={handleUploadNpwp}
                                             />
                                         </div>

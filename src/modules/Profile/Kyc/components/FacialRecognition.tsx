@@ -2,6 +2,7 @@ import Builder from '@verihubs/liveness';
 import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
 
+import useLiveness from '@/hooks/useLiveness';
 import useUpload from '@/hooks/useUpload';
 
 import Button from '@/components/Button';
@@ -21,7 +22,8 @@ interface Props {
 const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
     const [image, setImage] = useState<string | null>(null);
 
-    const [blob, setBlob] = useState<File | null>();
+    const [blob, setBlob] = useState<File | null>(null);
+    const { setLiveness } = useLiveness();
 
     const { upload, loading } = useUpload();
     const handleSubmit = () => {
@@ -95,6 +97,10 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
             .setURL('../../liveness')
             .setVirtualCameraLabel([])
             .build();
+
+        return () => {
+            (window as any).LivenessSDK?.onDestroy();
+        };
     }, []);
 
     useEffect(() => {
@@ -157,15 +163,24 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
         return () => {
             if (typeof window !== 'undefined') {
                 window.removeEventListener('message', livenessMessageListener as unknown as EventListener);
+                (window as any).LivenessSDK?.onDestroy();
             }
         };
     }, [image, onNext, upload]);
 
     const doLivenessVerification = useCallback(() => {
+        setLiveness(true);
         if (typeof window !== 'undefined') {
-            (window as any).LivenessSDK?.onStart();
+            setTimeout(() => {
+                (window as any).LivenessSDK?.onStart();
+            }, 100);
         }
-    }, []);
+    }, [setLiveness]);
+
+    const handleBack = () => {
+        (window as any).LivenessSDK?.onDestroy();
+        onBack();
+    };
 
     return (
         <>
@@ -204,7 +219,7 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
                         </div>
                     </div>
                     <div className='flex w-full flex-row justify-end gap-4 '>
-                        <Button className='w-[120px]' variant='grayOutline' onClick={onBack}>
+                        <Button className='w-[120px]' variant='grayOutline' onClick={handleBack}>
                             Kembali
                         </Button>
                         <If condition={!image}>

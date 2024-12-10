@@ -6,6 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import classNames from '@/lib/classnames';
 import useAuth, { useLogout } from '@/hooks/useAuth';
+import useLiveness from '@/hooks/useLiveness';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
@@ -22,6 +23,7 @@ const Header = () => {
     const { logout } = useLogout();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const { isLiveness } = useLiveness();
 
     const profileMenu = [{ href: '/profile', label: 'Profile', icon: 'User' }];
     const isProfile = router.pathname.includes('/profile');
@@ -36,7 +38,11 @@ const Header = () => {
 
     return (
         <>
-            <header className='sticky top-0 z-50 bg-white'>
+            <header
+                className={classNames('sticky top-0 z-50 bg-white', {
+                    hidden: isLiveness
+                })}
+            >
                 <Container className=' relative flex h-14 items-center justify-between'>
                     <UnstyledLink
                         href='/'

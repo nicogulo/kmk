@@ -169,16 +169,14 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
     }, [image, onNext, upload]);
 
     const doLivenessVerification = useCallback(() => {
-        setLiveness(true);
         if (typeof window !== 'undefined') {
-            setTimeout(() => {
-                (window as any).LivenessSDK?.onStart();
-            }, 100);
+            (window as any).LivenessSDK?.onStart();
         }
-    }, [setLiveness]);
+    }, []);
 
     const handleBack = () => {
         (window as any).LivenessSDK?.onDestroy();
+
         onBack();
     };
 

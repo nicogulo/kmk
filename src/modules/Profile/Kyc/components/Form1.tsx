@@ -58,30 +58,37 @@ const Form1: React.FC<Props> = ({ checked }) => (
             </p>
 
             <p className='py-2'>
-                PT BINA LOKA INDONESIA (“Perusahaan” atau “Kami”) adalah perseroan terbatas yang didirikan berdasarkan
-                hukum Indonesia dengan informasi berikut mengenai Perusahaan kepada Pelanggan:
+                PT KRIPTO MAKSIMA KOIN (“Perusahaan” atau “Kami”) adalah perseroan terbatas yang didirikan berdasarkan
+                hukum Indonesia. Perusahaan telah mendapatkan tanda daftar sebagai calon pedagang fisik Aset Kripto dari
+                Badan Pengawas Perdagangan Berjangka Komoditi (“BAPPEBTI”). Bappebti mensyaratkan Kami untuk memberikan
+                informasi berikut mengenai Perusahaan kepada Anda:
             </p>
 
             <table className='border-text-transparent-10 border'>
                 <tr>
                     <th>Alamat Perusahaan</th>
                     <td>
-                        PT Bina Loka Indonesia Menara Rajawali Lt. 11 Jl. DR Ide Anak Agung Gde Agung Kawasan Mega
-                        Kuningan, Jakarta Selatan, Indonesia Mohon diperhatikan bahwa Kami tidak menawarkan bantuan
-                        Pelanggan apa pun dari alamat kantor ini. Untuk bantuan, silahkan hubungi Layanan Pengaduan
-                        Pelanggan Kami.
+                        Gedung Pasaraya Blok M, Gedung B, Lantai 3, Jl. Iskandarsyah II No. 2, Kelurahan Melawai,
+                        Kecamatan Kebayoran Baru, Jakarta Selatan 12160, Indonesia . Mohon diperhatikan bahwa Kami tidak
+                        menawarkan bantuan Pelanggan apa pun dari alamat kantor ini. Untuk bantuan, silakan hubungi
+                        Layanan Pengaduan Pelanggan Kami.
                     </td>
                 </tr>
 
                 <tr>
-                    <th>Website Struktur Manajemen</th>
+                    <th>Website</th>
                     <td>
-                        <a href='https://kriptomaksima.id' className='text-blue-500'>
-                            kriptomaksima.id
+                        <a href='https://kriptomaksima.com' className='text-blue-500'>
+                            kriptomaksima.com
                         </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Struktur Manajemen</th>
+                    <td>
                         <br />
-                        PT BINA LOKA INDONESIA memiliki Direksi dan Dewan Komisaris yang bertanggung jawab sepenuhnya
-                        atas keseluruhan manajemen Perusahaan
+                        PT KRIPTO MAKSIMA KOIN memiliki Direksi dan Dewan Komisaris yang bertanggung jawab sepenuhnya
+                        atas keseluruhan manajemen Perusahaan.
                     </td>
                 </tr>
                 <tr>
@@ -90,11 +97,19 @@ const Form1: React.FC<Props> = ({ checked }) => (
                         <table className='border-text-transparent-10 border'>
                             <tr className='border-text-transparent-10 border'>
                                 <th className='border-text-transparent-10 border'>Nomor</th>
-                                <th className='border-text-transparent-10 border'>Nomor Perizinan</th>
+                                <th className='border-text-transparent-10 border'>Nama Perizinan</th>
                             </tr>
                             <tr className='border-text-transparent-10 border'>
                                 <td className='border-text-transparent-10 border'>
-                                    002816.01/DJAI.PSE/05/2022 tertanggal 24 Mei 2022
+                                    003/BAPPEBTI/CP-AK/01/2022 tertanggal 28 Januari 2022
+                                </td>
+                                <td className='border-text-transparent-10 border'>
+                                    Calon Pedagang Fisik Aset Kripto BAPPEBTI
+                                </td>
+                            </tr>
+                            <tr className='border-text-transparent-10 border'>
+                                <td className='border-text-transparent-10 border'>
+                                    001524.01/DJAI.PSE/11/2021 tertanggal 8 November 2021
                                 </td>
                                 <td className='border-text-transparent-10 border'>
                                     Tanda Daftar Penyelenggara Sistem Elektronik
@@ -104,11 +119,11 @@ const Form1: React.FC<Props> = ({ checked }) => (
                     </td>
                 </tr>
                 <tr>
-                    <th>Email / telepon</th>
+                    <th> Nomor telepon</th>
                     <td>
-                        <a href='mailto:support@kriptomaksima.id'>support@kriptomaksima.id</a>
-                        <br /> Mohon diperhatikan bahwa Kami tidak menawarkan bantuan Pelanggan apa pun dari nomor
-                        telepon ini. Untuk bantuan, silakan hubungi Layanan Pengaduan Pelanggan Kami.
+                        <a href='tel:+021 5094 1000'> 021 5094 1000</a>. Mohon diperhatikan bahwa Kami tidak menawarkan
+                        bantuan Pelanggan apa pun dari nomor telepon ini. Untuk bantuan, silakan hubungi Layanan
+                        Pengaduan Pelanggan Kami.
                     </td>
                 </tr>
             </table>
@@ -130,10 +145,11 @@ const Form1: React.FC<Props> = ({ checked }) => (
                     menjadi tidak memiliki manfaat ekonomi apa pun. Terdapat risiko kehilangan yang tinggi sebagai
                     dampak dari membeli, menjual, atau berdagang apa pun di pasar fisik Aset Kripto, dan Perusahaan
                     tidak bertanggung jawab atas perubahan fluktuasi dari nilai tukar Aset Kripto. Perusahaan juga tidak
-                    bertanggung jawab atas kerugian yang terjadi dalam berinvestasi atau memperdagangkan Aset Kripto.
+                    bertanggung jawab atas kerugian yang terjadi dalam berinvestasi atau memperdagangkan Aset Kripto
+                    dan/atau aset digital lainnya.
                 </li>
                 <li>
-                    Pelanggan wajib berhati-hatilah terhadap pernyataan bahwa Pelanggan Aset Kripto pasti mendapatkan
+                    Anda wajib berhati-hatilah terhadap pernyataan bahwa Pelanggan Aset Kripto pasti mendapatkan
                     keuntungan besar dari perdagangan Aset Kripto. Walaupun perdagangan Aset Kripto dapat memberikan
                     keuntungan yang besar dalam tempo yang singkat, informasi ini tidak pasti berlaku, bahkan
                     perdagangan Aset Kripto dapat menimbulkan kerugian yang besar dalam tempo yang singkat juga. Kami
@@ -141,18 +157,16 @@ const Form1: React.FC<Props> = ({ checked }) => (
                     produk komoditas atau keuangan lainnya.
                 </li>
                 <li>
-                    {' '}
-                    Pelanggan wajib berhati-hati dalam mengukur situasi finansial dan memastikan bahwa Pelanggan
-                    bersedia menghadapi risiko yang ada dalam menjual, membeli, atau berdagang Aset Kripto. Pelanggan
-                    juga disarankan untuk melakukan riset pribadi atau berkonsultasi dengan pihak profesional/ahli
-                    independen sebelum membuat keputusan untuk memperdagangkan Aset Kripto. Semua keputusan perdagangan
-                    Aset Kripto merupakan keputusan independen dan mandiri oleh Pelanggan secara sadar tanpa paksaan,
-                    dan melepaskan Perusahaan atas kegiatan perdagangan Aset Kripto. Pelanggan menyatakan bahwa semua
-                    Aset Kripto mempunyai risiko, dan tidak ada strategi berdagang yang dapat menjamin untuk
-                    menghilangkan risiko tersebut.
+                    Anda wajib berhati-hati dalam mengukur situasi finansial dan memastikan bahwa Anda bersedia
+                    menghadapi risiko yang ada dalam menjual, membeli, atau berdagang Aset Kripto. Anda juga disarankan
+                    untuk melakukan riset pribadi atau berkonsultasi dengan pihak profesional/ahli independen sebelum
+                    membuat keputusan untuk memperdagangkan Aset Kripto. Semua keputusan perdagangan Aset Kripto
+                    merupakan keputusan independen dan mandiri oleh Anda secara sadar tanpa paksaan, dan melepaskan
+                    Perusahaan atas kegiatan perdagangan Aset Kripto. Anda menyatakan bahwa semua Aset Kripto mempunyai
+                    risiko, dan tidak ada strategi berdagang yang dapat menjamin untuk menghilangkan risiko tersebut.
                 </li>
                 <li>
-                    Perusahaan tidak menjamin kelangsungan jangka panjang dari Aset Kripto yang diperdagangkan maupun
+                    5. Perusahaan tidak menjamin kelangsungan jangka panjang dari Aset Kripto yang diperdagangkan maupun
                     ditukar di dalam Platform Perusahaan. Perusahaan tidak melakukan kegiatan menambang (crypto mining)
                     atau menciptakan Aset Kripto. Aset Kripto diciptakan menggunakan aplikasi komputer khusus oleh para
                     penambang (miner) di luar kendali Perusahaan yang tersebar secara acak di seluruh dunia dan saling
@@ -179,12 +193,78 @@ const Form1: React.FC<Props> = ({ checked }) => (
             <p className='pb-2 !text-center'>
                 <strong>ATURAN PERDAGANGAN ASET KRIPTO</strong>
             </p>
-            <p>
+
+            <strong>DEFENISI</strong>
+            <p>Kecuali ditentukan lain, istilah atau definisi di Perjanjian Pelanggan ini memiliki arti:</p>
+
+            <ul className='flex list-decimal flex-col gap-3 py-4'>
+                <li>
+                    Akun Pelanggan adalah akses terhadap akun yang diberikan kepada Pelanggan yang sudah memenuhi
+                    persyaratan yang ditetapkan oleh Perusahaan dan proses pendaftaran/Registrasi telah melalui proses
+                    Verifikasi oleh Perusahaan.
+                </li>
+                <li>
+                    Aset Kripto adalah komoditi yang tidak berwujud yang berbentuk digital menggunakan kriptografi,
+                    jaringan informasi teknologi dan buku besar yang terdistribusi untuk mengatur penciptaan unit baru,
+                    memverifikasi transaksi, dan mengamankan transaksi tanpa campur tangan pihak lain, yang tersedia
+                    untuk diperdagangkan di Platform.
+                </li>
+                <li>Aturan adalah aturan perdagangan Aset Kripto yang diatur dalam Perjanjian Pelanggan ini.</li>
+                <li>
+                    BAKTI adalah Badan Arbitrase Perdagangan Berjangka Komoditi yang didirikan oleh Bappebti untuk
+                    menyelesaikan sengketa di bidang perdagangan berjangka komoditi.
+                </li>
+                <li>Bappebti adalah Badan Pengawas Perdagangan Berjangka Komoditi.</li>
+                <li>
+                    Bursa Aset Kripto adalah Bursa Berjangka Penyelenggara Perdagangan Aset Kripto yang ditunjuk oleh
+                    regulator untuk menyediakan dan menyelenggarakan sistem dan/atau sarana jual beli Aset Kripto.
+                </li>
+                <li>
+                    Calon Pelanggan adalah perorangan yang melakukan proses pendaftaran/Registrasi namun belum melalui
+                    proses Verifikasi oleh Perusahaan.
+                </li>
+                <li>
+                    Know Your Customer (KYC) adalah proses penilaian terhadap Calon Pelanggan sebagai salah satu proses
+                    Verifikasi dalam pendaftaran/Registrasi.
+                </li>
+                <li>
+                    Layanan adalah jasa yang disediakan Perusahaan, termasuk namun tidak terbatas melalui Platform,
+                    untuk memfasilitasi Pelanggan dalam melakukan jual, beli, ataupun perdagangan Aset Kripto.
+                </li>
+                <li>
+                    Order Book adalah informasi yang menampilkan informasi perdagangan Aset Kripto, antara lain
+                    penawaran harga jual dan beli, volume perdagangan, dan informasi permintaan pembelian dan daftar
+                    penawaran jual Aset Kripto.
+                </li>
+                <li>
+                    Pelanggan adalah perorangan maupun yang telah melakukan Registrasi dan Verifikasi pada Platform
+                    sehingga dapat menggunakan Platform untuk menjual, membeli, atau transfer Aset Kripto.
+                </li>
+                <li>
+                    Pemberitahuan Privasi adalah laman yang tersedia dalam Platform sehubungan dengan ketentuan
+                    kebijakan privasi.
+                </li>
+                <li>
+                    Platform adalah platform yang dimiliki dan/atau dikelola oleh Perusahaan dan/atau afiliasinya,
+                    termasuk namun tidak terbatas pada pemilik, investor, afiliasi, karyawan dan pihak-pihak yang
+                    terkait dengan Perusahaan. Tergantung pada konteksnya, Platform juga dapat merujuk pada produk,
+                    layanan, atau fasilitas yang disediakan Perusahaan.
+                </li>
+                <li>
+                    Registrasi adalah proses pendaftaran dengan cara memverifikasi data yang diajukan Calon Pelanggan
+                    untuk kemudian ditentukan sebagai Pelanggan.
+                </li>
+                <li>
+                    Verifikasi adalah proses pemeriksaan terhadap Pelanggan mengenai keterangan terkait data dan
+                    informasi Pelanggan yang dicantumkan dalam proses Registrasi.
+                </li>
+            </ul>
+            <span>
                 Perusahaan menyediakan produk dan layanan berupa platform Aset Kripto (“Platform”). Platform memuat
-                sejumlah Aset Kripto disertai harganya masing-masing yang dapat diakses oleh Pelanggan melalui Platform
-                perdagangan Aset Kripto di Perusahaan. Pelanggan wajib tunduk pada aturan perdagangan Aset Kripto
-                ("Aturan”) dalam Platform Perusahaan, sebagai berikut:
-            </p>
+                sejumlah Aset Kripto disertai harganya masing-masing yang dapat diakses oleh Anda melalui Platform
+                perdagangan Aset Kripto di Perusahaan. Anda wajib tunduk pada Aturan perdagangan Aset Kripto (“Aturan”)
+                dalam Platform Perusahaan, sebagai berikut:
+            </span>
             <ul className='flex list-decimal flex-col gap-3 py-4'>
                 <li>
                     <strong>Proses Pendaftaran Pelanggan Aset Kripto</strong>
@@ -240,14 +320,13 @@ const Form1: React.FC<Props> = ({ checked }) => (
                             Platform Perusahaan hanya akan berlaku efektif setelah seluruh persyaratan yang ditetapkan
                             oleh Perusahaan telah dipenuhi oleh Calon Pelanggan dan proses pendaftaran/registrasi telah
                             melalui proses verifikasi untuk ditindaklanjuti dan apabila dinyatakan lengkap maka akan
-                            disetu
+                            disetujui oleh Perusahaan.
                         </li>
                         <li>
                             2.2. Perusahaan akan menyampaikan aktivasi akun yang didaftar dan dibuat oleh Calon
                             Pelanggan setelah Perusahaan melakukan verifikasi Calon Pelanggan dan menyelesaikan proses
-                            Know-Customerr-Customer (KYC) berdasarkan peraturan perundang-undangan yang berlaku.
-                            Pelanggan yang telah terdaftar harus melakukan verifikasi dan KYC, sebelum melakukan
-                            transaksi.
+                            Know-Your-Customer (KYC) berdasarkan peraturan perundang-undangan yang berlaku. Pelanggan
+                            yang telah terdaftar harus melakukan verifikasi dan KYC, sebelum melakukan transaksi.
                         </li>
                         <li>
                             2.3. Calon Pelanggan hanya dapat membuka 1 (satu) akun untuk setiap Pelanggan dengan
@@ -263,8 +342,8 @@ const Form1: React.FC<Props> = ({ checked }) => (
                             2.5. Bahwa segala sesuatu risiko yang mungkin akan timbul sehubungan dengan penutupan
                             /pemblokiran/pembekuan akun yang diakibatkan oleh kesalahan dan/atau kelalaian Pelanggan,
                             dengan ini akan menjadi tanggung jawab Pelanggan dan dengan ini Perusahaan tidak akan
-                            memberikan ganti rugi dari Pelanggan atau pihak mana pun sehubungan dengan adanya
-                            penutupan/pemblokiran/pembekuan akun tersebut.
+                            memberikan ganti rugi dari Pelanggan atau pihak manapun sehubungan dengan adanya penutupan
+                            /pemblokiran/pembekuan akun tersebut.
                         </li>
                         <li>
                             2.6. Pelanggan dengan ini memberikan persetujuan dan kuasa kepada Perusahaan untuk
@@ -286,7 +365,13 @@ const Form1: React.FC<Props> = ({ checked }) => (
                             terdaftar di Perusahaan.
                         </li>
                         <li>
-                            3.2. Metode Transaksi:
+                            3.2. Untuk melakukan transaksi pembelian Aset Kripto, Pelanggan wajib memiliki deposit yang
+                            cukup dalam dompet fiat milik Pelanggan. Pelanggan dapat melakukan deposit dalam mata uang
+                            Rupiah melalui metode deposit yang tersedia dari waktu ke waktu sebagaimana diberitahukan
+                            oleh Perusahaan melalui Platform.
+                        </li>
+                        <li>
+                            3.3. Metode Transaksi:
                             <ul
                                 style={{
                                     listStyle: 'lower-alpha'
@@ -301,22 +386,37 @@ const Form1: React.FC<Props> = ({ checked }) => (
                                 </li>
                             </ul>
                         </li>
-                        <li>3.3. Transaksi jual beli di Platform dilakukan 24 jam dan 7 hari seminggu.</li>
-                        <li>3.4. Terdapat biaya transaksi pada setiap proses jual atau beli Aset Kripto.</li>
+                        <li>3.4. Transaksi jual beli di Platform dilakukan 24 jam dan 7 hari seminggu.</li>
+                        <li>3.5. Terdapat biaya transaksi pada setiap proses jual atau beli Aset Kripto.</li>
                         <li>
-                            3.5. Ketentuan withdrawal atau penarikan uang fiat, termasuk namun tidak terbatas pada waktu
-                            pemrosesan, maksimum jumlah penarikan dan lain-lain .
+                            3.6. Harga final yang dibayarkan dan/atau diterima (sebagaimana relevan) oleh Pelanggan
+                            sehubungan dengan transaksi jual dan/atau beli oleh Pelanggan adalah harga yang tercantum
+                            dalam bukti transaksi yang diberikan Perusahaan melalui Platform.
                         </li>
                         <li>
-                            3.6. Penarikan uang fiat hanya bisa dilakukan ke rekening bank yang dipilih oleh Pelanggan.
-                            .
+                            3.7. Penarikan uang fiat akan diproses dalam jangka waktu paling lambat 2 hari kerja setelah
+                            permintaan penarikan uang fiat diterima oleh Perusahaan.
+                        </li>
+
+                        <li>
+                            3.8. Penarikan uang fiat hanya bisa dilakukan ke rekening bank milik Pelanggan yang
+                            didaftarkan ke Perusahaan.
                         </li>
                         <li>
-                            3.7. Pelanggan dapat mengirim dan menerima Aset Kripto yang tersedia melalui layanan di
-                            Platform Perusahaan, yang dapat dikembangkan dari waktu ke waktu oleh Perusahaan.
+                            3.9. Terdapat jumlah maksimum penarikan uang fiat yang bisa dilakukan oleh Pelanggan
+                            sebagaimana diberitahukan dari waktu ke waktu oleh Perusahaan melalui Platform. Untuk
+                            menghindari keraguan, Perusahaan berhak untuk menahan dan/atau menolak transaksi penarikan
+                            uang fiat apabila terindikasi sebagai transaksi mencurigakan, melanggar Aturan dan/atau
+                            peraturan perundang-undangan.
                         </li>
                         <li>
-                            3.8. Pelanggan mengerti dan setuju bahwa pada saat mengirim dan/atau menerima Aset Kripto,
+                            3.10. Pelanggan dapat mengirim dan menerima Aset Kripto yang tersedia melalui layanan di
+                            Platform Perusahaan, yang dapat dikembangkan dari waktu ke waktu oleh Perusahaan. Anda
+                            mengerti bahwa fitur kirim dan/atau terima Aset Kripto akan aktif dalam jangka waktu 24 jam
+                            setelah anda mengaktifkan fitur transfer Aset Kripto.
+                        </li>
+                        <li>
+                            3.11. Pelanggan mengerti dan setuju bahwa pada saat mengirim dan/atau menerima Aset Kripto,
                             Pelanggan yang melakukan transaksi tersebut bertanggung jawab untuk memastikan bahwa
                             transaksi dengan dilaksanakan dengan benar, termasuk namun tidak terbatas pada nominal
                             transaksi, jaringan blockchain yang digunakan untuk transaksi, memastikan alamat dompet
@@ -326,7 +426,12 @@ const Form1: React.FC<Props> = ({ checked }) => (
                             Pelanggan.
                         </li>
                         <li>
-                            3.9. Perusahaan mencatat semua transaksi data yang terjadi di dalam Platform Perusahaan.
+                            3.12. Perusahaan mencatat semua transaksi data yang terjadi di dalam Platform Perusahaan.
+                        </li>
+                        <li>
+                            3.13. Pelanggan dengan ini menyatakan bahwa Pelanggan mengetahui dan menyetujui Perusahaan
+                            dapat bekerjasama dengan pihak ketiga dalam melakukan pemrosesan transaksi, termasuk namun
+                            tidak terbatas pada proses penyelesaian transaksi yang diotorisasi oleh Pelanggan.
                         </li>
                     </ul>
                 </li>
@@ -361,7 +466,31 @@ const Form1: React.FC<Props> = ({ checked }) => (
                 </li>
                 <li>
                     <strong> Biaya Transaksi</strong> <br />
-                    Tidak ada biaya yang dikenakan kepada Pelanggan untuk Metode Instan
+                    <ul className='flex list-outside !list-none flex-col gap-2'>
+                        <li>5.1. Tidak ada biaya yang dikenakan kepada Pelanggan untuk Metode Instan;</li>
+                        <li>
+                            5.2. Untuk deposit fiat, terdapat biaya dengan jumlah tergantung pada metode deposit yang
+                            dipilih oleh Pelanggan, yang mana besaran biaya tersebut akan diberitahukan oleh Perusahaan
+                            dan/atau mitra penyedia kanal metode deposit kepada Pelanggan sebelum Pelanggan
+                            mengotorisasi transaksi deposit tersebut.
+                        </li>
+                        <li>
+                            5.3. Untuk penarikan uang fiat, terdapat biaya dengan jumlah tergantung pada kanal penarikan
+                            yang dipilih oleh Pelanggan, yang mana besaran biaya tersebut akan diberitahukan oleh
+                            Perusahaan kepada Pelanggan sebelum Pelanggan mengotorisasi transaksi penarikan uang fiat.
+                        </li>
+                        <li>
+                            5.4. Untuk pengiriman dan/atau penerimaan Aset Kripto, terdapat biaya dengan besaran
+                            tergantung pada tiap jenis Aset Kripto dan jaringan blockchain yang digunakan, yang mana
+                            besaran biaya tersebut akan diberitahukan oleh Perusahaan melalui Platform sebelum Pelanggan
+                            mengotorisasi transaksi.
+                        </li>
+                        <li>
+                            5.5. Perusahaan dapat mengenakan biaya lainnya sehubungan dengan layanan yang diberikan
+                            melalui Platform, yang mana biaya tersebut akan diberitahukan oleh Perusahaan sebelum
+                            Pengguna mengotorisasi transaksi.
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <strong>Batas Penarikan</strong>
@@ -374,7 +503,11 @@ const Form1: React.FC<Props> = ({ checked }) => (
                             transaksi yang telah melebihi batas penarikan harian.
                         </li>
                         <li>
-                            6.2. Batas penarikan di-reset ulang atau kembali pada angka 0 (nol) setiap pukul 00.00 Waktu
+                            6.2. Batas penarikan maksimal harian uang fiat adalah sebesar Rp250.000.000,- (dua ratus
+                            lima puluh juta Rupiah).
+                        </li>
+                        <li>
+                            6.3. Batas penarikan di-reset ulang atau kembali pada angka 0 (nol) setiap pukul 00.00 Waktu
                             Indonesia Barat.
                         </li>
                     </ul>
@@ -391,27 +524,6 @@ const Form1: React.FC<Props> = ({ checked }) => (
                             pemotongan pajak penghasilan, Perusahaan diperkenankan melakukan pemotongan pajak
                             penghasilan dan menyetorkannya kepada otoritas pemerintah sesuai dengan ketentuan perpajakan
                             yang berlaku. .
-                        </li>
-                        <li>
-                            7.3. Sebagai ilustrasi:
-                            <ul
-                                style={{
-                                    listStyle: 'lower-alpha'
-                                }}
-                            >
-                                <li>
-                                    Pelanggan bermaksud untuk membeli BTC senilai Rp 100.000 . yang di dalamnya termasuk
-                                    nilai Pajak Pertambahan Nilai (PPn) dengan tarif sebesar 0.11% . Sistem akan secara
-                                    otomatis menghitung PPN tersebut. Pelanggan akan membayar Rp 110 untuk PPN dan
-                                    menerima BTC sejumlah Rp 99,890.
-                                </li>
-                                <li>
-                                    Pelanggan bermaksud untuk menjual BTC senilai Rp 500.000 . Maka Pelanggan akan
-                                    dikenai Pajak Penghasilan dengan tarif sebesar 0.1% dari total nilai BTC tersebut.
-                                    Sistem akan secara otomatis memotong pajak penghasilan sebesar Rp 500 dan Pelanggan
-                                    akan menerima Rp 499.500 setelah dipotong pajak penghasilan.
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </li>
@@ -462,15 +574,16 @@ const Form1: React.FC<Props> = ({ checked }) => (
                     <ul className='flex list-outside !list-none flex-col gap-2'>
                         <li>
                             9.1. Perusahaan menyediakan fitur pengamanan akun Pelanggan di Platform, khususnya Pelanggan
-                            dapat menggunakan PIN untuk masuk ke platform dan otorisasi transaksi. . Kegunaan PIN ini
-                            agar akun, data, aset, serta riwayat transaksi tidak diketahui oleh pihak yang tidak
-                            bertanggung jawab.
+                            dapat menerapkan antara lain 2FA (Two Factor Authentication) SMS, 2FA Google Authenticator
+                            dan/atau PIN. Pelanggan dapat mengaktifkan 2FA SMS atau 2FA Google Authenticator di
+                            Platform. Kegunaan fitur keamanan 2FA ini agar akun, data, aset, serta riwayat transaksi
+                            tidak diketahui oleh pihak yang tidak bertanggung jawab.
                         </li>
                         <li>
-                            9.2. Untuk mengaktifkan dan mengubah fitur PIN , Pelanggan dapat mengubah pengaturan dalam
-                            menu Pengaturan dan keamanan , di bagian perlindungan akun ada Atur PIN untuk mengganti atau
-                            reset PIN . Pelanggan selanjutnya mengikuti langkah-langkah aktivasi PIN pada ponsel
-                            Pelanggan sebagaimana diinformasikan Perusahaan dalam Platform.
+                            9.2. Untuk mengaktifkan fitur 2FA, Pelanggan dapat mengubah pengaturan dalam menu Keamanan
+                            akun Pelanggan, yaitu memilih 2FA Otentikasi Google dan aktifkan. Pelanggan selanjutnya
+                            mengikuti langkah-langkah aktivasi fitur 2FA pada ponsel Pelanggan sebagaimana
+                            diinformasikan Perusahaan dalam Platform.
                         </li>
                     </ul>
                 </li>
@@ -480,7 +593,9 @@ const Form1: React.FC<Props> = ({ checked }) => (
                         <li>
                             10.1. Semua layanan dalam Platform Perusahaan tidak memberikan jaminan ataupun garansi apa
                             pun dan Perusahaan tidak menjamin bahwa Platform Perusahaan akan selalu dapat diakses setiap
-                            waktu dikarenakan adanya gangguan atau pemeliharaan sistem dan jaringan secara berkala.
+                            waktu dikarenakan adanya gangguan atau pemeliharaan sistem dan jaringan secara berkala, yang
+                            akan diberitahukan oleh Perusahaan kepada Pelanggan dari waktu ke waktu melalui media yang
+                            dimiliki dan/atau dikelola oleh Perusahaan dan/atau afiliasinya.
                         </li>
                         <li>
                             10.2. Bahwa dengan ini Pelanggan menyatakan dan menjamin menggunakan dana atau Aset Kripto
@@ -511,8 +626,8 @@ const Form1: React.FC<Props> = ({ checked }) => (
                         </li>
                         <li>
                             10.6. Bahwa Pelanggan dengan ini menyatakan bahwa Pelanggan mengetahui dan menyetujui
-                            Perusahaan dapat bekerjasama dengan pihak ketiga untuk menyediakan layanan, baik melalui
-                            Platform atau kanal lainnya.
+                            Perusahaan dapat bekerjasama dengan pihak ketiga untuk menyediakan layanan (termasuk namun
+                            tidak terbatas pada penyediaan layanan kustodian), baik melalui Platform atau kanal lainnya.
                         </li>
                         <li>
                             10.7. Bahwa Pelanggan dengan ini memberikan jaminan kepada Perusahaan bahwa Pelanggan
@@ -691,16 +806,17 @@ const Form1: React.FC<Props> = ({ checked }) => (
                 <li>
                     <strong>Layanan Pengaduan Pelanggan Aset Kripto</strong>
                     <br />
-                    E-mail : <a href='mailto:support@kriptomaksima.id'>support@kriptomaksima.id.</a>
+                    E-mail : <a href='mailto:customerservice@kriptomaksima.com'>customerservice@kriptomaksima.com</a>
                 </li>
                 <li>
                     <strong>Hukum yang Mengatur, Penyelesaian Perselisihan Pelanggan Aset Kripto, dan Bahasa</strong>
                     <ul className='flex list-outside !list-none flex-col gap-2'>
                         <li>
-                            16.1. Pelanggan menyetujui bahwa Perjanjian Pelanggan ini dan setiap klaim atau sengketa
-                            yang timbul dari atau sehubungan dengan pokok permasalahan Perjanjian Pelanggan ini akan
-                            diatur dan ditafsirkan sesuai dengan hukum Republik Indonesia.
+                            16.1. Anda menyetujui bahwa Perjanjian Pelanggan ini dan setiap klaim atau sengketa yang
+                            timbul dari atau sehubungan dengan pokok permasalahan Perjanjian Pelanggan ini akan diatur
+                            dan ditafsirkan sesuai dengan hukum Republik Indonesia.
                         </li>
+
                         <li>
                             16.2. Pelanggan dapat mengajukan aduan kepada Perusahaan melalui layanan pengaduan Pelanggan
                             yang dikelola Perusahaan.

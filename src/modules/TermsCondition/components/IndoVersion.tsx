@@ -1,40 +1,23 @@
-import Link from 'next/link';
 import React from 'react';
 
 const IndoVersion = () => {
     return (
         <>
             <span className='!text-center text-lg font-semibold text-gray-800'>
-                Aturan Perdagangan (Trading Rules) <br />
-                PT Bina Loka Indonesia
+                Pemberitahuan Privasi PT Kripto Maksima Koin
             </span>
             <span>
-                PT Bina Loka Indonesia, sebuah perseroan terbatas Indonesia dengan kantor terdaftar di Sequis Tower,
-                Lantai 17, Jl. Jend. Sudirman No. 71, Senayan, Kebayoran Baru, Jakarta Selatan, DKI Jakarta, didirikan
-                berdasarkan hukum Negara Republik Indonesia <strong>(“Bina Loka”)</strong>. <br /> <br /> Bina Loka
-                adalah perusahaan Indonesia yang independen, dan didukung kuat oleh pemegang saham terkemuka dengan
-                pengalaman pasar terdepan serta tata kelola perusahaan (good corporate governance) dan kepatuhan yang
-                baik. <br />
-                <br />
-                Bina Loka adalah perusahaan Indonesia yang independen, dan didukung kuat oleh pemegang saham terkemuka
-                dengan pengalaman pasar terdepan serta tata kelola perusahaan (good corporate governance) dan kepatuhan
-                yang baik.
-                <br />
-                <br />
-                Aturan Perdagangan ini memberitahukan anda mengenai Syarat dan Ketentuan Bina Loka mengenai penggunaan
-                produk, layanan, teknologi, dan/atau fitur yang disediakan oleh Bina Loka melalui Platform Bina Loka{' '}
-                <strong>(“Aturan Perdagangan”)</strong>. Platform Bina Loka (sebagaimana didefinisikan di bawah)
-                memberikan anda beberapa layanan, termasuk namun tidak terbatas pada perdagangan Aset Kripto,
-                berdasarkan daftar Aset Kripto yang dapat diperdagangkan serta harganya. Aset Kripto ini dapat diakses
-                oleh Pengguna dan/atau Pelanggan, melalui Platform Bina Loka. Berikut adalah Aturan Perdagangan yang
-                mengatur semua Transaksi (sebagaimana didefinisikan di bawah) yang dilakukan oleh Pengguna melalui
-                Platform Bina Loka.
-                <br />
-                <br />
-                Aturan Perdagangan ini merupakan instrumen yang satu dan sama, dan merupakan bagian yang tidak terpisah
-                dari, Perjanjian Pelanggan Bina Loka, Syarat dan Ketentuan Bina Loka serta Kebijakan Bina Loka lainnya.
-                Bina Loka memohon anda untuk membaca dengan seksama perjanjian dan kebijakan tersebut di atas sebelum
-                menggunakan Layanan Bina Loka (sebagaimana didefinisikan di bawah).
+                Pemberitahuan Privasi berikut ini menjelaskan bagaimana kami, PT Kripto Maksima Koin{' '}
+                <strong>(atau “kami”)</strong>
+                mengumpulkan, menyimpan, menggunakan, mengolah, menguasai, mentransfer, mengungkapkan dan melindungi
+                Informasi Pribadi anda. Pemberitahuan Privasi ini berlaku bagi seluruh pengguna layanan atau produk yang
+                disediakan oleh kami <strong>(“Layanan)</strong> baik yang digunakan di dalam maupun di luar Aplikasi
+                GoPay yang dikembangkan oleh afiliasi kami dan situs web dan lain-lain (apabila ada){' '}
+                <strong>(“Aplikasi”)</strong>; kecuali diatur pada pemberitahuan privasi yang terpisah.
+            </span>
+            <span>
+                Mohon baca Pemberitahuan Privasi ini dengan seksama untuk memastikan bahwa anda memahami bagaimana
+                proses pengolahan data kami.
             </span>
             <br />
             <br />
@@ -51,888 +34,692 @@ const IndoVersion = () => {
                 }}
             >
                 <li>
-                    <strong> Definisi dan Istilah</strong> <br />
-                    <span>
-                        Dalam Aturan Perdagangan ini, kecuali jika konteksnya mensyaratkan sebaliknya, kata-kata dan
-                        istilah-istilah berikut ini memiliki arti sebagai berikut: <br />
-                        <br />
-                        <strong>Bina Loka</strong> berarti sebagai definisi yang diberikan dalam bagian Pembukaan yang
-                        terdapat di atas.
-                        <br />
-                        <br />
-                        <strong>Akun Bina Loka</strong> berarti akun Pengguna yang dibuat untuk menerima Layanan Bina
-                        Loka yang disediakan kami.
-                        <br />
-                        <br />
-                        <strong>Platform Bina Loka</strong> berarti platform di mana Bina Loka akan menyediakan
-                        layanannya kepada Pengguna. Platform ini dapat berupa situs web Bina Loka dan aplikasinya.
-                        <span>
-                            <strong>Layanan Bina Loka</strong> berarti berbagai layanan yang diberikan kepada anda oleh
-                            Bina Loka yang didasarkan pada teknologi Internet dan/atau teknologi <em>blockchain</em> dan
-                            ditawarkan melalui situs web Bina Loka, aplikasi seluler, dan bentuk lainnya (termasuk
-                            bentuk-bentuk baru yang akan dimungkinkan oleh perkembangan teknologi di masa depan).
-                            Layanan Bina Loka termasuk tetapi tidak terbatas pada Platform Perdagangan Aset Kripto dan
-                            layanan baru yang akan disediakan oleh Bina Loka.
-                            <br />
-                            <br />
-                            <strong>Koin</strong> berarti salah satu bentuk Aset Kripto yang memiliki konfigurasi{' '}
-                            <em>blockchain</em> tersendiri dan memiliki karakteristik seperti Aset Kripto yang muncul
-                            pertama kali yaitu <em>bitcoin</em>.<br />
-                            <br />
-                            <strong>Aset Kripto</strong> berarti komoditas yang tidak berwujud dalam bentuk digital dan
-                            menggunakan kriptografi, jaringan teknologi informasi, dan buku besar yang terdistribusi,
-                            untuk mengatur penciptaan unit baru, memverifikasi Transaksi, dan mengamankan Transaksi
-                            tanpa campur tangan pihak lain.
-                            <br />
-                            <br />
-                            <strong>Perjanjian Pelanggan</strong> berarti suatu perjanjian antara Pengguna dan PT Bina
-                            Loka Indonesia sehubungan penggunaan Layanan Bina Loka.
-                            <br />
-                            <br />
-                            <strong>CDD</strong> berarti “<strong>Customer Due Diligence</strong>”, yaitu kegiatan yang
-                            berupa identifikasi, verifikasi dan pemantauan yang dilakukan untuk memastikan bahwa
-                            Transaksi telah sesuai dengan profil, karakteristik dan/atau pola Transaksi Pengguna Bina
-                            Loka.
-                            <br />
-                            <br />
-                            <strong>Aset Digital</strong> berarti mata uang digital, Aset Kripto (sebagaimana
-                            didefinisikan di atas) atau jenis aset digital lainnya dengan nilai tertentu.
-                            <br />
-                            <br />
-                            <strong>Biaya</strong> mengacu pada semua biaya dan imbalan yang terdapat dalam Klausul VII
-                            di bawah ini.
-                            <br />
-                            <br />
-                            <span>
-                                <strong>Setoran Fiat</strong> berarti pembelian Aset Digital dan/atau Aset Kripto di
-                                mana Pengguna dapat mengkredit akun mereka melalui transfer bank. Setoran tersebut akan
-                                memungkinkan Pengguna untuk membayar pembelian dan membeli Aset Digital/Aset Kripto.
-                                <br />
-                                <br />
-                                <strong>Penarikan Fiat</strong> berarti penjualan Aset Digital/Aset Kripto berdasarkan
-                                harga pasar <em>spot</em>.<br />
-                                <br />
-                                <strong>KYC</strong> berarti proses “<strong>Know-Your-Customer</strong>
-                                ” yang telah dilakukan oleh Bina Loka sebelum menjalankan hubungan bisnis atau melakukan
-                                Transaksi dengan Pengguna. Sebagai bagian dari proses ini, Bina Loka dapat melakukan
-                                apapun yang dianggap perlu untuk mengidentifikasi Pengguna, melakukan proses verifikasi
-                                atas identitas Pengguna, meneliti dan menyelidiki Transaksi Pengguna, untuk mematuhi
-                                hukum dan peraturan perundang-undangan yang berlaku.
-                                <br />
-                                <br />
-                                <strong>Pesanan (Order)</strong> berarti suatu instruksi dari Pengguna untuk penggunaan
-                                Layanan Bina Loka terkait dengan Perdagangan <em>Crypto-to-crypto</em>.<br />
-                                <br />
-                                <strong>Buku Order (Order Book)</strong> berarti daftar Pesanan (<em>Order</em>) beli
-                                dan jual yang saat ini terbuka untuk suatu aset, disusun berdasarkan harga.
-                                <br />
-                                <br />
-                                <strong>Perdagangan Spot</strong> berarti fasilitas perdagangan yang disediakan oleh
-                                Bina Loka untuk melakukan perdagangan dengan pengguna lain di pasar melalui Buku Order (
-                                <em>Order Book</em>), pada harga pasar aset ini.
-                                <br />
-                                <br />
-                                <strong>Syarat dan Ketentuan</strong> berarti suatu perjanjian antara PT Bina Loka
-                                Indonesia dan Penggunanya, yang mengatur penggunaan Platform dan Layanan Bina Loka.
-                                <br />
-                                <br />
-                                <strong>Token</strong> berarti salah satu bentuk Aset Kripto yang dibuat sebagai produk
-                                turunan dari Koin.
-                                <br />
-                                <br />
-                                <strong>Transaksi</strong> berarti proses perdagangan Aset Digital dan/atau Aset Kripto
-                                oleh Pengguna di Platform Bina Loka.
-                                <br />
-                                <br />
-                                <strong>Pengguna</strong> berarti semua individu yang mengakses, mengunduh, atau
-                                menggunakan Layanan Bina Loka dan yang memenuhi kriteria dan ketentuan kelayakan yang
-                                ditetapkan oleh Bina Loka. Bina Loka serta hukum dan peraturan perundang- undangan yang
-                                berlaku. Untuk menghindari keraguan, setiap referensi yang dibuat untuk "Pelanggan"
-                                dengan ini memiliki arti yang sama dengan Pengguna dalam Aturan Perdagangan ini.
-                                <br />
-                                <br />
-                                <strong>Dompet (Wallet)</strong> berarti media yang dipergunakan untuk menyimpan Aset
-                                Kripto baik berupa Koin atau Token.
-                            </span>
-                        </span>
-                    </span>
-                </li>
-                <br />
-                <br />
-                <li>
-                    <strong> Proses Pendaftaran Pelanggan/Pengguna</strong>
-                    <br />
+                    <strong>Pemahaman dan Persetujuan Anda</strong> <br />
                     <ul className='list-decimal pl-5'>
                         <li>
-                            Semua Transaksi yang dilakukan di Platform Bina Loka adalah Transaksi yang telah dilakukan
-                            oleh Pengguna Bina Loka yang terdaftar.
+                            Dengan menyetujui Pemberitahuan Privasi, anda memahami bahwa anda telah membaca dan memahami
+                            Pemberitahuan Privasi ini dan menyetujui segala ketentuannya. Secara khusus, anda setuju dan
+                            memberikan persetujuan kepada kami untuk mengumpulkan, menggunakan, membagikan,
+                            mengungkapkan, menyimpan, mentransfer, atau mengolah Informasi Pribadi anda sesuai dengan
+                            Pemberitahuan Privasi ini.
                         </li>
                         <li>
-                            Proses pendaftaran Pengguna akan dilakukan sebagai berikut: <br />
-                            <ul className='list-decimal flex-col gap-2 pl-5'>
-                                <li>
-                                    Buka <Link href='/'>www.kriptomaksima.id</Link> kemudian klik Daftar;
-                                </li>
-                                <li>
-                                    Isi kolom dengan nama e-mail, kemudian kombinasi kata sandi minimal terdiri atas 8
-                                    karakter (huruf besar/kecil, simbol, dan nomor), ID Referensi (Opsional), dan pilih
-                                    dari mana Pelanggan mengetahui Bina Loka. Setelah itu klik jika telah membaca dan
-                                    setuju dengan Ketentuan Pengguna. Kemudian klik Daftar;
-                                </li>
-                                <li>
-                                    Konfirmasi e-mail anda dengan mendapatkan kode konfirmasi. Ini untuk validasi
-                                    e-mail;
-                                </li>
-                                <li>
-                                    Jika sudah sukses verifikasi maka akan tampil, tampilan Info Dasar akun milik
-                                    Pelanggan;
-                                </li>
-                                <li>
-                                    Jika ingin melakukan Login, silahkan buka laman utama kami di{' '}
-                                    <Link href='/'>www.kriptomaksima.id</Link>, kemudian klik Masuk;
-                                </li>
-                                <li>
-                                    Silakan masukkan alamat e-mail dan kata sandi sesuai yang didaftarkan di Bina Loka.
-                                    Kemudian klik Masuk;
-                                </li>
-                                <li>
-                                    Masukan Kode OTP jika Pelanggan sudah mengaktifkan security yang digunakan.
-                                    Pilihannya ke Halaman Akun selanjutnya 2-Factor-Authentication (2FA), terdiri dari 2
-                                    pilihan yaitu autentikasi Google (Google Authenticator) dan autentikasi SMS.
-                                </li>
-                            </ul>
+                            Dalam keadaan di mana anda memberikan kepada kami Informasi Pribadi yang berkaitan dengan
+                            individu lain (seperti Informasi Pribadi yang berkaitan dengan pasangan anda, anggota
+                            keluarga, teman, atau pihak lain), anda menyatakan dan menjamin bahwa anda telah memperoleh
+                            persetujuan dari individu tersebut untuk, dan dengan ini menyetujui atas nama individu
+                            tersebut untuk, pengumpulan, penggunaan, pengungkapan dan pengolahan Informasi Pribadi
+                            mereka oleh kami. Kami dapat meminta bukti dari persetujuan tersebut kepada anda setiap
+                            saat.
                         </li>
                         <li>
-                            Untuk semua Pengguna, CDD merupakan proses yang wajib dijalankan yang mencakup pengumpulan
-                            informasi identifikasi utama dan dokumen verifikasi. Sebagai bagian dari verifikasi, salinan
-                            dokumen identifikasi yang dapat diterima atau bukti alamat sesuai dengan proses KYC berbasis
-                            tier.
-                        </li>
-                        <li>
-                            Sebagai ilustrasi, dokumen identitas yang dapat diterima untuk verifikasi Pelanggan individu
-                            termasuk identitas nasional yang berlaku, paspor yang valid, Surat Izin Mengemudi (“SIM”),
-                            atau kartu identitas fotografi lainnya yang dikeluarkan pemerintah, seperti yang dinyatakan
-                            dalam poin-poin di bawah ini.
-                            <br /> <br />
-                            <span>Jenis dokumen identifikasi yang dapat diterima:</span>
-                            <ul className='list-disc pl-5'>
-                                <li>
-                                    Kartu Tanda Penduduk (<strong>"KTP"</strong>)
-                                </li>
-                                <li>Paspor Yang Masih Berlaku</li>
-                                <li>SIM</li>
-                                <li>Dokumen identitas dengan foto lainnya yang dikeluarkan oleh Pemerintah</li>
-                            </ul>
-                            <span>Daftar periksa untuk dokumen identifikasi yang dapat diterima:</span>
-                            <ul className='list-disc pl-5'>
-                                <li>Nama Lengkap</li>
-                                <li>Tanggal lahir</li>
-                                <li>Kebangsaan</li>
-                                <li>Negara Penerbit</li>
-                                <li>Tanggal Penerbitan</li>
-                                <li>
-                                    Tanggal Kedaluwarsa (jika berlaku - tidak boleh merupakan dokumen yang sudah
-                                    kadaluwarsa)
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Pengguna akan dapat masuk dan melihat harga berbagai pasangan tetapi mereka tidak akan dapat
-                            menggunakan Layanan dan Transaksi Bina Loka lainnya sampai mereka mencapai tingkat akun
-                            "Terverifikasi".
-                        </li>
-                        <li>
-                            Bina Loka telah mengadopsi proses KYC berbasis tier untuk memastikan keaslian identitas
-                            Pelanggan dan mencegah pembuatan akun anonim atau fiktif. Dengan demikian, semua aset
-                            Pelanggan tercermin dalam akun yang terkait dengan profil mereka, yang secara efektif
-                            meningkatkan transparansi ekosistem dan meningkatkan kesulitan pencucian uang/pendanaan
-                            terorisme/pembiayaan proliferasi dan korupsi.
-                        </li>
-                        <li>
-                            Proses verifikasi KYC Pengguna akan dilakukan sebagai berikut: <br />
-                            <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                                <li>Masuk ke Akun Bina Loka anda melalui Mobile Apps;</li>
-                                <li>Klik logo akun anda di pojok kanan atas;</li>
-                                <li>Pilih identifikasi otentikasi dan pilih verifikasi identifikasi dasar;</li>
-                                <li>Klik tombol verifikasi KYC level 1;</li>
-                                <li>
-                                    Akan muncul halaman dimana anda memilih kebangsaan, jika Indonesia siapkan data diri
-                                    berupa KTP dan jika warga negara asing siapkan data diri berupa KITAS;
-                                </li>
-                                <li>
-                                    Unggah KTP anda dalam bentuk JPEG atau JPG, pastikan KTP terlihat jelas (tidak buram
-                                    dan seluruh informasi data dapat terbaca dengan baik);
-                                </li>
-                                <li>Isi data diri sesuai KTP anda pada halaman pengisian data;</li>
-                                <li>
-                                    Setelah itu, anda akan diarahkan pada halaman <em>Liveness</em> untuk melakukan
-                                    verifikasi wajah, pastikan ruangan anda memiliki cukup cahaya dan wajah terlihat
-                                    jelas di kamera;
-                                </li>
-                                <li>
-                                    Sistem akan merekam wajah anda untuk verifikasi data biometrik dengan menganalisis
-                                    dan membandingkan referensi data. Saat melakukan proses verifikasi wajah ini, jangan
-                                    menggunakan aksesoris apapun pada wajah anda (contoh: kacamata, masker, dsb);
-                                </li>
-                                <li>
-                                    Klik tombol rekam dan ikuti petunjuk yang diberikan, pastikan mata anda sejajar
-                                    dengan kamera anda;
-                                </li>
-                                <li>Klik kirim setelah verifikasi wajah berhasil dan selesai; dan</li>
-                                <li>
-                                    Proses verifikasi KYC akan disetujui kurang dari 1x24 jam oleh sistem jika data
-                                    verifikasi anda sesuai dengan ketentuan yang diberikan. Jika terdapat data yang
-                                    kurang jelas atau buram akan dilakukan verifikasi tambahan. Dalam waktu 7 (tujuh)
-                                    hari kami akan memberitahukan apakah KYC kamu ditolak atau disetujui.
-                                </li>
-                            </ul>
+                            Anda dapat menarik persetujuan anda untuk setiap atau segala pengumpulan, penggunaan atau
+                            pengungkapan Informasi Pribadi anda kapan saja dengan memberikan kepada kami pemberitahuan
+                            yang wajar secara tertulis menggunakan rincian kontak yang disebutkan di bawah ini. Anda
+                            juga dapat menarik persetujuan pengiriman komunikasi dan informasi tertentu dari kami
+                            melalui fasilitas "opt-out" atau pilihan "berhenti berlangganan" yang tersedia dalam pesan
+                            kami kepada anda. Tergantung pada keadaan dan sifat persetujuan yang anda tarik, anda harus
+                            memahami dan mengakui bahwa setelah penarikan persetujuan tersebut, anda mungkin tidak lagi
+                            dapat menggunakan Aplikasi atau Layanan. Penarikan persetujuan anda dapat mengakibatkan
+                            penghentian akun anda atau hubungan kontraktual anda dengan kami, dengan semua hak dan
+                            kewajiban yang muncul sepenuhnya harus dipenuhi. Setelah menerima pemberitahuan untuk
+                            menarik persetujuan untuk pengumpulan, penggunaan atau pengungkapan Informasi Pribadi anda,
+                            kami akan menginformasikan anda tentang konsekuensi yang mungkin terjadi dari penarikan
+                            tersebut sehingga anda dapat memutuskan apakah anda tetap ingin menarik persetujuan.
                         </li>
                     </ul>
                 </li>
+                <br />
+                <br />
                 <li>
-                    <strong>Pernyataan dan Jaminan</strong> <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            Bina Loka tidak akan memberikan jaminan apapun bahwa Platform Bina Loka akan selalu dapat
-                            diakses setiap saat, karena mungkin ada kendala seperti gangguan atau pemeliharaan sistem
-                            dan jaringan secara berkala.
-                        </li>
-                        <li>
-                            Bina Loka telah memberikan informasi dan penjelasan yang cukup mengenai Layanan Bina Loka
-                            yang akan diakses oleh Penggunanya yang terdaftar dan terverifikasi. Sesuai dengan ketentuan
-                            Perjanjian Pelanggan Bina Loka, Syarat dan Ketentuan, dan Pemberitahuan Risiko, Pengguna
-                            telah membaca, memahami, menangkap, memperhatikan, menyetujui ketentuan yang tercantum di
-                            dalamnya, dan bersedia menanggung segala akibat yang mungkin timbul sehubungan dengan
-                            ketentuan Layanan Bina Loka termasuk manfaat, risiko, dan Biaya yang melekat pada layanan
-                            tersebut.
-                        </li>
-                        <li>
-                            Sejauh diizinkan oleh hukum dan peraturan perundang-undangan yang berlaku, dalam keadaan apa
-                            pun tidak boleh ada Bina Loka, pemegang saham Bina Loka, pihak usaha patungan, afiliasi dan
-                            perusahaan serta entitas terkait, dan pejabat, direktur, karyawan, perwakilan, agen,
-                            pemasok, dan penyedia layanan dari semua orang dan entitas yang dijelaskan dalam klausul ini
-                            yang akan bertanggung jawab atau berkewajiban untuk setiap kerugian langsung atau tidak
-                            langsung (termasuk kehilangan keuntungan, bisnis atau peluang), kerusakan atau biaya yang
-                            diderita oleh setiap Pengguna atau orang atau entitas lain, yang timbul dari atau sehubungan
-                            dengan tindakan, kelalaian, pelanggaran atau wanprestasi yang dilakukan oleh atau disebabkan
-                            oleh Pengguna mana pun, termasuk namun tidak terbatas pada setiap kegagalan Pengguna dalam
-                            menyelesaikan Pesanan (Order) dan/atau Transaksi mereka, baik kegagalan ini disebabkan oleh
-                            Bina Loka atau sebaliknya.
-                        </li>
-                        <li>
-                            Pengguna dengan ini menyatakan dan menjamin bahwa semua data, informasi dan dokumen yang
-                            diberikan Pelanggan kepada Bina Loka adalah benar, sah, jujur, transparan, lengkap dan
-                            merupakan data, informasi dan dokumen yang akurat. Pengguna menyatakan bersedia dilaporkan
-                            secara pidana atau digugat secara perdata apabila Bina Loka mengetahui atau memperoleh
-                            informasi dari pihak manapun bahwa data, informasi dan dokumen yang diberikan Pengguna tidak
-                            benar/tidak sepenuhnya benar/palsu. Pengguna bersedia memperbaharui data/informasi jika
-                            sewaktu-waktu diminta oleh Bina Loka dan semua dokumen yang telah disediakan menjadi milik
-                            Bina Loka sepenuhnya.
-                        </li>
-                        <li>
-                            Pengguna dengan ini setuju dan memberikan wewenang kepada Bina Loka untuk menggunakan
-                            seluruh data, informasi dan informasi yang diperoleh Bina Loka mengenai Pengguna, termasuk
-                            namun tidak terbatas pada sarana komunikasi pribadi Pengguna untuk segala keperluan lainnya
-                            sepanjang memungkinkan dan diizinkan oleh hukum dan peraturan perundang-undangan yang
-                            berlaku, termasuk untuk tujuan pemasaran Layanan Bina Loka, atau lainnya untuk pihak yang
-                            bekerja sama dengan Bina Loka. Untuk penggunaan data yang memerlukan persetujuan pihak lain,
-                            Pengguna dengan ini menyatakan telah memperoleh persetujuan tertulis dari pihak ketiga mana
-                            pun atas penggunaan data dan informasi tersebut.
-                        </li>
-                        <li>
-                            Pengguna dengan ini menyatakan dan menjamin untuk tidak menggunakan Layanan Bina Loka untuk
-                            perdagangan Aset Kripto yang terkait dengan: (i) narkotika, bahan dan/atau zat kimia untuk
-                            penelitian; (ii) uang dan segala sesuatu yang serupa dengan uang, termasuk derivative; (iii)
-                            barang dan/atau jasa yang melanggar Hak Kekayaan Intelektual; (iv) amunisi, senjata api,
-                            bahan peledak, senjata tajam sesuai dengan ketentuan hukum yang berlaku; (v) barang dan/atau
-                            jasa yang mengungkapkan informasi pribadi dari pihak ketiga yang melanggar hukum; (vi)
-                            barang dan/atau jasa yang terkait dengan pembelian undian, lay- aways; (vii) layanan yang
-                            terkait dengan perbankan di luar wilayah negara Republik Indonesia; (viii) pembayaran dengan
-                            kartu; (ix) penyelesaian kredit (credit settlement); dan/atau (x) dukungan terhadap
-                            organisasi terlarang atau organisasi yang dilarang oleh pemerintah.
-                        </li>
-                        <li>
-                            Pengguna dengan ini menyatakan dan menjamin bahwa Transaksi yang dilakukan dengan
-                            menggunakan Layanan Bina Loka adalah Transaksi yang tidak melanggar ketentuan hukum dan
-                            peraturan perundang- undangan yang berlaku dan ketentuan mengenai pelaksanaan Transaksi
-                            sebagaimana diatur dalam Perjanjian Pelanggan dan Syarat dan Ketentuan. Dalam hal Bina Loka
-                            menemukan indikasi pelaksanaan Transaksi yang tidak sesuai dengan ketentuan peraturan
-                            perundang- undangan yang berlaku dan/atau ketentuan mengenai penerimaan pelaksanaan
-                            Transaksi sebagaimana diatur di dalamnya, Bina Loka berhak sepenuhnya untuk mengakhiri atau
-                            menangguhkan Akun Bina Loka Pengguna dengan menonaktifkan akses Pengguna ke Layanan Bina
-                            Loka, dan Pengguna dengan ini setuju bahwa Bina Loka dengan ini tidak akan memberikan ganti
-                            rugi dan/atau menanggung kewajiban dalam bentuk apapun kepada Pengguna.
-                        </li>
-                        <li>
-                            Pengguna menyatakan dan menjamin untuk tidak menggunakan Layanan Bina Loka untuk tindakan
-                            yang terlibat dalam praktik perjudian dan/atau aktivitas lain yang mengenakan biaya masuk
-                            dan menjanjikan hadiah, termasuk namun tidak terbatas pada permainan kasino, perjudian dalam
-                            olahraga, bisnis yang memfasilitasi perjudian dan metode undian.
-                        </li>
-                        <li>
-                            Pengguna dengan ini menyatakan dan menjamin bahwa risiko penggunaan layanan, produk, dan
-                            promosi pihak ketiga dengan Pengguna (jika ada), ditanggung oleh Pengguna, dan Pengguna
-                            mengakui bahwa Bina Loka tidak bertanggung jawab atas layanan dan kinerja pihak ketiga.
-                        </li>
-                        <li>
-                            {' '}
-                            Pengguna dengan ini menyatakan dan menjamin kepada Bina Loka bahwa Pengguna tidak akan
-                            memperbanyak dan/atau membuat, memberikan, menyewakan, menjual, memindahkan, mengalihkan,
-                            dan/atau mengalih-fungsikan Layanan baik sebagian atau seluruhnya kepada pihak lain dengan
-                            alasan apapun, termasuk namun tidak terbatas pada penyalahgunaan Platform Bina Loka untuk
-                            melakukan Transaksi selain dari yang telah ditentukan dalam Syarat dan Ketentuan dengan
-                            maksud apapun, termasuk namun tidak terbatas untuk kejahatan/penipuan/kecurangan. Apabila
-                            Pengguna melanggar ketentuan tersebut, maka Pengguna wajib bertanggung jawab atas segala
-                            kerugian, tuntutan dan/atau gugatan yang timbul akibat dari pelanggaran tersebut dan dengan
-                            ini setuju bahwa Bina Loka tidak akan memberikan ganti rugi dan/atau pertanggungjawaban
-                            dalam bentuk apapun kepada Pelanggan atau pihak manapun atas segala klaim dan/atau tuntutan
-                            dan/atau gugatan yang timbul akibat pelanggaran tersebut.
-                        </li>
-                        <li>
-                            Pengguna telah mempertimbangkan dan akan mematuhi setiap dan semua aspek skema perpajakan
-                            yang berlaku untuk anda dan penggunaan Layanan Bina Loka oleh anda, termasuk kewajiban apa
-                            pun sehubungan dengan pemotongan, pengumpulan, pelaporan, dan pengiriman uang kepada
-                            otoritas pajak yang sesuai (jika berlaku).
-                        </li>
-                        <li>
-                            Pengguna mengakui bahwa perlakuan hukum dan peraturan atas produk yang umumnya dikenal
-                            sebagai Token kriptografi, Token digital, atau mata uang kriptografi tidak diselesaikan,
-                            dapat berbeda antar yurisdiksi, dan dapat sering berubah, dan anda bertanggung jawab untuk
-                            terus meninjau diizinkannya urusan dalam atau dengan produk tersebut di bawah kerangka hukum
-                            dan peraturan yang berlaku untuk anda dan penggunaan anda atas Layanan Bina Loka di Republik
-                            Indonesia.
-                        </li>
-                        <li>
-                            Pengguna menyatakan dan menjamin akan menggunakan Layanan dengan baik dan bertanggung jawab
-                            serta tidak melakukan tindakan yang bertentangan dengan hukum dan peraturan
-                            perundang-undangan Republik Indonesia.
-                        </li>
-                        <li>
-                            Pengguna menyatakan dan menjamin bahwa mereka telah membaca dan memahami dengan seksama
-                            Aturan Perdagangan ini, serta setiap perjanjian lain yang disediakan oleh Bina Loka,
-                            termasuk namun tidak terbatas pada Perjanjian Pelanggan, Syarat dan Ketentuan, Kebijakan
-                            Privasi atau informasi lain yang disediakan oleh Bina Loka sebelum melakukan Transaksi Aset
-                            Kripto dan/atau Aset Digital.
-                        </li>
+                    <strong>Summary</strong>
+                    <br />
+                    <ul className='list-decimal pl-5'>
+                        <strong>Informasi apa yang kami simpan dari Anda? </strong> <br />
+                        <span>
+                            Kami mengumpulkan informasi pribadi yang Anda berikan kepada kami atau dan data teknis dari
+                            perangkat Anda ketika Anda pakai Aplikasi dan/atau Layanan. Untuk mengetahui data apa saja
+                            yang kami simpan dari Anda, silakan cek info selengkapnya.
+                        </span>
+                        <br />
+                        <br />
+                        <strong>Bagaimana kami menggunakan informasi Anda?</strong> <br />
+                        <span>
+                            Kami menggunakan informasi Anda untuk mengelola dan mengatur akun Anda, berkomunikasi dengan
+                            Anda, dan yang paling penting adalah menyediakan Layanan dan/atau Aplikasi. Informasi Anda
+                            juga digunakan untuk meningkatkan kualitas fitur dan layanan kami supaya pengalaman Anda di
+                            sini memuaskan. Info selengkapnya.
+                        </span>{' '}
+                        <br />
+                        <br />
+                        <strong>Dengan siapa kami membagi informasi Anda?</strong> <br />
+                        <span>
+                            Apabila perlu, kami membagikan informasi Anda dengan pihak lain yang tentunya memiliki kerja
+                            sama dengan kami supaya Anda bisa menggunakan layanan. Contohnya adalah pihak yang membantu
+                            kami dalam memverifikasi Anda, pihak yang menyediakan metode pembayaran agar Anda dapat
+                            membayar sesuatu, dan pihak lain yang berkolaborasi dengan Kami untuk memberikan layanan
+                            inovatif untuk Anda. Apabila dipersyaratkan oleh hukum yang berlaku, informasi Anda juga
+                            dapat Kami bagikan kepada otoritas yang berwenang. Info selengkapnya.
+                        </span>{' '}
+                        <br />
+                        <br />
+                        <strong>Berapa lama kami menyimpan informasi Anda?</strong> <br />
+                        <span>
+                            Selama yang diperlukan untuk memenuhi tujuan penyimpanan informasi atau sesuai dengan hukum
+                            yang berlaku. Info selengkapnya.
+                        </span>{' '}
+                        <br />
+                        <br />
+                        <strong>
+                            Bagaimana cara Anda untuk melaksanakan hak Anda atas informasi pribadi Anda?
+                        </strong>{' '}
+                        <br />
+                        <span>Bagaimana cara Anda untuk melaksanakan hak Anda atas informasi pribadi Anda?</span> <br />
+                        <br />
+                        <strong>Hubungi kami</strong> <br />
+                        <span>
+                            Kalau Anda punya pertanyaan mengenai Pemberitahuan Privasi ini atau pertanyaan atau keluhan
+                            mengenai bagaimana kami memproses informasi pribadi Anda, silakan hubungi kami di{' '}
+                            <a href='mailto:customerservice@kriptomaksima.com'>customerservice@kriptomaksima.com</a>
+                        </span>
+                        <br />
+                        <br />
                     </ul>
                 </li>
                 <li>
-                    <strong>Kewajiban dan Tanggung Jawab</strong> <br />
+                    <strong>Informasi Pribadi apa yang Kami kumpulkan?</strong> <br />
                     <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            Pengguna setuju untuk menanggung setiap risiko, kerugian atau akibat yang diderita Pengguna
-                            yang disebabkan oleh kerusakan, keterlambatan, kehilangan atau kesalahan pengiriman Pesanan
-                            (Order) dan komunikasi, secara elektronik yang disebabkan oleh Pengguna.
+                            <strong>Informasi Pribadi Yang Kami Kumpulkan</strong>
+                            <br />
+                            Kami mengumpulkan informasi yang mengidentifikasikan atau dapat digunakan untuk
+                            mengidentifikasi, menghubungi, atau menemukan orang atau perangkat yang terkait dengan
+                            informasi tersebut ("Informasi Pribadi"). Informasi Pribadi termasuk, tetapi tidak terbatas
+                            pada, nama, alamat, tanggal lahir, pekerjaan, nomor telepon, alamat e-mail, rekening bank
+                            dan detail kartu kredit, jenis kelamin, identifikasi (termasuk KTP, SIM, atau Paspor) atau
+                            tanda pengenal lainnya yang dikeluarkan oleh pemerintah, foto, kewarganegaraan, nomor
+                            telepon pengguna dan non-pengguna Aplikasi kami yang terdapat dalam daftar kontak telepon
+                            selular anda, informasi terkait KYC layanan pembayaran dan keuangan (misalnya, nama gadis
+                            ibu, perkiraan pendapatan dan informasi lainnya sehubungan dengan KYC bank ketika anda
+                            membuka akun bank melalui Aplikasi), serta informasi biometrik (termasuk namun tidak
+                            terbatas pengenalan wajah). Selain itu, untuk informasi lainnya, seperti profil pribadi,
+                            dan/atau nomor pengenal unik, yang dikaitkan atau digabungkan dengan Informasi Pribadi, maka
+                            informasi tersebut juga dianggap sebagai Informasi Pribadi. Informasi Pribadi yang kami
+                            kumpulkan dapat diberikan oleh anda secara langsung atau oleh pihak ketiga (misalnya: ketika
+                            anda mendaftar atau menggunakan Aplikasi, ketika anda menghubungi layanan pelanggan kami,
+                            atau sebaliknya ketika anda memberikan Informasi Pribadi kepada kami). Kami dapat
+                            mengumpulkan informasi dalam berbagai macam bentuk dan tujuan (termasuk tujuan yang
+                            diizinkan berdasarkan peraturan perundang-undangan yang berlaku).
                         </li>
                         <li>
-                            Pengguna setuju untuk menanggung segala risiko yang terkait dengan Akun Bina Loka laporan
-                            atau pemberitahuan penggunaan layanan Bina Loka yang dikirimkan kepada Pengguna diterima
-                            atau dibaca atau disalahgunakan oleh pihak yang tidak berwenang terhadap Akun Bina Loka, dan
-                            Password Akun Bina Loka diketahui oleh orang/pihak lain karena kesalahan Pengguna.
-                        </li>
-                        <li>
-                            Pengguna dengan ini bertanggung jawab sepenuhnya dan setuju bahwa Bina Loka tidak akan
-                            memberikan ganti rugi dan/atau pertanggungjawaban dalam bentuk apapun kepada Pengguna atau
-                            pihak manapun atas segala kerugian dan/atau klaim dan/atau tuntutan yang timbul atau mungkin
-                            dialami oleh Bina Loka sebagai akibat dari kelalaian atau kegagalan Pengguna dalam
-                            menjalankan Transaksi.
-                        </li>
-                        <li>
-                            Pengguna dengan ini bertanggung jawab sepenuhnya dan setuju bahwa Bina Loka tidak akan
-                            memberikan ganti rugi dan/atau pertanggungjawaban dalam bentuk apapun kepada Pengguna atau
-                            pihak manapun atas segala kerugian dan/atau klaim dan/atau tuntutan yang timbul atau mungkin
-                            dialami oleh Bina Loka sebagai akibat dari kelalaian atau kegagalan Pengguna dalam hal
-                            keamanan password atau kredensial dari Akun Bina Loka Pengguna.
-                        </li>
-                        <li>
-                            Pengguna memahami dan menyetujui bahwa Pengguna akan menggunakan Akun dan Layanan Bina Loka
-                            untuk Transaksi yang tidak bertentangan dengan ketentuan hukum dan peraturan
-                            perundang-undangan yang berlaku dan/atau kebijakan internal Bina Loka dan/atau peraturan
-                            lainnya yang berlaku secara nasional dan internasional terkait dengan pelaksanaan Transaksi
-                            baik secara langsung maupun tidak langsung, dan Bina Loka tidak akan memberikan ganti rugi
-                            dan/atau pertanggungjawaban dalam bentuk apapun kepada Pengguna atau pihak manapun atas
-                            segala klaim dan/atau tuntutan dan/atau kerugian yang timbul sehubungan dengan penggunaan
-                            Layanan oleh Pengguna untuk Transaksi yang termasuk dalam kategori Transaksi mencurigakan
-                            dan/atau Transaksi yang dilarang oleh ketentuan hukum dan peraturan perundang- undangan yang
-                            berlaku dan/atau kebijakan internal Bina Loka dan/atau peraturan nasional dan internasional
-                            lainnya yang berlaku terkait dengan aktivitas Transaksi yang dilakukan Pengguna baik secara
-                            langsung atau tidak langsung.
-                        </li>
-                        <li>
-                            Semua Pengguna Bina Loka dan layanannya memahami dan menyetujui bahwa sumber dana mereka
-                            adalah kegiatan ekonomi yang sah dan dana mereka tidak berasal dari kegiatan ilegal. Bina
-                            Loka berhak untuk meminta bukti sumber kekayaan atau sumber dana dari pengguna terdaftar,
-                            baik pribadi maupun institusi. Bina Loka mempertahankan sikap kerja sama dengan otoritas
-                            penegak hukum secara global dan tidak akan ragu untuk menyita, membekukan, mengakhiri akun
-                            dan dana pengguna yang ditandai atau diselidiki oleh perintah hukum.
-                        </li>
-                        <li>
-                            Dalam melakukan Transaksi menggunakan Platform Bina Loka, Pengguna mengerti dan menyetujui
-                            bahwa terdapat sanksi-sanksi tertentu yang dikenakan oleh pemerintah, termasuk pemerintah
-                            negara lain, dan/atau instansi berwenang lainnya pada beberapa negara, badan dan perorangan.
-                            Mengacu pada hal tersebut, Bina Loka berhak untuk tidak melaksanakan/memproses Transaksi
-                            yang merupakan pelanggaran terhadap ketentuan sanksi tersebut, dan instansi berwenang dapat
-                            mensyaratkan pengungkapan informasi terkait. Bina Loka tidak bertanggung jawab apabila Bina
-                            Loka atau pihak lain gagal atau menunda pelaksanaan Transaksi, atau adanya pengungkapan
-                            informasi sebagai akibat pelanggaran langsung maupun tidak langsung atas ketentuan sanksi
-                            tersebut.
-                        </li>
-                        <li>
-                            Pengguna bertanggung jawab untuk meninjau dan memahami kerangka hukum dan peraturan
-                            perundang-undangan yang berlaku untuk anda dan penggunaan anda atas Layanan Bina Loka di
-                            Republik Indonesia, dan anda sebagai Pengguna, menyatakan dan menjamin bahwa penggunaan
-                            Layanan Bina Loka oleh anda diperbolehkan di bawah rezim hukum dan peraturan tersebut.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Pembaruan Data</strong> <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            Pengguna Platform Bina Loka setuju untuk memperbarui informasi pribadi mereka yang diberikan
-                            kepada Bina Loka untuk keperluan verifikasi data.
-                        </li>
-                        <li>
-                            {' '}
-                            Kegiatan pengkinian data Pelanggan bermaksud untuk mencapai tujuan berikut: <br />
+                            Informasi yang kami kumpulkan dari anda atau perangkat seluler anda secara langsung <br />{' '}
+                            <br />
                             <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    Menganalisis dan menentukan risiko bahwa aktivitas Pelanggan, untuk jangka waktu
-                                    sejak pemeriksaan terakhir, umumnya dianggap sesuai dengan profil Pelanggan;
+                                    Ketika anda mendaftar dan membuat akun dengan kami menggunakan Aplikasi, anda harus
+                                    memberikan kepada kami Informasi Pribadi tertentu, termasuk nama, alamat e-mail, dan
+                                    nomor telepon anda.
                                 </li>
                                 <li>
-                                    Memastikan bahwa penjelasan- penjelasan dicari dan/atau informasi lebih lanjut
-                                    diperoleh apabila muncul suatu Transaksi atau aktivitas yang tidak sesuai/tidak
-                                    wajar; dan
+                                    Ketika anda menggunakan Aplikasi dan/atau Layanan, anda harus memberikan kami
+                                    informasi yang relevan yang mungkin diperlukan oleh kami agar Aplikasi dan/atau
+                                    Layanan dapat berfungsi, contohnya: <br />
+                                    <ul className='list-disc pl-5'>
+                                        <li>
+                                            jika anda menggunakan Aplikasi sebagai pengguna, anda harus memberikan
+                                            kepada kami nomor telepon Anda untuk mendaftarkan diri dan masuk ke
+                                            Aplikasi. Apabila Anda telah menjadi pengguna Aplikasi Gojek, Aplikasi akan
+                                            mengenali anda dan kami akan menggunakan informasi kredensial yang telah
+                                            anda berikan kepada Gojek yang mana tunduk kepada{' '}
+                                            <a href='https://www.gojek.com/id-id/privacy-policies/' target='_blank'>
+                                                Pemberitahuan Privasi Gojek.{' '}
+                                            </a>
+                                            Jika Anda belum pernah menjadi pengguna aplikasi Gojek, nomor telepon
+                                            genggam Anda dapat digunakan untuk mendaftarkan diri dalam aplikasi Gojek.
+                                        </li>
+                                        <li>
+                                            Jika anda menggunakan Layanan, layanan uang elektronik dan/atau dompet
+                                            elektronik yang disediakan oleh kami dan/atau afiliasi kami jika anda adalah
+                                            pihak pembayar atau pengirim, anda akan menyediakan informasi kepada kami
+                                            yang berkaitan dengan penggunaan, pembayaran atau transfer, termasuk tetapi
+                                            tidak terbatas pada rincian transfer dan/atau penerima pembayaran, jumlah
+                                            pembayaran yang dibayarkan, jenis Instrumen Pembayaran yang digunakan, nama
+                                            penerbit Instrumen Pembayaran tersebut, nama pemegang dan nomor Instrumen
+                                            Pembayaran tersebut, kode verifikasi Instrumen Pembayaran dan tanggal
+                                            kadaluarsa Instrumen Pembayaran, sebagaimana berlaku.
+                                        </li>
+                                        <li>
+                                            Jika anda menggunakan layanan uang elektronik dan/atau dompet elektronik
+                                            yang disediakan oleh kami dan apabila anda adalah penerima pembayaran atau
+                                            dana, anda akan menyediakan kami dengan informasi yang menyebabkan anda
+                                            menerima pembayaran dari pembayar atau pengirim, termasuk namun tidak
+                                            terbatas pada nama lengkap, nomor telepon, nama penerbit akun uang
+                                            elektronik dan nomor rekening bank anda.
+                                        </li>
+                                        <li>
+                                            Jika anda bermaksud untuk mendaftar sebagai pemegang akun terdaftar atau
+                                            terverifikasi dari Layanan, anda akan memberikan informasi kepada kami yang
+                                            diperlukan termasuk tetapi tidak terbatas pada nama lengkap anda, nomor
+                                            kartu identitas anda, jenis kartu identitas yang anda gunakan untuk
+                                            registrasi, alamat, jenis kelamin, tempat dan tanggal lahir, pekerjaan,
+                                            kebangsaan dan/atau data biometrik.
+                                        </li>
+                                        <li>
+                                            Jika anda bermaksud untuk menambahkan kartu debit, kartu kredit, akun
+                                            pembayaran dan/atau akun jasa keuangan (“Instrumen Pembayaran”) sebagai
+                                            sumber dana untuk pembayaran dalam layanan dompet elektronik yang disediakan
+                                            oleh afiliasi kami, anda akan memberikan kepada kami informasi terkait jenis
+                                            Instrumen Pembayaran yang didaftarkan, penerbit Instrumen Pembayaran, nama
+                                            pemegang Instrumen Pembayaran tersebut, nomor identifikasi dari Instrumen
+                                            Pembayaran dan kode verifikasi Instrumen Pembayaran dan tanggal kadaluarsa
+                                            Instrumen Pembayaran, sebagaimana berlaku.
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li>Memastikan profil terkini Pelanggan.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Informasi yang dikumpulkan setiap kali anda menggunakan Aplikasi, Layanan atau mengunjungi
+                            situs web kami <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
+                                <li>
+                                    Setiap kali anda menggunakan Aplikasi, Layanan atau mengunjungi situs web kami, kami
+                                    dapat mengumpulkan data teknis tertentu sehubungan dengan penggunaan anda seperti,
+                                    alamat protokol internet, informasi halaman web yang sebelumnya atau selanjutnya
+                                    dilihat, durasi setiap kunjungan/sesi, identitas perangkat internet atau alamat
+                                    kontrol akses media, dan mobile advertising ID dan informasi perangkat lainnya
+                                    termasuk informasi mengenai produsen, model, dan sistem operasi dari perangkat yang
+                                    anda gunakan untuk mengakses Aplikasi, Layanan atau situs web kami.
+                                </li>
+                                <li>
+                                    Ketika anda menggunakan Aplikasi, Layanan atau mengunjungi situs web kami, informasi
+                                    tertentu juga dapat dikumpulkan secara otomatis dengan menggunakan cookies. Cookies
+                                    adalah berkas data kecil yang tersimpan pada komputer atau perangkat seluler anda.
+                                    Kami menggunakan cookies untuk melacak aktivitas pengguna dengan tujuan untuk
+                                    meningkatkan antarmuka dan pengalaman pengguna. Sebagian besar perangkat seluler dan
+                                    peramban internet mendukung penggunaan cookies; namun anda dapat menyesuaikan
+                                    pengaturan pada perangkat seluler atau peramban internet anda untuk menolak beberapa
+                                    jenis cookies atau cookies spesifik tertentu. Perangkat seluler dan/atau peramban
+                                    anda juga memungkinkan anda untuk menghapus cookies apa pun yang sebelumnya telah
+                                    tersimpan. Namun demikian, hal itu dapat mempengaruhi fungsi-fungsi yang tersedia
+                                    pada Aplikasi, Layanan atau situs web kami.
+                                </li>
+                                <li>
+                                    Setiap kali anda menggunakan Aplikasi melalui perangkat seluler, kami dapat melacak
+                                    dan mengumpulkan informasi lokasi geografis anda dalam waktu sebenarnya. Apabila
+                                    kami melakukan hal tersebut, anda akan diminta atau diharuskan untuk mengaktifkan
+                                    Global Positioning System (GPS) pada perangkat seluler anda untuk memungkinkan kami
+                                    agar dapat memberikan anda pengalaman yang lebih baik dalam menggunakan Aplikasi
+                                    (misalnya, untuk memberikan informasi tentang seberapa dekat anda dengan
+                                    penjual-penjual ketika kami telah menyediakan layanan pencarian penjual). Anda dapat
+                                    menonaktifkan informasi pelacakan lokasi geografis pada perangkat seluler anda untuk
+                                    sementara waktu. Namun, hal ini dapat mempengaruhi fungsi-fungsi yang tersedia pada
+                                    Aplikasi.
+                                </li>
+                                <li>
+                                    Jika anda menggunakan dan/atau ketika pembayaran atau transfer dilakukan melalui
+                                    fasilitas uang elektronik dan/atau dompet elektronik yang disediakan oleh afiliasi
+                                    kami, kami dapat mengumpulkan informasi tertentu terkait dengan sumber dana yang
+                                    anda gunakan untuk melakukan isi ulang (termasuk rincian rekening bank), rincian
+                                    rekening penerima penarikan, riwayat transaksi (termasuk detail penerima), rincian
+                                    tagihan, faktur, dan nomor telepon.
+                                </li>
+                                <li>
+                                    Jika anda menggunakan dan/atau pada saat suatu pembayaran dilakukan melalui
+                                    Instrumen Pembayaran yang anda tambahkan di Aplikasi atau Layanan, kami dapat
+                                    mengumpulkan informasi tertentu terkait catatan transaksi, termasuk rincian
+                                    penerima, rincian tagihan, rincian tanda terima, dan rincian nomor telepon.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Informasi yang dikumpulkan dari pihak ketiga
+                            <br />
+                            Kami juga dapat mengumpulkan Informasi Pribadi anda dari pihak ketiga (termasuk afiliasi,
+                            agen, vendor, pemasok, kontraktor, mitra, dan pihak lainnya yang memberikan layanan kepada
+                            kami, mengumpulkan Data Pribadi dan/atau melakukan tugas atas nama kami, atau dengan siapa
+                            kami melakukan kerja sama). Dalam kasus tersebut, kami hanya akan mengumpulkan Informasi
+                            Pribadi anda untuk atau sehubungan dengan tujuan yang melibatkan pihak ketiga tersebut atau
+                            tujuan kerja sama kami dengan pihak ketiga tersebut (tergantung pada situasinya). Khususnya
+                            pada saat anda mendaftarkan Layanan dan/atau Instrumen Pembayaran melalui Aplikasi dan/atau
+                            Layanan dan/atau mengakses, menambahkan dan/atau menghubungkan Instrumen Pembayaran anda
+                            pada layanan dompet elektronik, kami dapat mengumpulkan informasi keuangan tertentu dan
+                            catatan finansial anda (termasuk tetapi tidak terbatas pada catatan transaksi, rincian dan
+                            penempatan Instrumen Pembayaran, dan/atau status dan negara Instrumen Pembayaran anda) dari
+                            penerbit kredensial pembayaran tersebut atau dari pihak ketiga lainnya.
+                        </li>
+                        <li>
+                            Informasi tentang pihak ketiga yang anda berikan kepada kami <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
+                                <li>
+                                    Anda dapat memberikan kepada kami Informasi Pribadi yang berkaitan dengan individu
+                                    pihak ketiga lainnya (termasuk Informasi Pribadi yang berkaitan dengan pasangan
+                                    anda, anggota keluarga, teman, atau individu lain). Anda tentu saja akan memerlukan
+                                    persetujuan dari mereka terlebih dahulu untuk melakukannya - lihat “Pemahaman dan
+                                    Persetujuan Anda”, untuk informasi lebih lanjut.
+                                </li>
+                                <li>
+                                    Jika anda menggunakan fitur pesan di Aplikasi, anda akan memberikan nomor telepon
+                                    pengguna kami yang tersimpan di kontak telepon selular untuk membantu anda dalam
+                                    menggunakan fitur pesan kami serta tujuan internal lainnya.
+                                </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <strong>Prosedur Transaksi</strong> <br />
+                    <strong>Bagaimana Kami Memproses Informasi Pribadi Anda?</strong> <br />
                     <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            Jual dan Beli Aset Kripto <br />
-                            <ul style={{ listStyle: 'desc' }} className='flex flex-col gap-2 pl-5 pt-2'>
-                                Membeli Aset Kripto
-                                <li>Masuk ke Akun Bina Loka, kemudian pilih menu Pertukaran.</li>
-                                <li>Untuk melihat jenis kripto, dapat dilihat pada menu ini.</li>
-                                <li>Masukkan sejumlah aset kripto yang Pelanggan ingin beli pada pilihan Beli.</li>
-                                <li>Klik tombol hijau untuk Beli.</li>
+                            Penggunaan Informasi Pribadi yang Kami Kumpulkan
+                            <br />
+                            Kami dapat menggunakan Informasi Pribadi yang dikumpulkan untuk tujuan sebagai berikut
+                            maupun untuk tujuan lain yang diizinkan oleh peraturan perundang-undangan yang berlaku
+                            ("Tujuan"): <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    Tunggu sampai pemberitahuan “Berhasil” muncul dan masuk ke Buku Order (Order Book).
-                                </li>
-                                <li>
-                                    Kemudian jika sudah berhasil beli akan masuk ke Riwayat Pemesanan milik Pelanggan.
-                                </li>
-                            </ul>
-                            <ul style={{ listStyle: 'desc' }} className='flex flex-col gap-2 pl-5 pt-4'>
-                                Menjual Aset Kripto
-                                <li>Masuk ke Akun Bina Loka anda, kemudian pilih menu Pertukaran.</li>
-                                <li>Masukkan sejumlah aset kripto yang Pelanggan ingin jual pada pilihan Jual.</li>
-                                <li>Klik tombol merah muda untuk Jual.</li>
-                                <li>Tunggu sampai pemberitahuan “Berhasil” muncul dan masuk ke Order Book.</li>
-                                <li>
-                                    Kemudian jika sudah berhasil jual akan masuk ke Riwayat Pemesanan milik Pelanggan.
-                                </li>
-                                <li>Saldo akhir dapat di cek di menu Dompet.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            Setoran Fiat
-                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5 pt-2'>
-                                <li>
-                                    Proses Setoran Fiat melalui bank di Platform Bina Loka, akan dilakukan sebagai
-                                    berikut:
-                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5 pt-4'>
-                                        <li>Pengguna mengunjungi situs web Bina Loka;</li>
+                                    Jika anda adalah pengguna, kami dapat menggunakan Informasi Pribadi anda: <br />
+                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5'>
                                         <li>
-                                            Pengguna memilih opsi untuk melakukan deposit melalui saluran perbankan
-                                            (didukung oleh penyedia layanan pembayaran);
+                                            untuk mengidentifikasi dan mendaftarkan anda sebagai pengguna dan untuk
+                                            mengadministrasikan, memverifikasi, menonaktifkan, atau mengelola akun anda;
                                         </li>
                                         <li>
-                                            Pengguna mengaktifkan layanan pembayaran saluran perbankan dan Dompet
-                                            (Wallet) digitalnya yang terhubung ke situs web Bina Loka;
+                                            untuk memfasilitasi atau memungkinkan verifikasi apapun yang menurut
+                                            pertimbangan kami diperlukan sebelum penyedia layanan memberikan layanan
+                                            kepada anda atau sebelum kami mendaftarkan anda sebagai pengguna, termasuk
+                                            melakukan proses Mengenal Pelanggan (Know Your Customer - KYC);
                                         </li>
                                         <li>
-                                            Pengguna memasukkan jumlah yang akan disetorkan dan mengonfirmasi Transaksi;
+                                            untuk memungkinkan penyedia layanan untuk menyediakan layanan yang anda
+                                            minta;
+                                        </li>
+                                        <li>
+                                            untuk mengolah dan memfasilitasi pesanan dan transaksi pembayaran yang anda
+                                            lakukan, termasuk sebagaimana berlaku, transaksi yang dilakukan melalui
+                                            kartu pembayaran atau rekening yang tersedia pada Aplikasi;
+                                        </li>
+                                        <li>
+                                            untuk memberitahu anda atas transaksi atau aktivitas yang terjadi dalam
+                                            Aplikasi atau sistem lain yang terhubung dengan Aplikasi kami;
+                                        </li>
+                                        <li>
+                                            untuk berkomunikasi dengan anda dan mengirimkan anda informasi sehubungan
+                                            dengan penggunaan Aplikasi dan/atau Layanan;
+                                        </li>
+                                        <li>
+                                            untuk memberitahu anda mengenai segala pembaruan pada Aplikasi atau
+                                            perubahan pada Layanan yang disediakan;
+                                        </li>
+                                        <li>
+                                            untuk mengolah dan menanggapi pertanyaan dan saran yang diterima dari anda;
+                                        </li>
+                                        <li>
+                                            untuk memelihara, mengembangkan, menguji, meningkatkan, dan
+                                            mempersonalisasikan Aplikasi untuk memenuhi kebutuhan dan preferensi anda
+                                            sebagai pengguna;
+                                        </li>
+                                        <li>
+                                            untuk memantau dan menganalisis aktivitas, perilaku, dan data demografis
+                                            pengguna termasuk kebiasaan dan penggunaan berbagai layanan yang tersedia di
+                                            Aplikasi dan/atau Layanan;
+                                        </li>
+                                        <li>untuk memproses dan mengelola reward points anda;</li>
+                                        <li>
+                                            untuk menawarkan atau menyediakan layanan dari afiliasi atau mitra kami; dan
+                                        </li>
+                                        <li>
+                                            untuk mengirimkan anda komunikasi pemasaran, iklan, voucher, survei, dan
+                                            informasi secara langsung atau terfokus, dan informasi tentang penawaran
+                                            atau promosi khusus.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Kami juga dapat menggunakan Informasi Pribadi anda secara lebih umum untuk
+                                    tujuan-tujuan sebagai berikut (walaupun dalam kasus tertentu kami akan bertindak
+                                    secara wajar dan tidak menggunakan Informasi Pribadi anda lebih dari apa yang
+                                    diperlukan untuk tujuan tersebut): <br />
+                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5'>
+                                        <li>untuk melakukan proses dan fungsi bisnis terkait;</li>
+                                        <li>
+                                            untuk memantau penggunaan Aplikasi dan/atau Layanan dan mengelola, mendukung
+                                            serta meningkatkan efisiensi kinerja, perkembangan, pengalaman pengguna dan
+                                            fungsi-fungsi Aplikasi dan/atau Layanan;
+                                        </li>
+                                        <li>
+                                            untuk memberikan bantuan sehubungan dengan dan untuk menyelesaikan kesulitan
+                                            teknis atau masalah operasional dengan Aplikasi dan/atau layanan;
+                                        </li>
+                                        <li>
+                                            untuk menghasilkan informasi statistik dan data analitik untuk tujuan
+                                            pengujian, penelitian, analisis, pengembangan produk, kemitraan komersial,
+                                            dan kerja sama;
+                                        </li>
+                                        <li>
+                                            untuk mencegah, mendeteksi dan menyelidiki segala kegiatan yang dilarang,
+                                            ilegal, tidak sah, atau curang;
+                                        </li>
+                                        <li>
+                                            untuk memfasilitasi transaksi aset bisnis (yang dapat berupa penggabungan,
+                                            akuisisi, atau penjualan aset) yang melibatkan kami dan/atau afiliasi kami;
                                             dan
                                         </li>
                                         <li>
-                                            Saldo akan diperbarui di Dompet (Wallet) digital Pengguna yang dihosting
-                                            oleh mitra pembayaran. Pengguna dapat memanfaatkan saldo di Dompet (Wallet)
-                                            digital untuk melakukan pembelian Aset Digital/Aset Kripto.
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    Proses Setoran Dompet (Wallet) Elektronik di Platform Bina Loka, akan dilakukan
-                                    sebagai berikut:
-                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5 pt-4'>
-                                        <li>Pengguna mengunjungi situs web Bina Loka;</li>
-                                        <li>
-                                            Pengguna memilih opsi untuk melakukan deposit melalui Dompet (Wallet)
-                                            elektronik (didukung oleh penyedia layanan pembayaran yang kerja sama dengan
-                                            Bina Loka);
-                                        </li>
-                                        <li>
-                                            Penyedia layanan pembayaran Bina Loka akan mengkreditkan jumlah dari Dompet
-                                            (Wallet) elektronik ke Dompet (Wallet) digital yang diselenggarakan oleh
-                                            penyedia layanan pembayaran di halaman situs web Bina Loka.
+                                            - untuk memungkinkan kami mematuhi semua kewajiban berdasarkan peraturan
+                                            perundang-undangan yang berlaku, termasuk namun tidak terbatas pada
+                                            menanggapi permintaan, penyelidikan, atau arahan peraturan, mematuhi
+                                            persyaratan pengarsipan, pelaporan, dan perizinan yang disyaratkan oleh
+                                            peraturan yang berlaku) dan melakukan pemeriksaan audit, uji tuntas dan
+                                            penyelidikan.
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            Penarikan Fiat <br />
-                            <br />
-                            Berbeda dengan pembelian Aset Kripto, Pengguna mungkin ingin menjual Aset Digital/Aset
-                            Kripto mereka langsung kepada Bina Loka. Dalam keadaan seperti itu, Bina Loka akan membeli
-                            aset-aset ini dengan harga yang dapat dieksekusi (yang akan didasarkan pada harga pasar
-                            spot).
-                            <ul style={{ listStyle: 'desc' }} className='flex flex-col gap-2 pl-5 pt-2'>
-                                <li>Jika sudah berhasil masuk ke dalam akun, silahkan pilih dompet.</li>
+                            Pemberian Informasi Pribadi yang Kami Kumpulkan <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    Kemudian pilih Penarikan. Pada menu ini, ada dua pilihan melakukan cara untuk
-                                    melakukan Penarikan ada IDR dan Kripto. Pilih kolom Kripto untuk Penarikan Aset
-                                    Kripto dan pilih kolom IDR untuk Penarikan Fiat.
+                                    Kami dapat mengungkapkan, memberikan akses atau membagikan Informasi Pribadi anda
+                                    dengan afiliasi dan pihak lain (termasuk agen, vendor, penyedia barang/jasa, mitra
+                                    dan pihak lainnya yang menyediakan jasa untuk kami atau anda, melaksanakan fungsi
+                                    tertentu atas nama kami atau pihak lain yang memiliki kerja sama komersial dengan
+                                    kami) untuk tujuan sebagai berikut ini serta untuk tujuan lain yang diizinkan oleh
+                                    peraturan perundang-undangan yang berlaku: <br />
+                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5'>
+                                        <li>untuk memungkinkan kami memberikan Layanan;</li>
+                                        <li>
+                                            jika disyaratkan atau diotorisasikan oleh peraturan perundang-undangan yang
+                                            berlaku (termasuk namun tidak terbatas pada, menanggapi pertanyaan terkait
+                                            regulasi, penyelidikan atau pedoman, atau mematuhi persyaratan atau
+                                            ketentuan pengarsipan pelaporan, dan perizinan berdasarkan undang-undang),
+                                            untuk tujuan yang ditentukan dalam peraturan perundang-undangan yang
+                                            berlaku;
+                                        </li>
+                                        <li>
+                                            jika diinstruksikan, diminta, disyaratkan atau diperbolehkan oleh pemerintah
+                                            yang berwenang, untuk tujuan sebagaimana disebutkan dalam kebijakan
+                                            pemerintah, peraturan atau peraturan perundang-undangan yang berlaku.
+                                        </li>
+                                        <li>
+                                            jika terdapat proses hukum dalam bentuk apapun antara anda dengan kami, atau
+                                            antara anda dengan pihak lain, sehubungan dengan, atau terkait dengan
+                                            layanan, untuk keperluan proses hukum tersebut;
+                                        </li>
+                                        <li>
+                                            sehubungan dengan segala proses verifikasi kami atau pemberi layanan pihak
+                                            ketiga perlukan sebelum pemberi layanan memberikan layanan kepada anda atau
+                                            kami mendaftarkan anda sebagai pengguna, termasuk proses KYC (Know Your
+                                            Customer) dan;
+                                        </li>
+                                        <li>
+                                            saat Layanan kami tersedia di platform pihak ketiga, (i) untuk membantu kami
+                                            memperoleh Informasi Pribadi anda dan/atau (ii) mendaftarkan anda atau
+                                            membantu anda menggunakan layanan kami pada platform pihak ketiga tersebut;
+                                        </li>
+                                        <li>
+                                            dalam keadaan darurat terkait keselamatan anda untuk keperluan menangani
+                                            keadaan darurat tersebut;
+                                        </li>
+                                        <li>
+                                            dalam situasi terkait kesehatan anda atau kepentingan umum, kami dapat
+                                            membagikan Informasi Pribadi anda kepada pemerintah yang berwenang dan/atau
+                                            institusi lainnya yang dapat ditunjuk oleh pemerintah yang berwenang atau
+                                            memiliki kerja sama dengan kami, untuk tujuan pelacakan kontak, mendukung
+                                            inisiatif, kebijakan atau program pemerintah, kesehatan publik dan tujuan
+                                            lainnya sebagaimana dibutuhkan secara wajar;
+                                        </li>
+                                        <li>
+                                            sehubungan dengan, penggabungan, penjualan aset perusahaan, konsolidasi atau
+                                            restrukturisasi, pembiayaan atau akuisisi semua atau sebagian dari bisnis
+                                            kami oleh atau ke perusahaan lain, untuk keperluan transaksi tersebut
+                                            (bahkan jika kemudian transaksi tidak dilanjutkan);
+                                        </li>
+                                        <li>
+                                            sehubungan dengan proses klaim asuransi, kami akan membagikan Informasi
+                                            Pribadi anda untuk tujuan pemrosesan klaim asuransi kepada perusahaan
+                                            asuransi yang bekerja sama atau berkolaborasi dengan kami;
+                                        </li>
+                                        <li>
+                                            kepada pihak ketiga (termasuk agen, vendor, pemasok, kontraktor, mitra, dan
+                                            pihak lain yang memberikan layanan kepada kami atau anda, melakukan tugas
+                                            atas nama kami, atau pihak dengan siapa kami mengadakan kerja sama
+                                            komersial), untuk atau sehubungan dengan tujuan di mana pihak ketiga
+                                            tersebut terlibat, untuk melaksanakan pengungkapan kepada pihak ketiga
+                                            terkait yang secara teknis diperlukan untuk memproses transaksi anda atau
+                                            tujuan kerja sama kami dengan pihak ketiga tersebut (tergantung keadaannya),
+                                            yang dapat mencakup diperbolehkannya pihak ketiga tersebut untuk
+                                            memperkenalkan atau menawarkan produk atau layanan kepada anda, melakukan
+                                            autentikasi terhadap anda atau menghubungkan anda dengan Akun atau melakukan
+                                            kegiatan lain termasuk pemasaran, penelitian, analisis dan pengembangan
+                                            produk; dan
+                                        </li>
+                                        <li>
+                                            dalam hal kami berbagi Informasi Pribadi dengan afiliasi, kami akan
+                                            melakukannya dengan maksud agar mereka membantu kami dalam menyediakan
+                                            Aplikasi dan/atau Layanan, untuk mengoperasikan bisnis kami (termasuk,
+                                            ketika anda berlangganan milis kami, untuk tujuan pemasaran langsung), atau
+                                            untuk tujuan pengolahan data atas nama kami. Misalnya, sebuah afiliasi kami
+                                            dapat mengolah dan/atau menyimpan Informasi Pribadi anda atas nama kami
+                                            apabila layanan yang anda gunakan dikelola dengan bantuan dari afiliasi kami
+                                            tersebut. Semua afiliasi kami berkomitmen untuk mengolah Informasi Pribadi
+                                            yang mereka terima dari kami sesuai dengan Pemberitahuan Privasi dan
+                                            peraturan perundang-undangan yang berlaku ini.
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
-                                    Untuk Penarikan Fiat, pilih tambah rekening dan lengkapi data bank yang ingin
-                                    dimasukkan.
+                                    Kami dapat mengungkapkan Informasi Pribadi anda kepada pengguna tertentu di dalam
+                                    Aplikasi, dalam hal Anda memasukkan metode penerimaan pembayaran anda di dalam
+                                    Aplikasi agar anda dapat menerima pembayaran dan/atau dana dari pengguna lainnya
+                                    yang bertindak sebagai pembayar atau pengirim dana dan agar pembayar atau pengirim
+                                    dana tersebut dapat menemukan anda dan mengalamatkan pembayaran atau pengiriman dana
+                                    kepada anda.
                                 </li>
                                 <li>
-                                    Klik rekening bank yang ingin dipilih dan pastikan nama pemilik rekening telah
-                                    sesuai dengan nama Pelanggan. Kemudian, klik “Selanjutnya”.
+                                    Ketika Informasi Pribadi tidak perlu dikaitkan dengan anda, kami akan melakukan
+                                    upaya yang wajar untuk menghapus dikaitkannya Informasi Pribadi tersebut dengan anda
+                                    sebagai individu sebelum mengungkapkan atau berbagi informasi tersebut.
                                 </li>
-                                <li>Masukkan jumlah penarikan dengan minimum Rp100.000, kemudian klik “Kirim”.</li>
+                                <li> Kami tidak akan menjual atau menyewakan Informasi Pribadi anda.</li>
                                 <li>
-                                    Untuk Penarikan Aset Kripto, klik kolom Kripto dan pilih jenis Aset Kripto yang akan
-                                    dilakukan penarikan.
-                                </li>
-                                <li>
-                                    Klik “Pilih Jaringan” dan perhatikan Penarikan Minimum dan Maksimum dari
-                                    masing-masing Aset Kripto.
-                                </li>
-                                <li>
-                                    Masukkan alamat penerima dan jumlah Aset Kripto yang akan dikirim. Pastikan alamat
-                                    yang dituju sudah benar.
-                                </li>
-                                <li>
-                                    Klik “Kirim”. Penarikan akan diproses secepat mungkin dengan batas 1x24 jam. Semua
-                                    penarikan akan tercatat di dalam Riwayat Penarikan Fiat atau Kripto.
+                                    Selain sebagaimana diatur dalam Pemberitahuan Privasi ini, kami dapat mengungkapkan
+                                    dan membagikan Informasi Pribadi anda jika kami memberitahu anda atau kami telah
+                                    memperoleh persetujuan anda untuk pengungkapan atau pembagian tersebut.
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            Perdagangan Spot
-                            <br />
-                            <br />
-                            Perdagangan Spot memungkinkan Pengguna untuk mengakses fasilitas perdagangan yang berdagang
-                            dengan Pengguna lain di pasar melalui Buku Order (Order Book) pada kurs pasar saat ini (juga
-                            dikenal sebagai harga spot). Perdagangan tersebut akan terjadi segera ketika Pesanan (Order)
-                            telah dipenuhi.
+                            Penyimpanan Informasi Pribadi <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
+                                <li>
+                                    Informasi Pribadi anda hanya akan disimpan selama diperlukan untuk memenuhi tujuan
+                                    dari pengumpulannya, atau selama penyimpanan tersebut diperlukan atau diperbolehkan
+                                    oleh peraturan perundang-undangan yang berlaku. Kami akan berhenti menyimpan
+                                    Informasi Pribadi, atau menghapus maksud dari dikaitkannya Informasi Pribadi
+                                    tersebut dengan anda sebagai individu, segera setelah dianggap bahwa tujuan
+                                    pengumpulan Informasi Pribadi tersebut tidak lagi dibutuhkan dengan menyimpan
+                                    Informasi Pribadi dan penyimpanan tidak lagi diperlukan untuk tujuan bisnis atau
+                                    secara hukum.
+                                </li>
+                                <li>
+                                    Mohon diperhatikan bahwa masih ada kemungkinan bahwa beberapa Informasi Pribadi anda
+                                    disimpan oleh pihak lain termasuk institusi pemerintah dengan cara tertentu. Dalam
+                                    hal kami membagikan Informasi Pribadi anda kepada institusi pemerintah yang
+                                    berwenang dan/atau institusi lainnya yang dapat ditunjuk oleh pemerintah yang
+                                    berwenang atau memiliki kerja sama dengan kami, anda menyetujui dan mengakui bahwa
+                                    penyimpanan Informasi Pribadi anda oleh institusi terkait akan mengikuti kebijakan
+                                    penyimpanan data masing-masing institusi tersebut. Informasi yang disampaikan
+                                    melalui komunikasi antara pengguna atau yang dilakukan selain melalui penggunaan
+                                    Aplikasi (seperti melalui panggilan telepon, SMS, pesan seluler atau cara komunikasi
+                                    lainnya dan pengumpulan atas Informasi Pribadi anda oleh agen kami) juga dapat
+                                    disimpan dengan beberapa cara. Kami tidak mengizinkan penyimpanan Informasi Pribadi
+                                    dengan cara demikian dan kami tidak bertanggung jawab kepada anda untuk hal
+                                    tersebut. Kami tidak akan bertanggung jawab atas penyimpanan Informasi Pribadi anda.
+                                    Anda setuju untuk mengganti rugi, membela, dan membebaskan kami, pejabat, direktur,
+                                    karyawan, agen, mitra, pemasok, kontraktor, dan afiliasi kami dari dan terhadap
+                                    setiap dan segala klaim, kerugian, kewajiban, biaya, kerusakan, dan ongkos (termasuk
+                                    tetapi tidak terbatas pada biaya hukum dan pengeluaran biaya ganti rugi penuh) yang
+                                    dihasilkan secara langsung atau tidak langsung dari setiap penyimpanan yang tidak
+                                    sah atas Informasi Pribadi anda.
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            Pengiriman Aset Kripto ke Dompet (Wallet) Lain
-                            <ul style={{ listStyle: 'desc' }} className='flex flex-col gap-2 pl-5 pt-2'>
-                                <li>Klik Kripto.</li>
-                                <li>Pilih jenis Aset Kripto.</li>
-                                <li>Kemudian pilih jaringan yang sesuai dengan tujuan Pelanggan.</li>
+                            Tempat Kami Memproses Informasi Pribadi Anda <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    Klik salin alamat/memo (fitur ini memudahkan Pelanggan untuk menyalin wallet address
-                                    tujuan).
+                                    Informasi Pribadi dari anda yang kami kumpulkan dapat disimpan, ditransfer, atau
+                                    diolah oleh kami, karyawan kami yang berlokasi di luar Indonesia atau penyedia
+                                    layanan pihak ketiga di Indonesia atau di luar wilayah Indonesia, sepanjang
+                                    diperbolehkan oleh peraturan perundang-undangan. Kami akan menggunakan semua upaya
+                                    yang wajar untuk memastikan bahwa semua penyedia layanan pihak ketiga tersebut
+                                    memberikan tingkat perlindungan yang sebanding dengan komitmen kami berdasarkan
+                                    Pemberitahuan Privasi ini.
                                 </li>
-                                <li>Masukkan detail wallet address di wallet pengirim</li>
                                 <li>
-                                    Pastikan saat pengiriman mohon cek terlebih dahulu terkait dengan detail Transaksi
-                                    tersebut mulai dari alamat/memo yang dimasukkan hingga jaringan yang digunakan sudah
-                                    sesuai. Jika sudah sesuai, Pelanggan menunggu Aset Kripto masuk ke Dompet (Wallet)
-                                    Bina Loka dan Pelanggan bisa melakukan pengecekan di riwayat transaksi.
+                                    Kami akan mematuhi seluruh peraturan dan hukum yang berlaku dan menggunakan seluruh
+                                    usaha yang terbaik untuk memastikan Afiliasi dan seluruh pihak ketiga pemberi
+                                    layanan baik yang berada di dalam atau di luar negeri memberikan tingkat
+                                    perlindungan yang setara dengan komitmen kami dalam Pemberitahuan Privasi ini.
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <strong>Biaya Transaksi dan Batas Penarikan Dana</strong> <br />
+                    <strong>Bagaimana Kami Melindungi Informasi Pribadi Anda?</strong> <br />
                     <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            Berikut adalah proses penerapan Biaya Transaksi oleh Bina Loka: <br />
-                            <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                                <li>Biaya penjualan Aset Kripto sebesar 0,1%.</li>
-                                <li>Biaya pembelian Aset Kripto sebesar 0,1%.</li>
-                                <li>Untuk penarikan BIDR menjadi Rupiah (uang fiat) terdapat biaya sebesar Rp5.500.</li>
-                                <li>
-                                    Biaya dibebankan dengan mendebet Saldo Tersedia Pelanggan untuk jumlah biaya pada
-                                    saat Pesanan di Buku Order (Order Book).
-                                </li>
-                                <li>
-                                    Biaya dapat bervariasi di antara Buku Order (Order Book), sesuai dengan jumlah
-                                    volume jual dan/atau beli Pelanggan di bulan tersebut.
-                                </li>
-                            </ul>
+                            {' '}
+                            Keamanan Informasi Pribadi Anda <br />
+                            Kerahasiaan Informasi Pribadi anda adalah hal yang terpenting bagi kami. Kami akan
+                            memberlakukan upaya terbaik untuk melindungi dan mengamankan data dan Informasi Pribadi anda
+                            dari akses, pengumpulan, penggunaan atau pengungkapan oleh orang-orang yang tidak berwenang
+                            dan dari pengolahan yang bertentangan dengan hukum, kehilangan yang tidak disengaja,
+                            pemusnahan dan kerusakan atau risiko serupa. Namun, pengiriman informasi melalui internet
+                            tidak sepenuhnya aman. Walau kami akan berusaha sebaik mungkin untuk melindungi Informasi
+                            Pribadi anda, anda mengakui bahwa kami tidak dapat menjamin keutuhan dan keakuratan
+                            Informasi Pribadi apa pun yang anda kirimkan melalui Internet, atau menjamin bahwa Informasi
+                            Pribadi tersebut tidak akan dicegat, diakses, diungkapkan, diubah atau dihancurkan oleh
+                            pihak ketiga yang tidak berwenang, karena faktor-faktor di luar kendali kami. Anda
+                            bertanggung jawab untuk menjaga kerahasiaan detail Akun anda, termasuk kata sandi anda dan
+                            One Time Password (OTP) dengan siapapun dan harus selalu menjaga dan bertanggung jawab atas
+                            keamanan perangkat yang anda gunakan.
                         </li>
                         <li>
-                            Berikut adalah batas penarikan yang diterapkan oleh Bina Loka: <br />
-                            <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                                <li>
-                                    Batas Penarikan Fiat <br />
-                                    <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                        <li>KYC Level 0 = Tidak dapat melakukan Penarikan</li>
-                                        <li>
-                                            KYC Level 1 = Batas Penarikan maksimal Rp250.000.000 (Transaksi kumulatif
-                                            dalam 1x24 jam)
-                                        </li>
-                                        <li>
-                                            KYC Level 2 = Batas Penarikan maksimal Rp5.000.000.000 (Transaksi kumulatif
-                                            dalam 1x24 jam)
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    Batas Penarikan Kripto
-                                    <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                        <li>KYC Level 0 = Tidak dapat melakukan Penarikan</li>
-                                        <li>
-                                            KYC Level 1 = Batas Penarikan maksimal senilai 3 BTC (Transaksi kumulatif
-                                            dalam 1x24 jam)
-                                        </li>
-                                        <li>
-                                            KYC Level 2 = Batas Penarikan maksimal senilai 100 BTC (Transaksi kumulatif
-                                            dalam 1x24 jam)
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            Data Anonim
+                            <br />
+                            Kami dapat membuat, menggunakan, melisensikan atau mengungkapkan Informasi Pribadi, yang
+                            tersedia, dengan catatan, (i) bahwa semua hal yang dapat mengidentifikasi telah dihapus
+                            sehingga data, baik sendiri atau dikombinasi dengan data lain yang tersedia, tidak dapat
+                            dihubungkan dengan atau dikaitkan dengan atau tidak dapat mengidentifikasi suatu individu,
+                            dan (ii) data serupa telah digabungkan sehingga data asli membentuk bagian dari kumpulan
+                            data yang lebih besar.
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <strong>Keamanan Transaksi</strong> <br /> <br />
-                    Untuk keamanan dalam bertransaksi, Pelanggan dapat menerapkan 2FA (Two For transaction security,
-                    Customers have the option to activate 2FA (Two Factor Factor Authentication).. 2FA adalah sebuah
-                    fitur keamanan online, dimana Pelanggan akan melakukan verifikasi identitas sebanyak 2 (dua) kali.
-                    Misalnya, jika Pelanggan ingin melakukan log in pada Akun Bina Loka setelah memasukan password
-                    kombinasi, Pelanggan akan diminta kembali untuk memasukan kode khusus yang dikirim melalui SMS atau
-                    menggunakan kode Google Authenticator. Pelanggan dapat mengaktifkan 2FA SMS atau 2FA Google
-                    Authenticator di Bina Loka. Kegunaan fitur keamanan 2FA ini agar akun, data, aset, serta riwayat
-                    transaksi tidak diketahui oleh pihak yang tidak bertanggung jawab.
-                </li>
-                <li>
-                    <strong>Layanan Pengaduan dan Penyelesaian Perselisihan</strong> <br />
+                    <strong>Apa Saja Hak-Hak Anda?</strong> <br />
                     <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            Jika ada keluhan atau masalah terkait penggunaan Layanan Bina Loka atau Platform Bina Loka,
-                            Pengguna akan dirujuk ke Tim Layanan Pelanggan Bina Loka.
-                        </li>
-                        <li>
-                            Prosedur untuk menyelesaikan keluhan Bina Loka adalah sebagai berikut: <br />
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-roman' }}>
-                                <li>
-                                    Pengguna dapat menyampaikan keluhan apa pun kepada Bina Loka melalui Support Center
-                                    Bina Loka, saluran Social Media Bina Loka, dan Community Feedback Bina Loka;
-                                </li>
-                                <li>
-                                    Setelah menerima keluhan Pengguna, keluhan akan diteruskan ke Tim Customer Support
-                                </li>
-                                <li>
-                                    Bina Loka akan memberikan pengakuan tertulis atas pengaduan tersebut dalam waktu 5
-                                    (lima) hari kerja sejak diterimanya pengaduan;
-                                </li>
-                                <li>
-                                    Pengaduan akan diteruskan ke Tim Pengaduan, di mana akan dialokasikan nomor
-                                    pelacakan kasus;
-                                </li>
-                                <li>Pengaduan tersebut kemudian akan diselidiki oleh Tim Pengaduan.</li>
-                                <li>
-                                    anggapan akhir akan diberikan oleh Bina Loka kepada Pengguna dalam waktu 35 (tiga
-                                    puluh lima) hari kerja sejak diterimanya pengaduan.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Setiap perselisihan Pengguna atau Pelanggan yang timbul dari penggunaan Layanan Bina Loka
-                            akan dilakukan melalui prosedur berikut: <br />
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-alpha' }}>
-                                <li>Musyawarah bersama untuk mencapai mufakat antara Pengguna dan Bina Loka;</li>
-                                <li>
-                                    Jika tidak tercapai mufakat pada poin (a), maka penyelesaian perselisihan dilakukan
-                                    melalui Bursa Aset Kripto; dan
-                                </li>
-                                <li>
-                                    {' '}
-                                    Jika tidak tercapai mufakat pada poin (b), maka penyelesaian perselisihan dilakukan
-                                    melalui Badan Arbitrase Perdagangan Berjangka Komoditi (BAKTI).
-                                </li>
-                            </ul>
+                            Akses dan Koreksi Informasi Pribadi
+                            <br />
+                            Anda mungkin memiliki hak tertentu berdasarkan peraturan perundang-undangan yang berlaku
+                            untuk meminta kepada kami terhadap akses kepada, koreksi dari dan/atau penghapusan terhadap
+                            Informasi Pribadi anda yang berada dalam penguasaan dan kendali kami. Sepanjang hak ini
+                            tersedia bagi anda sesuai dengan ketentuan peraturan perundang-undangan yang berlaku, anda
+                            dapat melaksanakan hak tersebut dengan menghubungi kami di perincian yang disediakan di
+                            bawah ini.
+                            <br />
+                            <br />
+                            Kami berhak menolak permintaan anda terhadap akses pada, koreksi dari dan/atau penghapusan
+                            terhadap, sebagian atau semua Informasi Pribadi anda yang kami kuasai atau kendalikan jika
+                            diizinkan atau diperlukan berdasarkan peraturan perundang-undangan yang berlaku. Hal ini
+                            termasuk dalam keadaan di mana Informasi Pribadi tersebut dapat berisi referensi kepada
+                            orang lain atau di mana permintaan untuk akses atau permintaan untuk mengoreksi atau
+                            menghapus adalah untuk alasan yang kami anggap tidak relevan, tidak serius, atau
+                            menyulitkan. Tunduk pada peraturan perundang-undangan yang berlaku, kami mencadangkan hak
+                            untuk membebankan biaya administratif untuk setiap permintaan akses dan/atau koreksi.
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <strong>Keadaan Kahar</strong> <br />
+                    <strong>Lain-Lain</strong> <br />
                     <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            Bina Loka tidak akan bertanggung jawab atas keterlambatan atau kegagalan untuk pelaksanaan
-                            seperti yang dipersyaratkan oleh Aturan Perdagangan ini karena sebab atau kondisi apa pun di
-                            luar kendali wajar Bina Loka.
-                        </li>
-                        <li>
-                            Peristiwa-peristiwa yang dianggap sebagai keadaan kahar adalah keadaan apa pun yang tidak
-                            berada dalam kendali yang wajar, secara langsung atau tidak langsung, termasuk tetapi tidak
-                            terbatas pada:
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-alpha' }}>
+                            Website dan Layanan Lainnya
+                            <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    bencana alam, perang, pemberontakan, pemogokan, kerusuhan, gempa bumi, badai, banjir
-                                    atau cuaca buruk, ledakan, kebakaran, sambaran kilat, gangguan, blokade, konflik
-                                    bersenjata, atau ancaman serius atas hal-hal tersebut, permusuhan, mobilisasi,
-                                    penahanan, revolusi, keributan, penjarahan, penutupan pabrik atau tempat kerja,
-                                    wabah penyakit, pandemi, epidemi, atau bencana alam lainnya dengan ketentuan adanya
-                                    pernyataan dari pemerintah atau instansi yang berwenang yang menyatakan bahwa
-                                    situasi adalah keadaan darurat; atau
+                                    Aplikasi, situs web, dan Materi Pemasaran dapat berisi tautan ke situs web yang
+                                    dioperasikan oleh pihak ketiga. Kami tidak mengendalikan atau menerima
+                                    pertanggungjawaban atau tanggung jawab untuk situs web ini dan untuk pengumpulan,
+                                    penggunaan, pemeliharaan, berbagi, atau pengungkapan data dan informasi oleh pihak
+                                    ketiga tersebut. Silakan baca syarat dan ketentuan dan pemberitahuan privasi dari
+                                    situs web pihak ketiga tersebut untuk mengetahui bagaimana mereka mengumpulkan dan
+                                    menggunakan Informasi Pribadi anda.
                                 </li>
                                 <li>
-                                    perubahan undang-undang, peraturan, putusan dan/atau kebijakan pemerintah dan/atau
-                                    tidak dilaksanakannya Aturan Perdagangan ini oleh salah satu Pihak yang disebabkan
-                                    oleh pelaksanaan Aturan Perdagangan ini bertentangan dengan setiap hukum dan
-                                    peraturan perundang-undangan yang ada yang mana Pihak tersebut harus tunduk
-                                    memenuhinya.
+                                    Saat anda menggunakan Aplikasi kami dan mengaktifkan fitur sidik jari (fingerprint)
+                                    dan/atau pengenalan wajah (facial recognition) di perangkat seluler anda untuk
+                                    keperluan autentikasi, harap dicatat bahwa kami tidak menyimpan data biometrik
+                                    tersebut. Kecuali diberitahukan lain kepada anda, data tersebut tersimpan di
+                                    perangkat seluler anda dan dapat disimpan oleh pihak ketiga, seperti pembuat
+                                    perangkat anda. Anda setuju dan mengakui bahwa kami tidak bertanggung jawab atas
+                                    setiap akses tidak sah atau kerugian apapun atas data biometrik yang tersimpan di
+                                    perangkat seluler anda.
+                                </li>
+                                <li>
+                                    Iklan yang terdapat pada Aplikasi, situs web, dan Materi Pemasaran kami berfungsi
+                                    sebagai tautan ke situs web pengiklan dan dengan demikian segala informasi yang
+                                    mereka kumpulkan berdasarkan klik anda pada tautan itu akan dikumpulkan dan
+                                    digunakan oleh pengiklan yang relevan sesuai dengan pemberitahuan privasi pengiklan
+                                    tersebut.
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            Materi Pemasaran dan Promosi
+                            <br />
+                            Kami dan mitra kami dapat mengirimkan anda pemasaran langsung, iklan, dan komunikasi promosi
+                            melalui aplikasi push-notification, pesan melalui Aplikasi, pos, panggilan telepon, layanan
+                            pesan singkat (SMS), platform chat, Media Sosial, dan email (“Materi Pemasaran”) jika anda
+                            telah setuju untuk berlangganan milis kami, dan/atau setuju untuk menerima materi pemasaran
+                            dan promosi dari kami. Anda dapat memilih untuk tidak menerima komunikasi pemasaran tersebut
+                            kapan saja dengan mengklik pilihan “berhenti berlangganan” yang ada dalam pesan yang
+                            bersangkutan, atau menghubungi kami melalui detail kontak yang tercantum di bawah ini. Mohon
+                            perhatikan bahwa jika anda memilih untuk keluar, kami masih dapat mengirimi anda pesan-pesan
+                            non-promosi, seperti tanda terima atau informasi tentang Akun.
+                        </li>
+                        <li>
+                            Perubahan atas Pemberitahuan Privasi Ini
+                            <br /> Kami dapat meninjau dan mengubah Pemberitahuan Privasi ini atas kebijakan kami
+                            sendiri dari waktu ke waktu, untuk memastikan bahwa Pemberitahuan Privasi ini konsisten
+                            dengan perkembangan kami di masa depan, dan/atau perubahan persyaratan hukum atau peraturan.
+                            Jika kami memutuskan untuk mengubah Pemberitahuan Privasi ini, kami akan memberitahu anda
+                            tentang perubahan tersebut melalui pemberitahuan umum yang dipublikasikan pada Aplikasi
+                            dan/atau situs web, atau sebaliknya ke alamat e-mail anda yang tercantum dalam Akun anda.
+                            Anda setuju bahwa anda bertanggung jawab untuk meninjau Pemberitahuan Privasi ini secara
+                            teratur untuk informasi terbaru tentang pengolahan data dan praktik perlindungan data kami,
+                            dan bahwa dengan anda terus menggunakan Aplikasi atau situs web kami, berkomunikasi dengan
+                            kami, atau mengakses dan menggunakan layanan setelah adanya perubahan apapun terhadap
+                            Pemberitahuan Privasi ini akan dianggap sebagai persetujuan anda terhadap Pemberitahuan
+                            Privasi ini dan segala perubahannya.
+                        </li>
                     </ul>
                 </li>
-                <li>
-                    <strong>
-                        Penerapan Program Anti Pencucian Uang dan Pencegahan Pendanaan Terorisme serta Proliferasi
-                        Senjata Pemusnah Massal (“APU-PPT”)
-                    </strong>
-                    <br />
 
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            Bina Loka telah merumuskan kebijakan internal untuk memastikan kepatuhan terhadap hukum dan
-                            peraturan perundang- undangan sebagaimana diatur dalam Peraturan Badan Pengawas Perdagangan
-                            Berjangka Komoditi (“Bappebti”) No. 8 Tahun 2021 tanggal Oktober 29 Tahun 2021 tentang
-                            Pedoman Penyelenggaraan Pasar Perdagangan Fisik Aset Kripto di Bursa Berjangka, maupun
-                            amandemen dari peraturan tersebut ke depannya.
-                        </li>
-                        <li>
-                            Bina Loka akan memastikan bahwa Platform dan Layanannya tunduk pada hukum dan peraturan
-                            perundang-undangan negara Republik Indonesia, termasuk namun tidak terbatas pada hal-hal
-                            berikut: <br />
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-alpha' }}>
-                                <li>
-                                    Undang-Undang No. 8 Tahun 2010 tentang Pencegahan dan Pemberantasan Tindak Pidana
-                                    Pencucian Uang;
-                                </li>
-                                <li>
-                                    Undang-Undang No. 9 Tahun 2013 tentang Pencegahan dan Pemberantasan Tindak Pidana
-                                    Pendanaan Terorisme;
-                                </li>
-                                <li>
-                                    Peraturan Kepala Pusat Pelaporan Analisis dan Transaksi Keuangan
-                                    <strong>(“PPATK”)</strong> No. PER- 02/1.02/PPATK/02/2014 tentang Sistem Informasi
-                                    Pengguna Jasa Terpadu; dan
-                                </li>
-                                <li>
-                                    Peraturan PPATK No. 2 Tahun 2021 tentang Tata Cara Penyampaian Laporan Transaksi Dan
-                                    Laporan Transaksi Keuangan Mencurigakan Melalui Aplikasi GoAML Bagi Penyedia Barang
-                                    Dan/atau Jasa.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Untuk melaksanakan ketentuan tersebut di atas, kebijakan Bina Loka minimal meliputi: <br />
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-alpha' }}>
-                                <li>Pemisahan Pelanggan;</li>
-                                <li>CDD dan verifikasi nama Pelanggan ritel (PEP, daftar sanksi dan media);</li>
-                                <li>CDD Berbasis Risiko dan verifikasi Pelanggan; dan</li>
-                                <li>
-                                    Matriks Risiko Pelanggan di mana Pengguna diberi skor sesuai dengan matriks risiko,
-                                    yang mencakup komponen seperti PEP, Usia, Sanksi.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Bina Loka telah memiliki Divisi Hukum dan Kepatuhan (Legal and Compliance) yang ditunjuk
-                            untuk berperan aktif dalam pelaksanaan pemantauan APU-PPT yang dibantu dengan penerapan
-                            RegTech dalam pengkajian Know-Your-Transaction <strong>(“KYT”)</strong>.
-                        </li>
-                    </ul>
-                </li>
                 <li>
-                    <strong>Waktu Henti Terjadwal</strong> <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            Dari waktu ke waktu, Bina Loka dapat menangguhkan perdagangan sementara untuk pemeliharaan
-                            atau peningkatan. Jika tidak ada keadaan yang meringankan, Platform Bina Loka akan
-                            menggunakan upaya yang wajar untuk proses menutup dan membuka kembali perdagangan.
-                        </li>
-                        <li>
-                            Setiap penghentian sementara perdagangan akan diinformasikan kepada Pengguna dan diumumkan
-                            melalui e-mail dan akun sosial media, dengan prosedur sebagai berikut:
-                            <br />
-                            <br />
-                            Langkah 1: Umumkan Downtime Terjadwal.
-                            <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                <li>Umumkan downtime terjadwal melalui media sosial dan email.</li>
-                            </ul>
-                            <br />
-                            Langkah 2: Downtime Terjadwal Dimulai.
-                            <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                <li>
-                                    Pasar Bina Loka akan berhenti untuk sementara. Transaksi dan beberapa fitur
-                                    perdagangan lainnya juga tidak bisa dilakukan.
-                                </li>
-                            </ul>
-                            <br />
-                            Langkah 3: Setelah Downtime Terjadwal Selesai
-                            <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                <li>Memastikan sistem perdagangan telah berjalan normal.</li>
-                                <li> Umumkan Telegram dan/atau Twitter bahwa Downtime telah berakhir.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Lain-lain</strong>
-                    <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            Persyaratan dan ketentuan dalam Aturan Perdagangan ini dapat diubah dan/atau ditambahkan
-                            dari waktu ke waktu, atas kebijakan Bina Loka sendiri.
-                        </li>
-                        <li>
-                            Jika ada pertentangan antara Aturan Perdagangan ini dan pernyataan lainnya baik itu secara
-                            tertulis atau lisan yang dibuat oleh Bina Loka setiap saat (tidak termasuk pernyataan dalam
-                            Perjanjian Bina Loka lainnya), syarat-syarat Aturan Perdagangan ini akan berlaku.
-                        </li>
-                        <li>
-                            Kecuali apabila Aturan Perdagangan ini menyatakan sebaliknya, Aturan Perdagangan akan
-                            ditafsirkan sesuai dengan, dan diatur oleh, hukum negara Republik Indonesia.
-                        </li>
-                        <li>
-                            Bina Loka tidak akan bertanggung jawab atas segala hal yang dilakukan atau tidak dilakukan
-                            sesuai dengan Aturan Perdagangan ini.
-                        </li>
-                        <li>
-                            Pengguna menyatakan bahwa Pengguna telah membaca, mengerti, memahami, mengamati, menyetujui
-                            dan menerima Aturan Perdagangan ini.
-                        </li>
-                        <li>Aturan Perdagangan ini dibuat dalam bahasa Indonesia dan bahasa Inggris.</li>
-                    </ul>
+                    <strong>Hubungi Kami</strong> <br />
+                    Jika anda memiliki pertanyaan mengenai Pemberitahuan Privasi ini atau anda ingin mendapatkan akses
+                    terhadap Informasi Pribadi anda, silahkan hubungi{' '}
+                    <a href='mailto:customerservice@kriptomaksima.com'>customerservice@kriptomaksima.com</a>
                 </li>
             </ol>
             <br />
             <br />
-            <strong>
-                Anda dengan ini menyatakan bahwa anda telah menerima dan membaca Aturan Perdagangan ini, serta memahami
-                dan menyetujui isinya.
-            </strong>
         </>
     );
 };

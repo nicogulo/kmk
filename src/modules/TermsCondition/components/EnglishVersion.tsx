@@ -1,35 +1,20 @@
-import Link from 'next/link';
 import React from 'react';
 
-const EnglishVersion = () => {
+const IndoVersion = () => {
     return (
         <>
             <span className='!text-center text-lg font-semibold text-gray-800'>
-                Trading Rules <br />
-                PT Bina Loka Indonesia
+                Announcement of Privacy PT Kripto Maksima Koin
             </span>
             <span>
-                PT Bina Loka Indonesia, an Indonesian limited liability company with its registered office at Sequis
-                Tower, Level 17, Jl. Jend. Sudirman No. 71, Senayan, Kebayoran Baru, South Jakarta, DKI Jakarta, duly
-                established under the laws of the Republic of Indonesia <strong>(“Bina Loka”)</strong>. <br />
-                <br />
-                Bina Loka is an independent Indonesian company, strongly supported by reputable shareholders with
-                leading market experience and good corporate governance and compliance
-                <br />
-                <br />
-                These Trading Rules provide you with the Terms and Conditions of Bina Loka regarding the use of
-                products, services, technology, and/or features provided by Bina Loka through the Bina Loka Platform{' '}
-                <strong>(“Trading Rules”)</strong>. The Bina Loka Platform (as defined below) provides you with several
-                services, including but not limited to Crypto Asset trading, based on the list of tradable Crypto Assets
-                and their prices. These Crypto Assets may be accessed by Users and/or Customers, through the Bina Loka
-                Platform. The following are the Trading Rules that govern all Transactions (as defined below) made by
-                the Users through the Bina Loka Platform.
-                <br />
-                <br />
-                These Trading Rules shall constitute one and the same instrument as, and shall form an integral and
-                inseparable part of, Bina Loka’s Customer Agreement, Terms and Conditions as well as other Bina Loka
-                Policies. Bina Loka encourages you to carefully read the aforementioned agreements and policies prior to
-                using any Bina Loka Services (as defined below).
+                The following Privacy Notice discloses how we, PT Kripto Maksima Koin, (“we”, “us” or “our”) collect,
+                store, use, process, retain, transfer, disclose and protect your Personal Information. This Privacy
+                Notice applies to all users of our services or products provided by us (“Services”) whether or not such
+                services or products are being used within or outside GoPay Applications developed by our affiliate and
+                websites and others (if any) (“Applications”), unless covered by a separate privacy notice.
+            </span>
+            <span>
+                Please read this Privacy Notice thoroughly to ensure that you understand our data processing practices.
             </span>
             <br />
             <br />
@@ -46,856 +31,673 @@ const EnglishVersion = () => {
                 }}
             >
                 <li>
-                    <strong>Definitions and Terms</strong> <br />
-                    <span>
-                        In these Trading Rules, unless the context otherwise requires, the following words and
-                        expressions shall bear the following meanings: <br />
-                        <br />
-                        <strong>Bina Loka</strong> refers to the meaning of it as given in the Preamble section above.
-                        <br />
-                        <br />
-                        <strong>Bina Loka Account</strong> refers to the meaning of it as given in the Preamble section
-                        above.
-                        <br />
-                        <br />
-                        <strong>Bina Loka Platform</strong> refers to the platform in which Bina Loka will provide its
-                        services to Users. This Platform may be in the form of Bina Loka’s website and its applications.
-                        <strong>Bina Loka Services</strong> refers to various services provided to you by Bina Loka that
-                        are based on Internet and/or blockchain technologies and offered via Bina Loka websites, mobile
-                        applications, and other forms (including new ones enabled by future technological development).
-                        Bina Loka Services include but are not limited to Crypto Asset Trading Platforms and novel
-                        services to be provided by Bina Loka.
-                        <br />
-                        <br />
-                        <strong>Coin</strong> refers to a form of Crypto Asset that has its own blockchain configuration
-                        and has characteristics like the Crypto Asset that first appeared, namely <em>bitcoin</em>.
-                        <br />
-                        <br />
-                        <strong>Crypto Assets</strong> refer to intangible commodities in a digital form using
-                        cryptography, information technology networks, and distributed ledgers, to regulate the creation
-                        of new units, verify Transactions, and secure Transactions without the intervention of other
-                        parties.
-                        <br />
-                        <br />
-                        <strong>Customer Agreement</strong> refers to an agreement between Users and PT Bina Loka
-                        Indonesia prior to the use of any Bina Loka Services.
-                        <br />
-                        <br />
-                        <strong>CDD</strong> refers to “Customer Due Diligence”, which is an activity in the form of
-                        identification, verification and monitoring carried out to ensure that Transactions are in
-                        accordance with the profile, characteristic and/or pattern of Transaction of Bina Loka Users.
-                        <br />
-                        <br />
-                        <strong>Digital Assets</strong> refer to digital currencies, Crypto Assets (as defined above) or
-                        other types of digitalized assets with a certain value.
-                        <br />
-                        <br />
-                        <strong>Fee</strong> refers to the meaning given to it in Clause VII below.
-                        <br />
-                        <br />
-                        <span>
-                            <strong>Fiat Deposit</strong> refers to the buying of Digital Assets and/or Crypto Assets
-                            where Users can credit their accounts via bank transfers. Such deposit will allow Users to
-                            pay for the purchase and purchased Digital Assets/Crypto Asset.
-                            <br />
-                            <br />
-                            <strong>Fiat Withdrawal</strong> refers to the selling of Digital Assets/Crypto Assets based
-                            on the spot market price.
-                            <br />
-                            <br />
-                            <strong>KYC</strong> refers to the “Know-Your-Customer” process that Bina Loka has put in
-                            place before entering a business relationship or conducting Transactions with its Users. As
-                            part of this process, Bina Loka may do anything that it deems necessary to identify Users,
-                            verify their identity, scrutinize and investigate User Transactions, to comply with any
-                            applicable laws and regulations.
-                            <br />
-                            <br />
-                            <strong>Order</strong> refers to an instruction from Users for the use of Bina Loka Services
-                            regarding Crypto-to- crypto Trading.
-                            <br />
-                            <br />
-                            <strong>Order Book</strong> efers to a list of the currently open buy and sell Orders for an
-                            asset, organized by price.
-                            <br />
-                            <br />
-                            <strong>Spot Trading</strong> refers to the trading facilities provided by Bina Loka to
-                            trade with other users on the market through an Order Book, at the current market price.
-                            <br />
-                            <br />
-                            <strong>Terms and Conditions</strong> refers to an agreement between PT Bina Loka Indonesia
-                            and its Users, which governs the use of the Bina Loka Platform and Services.
-                            <br />
-                            <strong>Token</strong> refers to a form of Crypto Asset created as a derivative product of
-                            Coins.
-                            <br />
-                            <br />
-                            <strong>Transaction</strong> refers to the trade of Digital Assets and/or Crypto Assets by
-                            Users on the Bina Loka Platform.
-                            <br />
-                            <br />
-                            <strong>Users</strong> refer to all individuals that access, download or use Bina Loka
-                            Services and who meet the eligibility criteria and conditions stipulated by Bina Loka and
-                            applicable laws and regulations. For the avoidance of doubt, any reference made to
-                            “Customers” herewith shall have the same meaning as Users in these Trading Rules
-                            <br />
-                            <br />
-                            <strong>Wallet</strong> refers to a medium used to store a Crypto Asset whether in the form
-                            of Coin or Token.
-                        </span>
-                    </span>
+                    <strong>Acknowledgement and Consent</strong> <br />
+                    <ul className='list-[lower-alpha] pl-5'>
+                        <li>
+                            By accepting the Privacy Notice, you acknowledge that you have read and understood this
+                            Privacy Notice and you accept all of its terms. In particular, you agree and consent to us
+                            collecting, using, sharing, disclosing, storing, transferring, or otherwise processing your
+                            Personal Information in accordance with this Privacy Notice.
+                        </li>
+                        <li>
+                            In circumstances where you provide us with Personal Information relating to other
+                            individuals (such as Personal Information relating to your spouse, family members, friends,
+                            or other parties), you represent and warrant that you have obtained such individual’s
+                            consent for, and hereby consent on behalf of such individual to, the collection, use,
+                            disclosure and processing of his/her Personal Information by us. We can request any evidence
+                            of such consent to you at any time.
+                        </li>
+                        <li>
+                            You may withdraw your consent to any or all collection, use or disclosure of your Personal
+                            Information at any time by giving us reasonable notice in writing using the contact details
+                            stated below. You may also withdraw your consent for us to send you certain communications
+                            and information via any “opt-out” or “unsubscribe” facility contained in our messages to
+                            you. Depending on the circumstances and the nature of the consent which you are withdrawing,
+                            you must understand and acknowledge that after such withdrawal of consent, you may no longer
+                            be able to use the Application or Services. A withdrawal of consent by you may result in the
+                            termination of your account or of your contractual relationship with us, with all accrued
+                            rights and obligations remaining fully reserved. Upon receipt of your notice to withdraw
+                            consent for any collection, use or disclosure of your Personal Information, we will inform
+                            you of the likely consequences of such withdrawal so that you can decide if indeed you wish
+                            to withdraw consent.
+                        </li>
+                    </ul>
                 </li>
                 <br />
                 <br />
                 <li>
-                    <strong>Registration Process of Customers/Users</strong>
+                    <strong>Summary</strong>
                     <br />
                     <ul className='list-decimal pl-5'>
+                        <strong>What information do we store from you?</strong> <br />
+                        <span>
+                            We store Your personal and technical information from your device when you use Applications
+                            and/or Services. To find out what data that we store from You,
+                        </span>
+                        <br />
+                        <br />
+                        <strong>How do we use the information about you?</strong> <br />
+                        <span>
+                            If required, we use Your information to administer and manage Your account, communicate with
+                            you, and most importantly provide you with Services and/or Application. Your info is also
+                            used to maintain our features and services and improve your experience. More details
+                        </span>{' '}
+                        <br />
+                        <br />
+                        <strong>Who do we share Your information with?</strong> <br />
+                        <span>
+                            If required, we can share Your information with other parties who have a cooperation with us
+                            so You can use services, such as parties that will help us to verify you, parties who
+                            provide the source of funds so that You can make any payments and parties who collaborate
+                            with us to provide services to You. If required by the applicable laws, we can also share it
+                            with the relevant authority. More details
+                        </span>{' '}
+                        <br />
+                        <br />
+                        <strong>How long do keep Your information?</strong> <br />
+                        <span>
+                            As long as we need it to fulfill the purposes for which it was collected, or as required by
+                            laws. More details
+                        </span>{' '}
+                        <br />
+                        <br />
+                        <strong>How can You exercise Your rights over Your information?</strong> <br />
+                        <span>
+                            You have various rights in relation to your data under applicable law and you may contact us
+                            to exercise your rights. More details
+                        </span>{' '}
+                        <br />
+                        <br />
+                        <strong>Contact Us</strong> <br />
+                        <span>
+                            If you have any questions on this Privacy Notice or concerns or complaints on how we process
+                            your personal information, please contact us via email{' '}
+                            <a href='mailto:customerservice@kriptomaksima.com'>customerservice@kriptomaksima.com</a>
+                        </span>
+                        <br />
+                        <br />
+                    </ul>
+                </li>
+                <li>
+                    <strong>What Information Do We Collect?</strong> <br />
+                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            All Transactions conducted on the Bina Loka Platform are Transactions that have been
-                            conducted by registered Users of Bina Loka.
-                        </li>
-                        <li>
-                            The User registration process will be conducted as follows: <br />
-                            <ul className='list-decimal flex-col gap-2 pl-5'>
-                                <li>
-                                    Go to <Link href='/'>www.kriptomaksima.id</Link> then click Register;
-                                </li>
-                                <li>
-                                    Fill in the field with the name of the e-mail, then a password combination of at
-                                    least 8 characters (capital/lowercase, symbols, and numbers), Reference ID
-                                    (Optional), and select where the Customer knows Bina Loka. After that click if you
-                                    have read and agree to the User Terms. Then click Register;
-                                </li>
-                                <li>
-                                    Please confirm your email to get a confirmation code. This is to validate your
-                                    e-mail;
-                                </li>
-                                <li>
-                                    If the verification has been successful, it will appear, display of Basic Info of
-                                    the Customer's account;
-                                </li>
-                                <li>
-                                    If you want to login, please go to our main page at{' '}
-                                    <Link href='/'>www.kriptomaksima.id</Link>, then click Login;
-                                </li>
-                                <li>
-                                    Please enter the appropriate email address and password used in Bina Loka. Then
-                                    click Sign In; and
-                                </li>
-                                <li>
-                                    Input the OTP Code if the Customer has activated the security used. The choice to
-                                    the next Account Page 2-Factor- Authentication (2FA), consists of 2 options, namely
-                                    Google authentication (Google Authenticator) and SMS authentication
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            For all Users, CDD is a mandatory process and includes collecting key identification
-                            information and verification documents. As part of verification, a copy of acceptable
-                            identification document or proof of address in accordance with a tier-based KYC process.
-                        </li>
-                        <li>
-                            To illustrate, acceptable ID documents for individual Customer verification includes
-                            national ID where applicable, valid passport, Driver’s License, or other government issued
-                            photographic ID card, as stated in the points below.
-                            <br /> <br />
-                            <span>Acceptable types of identification documents:</span>
-                            <ul className='list-disc pl-5'>
-                                <li>
-                                    National Identity Cards (i.e., Kartu Tanda Penduduk or <strong>“KTP”</strong> );
-                                </li>
-                                <li>Valid Passport;</li>
-                                <li>Driver’s License; or</li>
-                                <li>Other government issued photographic ID cards.</li>
-                            </ul>
-                            <span>Checklist for an acceptable identification documents:</span>
-                            <ul className='list-disc pl-5'>
-                                <li>Full Name;</li>
-                                <li>Date of Birth;</li>
-                                <li>Nationality;</li>
-                                <li>Issuing Country;</li>
-                                <li>Issue Date; and</li>
-                                <li>Expiry Date (if applicable - must not be an expired document).</li>
-                            </ul>
-                        </li>
-                        <li>
-                            Users will be able to login and view the pricing of the various pairings, but they will not
-                            be able to use other Bina Loka Services and Transactions until they have reached the account
-                            tier of “Verified”.
-                        </li>
-                        <li>
-                            Bina Loka has adopted a tier-based KYC process to ensure the authenticity of Customer’s
-                            identity and prevent the creation of anonymous or fictitious accounts. By doing so, the
-                            Customers’ assets are all reflected in the accounts tied to their profile, effectively
-                            improving transparency of the ecosystem and increasing the difficulty of money
-                            laundering/terrorism financing/proliferation financing and corruption.
-                        </li>
-                        <li>
-                            The User KYC verification process will be conducted as follows:
+                            <strong> Personal Information which We Collect</strong>
                             <br />
-                            <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                                <li>Login to your Bina Loka Account via Mobile Apps;</li>
-                                <li>Click on your account logo in the top right corner;</li>
+                            We collect information which identifies or can be used to identify, contact, or locate the
+                            person or device to whom that information pertains (“Personal Information”). Personal
+                            Information includes, but not limited to, name, address, date of birth, occupation, phone
+                            number, e-mail address, bank account and credit-card details, gender, identification
+                            (including KTP, SIM, or Passport) or other government issued identifier, photo, nationality,
+                            phone number of our users and non-users in your mobile phonebook, payment and financial
+                            services KYC related information (for example, mother’s maiden name, income range and other
+                            information requested for KYC of banks when you are opening a bank account through the
+                            Application), and biometric information (including but not limited to facial recognition).
+                            Additionally, to the extent other information, including a personal profile, and/or unique
+                            identifier, is associated or combined with Personal Information, then that information is
+                            also Personal Information. The Personal Information which we collect may be provided by you
+                            directly or by third parties (for example: when you register or use the Application, when
+                            you contact our customer services, or you otherwise provide Personal Information to us). We
+                            may collect information in various forms and purposes (including purposes permitted under
+                            applicable law).
+                        </li>
+                        <li>
+                            Information obtained from you or from your mobile device directly
+                            <br /> <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    Select authentication identification and select basic identification verification;
+                                    When you register and create an account with us using the Application you have to
+                                    provide to us certain Personal Information, including your name, e-mail address and
+                                    phone number.
                                 </li>
-                                <li>Click the KYC level 1 verification button;</li>
                                 <li>
-                                    A page will appear where you choose a nationality, if Indonesia prepares personal
-                                    data in the form of an ID card and if a foreign national prepares personal data in
-                                    the form of KITAS;
-                                </li>
-                                <li>
-                                    Upload your ID card in JPEG or JPG form, make sure the ID card is clearly visible
-                                    (not blurry and all data information can be read properly);
-                                </li>
-                                <li>Fill in your personal data according to your ID card on the data filling page;</li>
-                                <li>
-                                    After that, you will be directed to the Liveness page to do face verification, make
-                                    sure your room has enough light and the face is clearly visible on the camera;
-                                </li>
-                                <li>
-                                    The system will record your face for biometric data verification by analyzing and
-                                    comparing data references. When performing this face verification process, do not
-                                    use any accessories on your face (for example: glasses, masks, etc.);
-                                </li>
-                                <li>
-                                    Click the record button and follow the given instructions, making sure your eyes are
-                                    level with your camera;
-                                </li>
-                                <li>Click submit after the face verification is successful and complete; and</li>
-                                <li>
-                                    The KYC verification process will be approved in less than 1x24 hours by the system
-                                    if your verification data complies with the conditions provided. If there is unclear
-                                    or opaque data, additional verification will be carried out. Within 7 (seven) days
-                                    we will notify you whether your KYC is rejected or approved.
+                                    When you use the Application and/or Services, you have to provide us with relevant
+                                    information as may reasonably be required by us in order for the Application and/or
+                                    Services to work, for example:
+                                    <br />
+                                    <ul className='list-disc pl-5'>
+                                        <li>
+                                            If you are using the Application as a user, you will need to provide us with
+                                            your phone number to sign up and log into the Application. If you are an
+                                            existing Gojek user, the Application will recognize you and we will use the
+                                            same credential information that you provide to Gojek that is subject to{' '}
+                                            <a href='https://www.gojek.com/id-id/privacy-policies/' target='_blank'>
+                                                Gojek Privacy Notice.
+                                            </a>{' '}
+                                            If you are not an existing Gojek user, your phone number may also be used to
+                                            sign up on the Gojek application.
+                                        </li>
+                                        <li>
+                                            If you utilize our Services, electronic money and/or electronic wallet
+                                            services provided by us and/or our affiliates, if you are the payer or
+                                            sender, you will provide us the information relating to the utilization,
+                                            payment or transfer, including but not limited to the transfer and/or
+                                            payment receiver details, the amount of payment paid, the type of Payment
+                                            Instrument used, the name of the issuer of that Payment Instrument, the name
+                                            of the holder for that Payment Instrument, the identification number of that
+                                            Payment Instrument, the verification code of that Payment Instrument and the
+                                            expiration date of that Payment Instrument, as applicable.
+                                        </li>
+                                        <li>
+                                            If you utilize our electronic money and/or electronic wallet services
+                                            provided by our affiliate, if you are a payment or fund recipient, you will
+                                            provide us with the information that will enable you to receive any payment
+                                            from the payer or sender, including but not limited to your full name, phone
+                                            number, e-money receiving account issuer name and bank account number.
+                                        </li>
+                                        <li>
+                                            If you intend to apply as registered or verified account holder of the our
+                                            e-money or e-wallet service, you will provide us the required information
+                                            including but not limited to your full name, your identity card numbers,
+                                            type of identity card you use for registration, address, gender, place and
+                                            date of birth, occupation, nationality and/or biometric data.
+                                        </li>
+                                        <li>
+                                            If you intend to add your debit card, credit card, payment account and/or
+                                            financial services account (“Payment Instrument”) as a source of fund in the
+                                            e-wallet service provided by our affiliate, you will provide us information
+                                            relating to the type of Payment Instrument registered, the issuer of that
+                                            Payment Instrument, the name of the holder for that Payment Instrument, the
+                                            identification number of that Payment Instrument, and the verification code
+                                            of that Payment Instrument, and the expiration date of that Payment
+                                            Instrument, as applicable.
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Representations and Warranties</strong> <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            Bina Loka will not provide any guarantees that the Bina Loka Platform will always be
-                            accessible at any time, as there may be hindrances such as disturbances or periodic system
-                            and network maintenance.
-                        </li>
-                        <li>
-                            Bina Loka has provided sufficient information and explanation regarding Bina Loka Services
-                            which will be accessed by its registered and verified Users. In accordance with the
-                            provisions of Bina Loka’s Customer Agreement, Terms and Conditions, and Risk Notice, the
-                            User has read, understood, comprehended, observed, agreed to the provisions stated therein,
-                            and is willing to bear all the consequences that may arise in connection with the provisions
-                            of the Bina Loka Services including the benefits, risks, and Fees attached to such services.
-                        </li>
-                        <li>
-                            To the maximum extent permitted by applicable laws and regulations, under no circumstances
-                            shall any of Bina Loka, Bina Loka’s shareholders, joint venture parties, affiliates and
-                            related corporations and entities, and the officers, directors, employees, representatives,
-                            agents, suppliers and service providers of all of the persons and entities described herein
-                            be responsible or liable for any direct or indirect losses (including loss of profits,
-                            business or opportunities), damages or costs suffered by any User or any other person or
-                            entity, arising from or in connection with any act, omission, negligence, breach, offence or
-                            default committed by or attributable to any User, including, without limitation, any failure
-                            of any Users in the completion of their Orders and/or Transactions whether this failure is
-                            attributable to Bina Loka or otherwise.
-                        </li>
-                        <li>
-                            The User hereby represents and warrants that all data, information and documents provided by
-                            the Customer to Bina Loka are true, legal, honest, transparent, complete and accurate data,
-                            information and documents. The User states that they are willing to be prosecuted in a
-                            criminal or civil suit if Bina Loka knows or obtains information from any party that the
-                            data, information and documents provided by the User are not true/not completely true/false.
-                            Users are willing to update data/information if at any time requested by Bina Loka and all
-                            documents that have been provided become the full property of Bina Loka.
-                        </li>
-                        <li>
-                            The User hereby agrees and authorizes Bina Loka to use all data, information and information
-                            obtained by Bina Loka regarding the User, including but not limited to the User’s personal
-                            means of communication for all other purposes as long as it is possible and permitted by
-                            applicable laws and regulations, including those for the purpose of the marketing of Bina
-                            Loka Services, or other for parties in cooperation with Bina Loka. For the use of data that
-                            requires the consent of another party, the User hereby declares that it has obtained written
-                            approval from any third party for the use of such data and information.
-                        </li>
-                        <li>
-                            The User hereby represents and warrants to not use Bina Loka Services for the trade Crypto
-                            Assets related to: (i) narcotics, materials and/or chemical substances for research; (ii)
-                            money and anything similar to money, including derivatives; (iii) goods and/or services that
-                            violate any Intellectual Property Rights; (iv) ammunition, firearms, explosives, sharp
-                            weapons in accordance with the applicable legal provisions; (v) goods and/or services that
-                            reveal personal information from a third party that violates the law; (vi) goods and/or
-                            services related to lottery purchases, lay-aways; (vii) services related to banking outside
-                            the territory of the Republic of Indonesia; (viii) card payments; (ix) credit settlement;
-                            and/or (x) support of prohibited organizations or organizations prohibited by the
-                            government.
-                        </li>
-                        <li>
-                            The User hereby represents and warrants that Transactions made using the Bina Loka Services
-                            are Transactions that do not violate the provisions of the applicable laws and regulations
-                            and the provisions regarding the implementation of Transactions as stipulated in the
-                            Customer Agreement and Terms and Conditions. In the event that Bina Loka discovers
-                            indications of the implementation of Transactions that are not in accordance with the
-                            provisions of applicable laws and regulations and/or the provisions regarding the acceptance
-                            of the implementation of Transactions as regulated therein, Bina Loka has the full right to
-                            terminate or suspend the User’s Bina Loka Account by disabling the User’s access to the Bina
-                            Loka Service, and the User hereby agree that Bina Loka hereby will not provide compensation
-                            and/or assume liability in any form to the User.
-                        </li>
-                        <li>
-                            The User represents and warrants not to use the Bina Loka Services for acts that are
-                            involved in gambling practices and/or other activities that charge entry fees and promise
-                            prizes, including but not limited to casino games, gambling in sports, businesses that
-                            facilitate gambling and lottery methods.
-                        </li>
-                        <li>
-                            The User hereby represents and warrants that the risk of using third party services,
-                            products and promotions with the User (if any), is borne by the User, and the User
-                            acknowledges that Bina Loka is not responsible for the services and performance of third
-                            party services.
-                        </li>
-                        <li>
-                            The User hereby represents and warrants to Bina Loka that the User will not reproduce and/or
-                            create, provide, rent, sell, transfer, assign, and/or switch the Services either partially
-                            or completely to other parties for any reason, including but not limited to misuse of the
-                            Bina Loka Platform to conduct Transactions other than those specified in the Customer
-                            Agreement and Terms and Conditions for any purpose, including but not limited to
-                            crime/fraud/cheating. If the User violates these provisions, the User shall be responsible
-                            for all losses, demands and/or claims arising from the violation and hereby agrees that Bina
-                            Loka will not provide compensation and/or liability in any form to the Customer or any party
-                            for any claims and/or demands and/or lawsuits arising from the violation.
-                        </li>
-                        <li>
-                            The User has considered and shall abide by any and all aspects of any scheme of taxation
-                            applicable to you and your use of the Bina Loka Services, including any duty in respect to
-                            withholding, collection, reporting and remittance to appropriate tax authorities (if
-                            applicable).
-                        </li>
-                        <li>
-                            The User acknowledges that the legal and regulatory treatment of the products commonly known
-                            as cryptographic Tokens, digital Tokens or cryptographic currencies is not settled, can
-                            differ between jurisdictions, and may alter frequently, and it is your responsibility to
-                            continually review the permissibility of dealing in or with such products under the legal
-                            and regulatory frameworks applicable to you and your usage of the Bina Loka Services in the
-                            Republic of Indonesia.
-                        </li>
-                        <li>
-                            The User represents and warrants that he will use the Service properly and responsibly and
-                            not take any actions that are contrary to the laws and regulations of the Republic of
-                            Indonesia.
-                        </li>
-                        <li>
-                            The User represents and warrants that they have carefully read and understood these Trading
-                            Rules, as well as any other agreements provided by Bina Loka, including but not limited to
-                            the Customer Agreement, Terms and Conditions, Privacy Policy or other information provided
-                            by Bina Loka prior to making a Crypto Asset and/or Digital Asset Transaction.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Obligations and Responsibilities</strong> <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            The User agrees to bear any risks, losses or consequences suffered by the User caused by
-                            damage, delay, loss or error in sending Orders and communications, electronically caused by
-                            the Users.
-                        </li>
-                        <li>
-                            The User agrees to bear any risks associated with Bina Loka Account reports or notifications
-                            of the use of Bina Loka services sent to Users are received or read or misused by parties
-                            who are not authorized to the Bina Loka Account, and the Bina Loka Account Password is known
-                            by other people/parties due to User’s mistake.
-                        </li>
-                        <li>
-                            The User hereby is fully responsible and agrees that Bina Loka will not provide compensation
-                            and/or liability of any kind to the User or any party for any losses and/or claims and/or
-                            demands that arise or may be experienced by Bina Loka as a result of the User’s negligence
-                            or failure to comply when conducting Transactions.
-                        </li>
-                        <li>
-                            The User hereby is fully responsible and agrees that Bina Loka will not provide compensation
-                            and/or liability of any kind to the User or any party for any losses and/or claims and/or
-                            demands that arise or may be experienced by Bina Loka as a result of the User’s negligence
-                            or failure in terms of the security of the password or credentials of the User’s Bina Loka
-                            Account.
-                        </li>
-                        <li>
-                            The User understands and agrees that the User will use the Bina Loka Account and Services
-                            for Transactions that do not conflict with the provisions of the applicable laws and/or Bina
-                            Loka’s internal policies and/or other regulations that apply nationally and internationally
-                            related to the implementation the Transaction either directly or indirectly, and Bina Loka
-                            will not provide compensation and/or liability of any kind to the User or any party for any
-                            claims and/or demands and/or losses that arise in connection with the use of the Service by
-                            the User for Transactions involving categorized as suspicious Transactions and/or
-                            Transactions that are prohibited by the provisions of applicable laws and regulations and/or
-                            Bina Loka internal policies and/or other applicable national and international regulations
-                            related to Transaction activities carried out by the User directly or indirectly.
-                        </li>
-                        <li>
-                            All Users of Bina Loka and any of its services understands and agrees that the source of
-                            their funds is legitimate economic activity and their funds are not derived from illegal
-                            activities. Bina Loka reserves the right to request a proof of source of wealth or source of
-                            funds from any of its registered Users, both personal and institutional. Bina Loka maintains
-                            a stance of cooperation with law enforcement authorities globally and will not hesitate to
-                            seize, freeze, terminate the account and funds of users which are flagged out or
-                            investigated by legal mandate.
-                        </li>
-                        <li>
-                            In conducting Transactions using the Bina Loka Platform, the User understands and agrees
-                            that there are certain sanctions imposed by the government, including the government of
-                            other countries, and/or other authorized agencies against several countries, entities and
-                            individuals. Referring to this, Bina Loka has the right not to carry out/process
-                            Transactions that are a violation of the provisions of the sanctions, and the competent
-                            authority may require the disclosure of related information. Bina Loka is not responsible if
-                            Bina Loka or other parties fail or delay the execution of Transactions, or there is
-                            disclosure of information as a result of direct or indirect violations of the provisions of
-                            these sanctions.
-                        </li>
-                        <li>
-                            It is the User’s responsibility to review and understand the legal and regulatory frameworks
-                            applicable to you and your usage of the Bina Loka Services in the Republic of Indonesia, and
-                            you as the User, represent and warrant that your usage of the Bina Loka Services is
-                            permissible under such legal and regulatory regimes.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Data Update</strong> <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            Users of the Bina Loka Platform agree to update their personal information provided to Bina
-                            Loka for the purposes of data verification.
-                        </li>
-                        <li>
-                            Customer data updating activities aim to achieve the following objectives:
+                            Information collected whenever you use the Application, Services or visit our website
                             <br />
                             <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    Analyze and determine the risk that Customer's activities, for the period since the
-                                    last inspection, are generally deemed to fit the Customer's profile;
+                                    Whenever you use the Application, Services or visit our website, we may collect
+                                    certain technical data concerning your usage such as, internet protocol (IP)
+                                    address, information as web pages previously or subsequently viewed, duration of
+                                    every visit/session, the internet device identity (ID) or media access control
+                                    address, mobile advertising ID and other device information including information
+                                    regarding the manufacturer, model and operating system of the device that you use to
+                                    access the Application, Services or our website.
                                 </li>
                                 <li>
-                                    Ensure that explanations are sought and/or further information is obtained in the
-                                    event of a Transaction or activity that is inappropriate/unnatural; and
-                                </li>
-                                <li>Ensure the accuracy of the latest profile of the Customer.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Transaction Procedures</strong> <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            Sale and Purchase Transactions <br />
-                            <ul style={{ listStyle: 'desc' }} className='flex flex-col gap-2 pl-5 pt-2'>
-                                Crypto Purchase Transaction
-                                <li>Enter your Bina Loka Account, then select Exchange.</li>
-                                <li>To see the types of crypto, it can be seen in this menu.</li>
-                                <li>Enter the amount you want to buy in the Buy option.</li>
-                                <li>Click the green button to Buy.</li>
-                                <li>Wait until the notification “Success” appears and enter the Order Book.</li>
-                                <li>Then if you have successfully bought it will go into my order history.</li>
-                            </ul>
-                            <ul style={{ listStyle: 'desc' }} className='flex flex-col gap-2 pl-5 pt-4'>
-                                Crypto Asset Sale
-                                <li>Enter your Bina Loka Account, then select Exchange.</li>
-                                <li>Enter the amount you want to sell in the Sale option</li>
-                                <li>Click the pink button to Sell.</li>
-                                <li> Wait until the notification "Success" appears and enter the Order Book.</li>
-                                <li>Then if you have successfully bought it will go into my order history.</li>
-                                <li>Ending balance can be checked in the Wallet menu.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            Fiat Deposit
-                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5 pt-2'>
-                                <li>
-                                    The process for Fiat Deposits through banks on the Bina Loka Platform, will be
-                                    conducted as follows:
-                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5 pt-4'>
-                                        <li>Users visits Bina Loka’s website;</li>
-                                        <li>
-                                            Users select the option to make a deposit via banking channels (supported by
-                                            payment service providers);
-                                        </li>
-                                        <li>
-                                            User activates the banking channel payment service and its digital Wallet
-                                            which is linked to Bina Loka’s website;
-                                        </li>
-                                        <li>User enters the amount to deposit and confirms the Transaction; and</li>
-                                        <li>
-                                            The balance will be updated on the User’s digital Wallet hosted by the
-                                            payment partner. The User can utilise the balances in the digital Wallet to
-                                            make purchase of Digital Assets/Crypto Asset.
-                                        </li>
-                                    </ul>
+                                    Whenever you use the Application, Services or visit our website, certain information
+                                    may also be collected on an automated basis using cookies. Cookies are small
+                                    application files stored on your computer or mobile device. We use cookies to track
+                                    user activity to enhance user interface and experience. Most mobile devices and
+                                    internet browsers support the use of cookies; but you may adjust the settings on
+                                    your mobile device or internet browser to reject several types of certain cookies or
+                                    certain specific cookies. Your mobile device and/or browser would also enable you to
+                                    delete at any time whatever cookies have previously been stored. However, doing so
+                                    may affect the functionalities available on the Application, Services or our
+                                    website.
                                 </li>
                                 <li>
-                                    The process for Electronic Wallet Deposits on the Bina Loka Platform, will be
-                                    conducted as follows:
-                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5 pt-4'>
-                                        <li>User visits Bina Loka’s website;</li>
-                                        <li>
-                                            User selects the option to make a deposit via electronic Wallet (supported
-                                            by payment service providers that is in cooperation with Bina Loka);
-                                        </li>
-                                        <li>
-                                            Bina Loka’s payment service provider will credit the amount from the
-                                            electronic Wallet to the digital Wallet hosted by the payment service
-                                            provider on Bina Loka’s webpage.
-                                        </li>
-                                    </ul>
+                                    Whenever you use the Application through your mobile device, we may track and
+                                    collect your geo-location information. When we do so, you will be prompted or
+                                    required to activate the Global Positioning System (GPS) on your mobile device to
+                                    enable us to give you a better experience in using the Application (for example, to
+                                    give you information as to how close you are to nearby merchants once we enable
+                                    merchant searching feature). You can always choose to disable the geo-location
+                                    tracking information on your mobile device temporarily. However, this can affect the
+                                    functionalities available on the Application.
+                                </li>
+                                <li>
+                                    If you utilize and/or when a payment or transfer is made through the electronic
+                                    money and/or electronic wallet facility provided by our affiliate, we may collect
+                                    certain information related to your source of fund for top up (including bank
+                                    account details), account details of withdrawal of the receiver, transaction history
+                                    (including receiver details), bill details, invoice details and phone number
+                                    details.
+                                </li>
+                                <li>
+                                    If you utilize and/or when a payment is made through the Payment Instrument you add
+                                    in the Application or Services, we may collect certain information related to the
+                                    transaction history including receiver details, bank account details, bill details,
+                                    invoice details, and phone number details.
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            Fiat Withdrawal <br />
+                            Information collected from third parties
                             <br />
-                            In contrast to the purchase of Crypto Assets, Users may want to sell their Digital
-                            Assets/Crypto Assets directly to the Bina Loka. In such circumstances Bina Loka will
-                            purchase these assets at an executable price (which will be based on the spot market price).
-                            <ul style={{ listStyle: 'desc' }} className='flex flex-col gap-2 pl-5 pt-2'>
-                                <li>Once successfully logged into the account, please select wallet.</li>
-                                <li>
-                                    Then select Withdraw. In this menu, there are two options on how to make a
-                                    withdrawal, namely IDR and Crypto. Select the Crypto columns for Crypto Asset
-                                    Withdrawal and select IDR column for Fiat Withdrawal
-                                </li>
-                                <li>
-                                    For Fiat Withdrawal, select add account and complete the bank data you want to
-                                    enter.
-                                </li>
-                                <li>
-                                    Click the bank account you want to select and make sure the name of the account
-                                    holder matches the name of the Customer. Then, click “Next”.
-                                </li>
-                                <li>Enter the withdrawal amount with a minimum of Rp100,000, then click “Submit”.</li>
-                                <li>
-                                    For Crypto Asset Withdrawal, click the Crypto column and select the type of Crypto
-                                    Asset to be withdrawn.
-                                </li>
-                                <li>
-                                    Click “Select Network” and pay attention to the Minimum and Maximum Withdrawal of
-                                    each Crypto Asset.
-                                </li>
-                                <li>
-                                    Enter the recipient’s address and the amount of the Crypto Asset to be sent. Make
-                                    sure the destination address is correct.
-                                </li>
-                                <li>
-                                    Click “Send”. The withdrawal will be process as soon as possible with a 1x24 hour
-                                    limit. All withdrawals will be recorded in the Fiat or Crypto Withdrawal History.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Spot Trading
+                            We may also collect your Personal Information from third parties (including our affiliates,
+                            agents, vendors, suppliers, contractors, partners and any others who provide services to us,
+                            who collect your Personal Information and/or perform functions on our behalf, or whom we
+                            collaborate with). In such cases, we will only collect your Personal Information for or in
+                            connection with the purposes for which such third parties are engaged or the purposes of our
+                            collaboration with such third parties (as the case may be).
                             <br />
                             <br />
-                            Spot Trading allows Users to access the trading facility that trades with other Users on the
-                            market via the Order Book at the current market rate (also known as spot price). The trade
-                            takes place immediately when the Order is fulfilled.
+                            Specifically when you register for the Services and/or Payment Instrument through the
+                            e-wallet service and/or access, add and/or link a Payment Instrument to the e-wallet
+                            service, we may collect certain financial information and financial history of yours
+                            (including but not limited to Payment Instrument transaction history, Payment Instrument
+                            details and mapping and/or payment card or account status and states) from the issuer of
+                            such payment credential or any other third parties.
                         </li>
                         <li>
-                            Delivery of Crypto Assets to Other Wallets
-                            <ul style={{ listStyle: 'desc' }} className='flex flex-col gap-2 pl-5 pt-2'>
-                                <li> Click Crypto.</li>
-                                <li>Select Crypto Asset type. </li>
-                                <li>Identify the intended network for delivery of Customer.</li>
+                            Information about third parties you provide to us
+                            <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    Click copy address/memo (this feature is intended to enable Customers to copy the
-                                    intended wallet address).
+                                    You may provide us with Personal Information relating to other third-party
+                                    individuals (including Personal Information relating to your spouse, family members,
+                                    friends, or other individuals). you will, of course, need their consent to do so.
+                                    When you provide us with a third party individual’s Personal Information, you will
+                                    definitely require consent from such a third party – please see “Acknowledgement and
+                                    Consent” below for further information.
                                 </li>
-                                <li>Fill out the details of intended wallet address.</li>
                                 <li>
-                                    Ensure you check first the Transaction details including the intended address/memo
-                                    and network. Upon checking completion, Customers can wait for the Crypto Assets to
-                                    enter the Bina Loka Wallet and the Customer may check the transaction history.
+                                    When you are using the chat and/or fund transfer features in Application, you will
+                                    provide us with the phone numbers of our Application users stored on your mobile
+                                    phonebook to enable you in using our chat features, carry out fund transfer and for
+                                    other purposes to connect you with the other Application users or with us.
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <strong>Transaction Fees and Withdrawal Limits</strong> <br />
+                    <strong>How Do We Process Your Personal Information?</strong> <br />
                     <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            The following are the processes for the implementation of Transaction Fees by Bina Loka:{' '}
+                            Use of Personal Information which We Collect
                             <br />
-                            <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                                <li>Sales fee of Cypto Asset amounts to 0,1%.</li>
-                                <li>Purchase fee of Crypto Asset amounts to 0.1%.</li>
-                                <li>Withdrawal BIDR to Rupiah (fiat) fee amounts to Rp5,500.</li>
-                                <li>
-                                    Fee is deducted by debiting the Available Balance of the Customer for the amount as
-                                    submitted on the Order Book.
-                                </li>
-                                <li>
-                                    Fee varies from Order Book, in accordance with volume of sale and purchase of the
-                                    Customer on each respective month.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            The following are the withdrawal limits implemented by Bina Loka:
+                            We may use Personal Information collected for any of the following purposes as well as for
+                            such other purposes as are permitted by applicable law (“Purposes”):
                             <br />
-                            <ul className='flex list-decimal flex-col gap-2 pl-5'>
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
                                 <li>
-                                    Fiat Withdrawal Limit <br />
-                                    <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                        <li>KYC Level 0 = Unable to proceed with any Withdrawal</li>
+                                    Where you are a user, we may use your Personal Information:
+                                    <br />
+                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5'>
                                         <li>
-                                            KYC Level 1 = Withdrawal Limit is limited to Rp250,000,000 (Cumulative
-                                            transaction in 1 x 24 hours)
+                                            to identify you and to register you as a user and to administer, verify,
+                                            deactivate, or manage your account as such;
                                         </li>
                                         <li>
-                                            KYC Level 2 = Withdrawal Limit is limited to Rp5,000,000,000 (Cumulative
-                                            ransaction in 1 x 24 hours)
+                                            to facilitate or enable any verification as we may in our discretion
+                                            consider necessary before we or the service provider provide you with the
+                                            services or before we register you as a user, including performing Know Your
+                                            Customer (KYC);
+                                        </li>
+                                        <li>
+                                            to enable service providers to provide you with such of the services as you
+                                            have requested;
+                                        </li>
+                                        <li>
+                                            to process and facilitate orders and payment transactions made by you,
+                                            including where applicable, transactions made through any payment card or
+                                            account available over the Application;
+                                        </li>
+                                        <li>
+                                            to enable you to receive any payments or fund transfer addressed to you by
+                                            other third parties;
+                                        </li>
+                                        <li>
+                                            to notify you of any transaction or activities occurred within the
+                                            Application or other system linked to our Application;
+                                        </li>
+                                        <li>
+                                            to communicate with you and to send you information in connection with the
+                                            use of the Application and/or Services;
+                                        </li>
+                                        <li>
+                                            to notify you of any updates to the Application or changes to the services
+                                            available or the Services;
+                                        </li>
+                                        <li>to process and respond to enquiries and feedback received from you;</li>
+                                        <li>
+                                            to maintain, develop, test, enhance and personalize the Application and/or
+                                            Services to meet your needs and preferences as a user;
+                                        </li>
+                                        <li>
+                                            to monitor and analyse user activities, behaviour, and demographic data
+                                            including trends and usage of the various services available on the
+                                            Application and/or Services;
+                                        </li>
+                                        <li>to process and manage your reward points;</li>
+                                        <li>to offer or provide services from our affiliates or partners; and</li>
+                                        <li>
+                                            to send you direct or targeted marketing communications, advertisement,
+                                            vouchers, surveys, and information on special offers or promotions.
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    Crypto Withdrawal Limit
-                                    <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                        <li>KYC Level 0 = Unable to proceed with any Withdrawal</li>
+                                    We may also use your Personal Information more generally for the following purposes
+                                    (although we will in each such case always act reasonably and use no more Personal
+                                    Information than what is required for the particular purpose):
+                                    <br />
+                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5'>
+                                        <li>to undertake associated business processes and functions;</li>
                                         <li>
-                                            KYC Level 1 = Withdrawal Limit is limited to 3 BTC (Cumulative transaction
-                                            in 1 x 24 hours)
+                                            to monitor usage of the Application and/or Services and administer, support
+                                            and improve the performance efficiency, growth, user experience and the
+                                            functions of the Application and/or Services;
                                         </li>
                                         <li>
-                                            KYC Level 2 = Withdrawal Limit is limited to 100 BTC (Cumulative transaction
-                                            in 1 x 24 hours)
+                                            to provide assistance in relation to and to resolve any technical
+                                            difficulties or operational problems with the Application and/or Services;
+                                        </li>
+                                        <li>
+                                            to generate statistical information and analytics data for the purpose of
+                                            testing, research, analysis, product development, commercial partnership,
+                                            and collaboration;
+                                        </li>
+                                        <li>
+                                            to prevent, detect and investigate any prohibited, illegal, unauthorized or
+                                            fraudulent activities;
+                                        </li>
+                                        <li>
+                                            to facilitate business asset transactions (which may extend to any mergers,
+                                            acquisitions or asset sales) involving us and/or any of our affiliates; and
+                                        </li>
+                                        <li>
+                                            to enable us to comply with our obligations under any applicable law,
+                                            including but not limited to responding to regulatory enquiries,
+                                            investigations or directives, complying with regulatory filing, reporting,
+                                            and licensing requirements, and conducting audit checks, due diligence and
+                                            investigations.
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            Sharing of Personal Information which We Collect
+                            <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
+                                <li>
+                                    We may disclose to or share with our affiliates and selected third parties
+                                    (including our agents, vendors, suppliers, contractors, partners and any others who
+                                    provide services to us or you, perform functions on our behalf, or whom we enter
+                                    into commercial collaboration with) your Personal Information for any of the
+                                    following purposes as well as for such other purposes as are permitted by applicable
+                                    law:
+                                    <br />
+                                    <ul style={{ listStyle: 'lower-roman' }} className='flex flex-col gap-2 pl-5'>
+                                        <li>for the purpose of enabling us to provide with the Service;</li>
+                                        <li>
+                                            where required or authorised by applicable law (including but not limited to
+                                            responding to regulatory enquiries, investigations or directives, or
+                                            complying with regulatory filing, reporting, and licensing requirements),
+                                            for the purpose so specified in that applicable law;
+                                        </li>
+                                        <li>
+                                            where instructed, requested, required or authorised by the government
+                                            authorities, for the purpose as specified in the government policy,
+                                            regulations or applicable law;
+                                        </li>
+                                        <li>
+                                            where there is any form of legal proceeding between you and us, or between
+                                            you and another party, in connection with, or relating to the services, for
+                                            the purposes of that legal proceeding;
+                                        </li>
+                                        <li>
+                                            in relation to any verification as we or other third parties may consider
+                                            necessary before the (i) we provide you with the Services; (ii) we determine
+                                            that you are eligible to activate, enable or register to our Services; (iii)
+                                            the service provider provide you with the services or (iv) we register or
+                                            onboard you as a user, including for KYC;
+                                        </li>
+                                        <li>
+                                            where we enable our Services in third parties’ platform, (i) to assist us in
+                                            obtaining your Personal Information and/or (ii) to register you or allow you
+                                            to use our Services from such platforms;
+                                        </li>
+                                        <li>
+                                            in an emergency concerning your safety for the purposes of dealing with that
+                                            emergency;
+                                        </li>
+                                        <li>
+                                            in a situation concerning your health or public interest, we may share your
+                                            Personal Information to the government authorities and/or other institutions
+                                            that may be appointed by the government authorities or have a cooperation
+                                            with us, for the purposes of contact tracing, supporting government
+                                            initiatives, policies or programs, public safety and any other purposes
+                                            reasonably needed;
+                                        </li>
+                                        <li>
+                                            in connection with, any merger, sale of company assets, consolidation or
+                                            restructuring, financing or acquisition of all or a portion of our business
+                                            by or into another company, for the purposes of such a transaction (even if
+                                            the transaction is eventually not proceeded with);
+                                        </li>
+                                        <li>
+                                            in connection with insurance claim, we will share your Personal Information
+                                            for the purpose of processing the insurance claim to the insurance company
+                                            that we engage or have collaboration with;
+                                        </li>
+                                        <li>
+                                            to selected third parties for or in connection with the purposes for which
+                                            such third parties are engaged, to perform certain disclosure to the
+                                            relevant third parties which are technically required to process your
+                                            transaction or for the purposes of our collaboration with such third parties
+                                            (as the case may be), which may include allowing such third parties to
+                                            introduce or offer products or services to you, authenticate you or connect
+                                            with your GoPay Accounts, or conducting other activities including
+                                            marketing, research, analysis and product development; and
+                                        </li>
+                                        <li>
+                                            where we share Personal Information with affiliates, we will do so for the
+                                            purpose of them helping us to provide the Application and/or Services to
+                                            operate our business (including, where you have subscribed to our mailing
+                                            list, for direct marketing purposes by our affiliates), or for the purpose
+                                            of them conducting data processing on our behalf. For example,our affiliate
+                                            may process and/or store your Personal Information on behalf of us if the
+                                            Service that you are using is run by the assistance of such our affiliate.
+                                            All of our affiliates are committed to processing the Personal Information
+                                            that they receive from us in line with this Privacy Notice and applicable
+                                            law.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    We may disclose your Personal Information to certain users of the Application, in
+                                    the event you insert your payment receiving methods in the Application for you to
+                                    receive any payments and/or fund transfer made by the other users who act as the
+                                    payer or sender and for the payer or sender to find you and address the payment or
+                                    fund transfer to you.
+                                </li>
+                                <li>
+                                    Where it is not necessary for the Personal Information to be associated with you, we
+                                    will use reasonable endeavors to remove the means by which the Personal Information
+                                    can be associated with you as an individual before disclosing or sharing such
+                                    information.
+                                </li>
+                                <li>We will not sell or lease your Personal Information.</li>
+                                <li>
+                                    Other than as provided for in this Privacy Notice, we may disclose or share your
+                                    Personal Information if we notify you or we have obtained your consent for the
+                                    disclosure or sharing.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Retention of Personal Information
+                            <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
+                                <li>
+                                    Your Personal Information will only be held for as long as it is necessary to
+                                    fulfill the purpose for which it was collected, or for as long as such retention is
+                                    required or authorised by applicable law. We shall cease to retain Personal
+                                    Information, or remove the means by which the Personal Information can be associated
+                                    with you as an individual, as soon as it is reasonable to assume that the purpose
+                                    for which that Personal Information was collected is no longer being served by
+                                    retention of Personal Information and retention is no longer necessary for legal or
+                                    business purposes.
+                                </li>
+                                <li>
+                                    Please note that there is still the possibility that some of your Personal
+                                    Information might be retained by the other party, including by the government
+                                    institutions in some manner. In the event we share your Personal Information to the
+                                    authorised government institutions and/or other institutions that may be appointed
+                                    by the government authorities or have a cooperation with us, you agree and
+                                    acknowledge that the retention of your Personal Information by the relevant
+                                    institutions will follow their respective policy on data retention. Information
+                                    relayed through communications between users or made other than through the use of
+                                    the Application (such as by telephone calls, SMS, mobile messaging or other method
+                                    of communication and collection of your Personal Information by our agent) may also
+                                    be retained by some means. We do not encourage the retention of Personal Information
+                                    by such means and we have no responsibility to you for the same. We shall not be
+                                    liable for any such retention of your Personal Information. You agree to indemnify,
+                                    defend and release us, our officers, directors, employees, agents, partners,
+                                    suppliers, contractors and affiliates from and against any and all claims, losses,
+                                    liabilities, expenses, damages and costs (including but not limited to legal costs
+                                    and expenses on a full indemnity basis) resulting directly or indirectly from any
+                                    unauthorised retention of your Personal Information.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Personal Information Processing Location
+                            <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
+                                <li>
+                                    Your Personal Information is stored and processed in Indonesia but may also be
+                                    stored or processed outside of Indonesia by our personnel who work for us in other
+                                    countries, or by our third-party service providers, vendors, suppliers, partners,
+                                    contractors or affiliates, to the extent allowed by the prevailing laws and
+                                    regulations. In doing so, we take into account the relevant requirements applicable
+                                    to us as a payment system provider.
+                                </li>
+                                <li>
+                                    We will comply with the applicable laws and regulations and use all reasonable
+                                    endeavors to ensure that our affiliates and all such third-party service providers
+                                    within or outside the country provide a level of protection that is comparable to
+                                    our commitments under this Privacy Notice.
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li>
-                    <strong>Transaction Security</strong> <br /> <br />
-                    For transaction security, Customers have the option to activate 2FA (Two Factor Factor
-                    Authentication). 2FA is a feature whereby Customers provide identity verification 2 (two) times. For
-                    example, if Customers implement log in to Bina Loka Account after inputting password, customers are
-                    quired to input special code which is sent out through SMS or Google Authenticator. Customers are
-                    able to activate 2FA SMS or 2FA Google Authenticator in Bina Loka. The use of 2FA security feature
-                    provides greater security for account, data, asset and transaction history from breach from external
-                    parties.
-                </li>
-                <li>
-                    <strong>Complaint Service and Dispute Resolution</strong> <br />
+                    <strong>How Do We Protect?</strong> <br />
                     <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            In the event of any complaints or concerns regarding the use of any Bina Loka Services or
-                            the Bina Loka Platform, Users will be referred to Bina Loka’s Customer Service Team.
+                            Security of your Personal Information
+                            <br />
+                            Confidentiality of your Personal Information is of utmost importance to us. We will use all
+                            reasonable efforts to protect and secure your Personal Information against access,
+                            collection, use or disclosure by unauthorised persons and against unlawful processing,
+                            accidental loss, destruction and damage or similar risks. Unfortunately, the transmission of
+                            information via the Internet is not completely secure. Although we will do our best to
+                            protect your Personal Information, you acknowledge that we cannot guarantee the integrity
+                            and accuracy of any Personal Information which you transmit over the Internet, nor guarantee
+                            that such Personal Information would not be intercepted, accessed, disclosed, altered or
+                            destroyed by unauthorised third parties, due to factors beyond our control. You are
+                            responsible for keeping your account details confidential and you must not share your
+                            Account or GoPay Account details, including your password, magic link and One Time Password
+                            (OTP), with anyone and you must always maintain and fully responsible for the security of
+                            the device that you use.
                         </li>
                         <li>
-                            The procedures for resolving any complaints at Bina Loka are as follows: <br />
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-roman' }}>
-                                <li>
-                                    Users may submit any complaints to Bina Loka through Bina Loka’s Support Center,
-                                    Bina Loka’s Social Media channels, and Bina Loka’s Community Feedback;
-                                </li>
-                                <li>
-                                    Upon receipt of User complaints, the complaint will be escalated to the Customer
-                                    Support Team;
-                                </li>
-                                <li>
-                                    Bina Loka will provide a written acknowledgement of the complaint within 5 (five)
-                                    business days of its receipt;
-                                </li>
-                                <li>
-                                    The complaint will be forwarded to the Complaint Team, where it will be allocated a
-                                    tracking case number;
-                                </li>
-                                <li>The complaint will then be investigated by the Complaint Team.</li>
-                                <li>
-                                    A final response will be provided by Bina Loka to its Users within 35 (thirty-five)
-                                    business days of the receipt of complaint.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Any User or Customer disputes arising from the use of Bina Loka Services will be conducted
-                            through the following procedures: <br />
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-alpha' }}>
-                                <li>Mutual deliberation to reach a consensus between Users and Bina Loka;</li>
-                                <li>
-                                    If no consensus is reached on point (a), then the dispute resolution shall be
-                                    carried out through the Crypto Asset Exchange; and
-                                </li>
-                                <li>
-                                    If no consensus is reached on point (b), then the dispute resolution shall be
-                                    carried out through the Commodity Futures Trading Arbitration Board (BAKTI).
-                                </li>
-                            </ul>
+                            Anonymous Data
+                            <br />
+                            We may create, use, license or disclose Personal Information, provided, however, (i) that
+                            all identifiers have been removed such that the data, alone or in combination with other
+                            available data, cannot be attributed to or associated with or cannot identify any person,
+                            and (ii) that has been combined with similar data such that the original data forms a part
+                            of a larger data set.
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <strong>Force Majeure</strong> <br />
+                    <strong>What are Your Rights?</strong> <br />
                     <ul className='flex list-decimal flex-col gap-2 pl-5'>
                         <li>
-                            Bina Loka will not be liable for any delay or failure to perform as required by these
-                            Trading Rules because of any cause or condition beyond Bina Loka’s reasonable control.
-                        </li>
-                        <li>
-                            The events that are considered force majeure are any circumstances beyond the reasonable
-                            control, directly or indirectly, include but are not limited to:
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-alpha' }}>
-                                <li>
-                                    atural disasters, wars, insurrections, strikes, riots, earthquakes, storms, floods
-                                    or bad weather, explosions, fires, lightning strike, disturbance, blockade, armed
-                                    conflict, or serious threat thereof, hostilities, mobilization, detention,
-                                    revolutions, commotion, looting, closure of workplaces, disease outbreaks,
-                                    pandemics, epidemics, or other natural disasters provided that there is a statement
-                                    from the government or the competent authority declaring that the situation is an
-                                    emergency; or
-                                </li>
-                                <li>
-                                    changes to laws, regulations, government decisions and/or policies and/or
-                                    non-performance of this Trading Rules by one of the Parties caused by the
-                                    implementation of this Trading Rules contrary to any existing laws and regulations
-                                    which the said Party shall comply with.
-                                </li>
-                            </ul>
+                            Your Legal Rights
+                            <br />
+                            You may have certain rights under the applicable law to request us for access to, correction
+                            of and/or deletion of your Personal Information in our possession and control. To the extent
+                            these rights are available to you under applicable law, you may exercise these rights by
+                            contacting us at the details provided in the section below.
+                            <br />
+                            <br />
+                            We reserve the right to refuse your requests for access to, correction of and/or deletion
+                            of, some or all of your Personal Information in our possession or control if permitted or
+                            required under any applicable law. This may include circumstances where the Personal
+                            Information may contain references to other individuals or where the request for access or
+                            request to correct is for reasons which we reasonably consider to be trivial, frivolous or
+                            vexatious. Subject to applicable law, we reserve the right to charge an administrative fee
+                            for any access and/or correction requests.
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <strong>
-                        Implementation of the Anti-Money Laundering Program and Counter Terrorism Funding and the
-                        Proliferation of Weapons of Mass Destruction (“AML- CTF”)
-                    </strong>
-                    <br />
+                    <strong>Miscellaneous</strong> <br />
+                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
+                        <li>
+                            Other Websites and Services
+                            <br />
+                            <ul style={{ listStyle: 'lower-alpha' }} className='flex flex-col gap-2 pl-5'>
+                                <li>
+                                    The Application, website, and Marketing Materials may contain links to websites that
+                                    are operated by third parties. We do not control nor accept liability or
+                                    responsibility for these websites and for the collection, use, maintenance, sharing,
+                                    or disclosure of data and information by such third parties. Please consult the
+                                    terms and conditions and privacy policies of those third-party websites to find out
+                                    how they collect and use your Personal Information.
+                                </li>
+                                <li>
+                                    When you are using our Application and/or Services and enable the fingerprints
+                                    and/or facial recognition features in your mobile device for authentication
+                                    purposes, please note that we do not store such biometric data. Unless otherwise
+                                    notified to you, such data is stored in your mobile device and may also be stored by
+                                    third parties, such as your device’s manufacturer. You agree and acknowledge that we
+                                    are not responsible for any unauthorised access or loss towards such biometric data
+                                    which is stored in your mobile device.
+                                </li>
+                                <li>
+                                    Advertisements contained on our Application, website, or Marketing Materials operate
+                                    as links to the advertiser’s website and as such any information they collect by
+                                    virtue of your clicking on that link will be collected and used by the relevant
+                                    advertiser in accordance with the privacy notice of that advertiser.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Marketing and Promotional Material
+                            <br />
+                            We and our partners may send you direct marketing, advertisement, and promotional
+                            communications via push-notification app, message in Application, post, telephone call,
+                            short message service (SMS), chat platform,social media, and e-mail (“Marketing Materials”)
+                            if you have agreed to subscribe to our mailing list, and/or consented to receive marketing
+                            and promotional materials from us. You may opt out from receiving such marketing
+                            communications at any time by clicking on any “unsubscribe” facility embedded in the
+                            relevant message, or otherwise contacting us using the contact details stated below. Please
+                            note that if you opt out, we may still send you non-promotional messages, such as ride
+                            receipts or information about your Account.
+                        </li>
+                        <li>
+                            Changes to this Privacy Notice
+                            <br /> We may review and amend this Privacy Notice at our sole discretion from time to time,
+                            to ensure that it is consistent with our future developments, and/or changes in legal or
+                            regulatory requirements. If we decide to amend this Privacy Notice, we will notify you of
+                            any such amendments by means of a general notice published on the Application, push
+                            notification when you are using the Services and/or website, or otherwise to your e-mail
+                            address set out in your account. You agree that it is your responsibility to review this
+                            Privacy Notice regularly for the latest information on our data processing and data
+                            protection practices, and that your continued use of the Application, Services or website,
+                            communications with us, or access to and use of the services following any amendments to
+                            this Privacy Notice will constitute your acceptance to this Privacy Notice and all of its
+                            amendments.
+                        </li>
+                    </ul>
+                </li>
 
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            Bina Loka has formulated its internal policies in order to ensure compliance with the laws
-                            and regulations as stipulated in Commodity Futures Trading Regulatory Agency (Badan Pengawas
-                            Perdagangan Berjangka Komoditi or “Bappebti”) Regulation No. 8 of 2021 dated October 29,
-                            2021 regarding Guidelines for Organizing Crypto Asset Physical Trading Market on the Future
-                            Exchange, and any future amendments of such regulation.
-                        </li>
-                        <li>
-                            Bina Loka will ensure that its Platform and Services are subject to Indonesian laws and
-                            regulations, including but not limited to the following: <br />
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-alpha' }}>
-                                <li>
-                                    Law No. 8 of 2010 regarding the Prevention and Eradication of Money Laundering
-                                    Crimes;
-                                </li>
-                                <li>
-                                    Law No. 9 of 2013 regarding the Prevention and Eradication of Criminal Acts of
-                                    Terrorism Financing;
-                                </li>
-                                <li>
-                                    Regulation of the Head of the Indonesian Financial Transaction Reports and Analysis
-                                    Centre (Pusat Pelaporan Analisis dan Transaksi Keuangan <strong>“PPATK”</strong>)
-                                    No. PER- 02/1.02/PPATK/02/2014 regarding Intergrated Service User Information
-                                    Systems; and
-                                </li>
-                                <li>
-                                    PPATK Regulation No. 2 of 2021 regarding the Procedures for Submission of
-                                    Transaction Reports and Suspicious Financial Transaction Reports Through the GOAML
-                                    Application for Providers of Other Goods and/or Services.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            To implement the abovementioned regulations, Bina Loka’s policies at minimum include: <br />
-                            <ul className='flex  flex-col gap-2 pl-5' style={{ listStyle: 'lower-alpha' }}>
-                                <li>Customer segregation;</li>
-                                <li>CDD and retail Customer name verification (PEPs, sanctions lists and media);</li>
-                                <li>Risk-based CDD and the verification of Customers; and</li>
-                                <li>
-                                    A Customer Risk Matrix where Users scored according to a risk matrix, which includes
-                                    components such as PEP, Age, Sanctions.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Bina Loka has implemented its own Legal and Compliance Division, who are designated to take
-                            an active role in the implementation of AML-CTF monitoring which is made possible through
-                            the implementation of RegTech to assist in Know-Your-Transaction <strong>(“KYT”)</strong>
-                            evaluation.
-                        </li>
-                    </ul>
-                </li>
                 <li>
-                    <strong>Scheduled Downtime</strong> <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            From time to time, Bina Loka may suspend trading temporarily for maintenance or upgrades.
-                            Absent extenuating circumstances, the Bina Loka Platform will use reasonable endeavors for
-                            closing and re- opening trading.
-                        </li>
-                        <li>
-                            Any temporary suspension of trading will be informed to Users and announced through e- mail
-                            and social media account, with the following procedures
-                            <br />
-                            <br />
-                            Step 1: Announce Downtime Schedule
-                            <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                <li>Announce downtime schedule through social media and e-mail.</li>
-                            </ul>
-                            <br />
-                            Step 2: Ongoing Downtime Schedule
-                            <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                <li>
-                                    The Bina Loka exchange will cease temporarily. Transaction and other features will
-                                    not be able to be used.
-                                </li>
-                            </ul>
-                            <br />
-                            Step 3: After Downtime Schedule is Completed
-                            <ul className='flex list-disc flex-col gap-2 pl-5'>
-                                <li>Ensure that trades resume normally.</li>
-                                <li>Announce in Telegram and/or Twitter that the downtime is completed.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Miscellaneous</strong>
-                    <br />
-                    <ul className='flex list-decimal flex-col gap-2 pl-5'>
-                        <li>
-                            The terms and conditions stated in these Trading Rules may be amended and/or supplemented
-                            from time to time, at Bina Loka's sole discretion.
-                        </li>
-                        <li>
-                            In the event that there is any conflict between these Trading Rules and any other statement
-                            whether written or oral made by Bina Loka at any time (excluding the statements in the any
-                            other Bina Loka Agreements), the terms of these Trading Rules shall prevail.
-                        </li>
-                        <li>
-                            Except where these Trading Rules express to the contrary, the Trading Rules shall be
-                            construed in accordance with, and governed by, the laws of the Republic of Indonesia.
-                        </li>
-                        <li>
-                            Bina Loka shall not be liable for anything done or omitted in accordance with these Trading
-                            Rules.
-                        </li>
-                        <li>
-                            Users declare that they have read, understood, comprehended, observed, agreed and accepted
-                            these Trading Rules.
-                        </li>
-                        <li>These Trading Rules is made in the Indonesian and English language.</li>
-                    </ul>
+                    <strong>Contact Us</strong> <br />
+                    If you have any questions regarding this Privacy Notice or you would like to obtain access to your
+                    Personal Information, please contact{' '}
+                    <a href='mailto:customerservice@kriptomaksima.com'>customerservice@kriptomaksima.com</a>
                 </li>
             </ol>
             <br />
             <br />
-            <strong>
-                You hereby declare that you have received and read these Trading Rules and understand and agree to its
-                contents therein.
-            </strong>
         </>
     );
 };
 
-export default EnglishVersion;
+export default IndoVersion;

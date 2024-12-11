@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -14,6 +15,10 @@ const TermsCondition = () => {
 
     return (
         <>
+            <Head>
+                <title>Privacy policy & Terms condition | KMK</title>
+                <meta name='description' content='Privacy policy & Terms condition' />
+            </Head>
             <Container className='flex justify-center py-3'>
                 <div className='tnc-text flex w-[50%] flex-col'>
                     <If condition={isLangId}>

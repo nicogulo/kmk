@@ -20,7 +20,7 @@ const TermsCondition = () => {
                 <meta name='description' content='Privacy policy & Terms condition' />
             </Head>
             <Container className='flex justify-center py-3'>
-                <div className='tnc-text flex w-[50%] flex-col'>
+                <div className='tnc-text flex flex-col xl:w-[50%]'>
                     <If condition={isLangId}>
                         <Then>
                             <IndoVersion />

@@ -650,11 +650,7 @@ const Table: React.FC<TableProps> = ({
                             // eslint-disable-next-line react/no-unstable-nested-components
                             wrapper={(children) => <CustomScroll>{children}</CustomScroll>}
                         >
-                            <tbody
-                                id='binaloka-table-body'
-                                ref={bodyRef}
-                                className={classNames('block', bodyClassName)}
-                            >
+                            <tbody id='kmk-table-body' ref={bodyRef} className={classNames('block', bodyClassName)}>
                                 {renderedBody()}
                             </tbody>
                         </ConditionalWrapper>

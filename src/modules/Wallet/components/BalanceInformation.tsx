@@ -28,7 +28,7 @@ const BalanceInformation: React.FC<Props> = ({ balance, profile }: Props) => {
     const pendingWithdraw = balance?.pendingWithdraw || 0;
     const total = Number(available) + Number(pendingWithdraw);
 
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc || ProfileStatus.REVOKE === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
     return (

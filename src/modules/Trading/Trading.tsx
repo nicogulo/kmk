@@ -14,7 +14,7 @@ const Trading = () => {
     const [isOpen, setIsOpen] = useState(true);
     const { profile } = useProfile();
 
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc || ProfileStatus.REVOKE === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
     const handleClose = () => {

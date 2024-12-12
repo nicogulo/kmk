@@ -36,7 +36,7 @@ const Profile = () => {
     const { loading, fetchProfile, profile } = useProfile();
 
     const isPhoneVerify = PhoneNumberStatus.ACTIVE === profile?.phoneStatus;
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc || ProfileStatus.REVOKE === profile?.kyc;
 
     const verifyPhone = async () => {
         setLoadingSubmitPhone(true);

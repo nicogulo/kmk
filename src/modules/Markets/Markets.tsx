@@ -28,7 +28,7 @@ const Markets = () => {
     const { profile } = useProfile();
     const { markets, loading: loadingMarket } = useMarkets({ search });
 
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc || ProfileStatus.REVOKE === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
     const isPendingBasic = ProfileStatus.PENDING === profile?.kyc;
 

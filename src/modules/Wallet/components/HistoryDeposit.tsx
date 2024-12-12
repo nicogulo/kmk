@@ -263,7 +263,7 @@ const DepositHistory: React.FC<Props> = ({ profile }: Props) => {
 
     const router = useRouter();
 
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc || ProfileStatus.REVOKE === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
 
     const { history, loading, fetchHistory } = useHistory({

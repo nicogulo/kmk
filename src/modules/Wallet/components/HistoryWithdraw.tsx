@@ -35,7 +35,7 @@ const WithdrawHistory: React.FC<Props> = ({ profile }: Props) => {
 
     const router = useRouter();
 
-    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc;
+    const isUnverifiedBasic = ProfileStatus.UNVERIFIED === profile?.kyc || ProfileStatus.REVOKE === profile?.kyc;
     const isVerifiedBasic = ProfileStatus.VERIFIED === profile?.kyc;
     const isPendingBasic = ProfileStatus.PENDING === profile?.kyc;
 

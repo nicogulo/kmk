@@ -63,7 +63,6 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
 
     const handleUpload = (e: any) => {
         const file = e.target.files[0];
-        toast.info(e);
         if (file && file.size > 5242880) {
             toast.error('Ukuran file tidak boleh melebihi 5MB.');
             return;

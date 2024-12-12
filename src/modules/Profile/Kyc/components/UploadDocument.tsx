@@ -67,8 +67,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
             toast.info('File tidak ditemukan');
             return;
         }
-        // toast.info('Toast dipanggil');
-        // toast.info(`${file.name} sedang diunggah..., ukuran file: ${file.size}`);
+        toast.info(`${file.name} sedang diunggah..., ukuran file: ${file.size}`);
         if (file && file.size > 5242880) {
             toast.error('Ukuran file tidak boleh melebihi 5MB.');
             return;
@@ -542,7 +541,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                             <input
                                                 key={fileInputKey}
                                                 type='file'
-                                                // className='hidden'
+                                                className='hidden'
                                                 onChange={handleUploadNpwp}
                                             />
                                         </div>

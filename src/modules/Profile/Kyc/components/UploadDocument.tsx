@@ -34,7 +34,13 @@ const RenderUploadDocumentKtp = ({ handleUpload }: RenderUploadDocumentProps) =>
                     Klik untuk mengunggah atau seret dan lepas <br />
                     PNG, JPG or PDF (max. 5 MB)
                 </p>
-                <input type='file' className='hidden' onChange={(e: any) => handleUpload(e)} />
+                <input
+                    type='file'
+                    className='hidden'
+                    accept='image/*'
+                    capture='user'
+                    onChange={(e: any) => handleUpload(e)}
+                />
             </div>
         </label>
     </div>
@@ -63,6 +69,10 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
 
     const handleUpload = (e: any) => {
         const file = e.target.files[0];
+        if (file) {
+            toast.error(e);
+        }
+        toast.error(e);
         if (file && file.size > 5242880) {
             toast.error('Ukuran file tidak boleh melebihi 5MB.');
             return;

@@ -34,7 +34,7 @@ const RenderUploadDocumentKtp = ({ handleUpload }: RenderUploadDocumentProps) =>
                     Klik untuk mengunggah atau seret dan lepas <br />
                     PNG, JPG or PDF (max. 5 MB)
                 </p>
-                <input type='file' className='hidden' onChange={(e: any) => handleUpload(e)} />
+                <input type='file' className='hidden' onChange={(e: any) => handleUpload(e)} accept='image/*' capture />
             </div>
         </label>
     </div>
@@ -358,6 +358,8 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                                         type='file'
                                                         className='hidden'
                                                         onChange={(e: any) => handleChangeFileUpload(e)}
+                                                        accept='image/*'
+                                                        capture
                                                     />
                                                 </div>
                                             </label>
@@ -428,6 +430,8 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                                     type='file'
                                                     className='hidden'
                                                     onChange={(e: any) => handleChangeSelfieUpload(e)}
+                                                    accept='image/*'
+                                                    capture
                                                 />
                                             </div>
                                         </label>
@@ -458,6 +462,8 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                                 type='file'
                                                 className='hidden'
                                                 onChange={handleSelfieUpload}
+                                                accept='image/*'
+                                                capture
                                             />
                                         </div>
                                     </label>
@@ -513,8 +519,10 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                                 </div>
                                                 <input
                                                     type='file'
-                                                    // className='hidden'
+                                                    className='hidden'
                                                     onChange={(e: any) => handleChangeNpwpUpload(e)}
+                                                    accept='image/*'
+                                                    capture
                                                 />
                                             </div>
                                         </label>
@@ -543,6 +551,8 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                                 type='file'
                                                 className='hidden'
                                                 onChange={handleUploadNpwp}
+                                                accept='image/*'
+                                                capture
                                             />
                                         </div>
                                     </label>

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import Form, { Field } from 'rc-field-form';
 import React, { useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import classNames from '@/lib/classnames';
 import {
@@ -63,6 +64,7 @@ interface Props {
 
 const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
     const [form] = Form.useForm();
+    const isMobile = useMediaQuery({ maxWidth: 1279 });
 
     const { occupation } = useOccupation();
     const { sourceOfFund } = useSourceOfFund();
@@ -193,8 +195,13 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                     </p>
                 </div>
 
-                <Form form={form} onFinish={handleSubmit} className='flex w-full flex-col gap-6' autoComplete='off'>
-                    {(_, { getFieldError, getFieldsValue }) => {
+                <Form
+                    form={form}
+                    onFinish={handleSubmit}
+                    className='relative flex w-full flex-col gap-6'
+                    autoComplete='off'
+                >
+                    {(_, { getFieldError, getFieldValue }) => {
                         const errorNpwp = getFieldError('npwp')[0];
 
                         const disableSubmit = form.getFieldsError().some((item) => item.errors.length > 0);
@@ -209,6 +216,11 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                         const errorPurpose = getFieldError('purpose_of_account_opening')[0];
                         const errorSourceFund = getFieldError('source_of_fund')[0];
                         const errorPlaceOfBirth = getFieldError('place_of_birth')[0];
+
+                        const occupationValue =
+                            getFieldValue('occupation') === 'Mahasiswa' ||
+                            getFieldValue('occupation') === 'Ibu Rumah Tangga' ||
+                            getFieldValue('occupation') === 'Lainnya';
 
                         return (
                             <>
@@ -268,7 +280,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                 items={Array.from({ length: 31 }, (_, i) => ({
                                                     name: (i + 1).toString()
                                                 }))}
-                                                label=''
+                                                label={isMobile ? 'Tanggal' : ''}
                                                 type='number'
                                                 readOnly
                                                 selected={{
@@ -301,7 +313,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                 items={Array.from({ length: 12 }, (_, i) => ({
                                                     name: (i + 1).toString()
                                                 }))}
-                                                label=''
+                                                label={isMobile ? 'Bulan' : ''}
                                                 type='number'
                                                 readOnly
                                                 selected={{
@@ -335,7 +347,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                                         name: (new Date().getFullYear() - i).toString()
                                                     })) || []
                                                 }
-                                                label=''
+                                                label={isMobile ? 'Tahun' : ''}
                                                 type='number'
                                                 readOnly
                                                 selected={{
@@ -398,6 +410,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                 </Field>
                                 <Field
                                     name='occupation'
+                                    dependencies={['occupation_other']}
                                     rules={[
                                         {
                                             required: true,
@@ -447,7 +460,15 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                         />
                                     </Field>
                                 </When>
-                                <When condition={!otherOccupation}>
+                                <div
+                                    className={classNames(
+                                        'flex w-full transform flex-col gap-6 transition-all duration-300 ease-in-out',
+                                        {
+                                            'pointer-events-none -mt-52 scale-90 opacity-0': occupationValue,
+                                            'scale-100 opacity-100': !occupationValue
+                                        }
+                                    )}
+                                >
                                     <Field
                                         name='average_yearly_income'
                                         rules={[{ required: true, message: 'Mohon isi pendapatan tahunan Anda!' }]}
@@ -556,9 +577,13 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                             <Icons icon='Interuption' /> {errorPurpose}
                                         </span>
                                     )}
-                                </When>
+                                </div>
 
-                                <div className='flex w-full flex-row justify-end gap-4 '>
+                                <div
+                                    className={classNames('flex w-full flex-row justify-end gap-4', {
+                                        // 'absolute bottom-0': occupationValue && isMobile
+                                    })}
+                                >
                                     <Button className='w-[120px]' variant='grayOutline' onClick={onBack}>
                                         Kembali
                                     </Button>

@@ -48,6 +48,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
     const [npwpPreview, setNpwpPreview] = useState('');
     const [npwpFile, setNpwpFile] = useState<File>();
     const [loadingUpload, setLoadingUpload] = useState(false);
+    const [retry, setRetry] = useState(0);
 
     const [fileInputKey, setFileInputKey] = useState(Date.now());
 
@@ -284,6 +285,12 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
     }, [user]);
 
     useEffect(() => {
+        if (!documents?.url) {
+            // Jika data belum ada, lakukan re-render
+            const timer = setTimeout(() => setRetry((prev) => prev + 1), 500);
+            return () => clearTimeout(timer);
+        }
+
         if (documents?.type === 'ktp') {
             setKtpPreviewUrl(documents?.url as string);
             setKtpPreview(documents?.url as string);
@@ -292,14 +299,12 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
             setSelfiePreviewUrl(documents?.url as string);
             setSelfiePreview(documents?.url as string);
         }
-
         if (documents?.type === 'npwp') {
             setNpwpPreviewUrl(documents?.url as string);
             setNpwpPreview(documents?.url as string);
         }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [documents]);
+    }, [documents?.url, retry]);
 
     return (
         <div className='flex flex-col items-center gap-6 '>
@@ -513,7 +518,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
                                                 </div>
                                                 <input
                                                     type='file'
-                                                    // className='hidden'
+                                                    className='hidden'
                                                     onChange={(e: any) => handleChangeNpwpUpload(e)}
                                                 />
                                             </div>

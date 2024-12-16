@@ -99,9 +99,9 @@ const Profile = () => {
                                                 router.push('/profile/kyc');
                                             }
                                         }}
-                                        className='mr-6 h-fit w-[136px]'
+                                        className='mr-6 h-fit w-[200px]'
                                     >
-                                        Verify Now
+                                        Verifikasi Sekarang
                                     </Button>
                                 </div>
                             }
@@ -110,16 +110,16 @@ const Profile = () => {
                     <div className='flex flex-col gap-4 pb-4'>
                         <Tabs>
                             <Tab active={activeTab === 0} onClick={() => setActiveTab(0)}>
-                                My Profile
+                                Akun Saya
                             </Tab>
                             <Tab active={activeTab === 1} onClick={() => setActiveTab(1)}>
-                                Security Management
+                                Keamanan
                             </Tab>
                         </Tabs>
                         <When condition={activeTab === 0}>
                             <div className='flex w-full flex-col items-start justify-center gap-4 xl:flex-row'>
                                 <div className='flex w-full flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-4 xl:p-6'>
-                                    <p className='text-[16px] font-bold leading-6 text-gray-800'>Your Details</p>
+                                    <p className='text-[16px] font-bold leading-6 text-gray-800'>Detail Akun</p>
                                     <div className='flex flex-col gap-2'>
                                         <div className='flex flex-row justify-between gap-6'>
                                             <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
@@ -147,7 +147,7 @@ const Profile = () => {
                                         </div>
                                         <div className='flex flex-row justify-between gap-6'>
                                             <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
-                                                Full Name
+                                                Nama Lengkap
                                             </p>
                                             <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
@@ -170,7 +170,7 @@ const Profile = () => {
 
                                         <div className='flex flex-row justify-between gap-6'>
                                             <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
-                                                Country of residency
+                                                Negara Tempat Tinggal
                                             </p>
                                             <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
@@ -182,7 +182,7 @@ const Profile = () => {
                                         </div>
                                         <div className='flex flex-row justify-between gap-6'>
                                             <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
-                                                Phone Number
+                                                Nomor Telepon
                                             </p>
                                             <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
@@ -194,7 +194,7 @@ const Profile = () => {
                                         </div>
                                         <div className='flex flex-row justify-between gap-6'>
                                             <p className='text-sm font-normal text-gray-600 xl:min-w-[200px]'>
-                                                Date of Birth
+                                                Tanggal Lahir
                                             </p>
                                             <p className='line-clamp-3 w-full max-w-[120px] text-right text-sm font-bold text-gray-800 xl:max-w-[unset] xl:text-left'>
                                                 {loading ? (
@@ -209,11 +209,11 @@ const Profile = () => {
                                     </div>
                                 </div>
                                 <div className='relative flex w-full flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-6'>
-                                    <p className='text-[16px] font-bold leading-6 text-gray-800'>Verification Status</p>
+                                    <p className='text-[16px] font-bold leading-6 text-gray-800'>
+                                        Status Verifikasi Akun
+                                    </p>
 
-                                    <div
-                                    // className='border-left basic-kyc-border circle-top px-6 pb-4'
-                                    >
+                                    <div>
                                         <span className='circle-bottom' />
                                         <div className='flex w-full flex-col gap-4 xl:mb-4'>
                                             <div className='flex flex-col gap-2'>
@@ -236,32 +236,30 @@ const Profile = () => {
                                                     </div>
 
                                                     <p className='text-sm font-normal text-gray-800'>
-                                                        Complete basic KYC to create live trading accounts and deposit
-                                                        requests.
+                                                        Selesaikan KYC dasar untuk membuat akun trading live dan
+                                                        permintaan deposit.
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='flex flex-row justify-between border-t pt-4 xl:gap-10'>
                                                 <div className='flex flex-col gap-3 xl:min-w-[200px]'>
                                                     <p className='text-normal text-xs uppercase text-gray-500'>
-                                                        Requirements
+                                                        Persyaratan
                                                     </p>
                                                     <div className='flex flex-col items-start gap-1'>
                                                         <p className='text-sm font-normal text-gray-800'>
-                                                            Upload Document
+                                                            Upload Dokumen
                                                         </p>
                                                         <p className='text-sm font-normal text-gray-800'>
-                                                            Personal Data
+                                                            Data Pribadi
                                                         </p>
                                                         <p className='text-sm font-normal text-gray-800'>
-                                                            Facial Recognition
+                                                            Pengenalan Wajah
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div className='flex flex-col gap-3 xl:min-w-[200px]'>
-                                                    <p className='text-normal text-xs uppercase text-gray-500'>
-                                                        Permissions
-                                                    </p>
+                                                    <p className='text-normal text-xs uppercase text-gray-500'>Akses</p>
                                                     <div className='flex flex-col items-start gap-1'>
                                                         <p className='flex flex-row items-center gap-1 text-sm font-normal text-gray-800'>
                                                             <Icons
@@ -311,7 +309,7 @@ const Profile = () => {
                                                 }
                                                 loading={loading}
                                             >
-                                                Verify Now
+                                                Verifikasi Sekarang
                                             </Button>
                                         </div>
                                     </div>
@@ -320,19 +318,19 @@ const Profile = () => {
                         </When>
                         <When condition={activeTab === 1}>
                             <div className='flex flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-6 xl:w-[536px]'>
-                                <p className='text-[16px] font-bold leading-4 text-gray-800 '>Authentication Method</p>
+                                <p className='text-[16px] font-bold leading-4 text-gray-800 '>Keamanan Akun</p>
                                 <div className='flex flex-col justify-between gap-2 rounded-xl border border-[#08192B1A] p-4 xl:flex-row xl:items-center xl:gap-[unset]'>
                                     <div className='flex flex-col gap-1'>
-                                        <p className='text-sm font-bold text-gray-800'>Email Address</p>
+                                        <p className='text-sm font-bold text-gray-800'>Alamat Email</p>
                                         <p className='text-sm font-normal text-gray-500'>{profile?.email}</p>
                                     </div>
                                     <Button variant='grayOutline' className='!text-gray-800' disabled>
-                                        Verified
+                                        Terverifikasi
                                     </Button>
                                 </div>
                                 <div className='flex flex-col justify-between gap-2 rounded-xl border border-[#08192B1A] p-4 xl:flex-row xl:items-center xl:gap-[unset]'>
                                     <div className='flex flex-col gap-1'>
-                                        <p className='text-sm font-bold text-gray-800'>Phone Number</p>
+                                        <p className='text-sm font-bold text-gray-800'>Nomor Telepon</p>
                                         <p className='text-sm font-normal text-gray-500'>+62{profile?.phoneNumber}</p>
                                     </div>
                                     <Button
@@ -343,7 +341,7 @@ const Profile = () => {
                                             setOpenVerifyPhone(true);
                                         }}
                                     >
-                                        {isPhoneVerify ? 'Verified' : 'Verify Phone Number'}
+                                        {isPhoneVerify ? 'Terverifikasi' : 'Verifikasi Nomor Telepon'}
                                     </Button>
                                 </div>
                             </div>

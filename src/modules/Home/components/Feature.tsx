@@ -15,7 +15,7 @@ const Feature = () => {
     const isMobile = useMediaQuery({ maxWidth: 1279 });
     return (
         <Container className='flex flex-col items-center justify-center gap-10 py-[80px]'>
-            <h1 className='text-center font-semibold text-gray-800'>Why Choose Us?</h1>
+            <h1 className='text-center font-semibold text-gray-800'>Kenapa Memilih Kami?</h1>
             <div className='flex flex-col gap-6 xl:flex-row'>
                 <div className='relative flex transform flex-col gap-4 rounded-xl  transition-transform duration-300 hover:scale-[1.03]'>
                     <Image
@@ -26,21 +26,10 @@ const Feature = () => {
                         quality={100}
                     />
                     <div className='absolute left-4 top-4 flex max-w-[330px] flex-col gap-1 text-white'>
-                        <span className='text-[20px] font-bold leading-7 '>Instant Transactions</span>
+                        <span className='text-[20px] font-bold leading-7 '>Transaksi Instan</span>
                     </div>
                 </div>
-                <div className='relative flex transform flex-col gap-4 rounded-xl  transition-transform duration-300 hover:scale-[1.03]'>
-                    <Image
-                        src={isMobile ? FeatureMobile2 : Feature2.src}
-                        alt='Feature 2'
-                        width={isMobile ? 320 : 330}
-                        height={isMobile ? 388 : 184}
-                        quality={100}
-                    />
-                    <div className='absolute left-4 top-4 flex max-w-[330px] flex-col gap-1 text-white'>
-                        <span className='text-[20px] font-bold leading-7 '>Instant Transactions</span>
-                    </div>
-                </div>
+
                 <div className='relative flex transform flex-col gap-4 rounded-xl  transition-transform duration-300 hover:scale-[1.03]'>
                     <Image
                         src={isMobile ? FeatureMobile3 : Feature3.src}
@@ -50,7 +39,7 @@ const Feature = () => {
                         quality={100}
                     />
                     <div className='absolute left-4 top-4 flex max-w-[330px] flex-col gap-1 text-white'>
-                        <span className='text-[20px] font-bold leading-7 '>Easy & Flexible Transactions</span>
+                        <span className='text-[20px] font-bold leading-7 '>Transaksi Mudah & Fleksibel</span>
                     </div>
                 </div>
                 <div className='relative flex transform flex-col gap-4 rounded-xl  transition-transform duration-300 hover:scale-[1.03]'>
@@ -62,7 +51,7 @@ const Feature = () => {
                         quality={100}
                     />
                     <div className='absolute left-4 top-4 flex max-w-[330px] flex-col gap-1 text-white'>
-                        <span className='text-[20px] font-bold leading-7 '>24/7 Customer Support</span>
+                        <span className='text-[20px] font-bold leading-7 '>Dukungan Pelanggan 24/7</span>
                     </div>
                 </div>
             </div>

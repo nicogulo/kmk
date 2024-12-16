@@ -36,6 +36,7 @@ export interface PersonalDataProps {
     occupation_other?: string;
     source_of_fund?: string;
     source_of_fund_other?: string;
+    mother_name?: string;
 }
 interface PersonalDataForm {
     full_name: string;
@@ -55,6 +56,7 @@ interface PersonalDataForm {
     occupation_other?: string;
     source_of_fund?: string;
     source_of_fund_other?: string;
+    mother_name?: string;
 }
 interface Props {
     onBack: () => void;
@@ -124,7 +126,8 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 identity_card: values.identity_card,
                 npwp: values.npwp,
                 source_of_fund: values.source_of_fund === 'Lainnya' ? sourceFundOther : values.source_of_fund,
-                source_of_fund_other: values.source_of_fund_other
+                source_of_fund_other: values.source_of_fund_other,
+                mother_name: values.mother_name
             });
         } else {
             onNext({
@@ -141,7 +144,8 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 average_yearly_income: values.average_yearly_income,
                 purpose_of_account_opening: values.purpose_of_account_opening,
                 source_of_fund: values.source_of_fund === 'Lainnya' ? sourceFundOther : values.source_of_fund,
-                source_of_fund_other: values.source_of_fund_other
+                source_of_fund_other: values.source_of_fund_other,
+                mother_name: values.mother_name
             });
         }
     };
@@ -164,7 +168,8 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                 purpose_of_account_opening: data.purpose_of_account_opening,
                 source_of_fund:
                     (sourceOfFund.find((item: any) => item.label === data.source_of_fund) as any)?.label || 'Lainnya',
-                source_of_fund_other: data.source_of_fund
+                source_of_fund_other: data.source_of_fund,
+                mother_name: data.mother_name
             });
         } else {
             form.setFieldsValue({
@@ -216,6 +221,7 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                         const errorPurpose = getFieldError('purpose_of_account_opening')[0];
                         const errorSourceFund = getFieldError('source_of_fund')[0];
                         const errorPlaceOfBirth = getFieldError('place_of_birth')[0];
+                        const errorMotherName = getFieldError('mother_name')[0];
 
                         const occupationValue =
                             getFieldValue('occupation') === 'Mahasiswa' ||
@@ -405,6 +411,23 @@ const PersonalData: React.FC<Props> = ({ data, onBack, onNext }) => {
                                         name='npwp'
                                         mask={/^[0-9]*$/}
                                         error={errorNpwp}
+                                        required
+                                    />
+                                </Field>
+                                <Field
+                                    name='mother_name'
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Tolong masukkan nama ibu kandung!'
+                                        }
+                                    ]}
+                                >
+                                    <Input
+                                        label='Nama Ibu Kandung'
+                                        placeholder='Masukkan nama ibu kandung anda'
+                                        name='mother_name'
+                                        error={errorMotherName}
                                         required
                                     />
                                 </Field>

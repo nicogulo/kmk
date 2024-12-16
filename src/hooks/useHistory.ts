@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
 
 import api from '@/lib/api';
@@ -52,10 +51,9 @@ const useHistory = (args: HistoryArgs = {}) => {
     const { auth } = useAuth();
     const [history, setHistory] = useState<HistoryResponse>();
     const [loading, setLoading] = useState(false);
-    const { user } = useUser();
 
     const fetchHistory = async () => {
-        if (!user) return;
+        if (!auth.isLoggedIn) return;
         try {
             setLoading(true);
             const queryParams = new URLSearchParams();
@@ -65,9 +63,6 @@ const useHistory = (args: HistoryArgs = {}) => {
             if (args.filter?.status) queryParams.append('status', args.filter.status.toString());
 
             const response = await api(`/balance/history?${queryParams.toString()}`, {
-                headers: {
-                    email: user?.email ?? ''
-                },
                 method: 'GET'
             });
             const data = await response.json();
@@ -86,7 +81,7 @@ const useHistory = (args: HistoryArgs = {}) => {
     useEffect(() => {
         fetchHistory();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [auth.token, user]);
+    }, [auth.token, auth.isLoggedIn]);
 
     return { history, fetchHistory, loading };
 };
@@ -95,15 +90,12 @@ export const useHistoryDetail = (uid?: string) => {
     const { auth } = useAuth();
     const [historyDetail, setHistoryDetail] = useState<History>();
     const [loading, setLoading] = useState(false);
-    const { user } = useUser();
 
     const fetchHistory = async () => {
+        if (!auth.isLoggedIn) return;
         try {
             setLoading(true);
             const response = await api(`/balance/history/${uid}`, {
-                headers: {
-                    email: user?.email ?? ''
-                },
                 method: 'GET'
             });
             const data = await response.json();
@@ -126,9 +118,6 @@ export const useHistoryDetail = (uid?: string) => {
 
         try {
             const response = await api(`/balance/history/${uid || uidPayload}`, {
-                headers: {
-                    email: user?.email ?? ''
-                },
                 method: 'POST',
                 body: formData
             });

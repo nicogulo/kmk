@@ -1,7 +1,7 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
 import Form, { Field } from 'rc-field-form';
 import React, { useState } from 'react';
 
+import useAuth from '@/hooks/useAuth';
 import useVirtualAccount from '@/hooks/useVirtualAccount';
 
 import Button from '@/components/Button';
@@ -19,11 +19,11 @@ interface FormValues {
 const DepositSimulation = () => {
     const [loading, setLoading] = useState(false);
     const [form] = Form.useForm();
-    const { user } = useUser();
+    const { auth } = useAuth();
     const { virtualAccount } = useVirtualAccount();
 
     const handleSubmit = async (values: FormValues) => {
-        if (!user) {
+        if (!auth.isLoggedIn) {
             return;
         }
         setLoading(true);

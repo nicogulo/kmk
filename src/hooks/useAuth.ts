@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -10,8 +9,7 @@ import { getAuth, resetAuth, setAuth } from '@/utils/auth';
 
 const useAuth = () => {
     const { isLoggedIn: authIsLoggedIn, token, hash } = getAuth();
-    const { user } = useUser();
-    const isLoggedIn = authIsLoggedIn || !!user;
+    const isLoggedIn = authIsLoggedIn;
 
     return {
         auth: {

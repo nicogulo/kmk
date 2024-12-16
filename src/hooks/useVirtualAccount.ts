@@ -1,7 +1,7 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
 
 import api from '@/lib/api';
+import useAuth from '@/hooks/useAuth';
 
 import { toast } from '@/components/Toast';
 
@@ -32,18 +32,15 @@ interface DetailVirtualAccount {
 const useVirtualAccount = () => {
     const [virtualAccount, setVirtualAccount] = useState<VirtualAccount[]>([]);
     const [loading, setLoading] = useState(false);
-    const { user } = useUser();
+    const { auth } = useAuth();
 
     const fetchVirtualAccount = async () => {
-        if (!user) return; // If user is not loaded, do not proceed
+        if (!auth.isLoggedIn) return; // If user is not loaded, do not proceed
 
         setLoading(true);
         try {
             const response = await api(`/wallet/deposit/virtual-account`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
 
@@ -56,11 +53,11 @@ const useVirtualAccount = () => {
     };
 
     useEffect(() => {
-        if (user) {
+        if (auth.isLoggedIn) {
             fetchVirtualAccount();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, [auth.isLoggedIn]);
 
     return {
         virtualAccount,
@@ -71,18 +68,15 @@ const useVirtualAccount = () => {
 export const useDetailVirtualAccount = () => {
     const [virtualAccount, setVirtualAccount] = useState<DetailVirtualAccount | null>(null);
     const [loading, setLoading] = useState(false);
-    const { user } = useUser();
+    const { auth } = useAuth();
 
     const fetchDetailVirtualAccount = async (uid: string) => {
-        if (!user) return; // If user is not loaded, do not proceed
+        if (!auth.isLoggedIn) return; // If user is not loaded, do not proceed
 
         setLoading(true);
         try {
             const response = await api(`/wallet/deposit/virtual-account/${uid}`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             console.log('hooks', data);

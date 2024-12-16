@@ -1,9 +1,9 @@
 // balance
 
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
 
 import api from '@/lib/api';
+import useAuth from '@/hooks/useAuth';
 
 import { toast } from '@/components/Toast';
 
@@ -15,18 +15,15 @@ export interface Balance {
 const useBalance = () => {
     const [balance, setBalance] = useState<Balance | null>(null);
     const [loading, setLoading] = useState(false);
-    const { user } = useUser();
+    const { auth } = useAuth();
 
     const fetchBalance = async () => {
-        if (!user) return; // If user is not loaded, do not proceed
+        if (!auth.isLoggedIn) return; // If user is not loaded, do not proceed
 
         setLoading(true);
         try {
             const response = await api(`/balance`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             const balance: Balance = {
@@ -43,11 +40,11 @@ const useBalance = () => {
     };
 
     useEffect(() => {
-        if (user) {
+        if (auth.isLoggedIn) {
             fetchBalance();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, [auth.isLoggedIn]);
 
     return {
         balance,

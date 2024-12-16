@@ -185,7 +185,7 @@ const FacialRecognition: React.FC<Props> = ({ onBack, onNext }) => {
             <div className='flex flex-col items-center gap-6 '>
                 <div className='flex max-w-[480px] flex-col items-start gap-6'>
                     <div className='flex flex-col gap-2'>
-                        <p className='text-2xl font-bold text-[#18181E]'>Facial Recognition</p>
+                        <p className='text-2xl font-bold text-[#18181E]'>Pengenalan Wajah</p>
 
                         <p className='text-sm font-normal text-[#525D66]'>
                             Kami akan merekam wajah Anda untuk memverifikasi data biometrik dengan menganalisis dan

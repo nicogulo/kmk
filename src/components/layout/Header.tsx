@@ -7,22 +7,29 @@ import { useMediaQuery } from 'react-responsive';
 import classNames from '@/lib/classnames';
 import useAuth, { useLogout } from '@/hooks/useAuth';
 import useLiveness from '@/hooks/useLiveness';
+import useProfile, { ProfileStatus } from '@/hooks/useProfile';
 
+import Badge from '@/components/Badge';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Icons, { IconsProps } from '@/components/Icon';
+import { Case, Default, Switch } from '@/components/If';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import ModalTrade from '@/components/Modal/ModalTrade';
 
+import { formatCoin, formatRupiah } from '@/utils/currency';
+
 const Header = () => {
     const router = useRouter();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
     const isMobile = useMediaQuery({ maxWidth: 1279 });
     const {
         auth: { isLoggedIn }
     } = useAuth();
     const { logout } = useLogout();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+    const { profile } = useProfile();
     const { isLiveness } = useLiveness();
 
     const profileMenu = [{ href: '/profile', label: 'Profile', icon: 'User' }];
@@ -54,12 +61,12 @@ const Header = () => {
                     <nav>
                         <div className='flex w-full items-center'>
                             <button className='block p-2 lg:hidden' onClick={toggleMenu}>
-                                <Icons icon='Menu' />
+                                <Icons icon='CandyBox' />
                             </button>
                             <ul
                                 className={`flex-col items-center justify-between space-x-8 lg:flex-row ${
                                     isMenuOpen
-                                        ? 'min-h-main absolute left-0 top-14 flex w-full !items-start !justify-start gap-3 !space-x-0 bg-white px-5 pt-4 xl:pt-0'
+                                        ? 'min-h-main absolute left-0 top-14 flex w-full !items-start !justify-start gap-10 !space-x-0 bg-white px-5 pt-4 xl:gap-3 xl:pt-0'
                                         : 'hidden'
                                 } lg:flex`}
                             >
@@ -147,6 +154,60 @@ const Header = () => {
                                     </div>
                                 </When>
                                 <When condition={isMobile && isLoggedIn}>
+                                    <div className='flex w-full flex-col gap-4'>
+                                        <div className='relative flex w-full flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-6'>
+                                            <div className='flex items-center justify-between'>
+                                                <p className='text-[16px] font-bold leading-6 text-gray-800'>
+                                                    Status KYC
+                                                </p>
+                                                <div className='flex'>
+                                                    <Switch>
+                                                        <Case condition={profile?.kyc === ProfileStatus.PENDING}>
+                                                            <Badge variant='blue'>Dalam Review</Badge>
+                                                        </Case>
+                                                        <Case condition={profile?.kyc === ProfileStatus.VERIFIED}>
+                                                            <Badge variant='green'>Terverifikasi</Badge>
+                                                        </Case>
+                                                        <Default>
+                                                            <Badge variant='red'>Belum Terverifikasi</Badge>
+                                                        </Default>
+                                                    </Switch>
+                                                </div>
+                                            </div>
+                                            <p className='text-sm font-normal text-gray-800'>
+                                                <Switch>
+                                                    <Case condition={profile?.kyc === ProfileStatus.PENDING}>
+                                                        Data sedang dalam proses verifikasi, mohon menunggu.
+                                                    </Case>
+                                                    <Case condition={profile?.kyc === ProfileStatus.VERIFIED}>
+                                                        Kamu sudah terverifikasi
+                                                    </Case>
+                                                    <Default>
+                                                        Kamu belum terverifikasi, silahkan lakukan KYC pada halaman
+                                                        profile
+                                                    </Default>
+                                                </Switch>
+                                            </p>
+                                        </div>
+                                        <div className='relative flex w-full flex-col gap-6 rounded-2xl border border-[#08192B1A] bg-white p-6'>
+                                            <div className='flex items-center justify-between'>
+                                                <p className='text-[16px] font-bold leading-6 text-gray-800'>
+                                                    Portfolio
+                                                </p>
+                                            </div>
+                                            <div className='flex flex-col gap-2'>
+                                                <p className='text-sm font-normal text-gray-800'>
+                                                    Total Nilai: {formatRupiah(0)}
+                                                </p>
+                                                <p className='text-sm font-normal text-gray-800'>
+                                                    Total Rupiah: {formatRupiah(0)}
+                                                </p>
+                                                <p className='text-sm font-normal text-gray-800'>
+                                                    Total per Aset: {formatCoin(0)}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className='absolute bottom-14 !mr-5 flex w-[calc(100vw-40px)] flex-row justify-between gap-3'>
                                         <Button variant='grayOutline' block onClick={() => logout(true)}>
                                             Logout

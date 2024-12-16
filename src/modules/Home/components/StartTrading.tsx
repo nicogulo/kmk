@@ -28,16 +28,15 @@ const StartTrading = () => {
             <Container className='relative flex flex-col items-end justify-between gap-8 overflow-hidden rounded-2xl bg-[#010101] p-8 xl:gap-0'>
                 <div className='flex w-full flex-col items-center gap-3 pb-20 text-center'>
                     <span className='text-[40px] font-bold leading-[44px] text-white xl:text-[56px] xl:leading-[64px]'>
-                        Start Trading Crypto Today
+                        Mulai Trading Crypto Hari Ini
                     </span>
                     <span className='h4 !font-normal text-white'>
-                        Start trading crypto easily and securely. Sign up now to unlock <br /> seamless transactions and
-                        low fees.
+                        Mulai trading crypto dengan mudah dan aman. Daftar sekarang untuk membuka transaksi yang mulus
+                        dan biaya rendah.
                     </span>
                     <Button className='mt-3 xl:w-fit' onClick={scrollToMarket} block={isMobile}>
-                        Start Investing
+                        Mulai Trading
                     </Button>
-                    {/* <Image src={StartTradingImage.src} width={480} height={560} alt='start-trading' quality={100} /> */}
                 </div>
                 <Image
                     src={isMobile ? StartTradingImageMobile.src : StartTradingImage.src}

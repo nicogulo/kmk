@@ -13,4 +13,4 @@ const languages = [
 
 export type LanguagesCode = (typeof languages)[number]['code'];
 
-export const defaultLanguage = 'en';
+export const defaultLanguage = 'id';

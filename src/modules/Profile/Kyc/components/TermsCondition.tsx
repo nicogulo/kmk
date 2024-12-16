@@ -99,9 +99,7 @@ const TermsCondition: React.FC<Props> = ({ onBack, onNext }) => {
                     )}
                 </div>
                 <div className='flex flex-col gap-4'>
-                    <p className='text-sm font-normal text-[#18181E]'>
-                        Pernyataan menerima / Tidak <br /> Agree Box
-                    </p>
+                    <p className='text-sm font-normal text-[#18181E]'>Setuju</p>
                     <div className='flex flex-row gap-6'>
                         <label
                             className={classNames('flex cursor-pointer flex-row items-center gap-2', {
@@ -141,10 +139,7 @@ const TermsCondition: React.FC<Props> = ({ onBack, onNext }) => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-4'>
-                    <p className='text-sm font-normal text-[#18181E]'>
-                        Pernyataan pada Tanggal <br />
-                        Current Date
-                    </p>
+                    <p className='text-sm font-normal text-[#18181E]'>Tanggal Setuju</p>
                     <div className='col flex items-center gap-2'>
                         <Input
                             type='text'

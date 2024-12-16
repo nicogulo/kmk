@@ -41,8 +41,8 @@ const Kyc = () => {
             content: 'Personal Data'
         },
         {
-            title: 'Facial Recognition',
-            content: 'Facial Recognition'
+            title: 'Pengenalan Wajah',
+            content: 'Pengenalan Wajah'
         },
         {
             title: 'Persyaratan Persetujuan',
@@ -52,6 +52,7 @@ const Kyc = () => {
 
     const submitPersonalData = (values: PersonalDataProps) => {
         setPersonalData(values);
+
         setActiveTab(2);
     };
     const submitFacialRecognition = () => {
@@ -80,7 +81,7 @@ const Kyc = () => {
                 <Container className='flex flex-col gap-4 xl:h-[calc(100vh-142px)] xl:flex-row xl:gap-[unset]'>
                     <div className='flex flex-col justify-between overflow-hidden text-[#525D66] xl:mx-4 xl:w-[240px]'>
                         <div className='flex flex-col gap-10'>
-                            <p className='text-2xl font-bold text-[#18181E]'>Basic Verification</p>
+                            <p className='text-2xl font-bold text-[#18181E]'>Verifikasi Dasar</p>
                             <Tabs
                                 vertical={!isMobile}
                                 className='scrollbar-none !w-full overflow-x-scroll whitespace-nowrap px-3 pt-2'

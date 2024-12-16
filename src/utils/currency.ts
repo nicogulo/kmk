@@ -69,7 +69,7 @@ export const formatNumber = (number: number, options?: Options) => {
     return new BigNumber(number).toFormat(format);
 };
 
-export type Locale = 'id' | 'en';
+export type Locale = 'id';
 
 export const formatNumberLocale = (number: number, locale: Locale, options?: Options) => {
     const formatLocale = {

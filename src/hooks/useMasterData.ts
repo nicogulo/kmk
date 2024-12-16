@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
 
 import api from '@/lib/api';
@@ -39,15 +38,11 @@ interface BankUserProps {
 const useCountry = () => {
     const [countries, setCountries] = useState<string[]>([]);
     const { auth } = useAuth();
-    const { user } = useUser();
 
     const fetchCountries = async (search?: string) => {
         try {
             const response = await api(`/master-data/country?search=${search}`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
 
@@ -61,23 +56,21 @@ const useCountry = () => {
     useEffect(() => {
         fetchCountries('Indonesia');
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return { countries, fetchCountries };
 };
 
 export const useProvince = () => {
     const [provinces, setProvinces] = useState<ProvinceProps[]>([]);
-
-    const { user } = useUser();
+    const { auth } = useAuth();
 
     const fetchProvinces = async (search?: string) => {
+        if (!auth.isLoggedIn) return;
+
         try {
             const response = await api(`/master-data/province?search=${search}`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error('Failed to fetch provinces');
@@ -93,15 +86,10 @@ export const useProvince = () => {
 export const useCity = () => {
     const [cities, setCities] = useState<ValueProps[]>([]);
 
-    const { user } = useUser();
-
     const fetchCities = async (search: string, code: number) => {
         try {
             const response = await api(`/master-data/regency?province_code=${code}&search=${search}`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
 
@@ -118,15 +106,11 @@ export const useCity = () => {
 export const useMaritalStatus = () => {
     // /master-data/marital-status
     const [maritalStatus, setMaritalStatus] = useState<string[]>([]);
-    const { user } = useUser();
 
     const fetchMaritalStatus = async () => {
         try {
             const response = await api(`/master-data/marital-status`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error();
@@ -139,7 +123,7 @@ export const useMaritalStatus = () => {
     useEffect(() => {
         fetchMaritalStatus();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         maritalStatus
@@ -149,15 +133,11 @@ export const useMaritalStatus = () => {
 export const useGender = () => {
     // /master-data/gender
     const [gender, setgender] = useState<GenderProps[]>([]);
-    const { user } = useUser();
 
     const fetchGender = async () => {
         try {
             const response = await api(`/master-data/gender`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error();
@@ -170,7 +150,7 @@ export const useGender = () => {
     useEffect(() => {
         fetchGender();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         gender
@@ -179,15 +159,11 @@ export const useGender = () => {
 
 export const useHouseOwnership = () => {
     const [houseOwnership, setHouseOwnership] = useState<string[]>([]);
-    const { user } = useUser();
 
     const fetchHouseOwnership = async () => {
         try {
             const response = await api(`/master-data/house-ownership`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error();
@@ -200,7 +176,7 @@ export const useHouseOwnership = () => {
     useEffect(() => {
         fetchHouseOwnership();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         houseOwnership
@@ -209,15 +185,11 @@ export const useHouseOwnership = () => {
 
 export const usePurposeOfAccountOpening = () => {
     const [purposeOfAccountOpening, setPurposeOfAccountOpening] = useState<string[]>([]);
-    const { user } = useUser();
 
     const fetchPurposeOfAccountOpening = async () => {
         try {
             const response = await api(`/master-data/purpose-of-account-opening`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error();
@@ -230,7 +202,7 @@ export const usePurposeOfAccountOpening = () => {
     useEffect(() => {
         fetchPurposeOfAccountOpening();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         purposeOfAccountOpening
@@ -239,15 +211,11 @@ export const usePurposeOfAccountOpening = () => {
 
 export const useOccupation = () => {
     const [occupation, setOccupation] = useState<string[]>([]);
-    const { user } = useUser();
 
     const fetchOccupation = async () => {
         try {
             const response = await api(`/master-data/occupation`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error();
@@ -260,7 +228,7 @@ export const useOccupation = () => {
     useEffect(() => {
         fetchOccupation();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         occupation
@@ -271,15 +239,11 @@ export const useOccupation = () => {
 
 export const useSourceOfFund = () => {
     const [sourceOfFund, setSourceOfFund] = useState<string[]>([]);
-    const { user } = useUser();
 
     const fetchSourceOfFund = async () => {
         try {
             const response = await api(`/master-data/source-of-fund`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error();
@@ -292,7 +256,7 @@ export const useSourceOfFund = () => {
     useEffect(() => {
         fetchSourceOfFund();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         sourceOfFund
@@ -301,15 +265,11 @@ export const useSourceOfFund = () => {
 
 export const useAnnualIncome = () => {
     const [annualIncome, setAnnualIncome] = useState<string[]>([]);
-    const { user } = useUser();
 
     const fetchAnnualIncome = async () => {
         try {
             const response = await api(`/master-data/annual-income`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error();
@@ -322,7 +282,7 @@ export const useAnnualIncome = () => {
     useEffect(() => {
         fetchAnnualIncome();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         annualIncome
@@ -331,15 +291,11 @@ export const useAnnualIncome = () => {
 
 export const useBank = () => {
     const [banks, setBanks] = useState<ValueProps[]>([]);
-    const { user } = useUser();
 
     const fetchBanks = async (search?: string) => {
         try {
             const response = await api(`/master-data/bank?search=${search}`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error('Failed to fetch banks');
@@ -354,15 +310,11 @@ export const useBank = () => {
 
 export const useBankAccountType = () => {
     const [bankAccountType, setBankAccountType] = useState<string[]>([]);
-    const { user } = useUser();
 
     const fetchBankAccountType = async () => {
         try {
             const response = await api(`/master-data/bank-account-type`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
             if (!data) throw new Error();
@@ -375,7 +327,7 @@ export const useBankAccountType = () => {
     useEffect(() => {
         fetchBankAccountType();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         bankAccountType
@@ -384,14 +336,11 @@ export const useBankAccountType = () => {
 
 export const useBankUser = () => {
     const [bankUser, setBankUser] = useState<BankUserProps[]>([]);
-    const { user } = useUser();
+
     const fetchBankUser = async () => {
         try {
             const response = await api(`/user-bank`, {
-                method: 'GET',
-                headers: {
-                    email: user?.email ?? ''
-                }
+                method: 'GET'
             });
             const data = await response.json();
 
@@ -405,7 +354,7 @@ export const useBankUser = () => {
     useEffect(() => {
         fetchBankUser();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     return {
         bankUser,

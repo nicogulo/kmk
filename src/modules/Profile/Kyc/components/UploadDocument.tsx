@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -60,7 +59,6 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
 
     const { upload } = useUpload();
     const { loading: loadingDoc, documents, getDocuments } = useGetDocuments();
-    const { user } = useUser();
 
     const handleUpload = (e: any) => {
         const file = e.target.files[0];
@@ -282,7 +280,7 @@ const UploadDocument: React.FC<Props> = ({ setTab }) => {
         getDocuments('selfie');
         getDocuments('npwp');
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     useEffect(() => {
         if (!documents?.url) {

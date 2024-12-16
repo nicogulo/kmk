@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
 
 import { API_URL } from '@/constant/env';
@@ -43,7 +42,6 @@ const useProfile = () => {
     const [profile, setProfile] = useState<ProfileModel>();
     const [loading, setLoading] = useState(false);
     const { auth } = useAuth();
-    const { user } = useUser();
 
     const profileDataModel = (profileData: Profile): ProfileModel => ({
         userId: profileData.uid,
@@ -94,7 +92,7 @@ const useProfile = () => {
     useEffect(() => {
         fetchProfile();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [auth.isLoggedIn, auth.token, user]);
+    }, [auth.isLoggedIn, auth.token]);
 
     return { profile, loading, fetchProfile };
 };

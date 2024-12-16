@@ -851,12 +851,10 @@ const Form1: React.FC<Props> = ({ checked }) => (
             <div className='flex flex-row items-start gap-6 pt-6'>
                 <div className='flex flex-col gap-4'>
                     <div>
-                        <p>Pernyataan menerima / Tidak</p>
-                        <p>Agree Box</p>
+                        <p>Setuju</p>
                     </div>
                     <div>
-                        <p>Pernyataan pada Tanggal</p>
-                        <p>Current Date</p>
+                        <p>Tanggal Setuju</p>
                     </div>
                 </div>
                 <div className='flex flex-col gap-4'>

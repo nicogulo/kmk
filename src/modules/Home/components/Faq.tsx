@@ -6,21 +6,20 @@ import Container from '@/components/Container';
 const Faq = () => {
     const faqItems = [
         {
-            question: 'How do I buy/sell cryptocurrencies?',
-
-            answer: 'To buy or sell cryptocurrencies on KMK, simply create an account, complete the KYC verification process, and fund your account using the available deposit methods. Once your account is funded, you can buy or sell cryptocurrencies directly from the trading platform.'
+            question: 'Bagaimana cara membeli/menjual kripto?',
+            answer: 'Untuk membeli atau menjual kripto di KMK, cukup buat akun, lengkapi proses verifikasi KYC, dan dana akun Anda menggunakan metode deposit yang tersedia. Setelah akun Anda terisi dana, Anda dapat membeli atau menjual kripto langsung dari platform trading.'
         },
         {
-            question: 'Is KMK safe?',
-            answer: 'Yes, KMK prioritizes the security of your funds and personal information. We implement industry-standard security measures, including two-factor authentication (2FA), encryption, and cold storage for most of the digital assets. We are also registered and regulated by BAPPEBTI, ensuring we adhere to all legal and safety standards.'
+            question: 'Apakah KMK aman?',
+            answer: 'Ya, KMK memprioritaskan keamanan dana dan informasi pribadi Anda. Kami menerapkan langkah-langkah keamanan standar industri, termasuk otentikasi dua faktor (2FA), enkripsi, dan penyimpanan dingin untuk sebagian besar aset digital. Kami juga terdaftar dan diatur oleh BAPPEBTI, memastikan kami mematuhi semua standar hukum dan keamanan.'
         },
         {
-            question: 'What are the fees?',
-            answer: 'KMK offers competitive fees, which include trading fees, withdrawal fees, and deposit fees, depending on your selected payment method. Our detailed fee structure can be found on the Fees page. We aim to keep our fees transparent and as low as possible.'
+            question: 'Apa saja biaya yang dikenakan?',
+            answer: 'KMK menawarkan biaya yang kompetitif, yang mencakup biaya trading, biaya penarikan, dan biaya deposit, tergantung pada metode pembayaran yang Anda pilih. Struktur biaya kami yang terperinci dapat ditemukan di halaman Biaya. Kami bertujuan untuk menjaga biaya kami transparan dan sekecil mungkin.'
         },
         {
-            question: 'How can I contact support?',
-            answer: `If you need assistance, you can contact our support team via email at    <a href="mailto:support@kriptomaksima.id">support@kriptomaksima.id</a>, live chat on our website, or our dedicated customer support hotline. We are here to help you 24/7 with any inquiries or issues you may have.`
+            question: 'Bagaimana cara menghubungi dukungan?',
+            answer: `Jika Anda membutuhkan bantuan, Anda dapat menghubungi tim dukungan kami melalui email di <a href="mailto:support@kriptomaksima.id">support@kriptomaksima.id</a>, live chat di situs web kami, atau hotline dukungan pelanggan kami. Kami siap membantu Anda 24/7 dengan pertanyaan atau masalah apa pun yang mungkin Anda miliki.`
         }
     ];
 

@@ -11,4 +11,5 @@ interface KycBasicPayload {
     gender: string;
     occupation_other?: string;
     source_of_fund_other?: string;
+    mother_name?: string;
 }

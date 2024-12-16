@@ -22,7 +22,8 @@ const convertToPayload = (args: KycBasicArgs): KycBasicPayload => ({
     source_of_fund: 'Salary',
     source_of_fund_other: args.personalData.source_of_fund_other,
     occupation_other: args.personalData.occupation_other,
-    purpose_of_account_opening: args.personalData.purpose_of_account_opening
+    purpose_of_account_opening: args.personalData.purpose_of_account_opening,
+    mother_name: args.personalData.mother_name
 });
 
 const useKyc = () => {

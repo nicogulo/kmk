@@ -21,6 +21,7 @@ const IconComponents = {
     Bank: lazy(() => import('./Bank')),
     Bell: lazy(() => import('./Bell')),
     Camera: lazy(() => import('./Camera')),
+    CandyBox: lazy(() => import('./CandyBox')),
     Chat: lazy(() => import('./Chat')),
     ChartGreen: lazy(() => import('./ChartGreen')),
     Checklist: lazy(() => import('./Checklist')),

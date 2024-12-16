@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { useState } from 'react';
 
 import api from '@/lib/api';
@@ -16,7 +15,6 @@ interface Payload {
 export const useAddBank = () => {
     const [loading, setLoading] = useState(false);
     const { auth } = useAuth();
-    const { user } = useUser();
 
     const addBank = async (payload: Payload) => {
         if (!auth.isLoggedIn) return;
@@ -25,10 +23,7 @@ export const useAddBank = () => {
         try {
             const response = await api(`/user-bank`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    email: user?.email ?? ''
-                },
+
                 body: JSON.stringify(payload)
             });
             const data = await response.json();
@@ -47,7 +42,6 @@ export const useAddBank = () => {
 export const useDeleteBank = () => {
     const [loading, setLoading] = useState(false);
     const { auth } = useAuth();
-    const { user } = useUser();
 
     const deleteBank = async (id: number) => {
         if (!auth.isLoggedIn) return;
@@ -56,10 +50,7 @@ export const useDeleteBank = () => {
         try {
             const response = await api(`/user-bank/${id}`, {
                 method: 'DELETE',
-                body: JSON.stringify({ id }),
-                headers: {
-                    email: user?.email ?? ''
-                }
+                body: JSON.stringify({ id })
             });
             const data = await response.json();
             if (!data) throw new Error('Failed to delete bank');

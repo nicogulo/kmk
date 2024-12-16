@@ -28,14 +28,18 @@ const Faq = () => {
             <Container className='flex flex-col items-center justify-between gap-9 xl:flex-row'>
                 <div className='flex flex-col gap-2'>
                     <span className='text-[40px] font-bold leading-10 text-gray-900'>
-                        Do you have more <br />
-                        questions?
+                        Apakah Anda memiliki <br />
+                        pertanyaan lain?
                     </span>
                     <span className='text-[16px] font-normal leading-6 text-gray-700'>
-                        We have collected the most important topics that our <br />
+                        {/* We have collected the most important topics that our <br />
                         customers most often are concerned about. If you still haven't <br />
                         found the answer to your question, please contact our Customer <br />
-                        Support
+                        Support */}
+                        Kami telah mengumpulkan topik-topik penting yang paling sering <br />
+                        menjadi perhatian pelanggan kami. Jika Anda masih belum <br />
+                        menemukan jawaban atas pertanyaan Anda, <br />
+                        silakan hubungi Dukungan Pelanggan kami.
                     </span>
                 </div>
                 <div className=' xl:w-[548px]'>

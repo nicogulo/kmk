@@ -60,9 +60,11 @@ const Header = () => {
                     </UnstyledLink>
                     <nav>
                         <div className='flex w-full items-center'>
-                            <button className='block p-2 lg:hidden' onClick={toggleMenu}>
-                                <Icons icon='CandyBox' />
-                            </button>
+                            <When condition={isMobile && isLoggedIn}>
+                                <button className='block p-2 lg:hidden' onClick={toggleMenu}>
+                                    <Icons icon='CandyBox' />
+                                </button>
+                            </When>
                             <ul
                                 className={`flex-col items-center justify-between space-x-8 lg:flex-row ${
                                     isMenuOpen

@@ -32,10 +32,6 @@ const Faq = () => {
                         pertanyaan lain?
                     </span>
                     <span className='text-[16px] font-normal leading-6 text-gray-700'>
-                        {/* We have collected the most important topics that our <br />
-                        customers most often are concerned about. If you still haven't <br />
-                        found the answer to your question, please contact our Customer <br />
-                        Support */}
                         Kami telah mengumpulkan topik-topik penting yang paling sering <br />
                         menjadi perhatian pelanggan kami. Jika Anda masih belum <br />
                         menemukan jawaban atas pertanyaan Anda, <br />

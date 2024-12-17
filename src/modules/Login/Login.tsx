@@ -54,7 +54,7 @@ const Login: React.FC = () => {
                 <link rel='icon' href='/logo.ico' />
             </Head>
 
-            <LoginRegisterSide title='Ready to trade with KMK?' subtitle='Don’t have an account?'>
+            <LoginRegisterSide title='Siap untuk berdagang dengan KMK?' subtitle='Tidak punya akun?'>
                 <Form
                     form={form}
                     onFinish={(values) => handleLogin(values)}
@@ -80,7 +80,7 @@ const Login: React.FC = () => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Email is required'
+                                                message: 'Email wajib diisi'
                                             }
                                             // {
                                             //     pattern: EMAIL_LOGIN_REGEX,
@@ -90,7 +90,7 @@ const Login: React.FC = () => {
                                     >
                                         <Input
                                             size='md'
-                                            placeholder='Enter your email'
+                                            placeholder='Masukan email'
                                             required
                                             label='Email'
                                             mask={/^[^\n ]*$/}
@@ -104,12 +104,12 @@ const Login: React.FC = () => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Password is required'
+                                                message: 'Password wajib diisi'
                                             }
                                         ]}
                                     >
                                         <InputPassword
-                                            placeholder='Enter password'
+                                            placeholder='Masukan password'
                                             required
                                             label='Password'
                                             autoComplete='password_field'
@@ -126,11 +126,11 @@ const Login: React.FC = () => {
                                                     inputClassName='!text-primary-300'
                                                     required
                                                 />
-                                                <span className='text-xs font-normal text-[#18181E]'>Remember me</span>
+                                                <span className='text-xs font-normal text-[#18181E]'>Ingat saya</span>
                                             </label>
                                         </Field>
                                         <Link href='/forgot-password' className='text-primary-300 text-xs font-bold'>
-                                            Forgot Password?
+                                            Lupa password?
                                         </Link>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@ const Login: React.FC = () => {
                                     loading={isLoading}
                                     block
                                 >
-                                    Login
+                                    Masuk
                                 </Button>
                             </>
                         );

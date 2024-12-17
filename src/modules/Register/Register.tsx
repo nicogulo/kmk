@@ -65,7 +65,7 @@ const Register: React.FC = () => {
                 <meta name='description' content='Register' />
                 <link rel='icon' href='/logo.ico' />
             </Head>
-            <LoginRegisterSide title='Create your account in minutes' subtitle='Already have an account?'>
+            <LoginRegisterSide title='Buat akun dalam hitungan menit' subtitle='Sudah punya akun?'>
                 <Form
                     form={form}
                     onFinish={handleSubmit}
@@ -108,19 +108,19 @@ const Register: React.FC = () => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Name is required'
+                                                message: 'Nama wajib diisi'
                                             },
                                             {
                                                 pattern: /^[a-zA-Z ]*$/,
-                                                message: 'Name must be alphabets'
+                                                message: 'Nama harus berupa huruf'
                                             }
                                         ]}
                                     >
                                         <Input
                                             size='md'
-                                            placeholder='Fill in according to ID card data'
+                                            placeholder='Masukan nama lengkap'
                                             required
-                                            label='Name'
+                                            label='Nama'
                                             autoComplete='name_field'
                                             error={errorName}
                                         />
@@ -132,11 +132,11 @@ const Register: React.FC = () => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Phone is required'
+                                                message: 'Phone wajib diisi'
                                             },
                                             {
                                                 pattern: /^[0-9]*$/,
-                                                message: 'Phone must be numbers'
+                                                message: 'Nomor telepon harus berupa angka'
                                             }
                                         ]}
                                     >
@@ -144,7 +144,7 @@ const Register: React.FC = () => {
                                             size='md'
                                             placeholder='81234567890'
                                             required
-                                            label='Phone Number'
+                                            label='Nomor Telepon'
                                             prefix='+62'
                                             autoComplete='phone_field'
                                             mask={/^[0-9]*$/}
@@ -158,7 +158,7 @@ const Register: React.FC = () => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Email is required'
+                                                message: 'Email wajib diisi'
                                             }
                                             // {
                                             //     pattern: EMAIL_REGEX,
@@ -168,7 +168,7 @@ const Register: React.FC = () => {
                                     >
                                         <Input
                                             size='md'
-                                            placeholder='Enter your email'
+                                            placeholder='Masukan email'
                                             required
                                             label='Email'
                                             mask={/^[^\n ]*$/}
@@ -183,28 +183,28 @@ const Register: React.FC = () => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Password is required'
+                                                message: 'Password wajib diisi'
                                             },
                                             {
                                                 pattern: /[A-Z]/,
-                                                message: 'One uppercase letter'
+                                                message: 'Setidaknya satu huruf besar'
                                             },
                                             {
                                                 pattern: /[a-z]/,
-                                                message: 'One lowercase letter'
+                                                message: 'Setidaknya satu huruf kecil'
                                             },
                                             {
                                                 pattern: /^(?=.*[0-9])/,
-                                                message: 'One digit from 0 to 9'
+                                                message: 'Setidaknya satu angka'
                                             },
                                             {
                                                 pattern: /^.{8,}$/,
-                                                message: 'Minimum of 8 characters'
+                                                message: 'Minimal 8 karakter'
                                             }
                                         ]}
                                     >
                                         <InputPassword
-                                            placeholder='Create password'
+                                            placeholder='Masukan password'
                                             required
                                             label='Password'
                                             autoComplete='password_field'
@@ -220,7 +220,7 @@ const Register: React.FC = () => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Confirm Password is required'
+                                                message: 'Konfirmasi Password wajib diisi'
                                             },
                                             {
                                                 validator: (__, value) => {
@@ -240,7 +240,7 @@ const Register: React.FC = () => {
 
                                                     if (password !== value) {
                                                         // eslint-disable-next-line prefer-promise-reject-errors
-                                                        return Promise.reject('Password must match');
+                                                        return Promise.reject('Password tidak sama');
                                                     }
 
                                                     return Promise.resolve();
@@ -249,9 +249,9 @@ const Register: React.FC = () => {
                                         ]}
                                     >
                                         <InputPassword
-                                            placeholder='Confirm Password'
+                                            placeholder='Konfirmasi Password'
                                             required
-                                            label='Confirm Password'
+                                            label='Konfirmasi Password'
                                             error={requiredConfirm || errorConfirmPass}
                                             errorClassName={errorConfirmPass ? 'hidden' : ''}
                                             autoComplete='confirm_password_field'
@@ -261,7 +261,7 @@ const Register: React.FC = () => {
                                 <When condition={showErrorPass}>
                                     <div className='flex w-full flex-col gap-2 rounded-lg bg-[#EAF2FF] p-4'>
                                         <p className='text-sm font-bold text-[#0F1215]'>
-                                            Your password should include the following:
+                                            Password harus memenuhi syarat berikut:
                                         </p>
                                         <div className='flex flex-col gap-1'>
                                             {
@@ -366,7 +366,7 @@ const Register: React.FC = () => {
                                                     href='/terms-and-conditions'
                                                     className='text-primary-300 underline'
                                                 >
-                                                    PT KMK Indonesia Terms and Conditions
+                                                    PT KMK Indonesia Privacy and Policy
                                                 </Link>
                                             </span>
                                         </label>
@@ -395,7 +395,7 @@ const Register: React.FC = () => {
                                                 errorClassName='absolute -bottom-1 left-0 !pt-0'
                                             />
                                             <span className='text-xs font-normal text-[#121416]'>
-                                                I allow KMK Indonesia to manage & transfer my personal data to third
+                                                I allow PT KMK Indonesia to manage & transfer my personal data to third
                                                 parties in connection with account registration.
                                             </span>
                                         </label>

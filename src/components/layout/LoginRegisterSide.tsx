@@ -49,7 +49,7 @@ const LoginRegisterSide: React.FC<LoginRegisterSideProps> = ({ title, subtitle, 
                                     passHref
                                     className='text-primary-300 font-bold'
                                 >
-                                    {isRegister ? 'Login' : 'Create account'}
+                                    {isRegister ? 'Masuk' : 'Daftar'}
                                 </Link>
                             </p>
                         </div>

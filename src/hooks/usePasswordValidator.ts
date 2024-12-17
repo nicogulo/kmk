@@ -2,7 +2,7 @@
 const usePasswordValidator = () => {
     const listValidation = [
         {
-            label: 'One digit from 0 to 9',
+            label: 'Setidaknya satu angka',
             check: (value: string) => {
                 if (value?.match(/[0-9]/)) {
                     return true;
@@ -10,7 +10,7 @@ const usePasswordValidator = () => {
             }
         },
         {
-            label: 'One uppercase letter',
+            label: 'Setidaknya satu huruf besar',
             check: (value: string) => {
                 if (value?.match(/[A-Z]/)) {
                     return true;
@@ -18,7 +18,7 @@ const usePasswordValidator = () => {
             }
         },
         {
-            label: 'One lowercase letter',
+            label: 'Setidaknya satu huruf kecil',
             check: (value: string) => {
                 if (typeof value === 'undefined') {
                     return false;
@@ -27,7 +27,7 @@ const usePasswordValidator = () => {
             }
         },
         {
-            label: 'Minimum of 8 characters',
+            label: 'Minimal 8 karakter',
             check: (value: string) => value?.length >= 8
         }
     ];
@@ -35,7 +35,7 @@ const usePasswordValidator = () => {
     const confirmPassword = (form: string) => {
         const listPassed = [
             {
-                label: 'Password must match',
+                label: 'Password tidak sama',
                 check: (password: string) => {
                     if (form === '') {
                         return false;

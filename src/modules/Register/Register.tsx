@@ -361,12 +361,12 @@ const Register: React.FC = () => {
                                                 errorClassName='absolute -bottom-1 left-0 !pt-0'
                                             />
                                             <span className='text-xs font-normal text-[#121416]'>
-                                                I have read, understood and agreed to{' '}
+                                                Saya telah membaca, memahami dan menyetujui{' '}
                                                 <Link
                                                     href='/terms-and-conditions'
                                                     className='text-primary-300 underline'
                                                 >
-                                                    PT KMK Indonesia Privacy and Policy
+                                                    Kebijakan Privasi PT KMK Indonesia
                                                 </Link>
                                             </span>
                                         </label>
@@ -395,8 +395,8 @@ const Register: React.FC = () => {
                                                 errorClassName='absolute -bottom-1 left-0 !pt-0'
                                             />
                                             <span className='text-xs font-normal text-[#121416]'>
-                                                I allow PT KMK Indonesia to manage & transfer my personal data to third
-                                                parties in connection with account registration.
+                                                Saya memberikan izin kepada PT KMK Indonesia untuk mengelola dan
+                                                mentransfer data pribadi saya ke pihak ketiga dalam rangka registrasi
                                             </span>
                                         </label>
                                     </Field>

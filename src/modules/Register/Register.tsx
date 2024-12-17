@@ -366,7 +366,7 @@ const Register: React.FC = () => {
                                                     href='/terms-and-conditions'
                                                     className='text-primary-300 underline'
                                                 >
-                                                    Kebijakan Privasi PT KMK Indonesia
+                                                    Kebijakan Privasi PT Kripto Maksima Koin
                                                 </Link>
                                             </span>
                                         </label>
@@ -395,7 +395,7 @@ const Register: React.FC = () => {
                                                 errorClassName='absolute -bottom-1 left-0 !pt-0'
                                             />
                                             <span className='text-xs font-normal text-[#121416]'>
-                                                Saya memberikan izin kepada PT KMK Indonesia untuk mengelola dan
+                                                Saya memberikan izin kepada PT Kripto Maksima Koin untuk mengelola dan
                                                 mentransfer data pribadi saya ke pihak ketiga dalam rangka registrasi
                                             </span>
                                         </label>

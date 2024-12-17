@@ -186,7 +186,16 @@ const Header = () => {
                                                     </Case>
                                                     <Default>
                                                         Kamu belum terverifikasi, silahkan lakukan KYC pada halaman
-                                                        profile
+                                                        profile <br /> <br />
+                                                        <UnstyledLink href='/profile/kyc'>
+                                                            <Button
+                                                                onClick={() => {
+                                                                    setIsMenuOpen(false);
+                                                                }}
+                                                            >
+                                                                Lakukan KYC
+                                                            </Button>
+                                                        </UnstyledLink>
                                                     </Default>
                                                 </Switch>
                                             </p>
